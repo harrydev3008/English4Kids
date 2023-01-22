@@ -32,9 +32,15 @@ class HomeFragment : Fragment() {
         tvTimerMode.setOnClickListener { playTimerMode() }
     }
 
-    private fun playClassicMode() = findNavController().navigate(R.id.home_to_play)
+    private fun playClassicMode() {
+        val action = HomeFragmentDirections.homeToMode(0)
+        findNavController().navigate(action)
+    }
 
-    private fun playTimerMode() = findNavController().navigate(R.id.home_to_play)
+    private fun playTimerMode() {
+        val action = HomeFragmentDirections.homeToMode(1)
+        findNavController().navigate(action)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

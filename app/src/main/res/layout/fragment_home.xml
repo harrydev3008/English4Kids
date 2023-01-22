@@ -10,41 +10,71 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/teal_200"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="@dimen/_4sdp">
 
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/btn_daily"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="daily"
-            android:textColor="@color/white" />
+            android:background="@drawable/bg_rounded_shadow"
+            android:padding="@dimen/_8sdp">
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_present"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <include android:id="@+id/resource"
+            layout="@layout/layout_resource"/>
+
+        <LinearLayout
+            android:id="@+id/btn_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_shadow"
+            android:padding="@dimen/_8sdp">
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_round_settings"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:src="@tools:sample/avatars" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tv_classic_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:textSize="@dimen/_12ssp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="@dimen/_6sdp"
         android:background="@drawable/bg_classic_mode"
+        android:drawableRight="@drawable/ic_baseline_window"
+        android:drawablePadding="@dimen/_6sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_6sdp"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:textColor="@color/white"
         android:text="@string/mode_classic"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_timer_mode"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -53,26 +83,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="@dimen/_60sdp" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="20dp" />
+        app:layout_constraintGuide_end="@dimen/_60sdp" />
 
     <TextView
         android:id="@+id/tv_timer_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/_12ssp"
         android:background="@drawable/bg_timer_mode"
+        android:drawableRight="@drawable/ic_round_timer"
+        android:drawablePadding="@dimen/_6sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_6sdp"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:textColor="@color/white"
         android:text="@string/mode_timer"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15ssp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_classic_mode"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/tv_classic_mode" />
+        app:layout_constraintTop_toTopOf="@+id/tv_classic_mode"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_collection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/bg_topic_mode"
+        android:drawablePadding="@dimen/_6sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_6sdp"
+        android:textAlignment="center"
+        android:text="@string/my_collections"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_classic_mode" />
+
+    <TextView
+        android:id="@+id/tv_credit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Credit goes here..."
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_collection" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

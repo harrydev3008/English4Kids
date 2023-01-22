@@ -10,9 +10,11 @@ import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentPlayBinding
 import com.hisu.imastermatcher.model.Card
+import com.hisu.imastermatcher.ui.mode_level.ClassModeLevelFragmentArgs
 import com.makeramen.roundedimageview.RoundedImageView
 
 class PlayFragment : Fragment() {
@@ -22,6 +24,7 @@ class PlayFragment : Fragment() {
     private lateinit var cardAdapter: CardAdapter
     private var prev: String = ""
     private lateinit var prevImage: RoundedImageView
+    private val myNavArgs: PlayFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,11 +38,18 @@ class PlayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+
+        val cards = myNavArgs.level
+
+        binding.tvScore.text = cards.toString()
+
         cardAdapter.items = listOf(
-            Card("1", false), Card("3", false), Card("2", false),
-            Card("4", false), Card("-1", false), Card("4", false),
-            Card("3", false), Card("2", false), Card("1", false)
+            Card("1", R.drawable.img_test_1,false), Card("3", R.drawable.img_test_3,false), Card("2", R.drawable.img_test_2,false),
+            Card("4", R.drawable.img_test_4,false), Card("-1", -1,false), Card("4", R.drawable.img_test_4,false),
+            Card("3", R.drawable.img_test_3,false), Card("2",R.drawable.img_test_2, false), Card("1", R.drawable.img_test_1,false)
         )
+
+//        cardAdapter.items = cards.toList()
     }
 
     private fun initRecyclerView() = binding.rvCards.apply {
@@ -63,7 +73,7 @@ class PlayFragment : Fragment() {
         fadein.setInterpolator(DecelerateInterpolator());
         fadein.setDuration(500);
 
-        (img as RoundedImageView).setImageResource(R.mipmap.ic_launcher)
+        (img as RoundedImageView).setImageResource(card.imagePath)
         (img as RoundedImageView).animation = fadein
 
         if (prev.isNotEmpty()) {

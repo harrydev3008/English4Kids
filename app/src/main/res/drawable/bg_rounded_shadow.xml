@@ -2,18 +2,18 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#062F65"/>
+        <shape android:shape="oval">
+            <solid android:color="#0E554C"/>
             <corners android:radius="@dimen/_6sdp"/>
         </shape>
     </item>
 
-    <item android:top="-1dp"
-        android:right="-1dp"
-        android:left="-1dp"
-        android:bottom="3dp">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/classic"/>
+    <item android:top="0dp"
+        android:right="0dp"
+        android:left="0dp"
+        android:bottom="@dimen/_4sdp">
+        <shape android:shape="oval">
+            <solid android:color="@color/daily"/>
             <corners android:radius="@dimen/_8sdp"/>
         </shape>
     </item>

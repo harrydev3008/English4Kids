@@ -11,8 +11,8 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/home_to_play"
-            app:destination="@id/playFragment" />
+            android:id="@+id/home_to_mode"
+            app:destination="@id/classModeLevelFragment" />
     </fragment>
 
     <fragment
@@ -25,9 +25,28 @@
             app:argType="integer"
             android:defaultValue="-1"/>
         <action
-            android:id="@+id/play_to_home"
+            android:id="@+id/play_to_mode"
+            app:destination="@id/classModeLevelFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/classModeLevelFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/classModeLevelFragment"
+        android:name="com.hisu.imastermatcher.ui.mode_level.ClassModeLevelFragment"
+        android:label="fragment_class_mode_level"
+        tools:layout="@layout/fragment_mode_level" >
+        <argument
+            android:name="mode"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <action
+            android:id="@+id/mode_to_play"
+            app:destination="@id/playFragment" />
+        <action
+            android:id="@+id/mode_to_home"
             app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/homeFragment"/>
     </fragment>
 </navigation>
