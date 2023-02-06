@@ -57,13 +57,13 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/app_logo" />
 
     <TextView
         android:id="@+id/tv_classic_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="@dimen/_50sdp"
         android:layout_marginEnd="@dimen/_6sdp"
         android:background="@drawable/bg_classic_mode"
         android:drawableRight="@drawable/ic_baseline_window"
@@ -113,7 +113,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
-        android:background="@drawable/bg_topic_mode"
+        android:background="@drawable/bg_collection"
         android:drawablePadding="@dimen/_6sdp"
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_6sdp"
@@ -126,12 +126,18 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_classic_mode" />
 
     <TextView
-        android:id="@+id/tv_credit"
+        android:id="@+id/tv_mode_topic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:text="Credit goes here..."
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/bg_topic_mode"
+        android:drawableRight="@drawable/ic_topics"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_6sdp"
         android:textAlignment="center"
+        android:text="@string/mode_topic"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15ssp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/tv_collection" />

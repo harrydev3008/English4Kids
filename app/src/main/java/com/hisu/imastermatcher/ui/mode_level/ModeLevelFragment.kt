@@ -60,19 +60,8 @@ class ClassModeLevelFragment : Fragment() {
 
 
             val cards = mutableListOf<Card>()
-            cards.add(Card("1", R.drawable.img_test_1, true))
-            cards.add(Card("4", R.drawable.img_test_4, true))
-            cards.add(Card("3", R.drawable.img_test_3, true))
 
-            cards.add(Card("4", R.drawable.img_test_4, true))
-            cards.add(Card("0", -1, false))
-            cards.add(Card("2", R.drawable.img_test_2, true))
-
-            cards.add(Card("2", R.drawable.img_test_2, true))
-            cards.add(Card("3", R.drawable.img_test_3, true))
-            cards.add(Card("1", R.drawable.img_test_1, true))
-
-            val action = ClassModeLevelFragmentDirections.modeToPlay(it.id)
+            val action = ClassModeLevelFragmentDirections.modeToPlay(mode = myNavArgs.mode, level = it.id)
             findNavController().navigate(action)
 //            findNavController().navigate(R.id.mode_to_play)
         }
@@ -82,18 +71,17 @@ class ClassModeLevelFragment : Fragment() {
     }
 
     private fun loadLevel() {
-        val cards = mutableListOf<Card>()
-        cards.add(Card("1", R.drawable.img_test_1, true))
-        cards.add(Card("4", R.drawable.img_test_4, true))
-        cards.add(Card("3", R.drawable.img_test_3, true))
-
-        cards.add(Card("4", R.drawable.img_test_4, true))
-        cards.add(Card("0", -1, false))
-        cards.add(Card("2", R.drawable.img_test_2, true))
-
-        cards.add(Card("2", R.drawable.img_test_2, true))
-        cards.add(Card("3", R.drawable.img_test_3, true))
-        cards.add(Card("1", R.drawable.img_test_1, true))
+        val cards = listOf(
+            Card(1, "1", R.drawable.img_test_1, false),
+            Card(2, "3", R.drawable.img_test_3, false),
+            Card(3, "2", R.drawable.img_test_2, false),
+            Card(4, "4", R.drawable.img_test_4, false),
+            Card(5, "-1", -1, true),
+            Card(6, "4", R.drawable.img_test_4, false),
+            Card(7, "3", R.drawable.img_test_3, false),
+            Card(8, "2", R.drawable.img_test_2, false),
+            Card(9, "1", R.drawable.img_test_1, false)
+        )
 
 
         val levels = mutableListOf<Level>(

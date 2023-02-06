@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="@dimen/_6sdp"
+    android:elevation="@dimen/_2sdp"
+    android:backgroundTint="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="energy shop"
+            android:textAllCaps="true"
+            android:paddingVertical="@dimen/_8sdp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            android:background="@color/gray"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get more Energy to keep playing!"
+            android:textSize="@dimen/_15sdp"
+            android:textAlignment="center"
+            android:paddingVertical="@dimen/_8sdp"
+            android:textColor="@color/black"/>
+
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

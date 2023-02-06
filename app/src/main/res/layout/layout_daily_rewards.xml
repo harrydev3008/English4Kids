@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="@dimen/_6sdp"
+    android:elevation="@dimen/_2sdp"
+    android:backgroundTint="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Daily Reward"
+            android:paddingVertical="@dimen/_8sdp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16ssp"
+            android:background="@color/light_gray"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_daily_rewards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_4sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            android:layout_marginVertical="@dimen/_6sdp"
+            tools:listitem="@layout/layout_daily_reward"
+            tools:itemCount="7"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Claim your reward today!"
+            android:textAlignment="center"
+            android:paddingVertical="@dimen/_8sdp"
+            android:textSize="@dimen/_15ssp"
+            android:textColor="@color/gray"
+            android:background="@drawable/bg_border_vertical"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Daily Reward Notification"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            android:textSize="@dimen/_15ssp"
+            android:textColor="@color/gray"
+            android:background="@color/white"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

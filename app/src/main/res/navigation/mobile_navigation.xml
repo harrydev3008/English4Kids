@@ -23,7 +23,13 @@
         <argument
             android:name="level"
             app:argType="integer"
-            android:defaultValue="-1"/>
+            android:defaultValue="-1"
+            app:nullable="false"/>
+        <argument
+            android:name="mode"
+            app:argType="integer"
+            android:defaultValue="-1"
+            app:nullable="false"/>
         <action
             android:id="@+id/play_to_mode"
             app:destination="@id/classModeLevelFragment"

@@ -1,20 +1,21 @@
 package com.hisu.imastermatcher.ui.play_screen
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentPlayBinding
 import com.hisu.imastermatcher.model.Card
-import com.hisu.imastermatcher.ui.mode_level.ClassModeLevelFragmentArgs
 import com.makeramen.roundedimageview.RoundedImageView
 
 class PlayFragment : Fragment() {
@@ -22,7 +23,7 @@ class PlayFragment : Fragment() {
     private var _binding: FragmentPlayBinding? = null
     private val binding get() = _binding!!
     private lateinit var cardAdapter: CardAdapter
-    private var prev: String = ""
+    private var prev: Card?= null
     private lateinit var prevImage: RoundedImageView
     private val myNavArgs: PlayFragmentArgs by navArgs()
 
@@ -39,17 +40,33 @@ class PlayFragment : Fragment() {
 
         initRecyclerView()
 
-        val cards = myNavArgs.level
+        val lvl = myNavArgs.level
+        val mode = myNavArgs.mode
+        var levelPlaceHolder = ""
 
-        binding.tvScore.text = cards.toString()
+        if (mode == 0)
+            levelPlaceHolder = "${getString(R.string.mode_classic)} ${lvl}"
+        else if (mode == 1)
+            levelPlaceHolder = "${getString(R.string.mode_timer)} ${lvl}"
+
+        binding.tvModeLevel.text = levelPlaceHolder
 
         cardAdapter.items = listOf(
-            Card("1", R.drawable.img_test_1,false), Card("3", R.drawable.img_test_3,false), Card("2", R.drawable.img_test_2,false),
-            Card("4", R.drawable.img_test_4,false), Card("-1", -1,false), Card("4", R.drawable.img_test_4,false),
-            Card("3", R.drawable.img_test_3,false), Card("2",R.drawable.img_test_2, false), Card("1", R.drawable.img_test_1,false)
+            Card(1, "1", R.drawable.img_test_1, false),
+            Card(2, "3", R.drawable.img_test_3, false),
+            Card(3, "2", R.drawable.img_test_2, false),
+            Card(4, "4", R.drawable.img_test_4, false),
+            Card(5, "-1", -1, true),
+            Card(6, "4", R.drawable.img_test_4, false),
+            Card(7, "3", R.drawable.img_test_3, false),
+            Card(8, "2", R.drawable.img_test_2, false),
+            Card(9, "1", R.drawable.img_test_1, false)
         )
 
-//        cardAdapter.items = cards.toList()
+        //Give user around 1s to memorize
+        Handler(requireContext().mainLooper).postDelayed({
+            cardAdapter.hideCards()
+        }, 800)
     }
 
     private fun initRecyclerView() = binding.rvCards.apply {
@@ -61,39 +78,56 @@ class PlayFragment : Fragment() {
     }
 
     //todo: demo
-    private fun cardItemClick(card: Card, img: View) {
+    private fun cardItemClick(card: Card, front: View) {
+        if (prev != null) {
 
-        /**
-         * Animation fadeIn = new AlphaAnimation(0, 1);
-        fadeIn.setInterpolator(new DecelerateInterpolator());
-        fadeIn.setDuration(500);
-         */
+            if(prev?.cardID == card.cardID) return
 
-        val fadein = AlphaAnimation(0f, 1f)
-        fadein.setInterpolator(DecelerateInterpolator());
-        fadein.setDuration(500);
+            flipCard(front as ImageView, card, false)
 
-        (img as RoundedImageView).setImageResource(card.imagePath)
-        (img as RoundedImageView).animation = fadein
-
-        if (prev.isNotEmpty()) {
-            if (card.id.lowercase().equals(prev)) {
+            if (card.id.lowercase().equals(prev?.id)) {
                 Handler(requireContext().mainLooper).postDelayed({
-                    img.visibility = View.GONE
+                    front.visibility = View.GONE
                     prevImage.visibility = View.GONE
-                    prev = ""
+                    prev = null
                 }, 500)
             } else {
                 Handler(requireContext().mainLooper).postDelayed({
-                    prev = ""
-                    (img as RoundedImageView).setImageResource(R.drawable.placeholder)
-                    prevImage.setImageResource(R.drawable.placeholder)
+                    prev = null
+                    flipCard(front, card, true)
+                    flipCard(prevImage, card, true)
                 }, 400)
             }
         } else {
-            prev = card.id
-            prevImage = img as RoundedImageView
+            flipCard(front as ImageView, card, false)
+            prev = card
+            prevImage = front as RoundedImageView
         }
+    }
+
+    private fun flipCard(image: ImageView, card: Card, hide: Boolean) {
+        val oa1 = ObjectAnimator.ofFloat(image, "scaleX", 1f, 0f)
+        val oa2 = ObjectAnimator.ofFloat(image, "scaleX", 0f, 1f)
+
+        oa1.interpolator = DecelerateInterpolator()
+        oa2.interpolator = DecelerateInterpolator()
+
+        oa1.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
+                super.onAnimationEnd(animation, isReverse)
+
+                if (hide)
+                    image.setImageResource(R.drawable.placeholder)
+                else
+                    image.setImageResource(card.imagePath)
+
+                oa2.start()
+            }
+        })
+
+        oa1.start()
+        oa1.duration = 200
+        oa2.duration = 200
     }
 
     override fun onDestroyView() {

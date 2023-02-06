@@ -5,11 +5,15 @@
 
     <string name="mode_classic">Classic</string>
     <string name="mode_timer">Timer</string>
+    <string name="mode_topic">Topic</string>
     <string name="my_collections">My Collections</string>
+    <string name="level">Level </string>
     <string name="level_classic">Classic Levels</string>
     <string name="level_timer">Timer Levels</string>
     <string name="continue_level">Continue Level</string>
     <string name="pick_a_level">or pick a level</string>
     <string name="hint_tooltip">Gimme a hint!</string>
     <string name="score">Score:</string>
+    <string name="retry">Try again</string>
+    <string name="quit">Quit</string>
 </resources>
