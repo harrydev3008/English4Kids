@@ -6,6 +6,7 @@
     <string name="mode_classic">Classic</string>
     <string name="mode_timer">Timer</string>
     <string name="mode_topic">Topic</string>
+    <string name="mode_challenge">Challenge</string>
     <string name="my_collections">My Collections</string>
     <string name="level">Level </string>
     <string name="level_classic">Classic Levels</string>

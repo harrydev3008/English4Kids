@@ -15,6 +15,7 @@
         android:paddingHorizontal="@dimen/_4sdp">
 
         <LinearLayout
+            android:id="@+id/btn_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_rounded_shadow"
@@ -59,6 +60,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/btn_pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_rounded_shadow"

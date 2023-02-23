@@ -35,6 +35,9 @@
             app:destination="@id/classModeLevelFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/classModeLevelFragment"/>
+        <action
+            android:id="@+id/game_over"
+            app:destination="@id/gameOverFragment" />
     </fragment>
 
     <fragment
@@ -54,5 +57,17 @@
             app:destination="@id/homeFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/homeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/gameOverFragment"
+        android:name="com.hisu.imastermatcher.ui.game_over.GameOverFragment"
+        android:label="fragment_game_over"
+        tools:layout="@layout/fragment_game_over" >
+        <action
+            android:id="@+id/play_again"
+            app:destination="@id/playFragment" />
+        <action
+            android:id="@+id/quit_game"
+            app:destination="@id/classModeLevelFragment" />
     </fragment>
 </navigation>

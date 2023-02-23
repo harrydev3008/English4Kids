@@ -12,6 +12,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentPlayBinding
@@ -67,6 +68,9 @@ class PlayFragment : Fragment() {
         Handler(requireContext().mainLooper).postDelayed({
             cardAdapter.hideCards()
         }, 800)
+
+        pauseGame()
+        giveHint()
     }
 
     private fun initRecyclerView() = binding.rvCards.apply {
@@ -128,6 +132,14 @@ class PlayFragment : Fragment() {
         oa1.start()
         oa1.duration = 200
         oa2.duration = 200
+    }
+
+    private fun pauseGame() = binding.btnPause.setOnClickListener {
+        findNavController().navigate(R.id.game_over)
+    }
+
+    private fun giveHint() = binding.btnHint.setOnClickListener {
+        //todo: give hint feature
     }
 
     override fun onDestroyView() {

@@ -135,7 +135,7 @@
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_6sdp"
         android:textAlignment="center"
-        android:text="@string/mode_topic"
+        android:text="@string/mode_challenge"
         android:textColor="@color/white"
         android:textSize="@dimen/_15ssp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
