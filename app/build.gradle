@@ -44,6 +44,7 @@ dependencies {
     def room_version = "2.4.3"
     def coroutines_version = '1.6.4'
     def life_cycle_version = '2.5.1'
+    def lottieVersion = '6.0.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -78,6 +79,9 @@ dependencies {
     //navigation component
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
+
+    implementation "com.airbnb.android:lottie:${lottieVersion}"
+    implementation 'io.github.amrdeveloper:lottiedialog:1.0.0'
 
 //    implementation 'com.gdacciaro:iosdialog:1.0.3'
 }

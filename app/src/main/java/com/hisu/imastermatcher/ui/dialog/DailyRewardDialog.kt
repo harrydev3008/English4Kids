@@ -32,7 +32,10 @@ class DailyRewardDialog() {
 
         val window = dialog.window ?: return
 
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        val width = (context.getResources().getDisplayMetrics().widthPixels*0.90).toInt()
+        val height = (context.getResources().getDisplayMetrics().heightPixels*0.90)
+
+        window.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val windowAttr = window.attributes
         windowAttr.gravity = gravity

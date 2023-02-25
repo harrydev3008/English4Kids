@@ -14,7 +14,14 @@
     <string name="continue_level">Continue Level</string>
     <string name="pick_a_level">or pick a level</string>
     <string name="hint_tooltip">Gimme a hint!</string>
-    <string name="score">Score:</string>
+    <string name="score">Score: 0</string>
     <string name="retry">Try again</string>
     <string name="quit">Quit</string>
+    <string name="replay">Replay</string>
+    <string name="next">Next</string>
+    <string name="you_did_it">Woohoo! You did it.</string>
+    <string name="perfect">Perfect!</string>
+    <string name="daily_reward">Daily Reward</string>
+    <string name="claim_your_reward_today">Claim your reward today!</string>
+    <string name="daily_reward_notification">Daily Reward Notification</string>
 </resources>

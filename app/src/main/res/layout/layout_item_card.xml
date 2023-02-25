@@ -9,8 +9,8 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/rimv_cover_image"
         android:animateLayoutChanges="true"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
         android:src="@drawable/placeholder"
         android:scaleType="centerCrop"
         app:riv_corner_radius="@dimen/_6sdp"/>

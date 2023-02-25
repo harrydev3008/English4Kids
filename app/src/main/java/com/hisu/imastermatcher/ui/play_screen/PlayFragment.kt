@@ -17,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentPlayBinding
 import com.hisu.imastermatcher.model.Card
+import com.hisu.imastermatcher.ui.mode_level.ClassModeLevelFragmentDirections
 import com.makeramen.roundedimageview.RoundedImageView
 
 class PlayFragment : Fragment() {
@@ -27,6 +28,10 @@ class PlayFragment : Fragment() {
     private var prev: Card?= null
     private lateinit var prevImage: RoundedImageView
     private val myNavArgs: PlayFragmentArgs by navArgs()
+
+    private var counter = 0;
+    private var wrongMove = 0;
+    private var score = 0;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +76,8 @@ class PlayFragment : Fragment() {
 
         pauseGame()
         giveHint()
+
+        binding.pbStar.max = 4
     }
 
     private fun initRecyclerView() = binding.rvCards.apply {
@@ -94,12 +101,32 @@ class PlayFragment : Fragment() {
                     front.visibility = View.GONE
                     prevImage.visibility = View.GONE
                     prev = null
+
+                    //todo: calculate player's scores
+                    counter++
+                    score = (score * counter) + 1
+                    binding.tvScore.text = "Score: $score"
+
+                    if(counter == 4) {
+                        val action = PlayFragmentDirections.gameFinish(moves = counter)
+                        findNavController().navigate(action)
+                    }
+
                 }, 500)
             } else {
                 Handler(requireContext().mainLooper).postDelayed({
                     prev = null
                     flipCard(front, card, true)
                     flipCard(prevImage, card, true)
+
+                    wrongMove++
+                    binding.pbStar.progress = binding.pbStar.progress - 1
+                    binding.tvMoves.text = binding.pbStar.progress.toString()
+
+                    if(wrongMove == 4) {
+                        findNavController().navigate(R.id.game_over)
+                    }
+
                 }, 400)
             }
         } else {

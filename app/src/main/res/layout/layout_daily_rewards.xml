@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="@dimen/_6sdp"
-    android:elevation="@dimen/_2sdp"
+    app:cardCornerRadius="@dimen/_8sdp"
+    android:elevation="8dp"
     android:backgroundTint="@color/white">
 
     <LinearLayout
@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Daily Reward"
+            android:text="@string/daily_reward"
             android:paddingVertical="@dimen/_8sdp"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -38,23 +38,37 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Claim your reward today!"
+            android:text="@string/claim_your_reward_today"
             android:textAlignment="center"
             android:paddingVertical="@dimen/_8sdp"
             android:textSize="@dimen/_15ssp"
-            android:textColor="@color/gray"
+            android:textColor="@color/black"
             android:background="@drawable/bg_border_vertical"
             />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Daily Reward Notification"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_8sdp"
-            android:textSize="@dimen/_15ssp"
-            android:textColor="@color/gray"
-            android:background="@color/white"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/daily_reward_notification"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_8sdp"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="@color/black"
+                android:background="@color/white"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:backgroundTint="@color/light_blue_gray"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
