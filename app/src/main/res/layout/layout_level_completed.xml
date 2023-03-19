@@ -2,9 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/level_parent"
-    android:layout_height="@dimen/_50sdp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/_6sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
+    app:cardElevation="@dimen/_2sdp"
     android:layout_marginEnd="@dimen/_6sdp"
     android:layout_marginBottom="@dimen/_6sdp">
 
@@ -13,15 +14,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@color/teal_700">
+        android:background="#58CC00"
+        android:paddingVertical="@dimen/_4sdp">
 
         <TextView
             android:id="@+id/tv_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
+            android:text="Cửa 1"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"/>
+            android:textSize="@dimen/_14sdp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đưa ra yêu cầu lịch sự, miêu tả vị trí đồ đạc"
+            android:layout_marginVertical="@dimen/_4sdp"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textAlignment="center"
+            />
 
         <RatingBar
             android:id="@+id/rb_level_rate"

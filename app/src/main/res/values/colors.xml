@@ -6,15 +6,25 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="light_black">#4B4B4B</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="classic">#1877f2</color>
+<!--    <color name="classic">#1877f2</color>-->
+    <color name="classic">#20B0F5</color>
     <color name="timer">#f0294a</color>
-    <color name="daily">#2abba7</color>
-    <color name="yellow">#ffbe0b</color>
+<!--    <color name="daily">#2abba7</color>-->
+    <color name="daily">#58CC00</color>
+    <color name="darker_green">#60CD0F</color>
+
+    <color name="yellow">#FFC803</color>
     <color name="gray">#6c757d</color>
     <color name="light_gray">#ced4da</color>
     <color name="light_blue_gray">#eff1f3</color>
+    <color name="gray_e5">#E5E5E5</color>
     <color name="dark_light_gray">#b3bbc8</color>
     <color name="light_red">#ca5866</color>
+    <color name="incorrect">#FEDEE0</color>
+    <color name="text_incorrect">#FD4C4A</color>
+    <color name="correct">#D7FEB8</color>
+    <color name="text_correct">#58CC00</color>
 </resources>

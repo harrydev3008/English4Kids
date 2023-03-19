@@ -103,7 +103,16 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/splash_to_home"
+            android:id="@+id/splash_to_course"
+            app:destination="@id/courseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseFragment"
+        android:name="com.hisu.imastermatcher.ui.CourseFragment"
+        android:label="fragment_course"
+        tools:layout="@layout/fragment_course" >
+        <action
+            android:id="@+id/course_to_home"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

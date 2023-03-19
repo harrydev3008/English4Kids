@@ -31,7 +31,7 @@ class SplashScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Handler(requireContext().mainLooper).postDelayed({
-            findNavController().navigate(R.id.splash_to_home)
+            findNavController().navigate(R.id.splash_to_course)
         }, 3000)
     }
 }
