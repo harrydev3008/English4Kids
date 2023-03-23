@@ -84,7 +84,7 @@
         android:id="@+id/container_next_round"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/incorrect"
+        android:background="@color/white"
         android:paddingHorizontal="@dimen/_12sdp"
         android:paddingVertical="@dimen/_10sdp"
         android:orientation="vertical">
@@ -105,10 +105,11 @@
             android:textAlignment="center"/>
 
         <LinearLayout
+            android:id="@+id/container_wrong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_incorrect"
@@ -158,7 +159,9 @@
             app:cornerRadius="@dimen/_8sdp"
             android:textSize="@dimen/_13ssp"
             android:paddingVertical="@dimen/_8sdp"
-            app:backgroundTint="@color/text_incorrect"
+            app:backgroundTint="@color/gray_e5"
+            android:textColor="@color/gray_af"
+            android:textStyle="bold"
             android:elevation="@dimen/_4sdp"
             android:textAllCaps="true"/>
     </LinearLayout>

@@ -21,6 +21,7 @@
     <color name="light_gray">#ced4da</color>
     <color name="light_blue_gray">#eff1f3</color>
     <color name="gray_e5">#E5E5E5</color>
+    <color name="gray_af">#AFAFAF</color>
     <color name="dark_light_gray">#b3bbc8</color>
     <color name="light_red">#ca5866</color>
     <color name="incorrect">#FEDEE0</color>

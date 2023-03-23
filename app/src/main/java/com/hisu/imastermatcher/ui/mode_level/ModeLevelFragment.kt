@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentModeLevelBinding
 import com.hisu.imastermatcher.model.Card
-import com.hisu.imastermatcher.model.Level
+import com.hisu.imastermatcher.model.CourseLevel
 
 
 class ClassModeLevelFragment : Fragment() {
@@ -33,10 +33,7 @@ class ClassModeLevelFragment : Fragment() {
 
         val mode = myNavArgs.mode
 
-        if (mode == 0)
-            binding.tvMode.text = getString(R.string.level_classic)
-        else if (mode == 1)
-            binding.tvMode.text = getString(R.string.level_timer)
+        binding.tvMode.text = mode
 
         continueLevel()
         backToHomePage()
@@ -61,9 +58,9 @@ class ClassModeLevelFragment : Fragment() {
 
             val cards = mutableListOf<Card>()
 
-            val action = ClassModeLevelFragmentDirections.modeToPlay(mode = myNavArgs.mode, level = it.id)
-            findNavController().navigate(action)
-//            findNavController().navigate(R.id.mode_to_play)
+//            val action = ClassModeLevelFragmentDirections.modeToPlay(mode = myNavArgs.mode, level = it.id)
+//            findNavController().navigate(action)
+            findNavController().navigate(R.id.mode_to_play)
         }
 
         adapter = levelAdapter
@@ -71,25 +68,11 @@ class ClassModeLevelFragment : Fragment() {
     }
 
     private fun loadLevel() {
-        val cards = listOf(
-            Card(1, "1", R.drawable.img_test_1, false),
-            Card(2, "3", R.drawable.img_test_3, false),
-            Card(3, "2", R.drawable.img_test_2, false),
-            Card(4, "4", R.drawable.img_test_4, false),
-            Card(5, "-1", -1, true),
-            Card(6, "4", R.drawable.img_test_4, false),
-            Card(7, "3", R.drawable.img_test_3, false),
-            Card(8, "2", R.drawable.img_test_2, false),
-            Card(9, "1", R.drawable.img_test_1, false)
-        )
-
-
-        val levels = mutableListOf<Level>(
-            Level(1, cards, 1, 3f),
-            Level(2, cards, 1, 2.5f),
-            Level(3, cards, 1, 2f),
-            Level(4, cards, 0, 0f),
-            Level(5, cards, -1, 0f)
+        val levels = listOf<CourseLevel>(
+            CourseLevel(1,  1,"Đưa ra yêu cầu lịch sự, miêu tả vị trí đồ đạc", 3f),
+            CourseLevel(2,  1, "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp nâng cao",2.5f),
+            CourseLevel(4,  0, "Khởi động cùng một số ngữ pháp và cụm từ đơn giản",0f),
+            CourseLevel(5,  -1, "vl luon dau cut moiz",0f)
         )
 
         levelAdapter?.items = levels

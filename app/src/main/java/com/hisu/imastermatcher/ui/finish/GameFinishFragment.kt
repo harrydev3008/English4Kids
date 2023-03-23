@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentGameFinishBinding
 import com.hisu.imastermatcher.ui.play_screen.PlayFragmentArgs
+import org.json.JSONObject
 
 class GameFinishFragment : Fragment() {
 
@@ -27,23 +28,23 @@ class GameFinishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val playHolder = "Matched all pairs with ${myNavArgs.moves} moves!"
-        binding.tvMoves.text = playHolder
+        nextRound()
+        backToCourse()
 
-        replay()
-        next()
-        back()
+        val result = JSONObject(myNavArgs.result)
+
+        binding.apply {
+            tvFastScore.text = result.get("fast_score").toString()
+            tvPerfectScore.text = "${result.get("perfect_score").toString()}%"
+            tvTotalExpScore.text = result.get("total_score").toString()
+        }
     }
 
-    private fun replay() = binding.btnReplay.setOnClickListener {
-        findNavController().navigate(R.id.replay)
+    private fun nextRound() = binding.btnNextLevel.setOnClickListener {
+        findNavController().navigate(R.id.next_round)
     }
 
-    private fun next() = binding.btnNextLevel.setOnClickListener {
-        //todo: method to nagivate to next level
-    }
-
-    private fun back() = binding.btnBack.setOnClickListener {
+    private fun backToCourse() = binding.ibtnClose.setOnClickListener {
         findNavController().navigate(R.id.back_to_level)
     }
 }

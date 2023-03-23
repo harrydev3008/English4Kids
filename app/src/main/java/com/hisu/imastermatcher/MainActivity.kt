@@ -14,10 +14,10 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
-
-    override fun onNavigateUp(): Boolean {
-        return super.onNavigateUp()
-    }
+//
+//    override fun onNavigateUp(): Boolean {
+//        return super.onNavigateUp()
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

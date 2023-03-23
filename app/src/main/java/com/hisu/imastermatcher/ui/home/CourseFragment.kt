@@ -1,10 +1,11 @@
-package com.hisu.imastermatcher.ui
+package com.hisu.imastermatcher.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.hisu.imastermatcher.MainActivity
@@ -37,6 +38,8 @@ class CourseFragment : Fragment() {
     private fun initFeatureMovieList() = binding.vpCourses.apply {
         courseAdapter = CourseItemViewPagerAdapter { //course ->
             //todo: implement go to course here
+            val action = CourseFragmentDirections.courseToLevel(mode = it.courseTitle)
+            findNavController().navigate(action)
         }
 
         courseAdapter.courses = mutableListOf(

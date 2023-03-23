@@ -6,16 +6,6 @@
     app:startDestination="@id/splashScreenFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.hisu.imastermatcher.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/home_to_mode"
-            app:destination="@id/classModeLevelFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/playFragment"
         android:name="com.hisu.imastermatcher.ui.play_screen.PlayFragment"
         android:label="fragment_play"
@@ -36,9 +26,6 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/classModeLevelFragment"/>
         <action
-            android:id="@+id/game_over"
-            app:destination="@id/gameOverFragment" />
-        <action
             android:id="@+id/game_finish"
             app:destination="@id/gameFinishFragment"
             />
@@ -51,30 +38,18 @@
         tools:layout="@layout/fragment_mode_level" >
         <argument
             android:name="mode"
-            app:argType="integer"
-            android:defaultValue="-1"/>
+            app:argType="string"
+            android:defaultValue=""/>
         <action
             android:id="@+id/mode_to_play"
             app:destination="@id/playFragment" />
-        <action
-            android:id="@+id/mode_to_home"
-            app:destination="@id/homeFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/homeFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/gameOverFragment"
         android:name="com.hisu.imastermatcher.ui.game_over.GameOverFragment"
         android:label="fragment_game_over"
-        tools:layout="@layout/fragment_game_over" >
-        <action
-            android:id="@+id/play_again"
-            app:destination="@id/playFragment" />
-        <action
-            android:id="@+id/quit_game"
-            app:destination="@id/classModeLevelFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_game_over" />
 
     <fragment
         android:id="@+id/gameFinishFragment"
@@ -83,19 +58,16 @@
         tools:layout="@layout/fragment_game_finish" >
 
         <argument
-            android:name="moves"
-            app:argType="integer"
-            android:defaultValue="0"
-            app:nullable="false"/>
-
-        <action
-            android:id="@+id/replay"
-            app:destination="@id/playFragment" />
+            android:name="result"
+            app:argType="string"
+            android:defaultValue=""/>
         <action
             android:id="@+id/back_to_level"
-            app:destination="@id/classModeLevelFragment"
-            app:popUpTo="@id/classModeLevelFragment"
-            app:popUpToInclusive="true"/>
+            app:destination="@id/classModeLevelFragment" />
+        <action
+            android:id="@+id/next_round"
+            app:destination="@id/playFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -108,11 +80,11 @@
     </fragment>
     <fragment
         android:id="@+id/courseFragment"
-        android:name="com.hisu.imastermatcher.ui.CourseFragment"
+        android:name="com.hisu.imastermatcher.ui.home.CourseFragment"
         android:label="fragment_course"
         tools:layout="@layout/fragment_course" >
         <action
-            android:id="@+id/course_to_home"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/course_to_level"
+            app:destination="@id/classModeLevelFragment" />
     </fragment>
 </navigation>

@@ -8,14 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hisu.imastermatcher.databinding.LayoutLevelCompletedBinding
 import com.hisu.imastermatcher.databinding.LayoutLevelCurrentBinding
 import com.hisu.imastermatcher.databinding.LayoutLevelLockBinding
-import com.hisu.imastermatcher.model.Card
-import com.hisu.imastermatcher.model.Level
+import com.hisu.imastermatcher.model.CourseLevel
 
 class LevelAdapter(
-    val levelClickListener: (level: Level) -> Unit
+    val levelClickListener: (level: CourseLevel) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var items: List<Level>
+    var items: List<CourseLevel>
         set(value) = differ.submitList(value)
         get() = differ.currentList
 
@@ -61,6 +60,7 @@ class LevelAdapter(
 
             else -> {
                 //todo: current lock level
+                (holder as LockLevelViewHolder).bind(curLevel)
             }
         }
     }
@@ -75,21 +75,27 @@ class LevelAdapter(
 
     inner class CompletedLevelViewHolder(val binding: LayoutLevelCompletedBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Level) = binding.apply {
-            tvLevel.text = item.id.toString()
+        fun bind(item: CourseLevel) = binding.apply {
+            tvLevel.text = "Cửa ${item.id}"
+            tvLevelDesc.text = "${item.description}"
             rbLevelRate.rating = item.score
         }
     }
 
     inner class CurrentLevelViewHolder(val binding: LayoutLevelCurrentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Level) = binding.apply {
-            tvCurrentLevel.text = item.id.toString()
+        fun bind(item: CourseLevel) = binding.apply {
+            tvCurrentLevel.text = "Cửa ${item.id}"
+            tvCurrentLevelDesc.text = "${item.description}"
         }
     }
 
     inner class LockLevelViewHolder(val binding: LayoutLevelLockBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+            fun bind(item: CourseLevel) = binding.apply {
+                tvNextLevelDesc.text = "${item.description}"
+            }
+        }
 
     enum class ViewType(val type: Int) {
         LOCKED_TYPE(-1),
@@ -97,15 +103,15 @@ class LevelAdapter(
         PLAYED_TYPE(1)
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Level>() {
-        override fun areItemsTheSame(oldItem: Level, newItem: Level): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<CourseLevel>() {
+        override fun areItemsTheSame(oldItem: CourseLevel, newItem: CourseLevel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Level, newItem: Level): Boolean {
+        override fun areContentsTheSame(oldItem: CourseLevel, newItem: CourseLevel): Boolean {
             return oldItem.id == newItem.id
         }
     }
 
-    private val differ = AsyncListDiffer<Level>(this, diffCallback)
+    private val differ = AsyncListDiffer<CourseLevel>(this, diffCallback)
 }

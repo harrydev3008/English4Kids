@@ -2,26 +2,50 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/level_parent"
-    android:layout_height="@dimen/_50sdp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/_6sdp"
+    app:cardCornerRadius="@dimen/_16sdp"
     android:layout_marginEnd="@dimen/_6sdp"
     android:layout_marginBottom="@dimen/_6sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@color/gray">
+        android:background="@color/gray"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_current_level"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1"
+            android:text="Cửa 1"
+            android:layout_marginTop="2dp"
+            android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"/>
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="3dp"
+            android:background="@drawable/bg_rounded_white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_current_level_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_rounded_white"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingVertical="@dimen/_4sdp"
+                android:text="Đưa ra yêu cầu lịch sự, miêu tả vị trí đồ đạc"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

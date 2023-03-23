@@ -30,10 +30,10 @@ class GameOverFragment : Fragment() {
     }
 
     private fun retry() = mBinding.btnRetry.setOnClickListener {
-        findNavController().navigate(R.id.play_again)
+//        findNavController().navigate(R.id.play_again)
     }
 
     private fun quit() = mBinding.btnQuit.setOnClickListener {
-        findNavController().navigate(R.id.quit_game)
+//        findNavController().navigate(R.id.quit_game)
     }
 }

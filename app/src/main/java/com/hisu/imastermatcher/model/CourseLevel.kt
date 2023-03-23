@@ -1,8 +1,7 @@
 package com.hisu.imastermatcher.model
 
-data class Level(
+data class CourseLevel(
     val id: Int,
-    val cards: List<Card>,
     /*
     * status:
     *   + -1: locked
@@ -10,5 +9,6 @@ data class Level(
     *   +  1: played
     * */
     var status: Int,
+    var description: String,
     var score: Float
 )
