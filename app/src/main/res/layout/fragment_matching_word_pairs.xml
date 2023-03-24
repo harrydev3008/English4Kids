@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.play_style.MatchingWordPairsFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_matching_pairs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:paddingLeft="@dimen/_6sdp"
+        android:paddingTop="@dimen/_6sdp"
+        tools:listitem="@layout/layout_audio_word_matching"/>
+
+</LinearLayout>

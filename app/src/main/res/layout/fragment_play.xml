@@ -73,12 +73,13 @@
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold" />
 
-    <androidx.viewpager2.widget.ViewPager2
+    <FrameLayout
+        android:id="@+id/fl_round_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingHorizontal="@dimen/_8sdp"
-        android:paddingVertical="@dimen/_4sdp"/>
+        android:paddingVertical="@dimen/_4sdp" />
 
     <LinearLayout
         android:id="@+id/container_next_round"
@@ -109,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/tv_incorrect"

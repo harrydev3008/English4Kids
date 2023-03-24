@@ -84,4 +84,6 @@ dependencies {
     implementation 'io.github.amrdeveloper:lottiedialog:1.0.0'
 
 //    implementation 'com.gdacciaro:iosdialog:1.0.3'
+
+    implementation 'com.nex3z:flow-layout:1.3.3'
 }

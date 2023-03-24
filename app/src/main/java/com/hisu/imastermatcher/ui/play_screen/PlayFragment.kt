@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentPlayBinding
+import com.hisu.imastermatcher.ui.play_style.SentenceStyleFragment
 import org.json.JSONObject
 
 class PlayFragment : Fragment() {
@@ -36,7 +37,7 @@ class PlayFragment : Fragment() {
 //
 //        val lvl = myNavArgs.level
 //        val mode = myNavArgs.mode
-        var levelPlaceHolder = ""
+        var levelPlaceHolder = "Dịch Câu này"
 
 //        if (mode == 0)
 //            levelPlaceHolder = "${getString(R.string.mode_classic)} ${lvl}"
@@ -66,6 +67,13 @@ class PlayFragment : Fragment() {
         }
 
         nextRound()
+        inflateRoundGamePlay(SentenceStyleFragment())
+    }
+
+    private fun inflateRoundGamePlay(fragment: Fragment) {
+        val ft = childFragmentManager.beginTransaction()
+        ft.add(binding.flRoundContainer.id, fragment, fragment.javaClass.name)
+        ft.commitAllowingStateLoss()
     }
 
     private fun pauseGame() = binding.ibtnClose.setOnClickListener {
