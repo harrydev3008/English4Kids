@@ -18,7 +18,8 @@
     <string name="retry">Try again</string>
     <string name="quit">Quit</string>
     <string name="replay">Replay</string>
-    <string name="next">Tiếp tục</string>
+    <string name="next">Tiếp Tục</string>
+    <string name="check">Kiểm Tra</string>
     <string name="you_did_it">Woohoo! You did it.</string>
     <string name="perfect">Perfect!</string>
     <string name="daily_reward">Daily Reward</string>

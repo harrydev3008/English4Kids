@@ -1,20 +1,32 @@
 package com.hisu.imastermatcher.ui.play_style
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager.LayoutParams
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentSentenceStyleBinding
+import com.hisu.imastermatcher.model.CustomWord
+import com.hisu.imastermatcher.model.MyCustomLayout
+import com.nex3z.flowlayout.FlowLayout
+import java.util.*
 
 class SentenceStyleFragment : Fragment() {
 
     private var _binding: FragmentSentenceStyleBinding?= null
     private val binding get() = _binding!!
+    private lateinit var myCustomLayout: MyCustomLayout
+    private lateinit var customWord: CustomWord
+
+    private val _result = MutableLiveData<Boolean>()
+    private val result: LiveData<Boolean> = _result
+
+    private lateinit var correctAnswer: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,44 +39,129 @@ class SentenceStyleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initCustomLayout()
 
-//        initQuestion("This is a stupid queztion") TODO: complete this is pls
-    }
+        correctAnswer = "Tôi 22 tuổi"//TODO: will call method to get answer for each question later
+        binding.tvQuestion.text = correctAnswer
+        initData(correctAnswer)
 
-    private fun initQuestion(question: String) {
-        var sentence = question.split(" ")
+        result.observe(viewLifecycleOwner) {
+            if(it == true) {
 
-        /*
-        *
-        *  <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_word_border"
-            android:paddingHorizontal="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_6sdp"
-            android:text="is"
-            android:textSize="@dimen/_17ssp" />
-        *
-        * */
-
-        for(word in sentence) {
-            Log.e("test", word)
-            var wordView = TextView(requireContext().applicationContext)
-
-            wordView.text = word
-            wordView.width = LayoutParams.WRAP_CONTENT
-            wordView.height = LayoutParams.WRAP_CONTENT
-
-            var params = LinearLayout.LayoutParams(wordView.width, wordView.height)
-            params.setMargins(0, 8, 8,0)
-            wordView.layoutParams = params
-
-//            wordView.background =
-
-            binding.flQuestionContainer.addView(wordView, binding.flQuestionContainer.childCount);
+                binding.btnCheck.containerWrong.visibility = View.GONE
+                binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
+                binding.btnCheck.tvCorrect.visibility = View.VISIBLE
+                binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
+                binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+                binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
+            } else {
+                binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
+                binding.btnCheck.containerWrong.visibility = View.VISIBLE
+                binding.btnCheck.tvCorrect.visibility = View.GONE
+                binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
+                binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+            }
         }
 
+        addActionForBtnCheck()
+    }
+
+
+    private fun initCustomLayout() {
+        myCustomLayout = MyCustomLayout(requireContext())
+        myCustomLayout.setGravity(Gravity.CENTER)
+
+        val params =  RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+        binding.answerContainer.addView(myCustomLayout, params)
+    }
+
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initData(words: String) {
+        /**
+         * shuffle the list
+         * inp: Hi i'm Harry
+         * out: Harry Hi i'm
+         */
+        val wordsSentence = words.split(" ").shuffled()
+
+        for(word in wordsSentence) {
+            val customWord = CustomWord(requireContext(), word)
+            customWord.setOnTouchListener(TouchListener())
+            myCustomLayout.push(customWord)
+        }
+
+        val layoutParams = binding.flAnswerContainer.layoutParams
+        layoutParams.height = context?.resources?.getDimensionPixelSize(com.intuit.sdp.R.dimen._200sdp)?: 200
+
+        binding.flAnswerContainer.layoutParams = layoutParams
+    }
+
+    private fun lockViews() {
+        for(i in 0 until binding.flAnswerContainer.childCount) {
+            customWord = binding.flAnswerContainer.getChildAt(i) as CustomWord
+            customWord.isEnabled = false
+        }
+
+        for(i in 0 until myCustomLayout.childCount) {
+            customWord = myCustomLayout.getChildAt(i) as CustomWord
+            customWord.isEnabled = false
+        }
+    }
+
+    private fun checkChildCount() {
+        if(binding.flAnswerContainer.childCount > 0) {
+            binding.btnCheck.btnNextRound.isEnabled = true
+            binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.check)
+            binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.classic))
+            binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+        } else {
+            binding.btnCheck.btnNextRound.isEnabled = false
+            binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.check)
+            binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.gray_e5))
+            binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.gray_af))
+        }
+
+        binding.btnCheck.containerWrong.visibility = View.GONE
+        binding.btnCheck.tvCorrect.visibility = View.GONE
+        binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.white))
+    }
+
+    private fun addActionForBtnCheck() = binding.btnCheck.btnNextRound.setOnClickListener {
+        val answer: StringBuilder = StringBuilder()
+
+        if(binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.check))) {
+            for(i in 0 until binding.flAnswerContainer.childCount) {
+                val curCustomWord = binding.flAnswerContainer.getChildAt(i) as CustomWord
+                answer.append(curCustomWord.text.toString()).append(" ")
+            }
+
+            if(answer.toString().trim().equals(correctAnswer)) {
+                _result.postValue(true)
+            } else {
+                _result.postValue(false)
+                binding.btnCheck.tvCorrectAnswer.text = correctAnswer
+            }
+
+        } else if(binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.next))) {
+
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    inner class TouchListener: View.OnTouchListener {
+        override fun onTouch(view: View?, motionEvent: MotionEvent?): Boolean {
+            if(motionEvent?.action == MotionEvent.ACTION_DOWN && !myCustomLayout.empty()) {
+                customWord = view as CustomWord
+                customWord.goToGroupView(myCustomLayout, binding.flAnswerContainer)
+
+                checkChildCount()
+                return true
+            }
+            return false
+        }
     }
 }

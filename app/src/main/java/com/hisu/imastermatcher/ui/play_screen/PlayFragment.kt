@@ -18,10 +18,6 @@ class PlayFragment : Fragment() {
     private var _binding: FragmentPlayBinding? = null
     private val binding get() = _binding!!
 
-    private var isCorrect = false
-    private val _result = MutableLiveData<Boolean>(true)
-    val result: LiveData<Boolean> = _result
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +33,7 @@ class PlayFragment : Fragment() {
 //
 //        val lvl = myNavArgs.level
 //        val mode = myNavArgs.mode
-        var levelPlaceHolder = "Dịch Câu này"
+        val levelPlaceHolder = "Dịch Câu này"
 
 //        if (mode == 0)
 //            levelPlaceHolder = "${getString(R.string.mode_classic)} ${lvl}"
@@ -50,23 +46,6 @@ class PlayFragment : Fragment() {
 
         binding.pbStar.max = 4
 
-        result.observe(viewLifecycleOwner) {
-            if(it == true) {
-                binding.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
-                binding.containerWrong.visibility = View.GONE
-                binding.tvCorrect.visibility = View.VISIBLE
-                binding.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
-                binding.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-            } else {
-                binding.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
-                binding.containerWrong.visibility = View.VISIBLE
-                binding.tvCorrect.visibility = View.GONE
-                binding.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
-                binding.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-            }
-        }
-
-        nextRound()
         inflateRoundGamePlay(SentenceStyleFragment())
     }
 
@@ -78,22 +57,6 @@ class PlayFragment : Fragment() {
 
     private fun pauseGame() = binding.ibtnClose.setOnClickListener {
         findNavController().popBackStack()
-//        if(result.value == true) {
-//            _result.postValue(false)
-//        } else
-//            _result.postValue(true)
-    }
-
-    private fun nextRound() = binding.btnNextRound.setOnClickListener {
-        var resultJson = JSONObject()
-        resultJson.put("total_score", 9)
-        resultJson.put("fast_score", "1:33")
-        resultJson.put("perfect_score", 99)
-
-        if(result.value == true) {
-            val action = PlayFragmentDirections.gameFinish(resultJson.toString())
-            findNavController().navigate(action)
-        }
     }
 
     override fun onDestroyView() {
