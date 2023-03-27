@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.play_style.SentenceStyleFragment">
+    tools:context=".ui.play_style.TypeAnswerFragment">
 
     <TextView
         android:id="@+id/tv_mode_level"
@@ -46,23 +45,21 @@
             android:textSize="@dimen/_16ssp" />
     </LinearLayout>
 
-    <com.nex3z.flowlayout.FlowLayout
-        android:id="@+id/fl_answer_container"
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:paddingTop="4dp"
+        android:layout_height="@dimen/_250sdp"
+        android:background="@drawable/bg_word_border"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:gravity="top"
+        android:textSize="@dimen/_16ssp"
+        android:textColor="@color/light_black"
+        android:layout_below="@+id/question_container"
         android:padding="@dimen/_10sdp"
-        android:background="@drawable/bg_border_bottom_bold"
-        app:flFlow="true"
-        android:layout_below="@id/question_container"/>
-
-    <RelativeLayout
-        android:id="@+id/answer_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:background="@color/white"
-        android:layout_below="@id/fl_answer_container"/>
+        android:layout_marginTop="@dimen/_8sdp"
+        android:hint="Type your answer here..."
+        android:inputType="textMultiLine"
+        android:textColorHint="@color/gray_af"
+        tools:ignore="Autofill" />
 
     <include
         android:id="@+id/btn_check"
@@ -70,5 +67,4 @@
         android:layout_height="wrap_content"
         layout="@layout/layout_button_check"
         android:layout_alignParentBottom="true"/>
-
 </RelativeLayout>

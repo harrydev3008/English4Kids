@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_marginTop="@dimen/_10sdp">
+
+    <TextView
+        android:id="@+id/tv_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/_16ssp"
+        android:layout_marginEnd="@dimen/_8sdp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cimv_user_pfp"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:src="@drawable/img_bear"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/light_gray"
+        android:layout_marginEnd="@dimen/_12sdp"/>
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/app_name"
+        android:textSize="@dimen/_16ssp"
+        android:textColor="@color/light_black"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_week_exp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="100KN"
+        android:textAlignment="textEnd"
+        android:textSize="@dimen/_16ssp"
+        android:textColor="@color/light_black" />
+</LinearLayout>

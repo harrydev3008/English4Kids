@@ -11,22 +11,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentSentenceStyleBinding
+import com.hisu.imastermatcher.model.Card
 import com.hisu.imastermatcher.model.CustomWord
 import com.hisu.imastermatcher.model.MyCustomLayout
 import com.nex3z.flowlayout.FlowLayout
 import java.util.*
 
-class SentenceStyleFragment : Fragment() {
+class SentenceStyleFragment(private val itemTapListener: () -> Unit) : Fragment() {
 
     private var _binding: FragmentSentenceStyleBinding?= null
     private val binding get() = _binding!!
-    private lateinit var myCustomLayout: MyCustomLayout
-    private lateinit var customWord: CustomWord
-
     private val _result = MutableLiveData<Boolean>()
     private val result: LiveData<Boolean> = _result
 
     private lateinit var correctAnswer: String
+    private lateinit var myCustomLayout: MyCustomLayout
+    private lateinit var customWord: CustomWord
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +51,6 @@ class SentenceStyleFragment : Fragment() {
 
         result.observe(viewLifecycleOwner) {
             if(it == true) {
-
                 binding.btnCheck.containerWrong.visibility = View.GONE
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.tvCorrect.visibility = View.VISIBLE
@@ -77,7 +80,6 @@ class SentenceStyleFragment : Fragment() {
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
         binding.answerContainer.addView(myCustomLayout, params)
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initData(words: String) {
@@ -147,7 +149,7 @@ class SentenceStyleFragment : Fragment() {
             }
 
         } else if(binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.next))) {
-
+            itemTapListener.invoke()
         }
     }
 

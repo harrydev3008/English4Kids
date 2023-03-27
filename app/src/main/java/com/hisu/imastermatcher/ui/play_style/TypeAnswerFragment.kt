@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hisu.imastermatcher.R
-import com.hisu.imastermatcher.databinding.FragmentMatchingAudioImagePairsBinding
-import com.hisu.imastermatcher.databinding.FragmentMatchingWordPairsBinding
+import com.hisu.imastermatcher.databinding.FragmentSentenceStyleBinding
+import com.hisu.imastermatcher.databinding.FragmentTypeAnswerBinding
 
-class MatchingWordPairsFragment(private val itemTapListener: () -> Unit) : Fragment() {
+class TypeAnswerFragment(private val itemTapListener: () -> Unit) : Fragment() {
 
-    private var _binding: FragmentMatchingWordPairsBinding?= null
+    private var _binding: FragmentTypeAnswerBinding?= null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,12 +22,13 @@ class MatchingWordPairsFragment(private val itemTapListener: () -> Unit) : Fragm
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMatchingWordPairsBinding.inflate(inflater, container, false)
+        _binding = FragmentTypeAnswerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.btnCheck.btnNextRound.isEnabled = true
         binding.btnCheck.btnNextRound.setOnClickListener {
             itemTapListener.invoke()

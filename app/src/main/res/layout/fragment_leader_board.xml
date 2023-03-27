@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.leader_board.LeaderBoardFragment"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/_8sdp"
+    android:paddingHorizontal="@dimen/_8sdp">
+
+    <ImageView
+        android:id="@+id/imv_leader_board_frame"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:src="@drawable/bg_leader_board"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_leader_board_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/leader_board_title"
+        android:textColor="@color/light_black"
+        android:layout_below="@+id/imv_leader_board_frame"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold"
+        android:paddingHorizontal="@dimen/_4sdp"
+        android:paddingVertical="@dimen/_6sdp"
+        android:textAlignment="center"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_leader_board"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:layout_above="@+id/btn_next_round"
+        android:layout_below="@id/tv_leader_board_title"
+        android:layout_centerInParent="true"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:background="@drawable/bg_word_border"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/layout_item_leader_board" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next_round"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        android:enabled="false"
+        app:cornerRadius="@dimen/_8sdp"
+        android:textSize="@dimen/_13ssp"
+        android:paddingVertical="@dimen/_8sdp"
+        app:backgroundTint="@color/classic"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:elevation="@dimen/_4sdp"
+        android:textAllCaps="true"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

@@ -5,12 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
-import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentPlayBinding
-import com.hisu.imastermatcher.ui.play_style.SentenceStyleFragment
 import org.json.JSONObject
 
 class PlayFragment : Fragment() {
@@ -33,26 +29,45 @@ class PlayFragment : Fragment() {
 //
 //        val lvl = myNavArgs.level
 //        val mode = myNavArgs.mode
-        val levelPlaceHolder = "Dịch Câu này"
 
 //        if (mode == 0)
 //            levelPlaceHolder = "${getString(R.string.mode_classic)} ${lvl}"
 //        else if (mode == 1)
 //            levelPlaceHolder = "${getString(R.string.mode_timer)} ${lvl}"
 
-        binding.tvModeLevel.text = levelPlaceHolder
-
         pauseGame()
 
-        binding.pbStar.max = 4
+        //Todo: update later
+        val tempQuestions = listOf<String>(
+            "sentence",
+            "word_pair",
+            "audio_image_pair",
+            "lol"
+        )
 
-        inflateRoundGamePlay(SentenceStyleFragment())
-    }
+        binding.pbStar.max = tempQuestions.size
 
-    private fun inflateRoundGamePlay(fragment: Fragment) {
-        val ft = childFragmentManager.beginTransaction()
-        ft.add(binding.flRoundContainer.id, fragment, fragment.javaClass.name)
-        ft.commitAllowingStateLoss()
+        binding.flRoundContainer.isUserInputEnabled = false
+        val temp = GameplayViewPagerAdapter(
+            requireActivity()
+        ) {
+            if (binding.flRoundContainer.currentItem < tempQuestions.size - 1) {
+                binding.flRoundContainer
+                    .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
+                binding.pbStar.progress = binding.pbStar.progress + 1
+            } else {
+                //TODO: use some 'method' to calculate total score later
+                val res = JSONObject()
+                res.put("fast_score", "3:33")
+                res.put("perfect_score", "99")
+                res.put("total_score", "69")
+                val action = PlayFragmentDirections.gameFinish(res.toString())
+                findNavController().navigate(action)
+            }
+        }
+
+        temp.gameplays = tempQuestions
+        binding.flRoundContainer.adapter = temp
     }
 
     private fun pauseGame() = binding.ibtnClose.setOnClickListener {
