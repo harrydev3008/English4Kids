@@ -10,7 +10,8 @@ import com.hisu.imastermatcher.ui.play_style.TypeAnswerFragment
 
 class GameplayViewPagerAdapter(
     fragmentActivity: FragmentActivity,
-    private val itemTapListener: () -> Unit
+    private val itemTapListener: () -> Unit,
+    private val wrongAnswerListener: () -> Unit
 ) : FragmentStateAdapter(fragmentActivity) {
 
     var gameplays = listOf<String>()
@@ -22,7 +23,7 @@ class GameplayViewPagerAdapter(
         val curGameplay = gameplays[position]
 
         if (curGameplay == "sentence") {
-            return SentenceStyleFragment(itemTapListener)
+            return SentenceStyleFragment(itemTapListener, wrongAnswerListener)
         }
 
         if (curGameplay == "word_pair") {
@@ -35,6 +36,6 @@ class GameplayViewPagerAdapter(
             return MatchingAudioImagePairsFragment(itemTapListener)
         }
 
-        return TypeAnswerFragment(itemTapListener)
+        return TypeAnswerFragment(itemTapListener, wrongAnswerListener)
     }
 }

@@ -14,6 +14,8 @@ class PlayFragment : Fragment() {
     private var _binding: FragmentPlayBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var tempQuestions: List<String>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +40,7 @@ class PlayFragment : Fragment() {
         pauseGame()
 
         //Todo: update later
-        val tempQuestions = listOf<String>(
+        tempQuestions = listOf<String>(
             "sentence",
             "word_pair",
             "audio_image_pair",
@@ -48,26 +50,32 @@ class PlayFragment : Fragment() {
         binding.pbStar.max = tempQuestions.size
 
         binding.flRoundContainer.isUserInputEnabled = false
-        val temp = GameplayViewPagerAdapter(
-            requireActivity()
-        ) {
-            if (binding.flRoundContainer.currentItem < tempQuestions.size - 1) {
-                binding.flRoundContainer
-                    .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
-                binding.pbStar.progress = binding.pbStar.progress + 1
-            } else {
-                //TODO: use some 'method' to calculate total score later
-                val res = JSONObject()
-                res.put("fast_score", "3:33")
-                res.put("perfect_score", "99")
-                res.put("total_score", "69")
-                val action = PlayFragmentDirections.gameFinish(res.toString())
-                findNavController().navigate(action)
-            }
-        }
+        val temp =
+            GameplayViewPagerAdapter(requireActivity(), ::handleNextQuestion, ::handleWrongAnswer)
 
         temp.gameplays = tempQuestions
         binding.flRoundContainer.adapter = temp
+    }
+
+    private fun handleNextQuestion() {
+        if (binding.flRoundContainer.currentItem < tempQuestions.size - 1) {
+            binding.flRoundContainer
+                .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
+            binding.pbStar.progress = binding.pbStar.progress + 1
+        } else {
+            //TODO: use some 'method' to calculate total score later
+            val res = JSONObject()
+            res.put("fast_score", "3:33")
+            res.put("perfect_score", "99")
+            res.put("total_score", "69")
+            val action = PlayFragmentDirections.gameFinish(res.toString())
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun handleWrongAnswer() {
+        val currentLife = Integer.parseInt(binding.tvLife.text.toString())
+        binding.tvLife.text = "${currentLife - 1}"
     }
 
     private fun pauseGame() = binding.ibtnClose.setOnClickListener {

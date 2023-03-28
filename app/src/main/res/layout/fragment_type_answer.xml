@@ -46,6 +46,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/edt_answer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_250sdp"
         android:background="@drawable/bg_word_border"

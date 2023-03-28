@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.model
+package com.hisu.imastermatcher.widget
 
 import android.content.Context
 import android.util.TypedValue
