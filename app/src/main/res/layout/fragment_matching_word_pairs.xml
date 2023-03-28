@@ -67,8 +67,6 @@
 
     </LinearLayout>
 
-
-
     <include
         android:id="@+id/btn_check"
         android:layout_width="match_parent"
