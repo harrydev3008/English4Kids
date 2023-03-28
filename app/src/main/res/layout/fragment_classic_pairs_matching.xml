@@ -21,8 +21,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_check"
         android:layout_below="@+id/tv_mode_level"
-        android:gravity="center"
         android:layout_centerInParent="true"
+        android:gravity="center"
         android:orientation="vertical">
 
         <GridLayout
@@ -30,10 +30,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:columnCount="3"
-            android:rowCount="3"
-            android:useDefaultMargins="true"
             android:paddingLeft="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"/>
+            android:paddingTop="@dimen/_4sdp"
+            android:rowCount="3"
+            android:useDefaultMargins="true" />
     </LinearLayout>
 
     <include

@@ -1,5 +1,6 @@
 package com.hisu.imastermatcher.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.hisu.imastermatcher.MainActivity
 import com.hisu.imastermatcher.adapter.CourseItemViewPagerAdapter
 import com.hisu.imastermatcher.databinding.FragmentCourseBinding
@@ -21,6 +23,10 @@ class CourseFragment : Fragment() {
     private lateinit var courseAdapter: CourseItemViewPagerAdapter
     val binding get() = _binding!!
 
+    private val pageColors = listOf<String>(
+        "#02AF84", "#FE63BD", "#20B0F5"
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +39,23 @@ class CourseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initFeatureMovieList()
+
+        binding.vpCourses.registerOnPageChangeCallback(object: OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {}
+
+            override fun onPageSelected(position: Int) {
+                val curColor = pageColors[binding.vpCourses.currentItem]
+                binding.parentContainer.setBackgroundColor(Color.parseColor(curColor))
+                binding.vpCourses.setBackgroundColor(Color.parseColor(curColor))
+                courseAdapter.changePage(position, curColor)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
     }
 
     private fun initFeatureMovieList() = binding.vpCourses.apply {
