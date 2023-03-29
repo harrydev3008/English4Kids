@@ -10,12 +10,14 @@
     <color name="white">#FFFFFFFF</color>
 
 <!--    <color name="classic">#1877f2</color>-->
+    <color name="light_blue">#84D7FD</color>
+    <color name="lighter_blue">#DDF4FE</color>
     <color name="classic">#20B0F5</color>
     <color name="timer">#f0294a</color>
 <!--    <color name="daily">#2abba7</color>-->
     <color name="daily">#58CC00</color>
     <color name="darker_green">#60CD0F</color>
-
+    <color name="light_purple">#D080FE</color>
     <color name="yellow">#FFC803</color>
     <color name="gray">#6c757d</color>
     <color name="light_gray">#ced4da</color>

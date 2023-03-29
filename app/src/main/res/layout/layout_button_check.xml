@@ -44,12 +44,12 @@
                 android:textColor="@color/text_incorrect"
                 android:textStyle="bold"
                 android:layout_marginBottom="@dimen/_6sdp"
-                android:fontFamily="@font/roboto_mono_bold"
                 android:drawableLeft="@drawable/ic_close_circle_fill"
                 android:drawablePadding="@dimen/_6sdp"
                 android:textAlignment="center"/>
 
             <TextView
+                android:id="@+id/tv_correct_answer_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đáp án đúng:"
@@ -57,9 +57,7 @@
                 android:textColor="@color/text_incorrect"
                 android:textStyle="bold"
                 android:layout_marginBottom="@dimen/_6sdp"
-                android:fontFamily="@font/roboto_mono_bold"
-                android:drawablePadding="@dimen/_6sdp"
-                android:textAlignment="center"/>
+                android:drawablePadding="@dimen/_6sdp"/>
 
             <TextView
                 android:id="@+id/tv_correct_answer"

@@ -24,17 +24,15 @@ class GameplayViewPagerAdapter(
         }
 
         if (curGameplay == "word_pair") {
-//            return SentenceStyleFragment(itemTapListener)
             return MatchingWordPairsFragment(itemTapListener)
         }
 
         if (curGameplay == "audio_image_pair") {
-//            return SentenceStyleFragment(itemTapListener)
-            return MatchingAudioImagePairsFragment(itemTapListener)
+            return MatchingAudioImagePairsFragment(itemTapListener, wrongAnswerListener)
         }
 
         if(curGameplay == "classic_pairs") {
-            return ClassicPairsMatchingFragment()
+            return ClassicPairsMatchingFragment(itemTapListener, wrongAnswerListener)
         }
 
         return TypeAnswerFragment(itemTapListener, wrongAnswerListener)

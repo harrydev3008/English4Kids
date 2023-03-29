@@ -41,9 +41,9 @@ class PlayFragment : Fragment() {
 
         //Todo: update later
         tempQuestions = listOf<String>(
-            "classic_pairs",
-            "word_pair",
             "audio_image_pair",
+            "word_pair",
+            "classic_pairs",
             "sentence",
             "lol"
         )
@@ -60,9 +60,9 @@ class PlayFragment : Fragment() {
 
     private fun handleNextQuestion() {
         if (binding.flRoundContainer.currentItem < tempQuestions.size - 1) {
+            binding.pbStar.progress = binding.pbStar.progress + 1
             binding.flRoundContainer
                 .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
-            binding.pbStar.progress = binding.pbStar.progress + 1
         } else {
             //TODO: use some 'method' to calculate total score later
             val res = JSONObject()

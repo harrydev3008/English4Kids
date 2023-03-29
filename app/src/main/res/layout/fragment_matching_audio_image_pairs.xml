@@ -43,7 +43,7 @@
             android:paddingVertical="@dimen/_2sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:text="@string/app_name"
-            android:textColor="@color/light_black"
+            android:textColor="@color/light_purple"
             android:textSize="@dimen/_18sdp"
             android:textStyle="bold" />
 
