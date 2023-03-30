@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.ui.play_style
+package com.hisu.imastermatcher.ui.play_style.complete_sentence
 
 import android.annotation.SuppressLint
 import android.os.Bundle

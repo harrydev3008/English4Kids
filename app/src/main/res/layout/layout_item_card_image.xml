@@ -13,7 +13,7 @@
     <ImageView
         android:id="@+id/imv_answer_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_height="@dimen/_80sdp"
         android:src="@drawable/grampa"
         tools:ignore="ContentDescription" />
 

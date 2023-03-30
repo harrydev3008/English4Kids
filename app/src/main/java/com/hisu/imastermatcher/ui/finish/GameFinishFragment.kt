@@ -41,7 +41,7 @@ class GameFinishFragment : Fragment() {
     }
 
     private fun nextRound() = binding.btnNextLevel.setOnClickListener {
-        findNavController().navigate(R.id.next_round)
+        findNavController().navigate(R.id.to_leader_board)
     }
 
     private fun backToCourse() = binding.ibtnClose.setOnClickListener {

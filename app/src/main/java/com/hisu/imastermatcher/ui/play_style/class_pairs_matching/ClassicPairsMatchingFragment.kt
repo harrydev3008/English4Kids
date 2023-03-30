@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.ui.play_style
+package com.hisu.imastermatcher.ui.play_style.class_pairs_matching
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -145,8 +145,9 @@ class ClassicPairsMatchingFragment(
                     }
                 }, 500)
             } else {
+                prev = null
+
                 Handler(requireContext().mainLooper).postDelayed({
-                    prev = null
                     flipCard(front, card, true)
                     flipCard(prevImage, card, true)
 

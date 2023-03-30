@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.play_style.TypeAnswerFragment">
+    tools:context=".ui.play_style.type_answer.TypeAnswerFragment">
 
     <TextView
         android:id="@+id/tv_mode_level"
