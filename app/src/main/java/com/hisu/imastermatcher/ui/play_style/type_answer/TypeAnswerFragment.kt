@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.ui.play_style
+package com.hisu.imastermatcher.ui.play_style.type_answer
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,10 +9,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.imastermatcher.R
-import com.hisu.imastermatcher.databinding.FragmentSentenceStyleBinding
 import com.hisu.imastermatcher.databinding.FragmentTypeAnswerBinding
 import com.hisu.imastermatcher.model.SentenceQuestion
-import com.hisu.imastermatcher.widget.CustomWord
 
 class TypeAnswerFragment(
     private val itemTapListener: () -> Unit,

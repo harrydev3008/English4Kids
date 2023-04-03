@@ -62,7 +62,7 @@
             android:id="@+id/next_round"
             app:destination="@id/playFragment" />
         <action
-            android:id="@+id/action_gameFinishFragment_to_leaderBoardFragment"
+            android:id="@+id/to_leader_board"
             app:destination="@id/leaderBoardFragment" />
 
     </fragment>

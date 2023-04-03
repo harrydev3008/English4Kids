@@ -26,4 +26,30 @@
     <string name="claim_your_reward_today">Claim your reward today!</string>
     <string name="daily_reward_notification">Daily Reward Notification</string>
     <string name="leader_board_title">Chào mừng bạn đến với bảng xếp hạng tuần này!</string>
+
+    <string name="complete_round_within">Hoàn thành trong vòng</string>
+    <string name="complete_lesson">Hoàn thành bài học!</string>
+    <string name="total_score">Tổng Điểm</string>
+    <string name="fast_score">Nhanh</string>
+    <string name="perfect_score">Hoàn hảo!</string>
+
+    <string name="tap_connect_pairs">Nhấn vào các cặp tương ứng</string>
+    <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>
+
+    <array name="correct_answer_messages">
+        <item>Tuyệt vời ông mặt trời!</item>
+        <item>Chính xác!</item>
+        <item>Hay quá bạn ơi!</item>
+        <item>Quá xuất sắc!</item>
+        <item>10 điểm!</item>
+    </array>
+
+    <array name="wrong_answer_messages">
+        <item>Úi sai rồi!</item>
+        <item>Chúc bạn may mắn lần sau</item>
+        <item>Hic! Dịch sai rồi</item>
+        <item>Học bài kỹ lại nhaa</item>
+        <item>0 điểm về chỗ!</item>
+    </array>
+
 </resources>

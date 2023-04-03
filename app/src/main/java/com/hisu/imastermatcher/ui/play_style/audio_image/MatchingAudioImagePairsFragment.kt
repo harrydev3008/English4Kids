@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.ui.play_style
+package com.hisu.imastermatcher.ui.play_style.audio_image
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,19 +9,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentMatchingAudioImagePairsBinding
-import com.hisu.imastermatcher.databinding.FragmentSentenceStyleBinding
-import com.hisu.imastermatcher.model.AudioImageMatchingModel
-import com.hisu.imastermatcher.model.AudioImageMatchingResponse
+import com.hisu.imastermatcher.model.PairMatchingModel
+import com.hisu.imastermatcher.model.PairMatchingResponse
 
 class MatchingAudioImagePairsFragment(
     private val itemTapListener: () -> Unit,
     private val wrongAnswerListener: () -> Unit
 ) : Fragment() {
 
-    private var _binding: FragmentMatchingAudioImagePairsBinding?= null
+    private var _binding: FragmentMatchingAudioImagePairsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var audioImageResponse: AudioImageMatchingResponse
+    private lateinit var audioImageResponse: PairMatchingResponse
     private val _result = MutableLiveData<Boolean>()
     private val result: LiveData<Boolean> = _result
     private lateinit var answer: String
@@ -41,12 +40,12 @@ class MatchingAudioImagePairsFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        audioImageResponse = AudioImageMatchingResponse(
+        audioImageResponse = PairMatchingResponse(
             listOf(
-                AudioImageMatchingModel(R.drawable.grampa, "Ông"),
-                AudioImageMatchingModel(R.drawable.family, "Gia đình"),
-                AudioImageMatchingModel(R.drawable.husband, "Chồng"),
-                AudioImageMatchingModel(R.drawable.img_test_1, "Dê dừa"),
+                PairMatchingModel(1,1, R.drawable.grampa, "Ông"),
+                PairMatchingModel(2,2, R.drawable.family, "Gia đình"),
+                PairMatchingModel(3,3, R.drawable.husband, "Chồng"),
+                PairMatchingModel(4,4, R.drawable.img_test_1, "Dê dừa"),
             ),
             "Coco-goat",
             "Dê dừa"
@@ -57,9 +56,16 @@ class MatchingAudioImagePairsFragment(
 
         val audioImageAdapter = MatchingAudioImageAdapter(requireContext()) {
             answer = it.answer
+
+            if (!binding.btnCheck.btnNextRound.isEnabled) {
+                binding.btnCheck.btnNextRound.isEnabled = true
+                binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.check)
+                binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.classic))
+                binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+            }
         }
 
-        audioImageAdapter.images = audioImageResponse.images
+        audioImageAdapter.pairs = audioImageResponse.images
 
         binding.rvPickAnswer.adapter = audioImageAdapter
 
@@ -71,6 +77,8 @@ class MatchingAudioImagePairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+
+                audioImageAdapter.isLockView = true
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -78,24 +86,26 @@ class MatchingAudioImagePairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+                audioImageAdapter.isLockView = true
+
                 wrongAnswerListener.invoke()
             }
         }
 
-        binding.btnCheck.btnNextRound.isEnabled = true
         checkAnswer()
     }
 
     private fun checkAnswer() = binding.btnCheck.btnNextRound.setOnClickListener {
-
-
-        if(answer == audioImageResponse.correctAnswer) {
-            _result.postValue(true)
+        if (binding.btnCheck.btnNextRound.text == requireContext().getString(R.string.check)) {
+            if (answer == audioImageResponse.correctAnswer) {
+                _result.postValue(true)
+            } else {
+                _result.postValue(false)
+                binding.btnCheck.tvCorrectAnswer.text = audioImageResponse.correctAnswer
+            }
         } else {
-            _result.postValue(false)
-            binding.btnCheck.tvCorrectAnswer.text = audioImageResponse.correctAnswer
+            itemTapListener.invoke()
         }
-
     }
 
     override fun onDestroyView() {

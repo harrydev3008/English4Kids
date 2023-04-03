@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.play_style.MatchingAudioImagePairsFragment">
+    tools:context=".ui.play_style.audio_image.MatchingAudioImagePairsFragment">
 
     <TextView
         android:id="@+id/tv_mode_level"
@@ -49,24 +49,26 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pick_answer"
         android:layout_width="match_parent"
+        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_check"
-        android:layout_below="@+id/question_container"
-        android:gravity="center">
+        android:paddingLeft="@dimen/_6sdp"
+        android:paddingTop="@dimen/_6sdp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:itemCount="4"
+        tools:listitem="@layout/layout_item_card_image" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_pick_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/_6sdp"
-            android:paddingTop="@dimen/_6sdp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:itemCount="4"
-            tools:listitem="@layout/layout_item_card_image" />
-    </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:gravity="center">-->
+
+<!--        -->
+<!--    </LinearLayout>-->
 
     <include
         android:id="@+id/btn_check"
