@@ -51,7 +51,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hoàn thành bài học!"
+        android:text="@string/complete_lesson"
         android:textAlignment="center"
         android:textColor="@color/yellow"
         android:textStyle="bold"
@@ -87,7 +87,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tổng Điểm"
+                    android:text="@string/total_score"
                     android:layout_marginTop="2dp"
                     android:textAlignment="center"
                     android:textColor="@color/white"
@@ -125,7 +125,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nhanh"
+                    android:text="@string/fast_score"
                     android:layout_marginTop="2dp"
                     android:textAlignment="center"
                     android:textColor="@color/white"
@@ -162,7 +162,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hoàn hảo!"
+                    android:text="@string/perfect_score"
                     android:layout_marginTop="2dp"
                     android:textAlignment="center"
                     android:textColor="@color/white"

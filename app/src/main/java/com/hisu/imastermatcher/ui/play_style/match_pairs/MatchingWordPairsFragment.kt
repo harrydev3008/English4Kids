@@ -1,5 +1,8 @@
 package com.hisu.imastermatcher.ui.play_style.match_pairs
 
+import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -42,6 +45,7 @@ class MatchingWordPairsFragment(
     private var counter = 0
 //    private var wrongMoves = 5
 
+
     private val correctMsgs = listOf<String>(
         "Tuyệt vời ông mặt trời!",
         "Chính xác!",
@@ -76,27 +80,27 @@ class MatchingWordPairsFragment(
         //todo: later will add audio - word pairs
         wordPairsResponse = PairMatchingResponse(
             listOf(
-                PairMatchingModel(1, -1, "Màu đen"),
-                PairMatchingModel(2, -1, "Grandpa"),
+                PairMatchingModel(1, 1, -1, "Màu đen", isAudioWordPairs = false),
+                PairMatchingModel(2, 2, -1, "grampa", isAudioWordPairs = true),
 
-                PairMatchingModel(3, -1, "Bóng chày"),
-                PairMatchingModel(4, -1, "Old"),
+                PairMatchingModel(3, 3, -1, "Bóng chày", isAudioWordPairs = false),
+                PairMatchingModel(4, 4, -1, "old", isAudioWordPairs = true),
 
-                PairMatchingModel(2, -1, "Ông"),
-                PairMatchingModel(5, -1, "Fish"),
+                PairMatchingModel(5, 2, -1, "Ông", isAudioWordPairs = false),
+                PairMatchingModel(6, 5, -1, "fish", isAudioWordPairs = true),
 
-                PairMatchingModel(4, -1, "Cũ"),
-                PairMatchingModel(3, -1, "Baseball"),
+                PairMatchingModel(7, 4, -1, "Cũ", isAudioWordPairs = false),
+                PairMatchingModel(8, 3, -1, "baseball", isAudioWordPairs = true),
 
-                PairMatchingModel(5, -1, "Con cá"),
-                PairMatchingModel(1, -1, "Black"),
+                PairMatchingModel(9, 5, -1, "Con cá", isAudioWordPairs = false),
+                PairMatchingModel(10, 1, -1, "black", isAudioWordPairs = true),
             ),
             "",
             "",
             allowedMoves = 5
         )
 
-        binding.tvModeLevel.text = "Nhấn vào các cặp tương ứng"
+        binding.tvModeLevel.text = requireContext().getString(R.string.tap_connect_pairs)
 
         wordPairsAdapter = MatchingWordPairsAdapter(requireContext(), ::handle)
 
@@ -132,9 +136,20 @@ class MatchingWordPairsFragment(
     private fun handle(item: PairMatchingModel, position: Int) {
         if (prev != null) {
 
-//          if (prev?.id == it.id) return
+            //ensure self select
+            if (prev?.id == item.id) return
 
-            if (item.id == prev?.id) {
+            //in audio - word gameplay
+            //if previous item & current item is audio, then reset select color of prev item
+            //todo: play audio later
+            if(prev?.isAudioWordPairs == true && item.isAudioWordPairs == true) {
+                wordPairsAdapter.resetPairsSelected(prevPos)
+                prev = item
+                prevPos = position
+                return
+            }
+
+            if (item.pairId == prev?.pairId) {
                 prev = null
 
                 counter++
@@ -151,7 +166,7 @@ class MatchingWordPairsFragment(
 
                 prevPos = -1
 
-                if(counter == wordPairsResponse.allowedMoves) {
+                if (counter == wordPairsResponse.allowedMoves) {
                     _result.postValue(true)
                 }
 

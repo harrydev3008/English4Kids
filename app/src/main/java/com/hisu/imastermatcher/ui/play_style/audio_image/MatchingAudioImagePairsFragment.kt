@@ -42,10 +42,10 @@ class MatchingAudioImagePairsFragment(
 
         audioImageResponse = PairMatchingResponse(
             listOf(
-                PairMatchingModel(1, R.drawable.grampa, "Ông"),
-                PairMatchingModel(2, R.drawable.family, "Gia đình"),
-                PairMatchingModel(3, R.drawable.husband, "Chồng"),
-                PairMatchingModel(4, R.drawable.img_test_1, "Dê dừa"),
+                PairMatchingModel(1,1, R.drawable.grampa, "Ông"),
+                PairMatchingModel(2,2, R.drawable.family, "Gia đình"),
+                PairMatchingModel(3,3, R.drawable.husband, "Chồng"),
+                PairMatchingModel(4,4, R.drawable.img_test_1, "Dê dừa"),
             ),
             "Coco-goat",
             "Dê dừa"
