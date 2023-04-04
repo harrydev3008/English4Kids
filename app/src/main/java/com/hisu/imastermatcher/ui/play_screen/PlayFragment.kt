@@ -27,21 +27,12 @@ class PlayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        initRecyclerView()
-//
-//        val lvl = myNavArgs.level
-//        val mode = myNavArgs.mode
-
-//        if (mode == 0)
-//            levelPlaceHolder = "${getString(R.string.mode_classic)} ${lvl}"
-//        else if (mode == 1)
-//            levelPlaceHolder = "${getString(R.string.mode_timer)} ${lvl}"
-
         pauseGame()
 
         //Todo: update later
         tempQuestions = listOf<String>(
             "word_pair",
+            "audio_word_pair",
             "audio_image_pair",
             "sentence",
             "lol"

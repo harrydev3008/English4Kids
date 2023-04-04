@@ -46,29 +46,60 @@
             android:textSize="@dimen/_16ssp" />
     </LinearLayout>
 
-    <com.nex3z.flowlayout.FlowLayout
-        android:id="@+id/fl_answer_container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:paddingTop="4dp"
-        android:padding="@dimen/_10sdp"
-        android:background="@drawable/bg_border_bottom_bold"
-        app:flFlow="true"
-        android:layout_below="@id/question_container"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/question_container"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/answer_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:background="@color/white"
-        android:layout_below="@id/fl_answer_container"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:paddingTop="@dimen/_6sdp"
+            android:padding="@dimen/_10sdp">
+
+            <com.nex3z.flowlayout.FlowLayout
+                android:id="@+id/fl_answer_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flFlow="true" />
+
+            <View
+                android:layout_marginTop="@dimen/_45sdp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <View
+                android:layout_marginTop="@dimen/_90sdp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <View
+                android:layout_marginTop="@dimen/_135sdp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/answer_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="@dimen/_8sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:background="@color/white" />
+    </LinearLayout>
 
     <include
         android:id="@+id/btn_check"
+        layout="@layout/layout_button_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/layout_button_check"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

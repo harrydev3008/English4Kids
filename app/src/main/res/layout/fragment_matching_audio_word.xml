@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.play_style.match_pairs.MatchingWordPairsFragment">
+    android:orientation="vertical"
+    tools:context=".ui.play_style.audio_word.MatchingAudioWordFragment">
 
     <TextView
         android:id="@+id/tv_mode_level"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode_challenge"
+        android:text="@string/what_can_you_hear"
         android:layout_alignParentTop="true"
         android:paddingHorizontal="@dimen/_8sdp"
         android:textColor="@color/light_black"
@@ -18,20 +19,41 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/question_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@+id/tv_mode_level"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginVertical="@dimen/_20sdp"
         android:gravity="center">
 
+        <ImageButton
+            android:id="@+id/ibtn_audio_question"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_round_volume_up_24_white"
+            android:background="@drawable/bg_icon_border"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/question_container">
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_matching_pairs"
+            android:id="@+id/rv_pick_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
             android:paddingLeft="@dimen/_6sdp"
             android:paddingTop="@dimen/_6sdp"
-            tools:listitem="@layout/layout_word_matching"/>
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:itemCount="4"
+            tools:listitem="@layout/layout_item_card_word" />
 
     </LinearLayout>
 

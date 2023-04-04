@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hisu.imastermatcher.ui.play_style.audio_image.MatchingAudioImagePairsFragment
+import com.hisu.imastermatcher.ui.play_style.audio_word.MatchingAudioWordFragment
 import com.hisu.imastermatcher.ui.play_style.class_pairs_matching.ClassicPairsMatchingFragment
 import com.hisu.imastermatcher.ui.play_style.complete_sentence.SentenceStyleFragment
 import com.hisu.imastermatcher.ui.play_style.match_pairs.MatchingWordPairsFragment
@@ -33,6 +34,10 @@ class GameplayViewPagerAdapter(
 
         if (curGameplay == "audio_image_pair") {
             return MatchingAudioImagePairsFragment(itemTapListener, wrongAnswerListener)
+        }
+
+        if (curGameplay == "audio_word_pair") {
+            return MatchingAudioWordFragment(itemTapListener, wrongAnswerListener)
         }
 
         if(curGameplay == "classic_pairs") {

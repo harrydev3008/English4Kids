@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.play_style.audio_image.MatchingAudioImagePairsFragment">
 
     <TextView
@@ -32,7 +31,7 @@
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:scaleType="center"
-            android:src="@drawable/ic_round_volume_up_24_white"
+            android:src="@drawable/ic_round_question_mark_24_white"
             android:background="@drawable/bg_icon_border"
             tools:ignore="ContentDescription" />
 
@@ -49,32 +48,31 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_pick_answer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/_6sdp"
-        android:paddingTop="@dimen/_6sdp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:itemCount="4"
-        tools:listitem="@layout/layout_item_card_image" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/question_container"
+        android:layout_marginTop="@dimen/_24sdp">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:gravity="center">-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pick_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_6sdp"
+            android:paddingTop="@dimen/_6sdp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:itemCount="4"
+            tools:listitem="@layout/layout_item_card_image" />
 
-<!--        -->
-<!--    </LinearLayout>-->
+    </LinearLayout>
 
     <include
         android:id="@+id/btn_check"
         layout="@layout/layout_button_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

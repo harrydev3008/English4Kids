@@ -117,7 +117,6 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -159,7 +158,8 @@ class MatchingWordPairsFragment(
                     correctMsgs[Random().nextInt(correctMsgs.size)],
                     Toast.LENGTH_SHORT,
                     true
-                ).show();
+                ).show()
+
                 wordPairsAdapter.correctPairsSelected(position)
                 if (prevPos != -1)
                     wordPairsAdapter.correctPairsSelected(prevPos)
