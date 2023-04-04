@@ -106,7 +106,6 @@ class MatchingWordPairsAdapter(
         mediaPlayer.setDataSource(context, Uri.parse(audio))
         mediaPlayer.prepare()
         mediaPlayer.start()
-
     }
 
     fun correctPairsSelected(position: Int) {

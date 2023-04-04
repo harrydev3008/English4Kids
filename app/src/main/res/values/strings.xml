@@ -32,6 +32,7 @@
     <string name="total_score">Tổng Điểm</string>
     <string name="fast_score">Nhanh</string>
     <string name="perfect_score">Hoàn hảo!</string>
+    <string name="what_can_you_hear">Bạn nghe được gì?</string>
 
     <string name="tap_connect_pairs">Nhấn vào các cặp tương ứng</string>
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>

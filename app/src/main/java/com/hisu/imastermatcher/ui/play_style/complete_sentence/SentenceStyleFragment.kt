@@ -2,8 +2,10 @@ package com.hisu.imastermatcher.ui.play_style.complete_sentence
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +14,10 @@ import com.hisu.imastermatcher.databinding.FragmentSentenceStyleBinding
 import com.hisu.imastermatcher.model.SentenceQuestion
 import com.hisu.imastermatcher.widget.CustomWord
 import com.hisu.imastermatcher.widget.MyCustomLayout
+import es.dmoral.toasty.Toasty
 import java.util.*
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 class SentenceStyleFragment(
     private val itemTapListener: () -> Unit,
@@ -92,7 +97,7 @@ class SentenceStyleFragment(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
-        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
         binding.answerContainer.addView(myCustomLayout, params)
     }
 
@@ -105,12 +110,6 @@ class SentenceStyleFragment(
             customWord.setOnTouchListener(TouchListener())
             myCustomLayout.push(customWord)
         }
-
-        val layoutParams = binding.flAnswerContainer.layoutParams
-        layoutParams.height =
-            context?.resources?.getDimensionPixelSize(com.intuit.sdp.R.dimen._200sdp) ?: 200
-
-        binding.flAnswerContainer.layoutParams = layoutParams
     }
 
     private fun randomizeMoreWord(): List<String> {

@@ -71,7 +71,7 @@ class TypeAnswerFragment(
 
     private fun checkAnswer() = binding.btnCheck.btnNextRound.setOnClickListener {
         if (binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.check))) {
-            if (binding.edtAnswer.text.toString().trim() == questionModel.answer) {
+            if (binding.edtAnswer.text.toString().trim().equals(questionModel.answer, ignoreCase = true)) {
                 _result.postValue(true)
             } else {
                 _result.postValue(false)

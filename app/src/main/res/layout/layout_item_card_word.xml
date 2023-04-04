@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_container"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_120sdp"
+    android:layout_marginEnd="@dimen/_6sdp"
+    android:layout_marginBottom="@dimen/_6sdp"
+    android:background="@drawable/bg_word_border"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/_6sdp">
+
+    <TextView
+        android:id="@+id/tv_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/_6sdp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/light_black"
+        android:textStyle="bold"
+        android:textSize="@dimen/_16ssp" />
+
+</LinearLayout>
