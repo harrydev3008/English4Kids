@@ -22,7 +22,7 @@
         android:layout_height="@dimen/_40sdp"
         android:src="@drawable/img_test_1"
         app:civ_border_width="2dp"
-        app:civ_border_color="@color/light_gray"
+        app:civ_border_color="@color/classic"
         android:layout_marginEnd="@dimen/_12sdp"/>
 
     <TextView

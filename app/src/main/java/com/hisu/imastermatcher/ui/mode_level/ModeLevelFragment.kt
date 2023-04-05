@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.gson.Gson
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentModeLevelBinding
-import com.hisu.imastermatcher.model.Card
-import com.hisu.imastermatcher.model.CourseLevel
+import com.hisu.imastermatcher.model.card.Card
+import com.hisu.imastermatcher.model.course.CourseLevelsResponse
 
 
 class ClassModeLevelFragment : Fragment() {
@@ -32,13 +33,11 @@ class ClassModeLevelFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val mode = myNavArgs.mode
-
         binding.tvMode.text = mode
 
         continueLevel()
         backToHomePage()
         setUpLevels()
-
         loadLevel()
     }
 
@@ -47,19 +46,11 @@ class ClassModeLevelFragment : Fragment() {
     }
 
     private fun continueLevel() = binding.btnContinue.setOnClickListener {
-//        val action = ClassModeLevelFragmentDirections.modeToPlay(myNavArgs.mode)
-//        findNavController().navigate(action)
         findNavController().navigate(R.id.mode_to_play)
     }
 
     private fun setUpLevels() = binding.rvLevels.apply {
         levelAdapter = LevelAdapter() {
-
-
-            val cards = mutableListOf<Card>()
-
-//            val action = ClassModeLevelFragmentDirections.modeToPlay(mode = myNavArgs.mode, level = it.id)
-//            findNavController().navigate(action)
             findNavController().navigate(R.id.mode_to_play)
         }
 
@@ -68,12 +59,7 @@ class ClassModeLevelFragment : Fragment() {
     }
 
     private fun loadLevel() {
-        val levels = listOf<CourseLevel>(
-            CourseLevel(1,  1,"Đưa ra yêu cầu lịch sự, miêu tả vị trí đồ đạc", 3f),
-            CourseLevel(2,  1, "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp nâng cao",2.5f),
-            CourseLevel(4,  0, "Khởi động cùng một số ngữ pháp và cụm từ đơn giản",0f),
-            CourseLevel(5,  -1, "vl luon dau cut moiz",0f)
-        )
+        val levels = Gson().fromJson(myNavArgs.courseLevels, CourseLevelsResponse::class.java)
 
         levelAdapter?.items = levels
     }

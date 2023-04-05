@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.LayoutAudioWordMatchingBinding
 import com.hisu.imastermatcher.databinding.LayoutWordMatchingBinding
-import com.hisu.imastermatcher.model.PairMatchingModel
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingModel
 
 
 class MatchingWordPairsAdapter(

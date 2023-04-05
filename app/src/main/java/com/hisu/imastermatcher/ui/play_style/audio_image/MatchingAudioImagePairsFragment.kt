@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentMatchingAudioImagePairsBinding
-import com.hisu.imastermatcher.model.PairMatchingModel
-import com.hisu.imastermatcher.model.PairMatchingResponse
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingModel
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingResponse
 
 class MatchingAudioImagePairsFragment(
     private val itemTapListener: () -> Unit,
@@ -51,7 +51,6 @@ class MatchingAudioImagePairsFragment(
             "Dê dừa"
         )
 
-        binding.tvModeLevel.text = "Chọn hình ảnh đúng"
         binding.tvQuestion.text = audioImageResponse.question
 
         val audioImageAdapter = MatchingAudioImageAdapter(requireContext()) {

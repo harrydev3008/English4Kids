@@ -1,29 +1,18 @@
 package com.hisu.imastermatcher.ui.play_style.match_pairs
 
-import android.content.Context
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.imastermatcher.R
-import com.hisu.imastermatcher.databinding.FragmentMatchingAudioImagePairsBinding
 import com.hisu.imastermatcher.databinding.FragmentMatchingWordPairsBinding
-import com.hisu.imastermatcher.model.Card
-import com.hisu.imastermatcher.model.PairMatchingModel
-import com.hisu.imastermatcher.model.PairMatchingResponse
-import com.hisu.imastermatcher.ui.play_style.audio_image.MatchingAudioImageAdapter
-import com.makeramen.roundedimageview.RoundedImageView
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingModel
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingResponse
 import es.dmoral.toasty.Toasty
 import java.util.*
 

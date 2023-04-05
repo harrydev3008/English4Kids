@@ -30,9 +30,11 @@
 
         <ImageView
             android:id="@+id/btn_play_audio"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/ic_play_btn"
+            android:layout_width="@dimen/_26sdp"
+            android:layout_height="@dimen/_26sdp"
+            android:src="@drawable/ic_round_question_mark_24_white"
+            android:scaleType="center"
+            android:background="@drawable/bg_icon_border"
             tools:ignore="ContentDescription" />
 
         <TextView

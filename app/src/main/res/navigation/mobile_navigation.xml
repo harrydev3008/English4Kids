@@ -40,6 +40,12 @@
             android:name="mode"
             app:argType="string"
             android:defaultValue=""/>
+
+        <argument
+            android:name="courseLevels"
+            app:argType="string"
+            android:defaultValue=""/>
+
         <action
             android:id="@+id/mode_to_play"
             app:destination="@id/playFragment" />

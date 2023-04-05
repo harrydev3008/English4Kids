@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.model
+package com.hisu.imastermatcher.model.card
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

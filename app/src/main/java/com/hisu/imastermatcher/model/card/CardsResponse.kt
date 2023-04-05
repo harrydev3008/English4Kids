@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.model
+package com.hisu.imastermatcher.model.card
 
 data class CardsResponse (
     var cards: List<Card>,

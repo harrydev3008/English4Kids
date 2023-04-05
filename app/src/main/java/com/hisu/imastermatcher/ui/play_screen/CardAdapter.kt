@@ -11,13 +11,13 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.LayoutItemCardBinding
-import com.hisu.imastermatcher.model.Card
+import com.hisu.imastermatcher.model.card.Card
 
 class CardAdapter(val itemTapListener: (card: Card, img: View) -> Unit) :
     RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
     var items = listOf<Card>()
-    val holders = mutableListOf<CardViewHolder>()
+    private val holders = mutableListOf<CardViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         return CardViewHolder(

@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.gson.Gson
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentGameFinishBinding
+import com.hisu.imastermatcher.model.FinalResult
 import com.hisu.imastermatcher.ui.play_screen.PlayFragmentArgs
 import org.json.JSONObject
 
@@ -28,19 +30,22 @@ class GameFinishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val result = Gson().fromJson(myNavArgs.result, FinalResult::class.java)
+        displayUserResult(result)
+
         nextRound()
         backToCourse()
+    }
 
-        val result = JSONObject(myNavArgs.result)
-
-        binding.apply {
-            tvFastScore.text = result.get("fast_score").toString()
-            tvPerfectScore.text = "${result.get("perfect_score").toString()}%"
-            tvTotalExpScore.text = result.get("total_score").toString()
-        }
+    private fun displayUserResult(result: FinalResult) = binding.apply {
+        tvFastScore.text = result.fastScore
+        tvPerfectScore.text = String.format(requireContext().getString(R.string.perfect_score_pattern), result.perfectScore)
+        tvTotalExpScore.text = result.totalScore.toString()
     }
 
     private fun nextRound() = binding.btnNextLevel.setOnClickListener {
+        //todo: impl method to go to next round
         findNavController().navigate(R.id.to_leader_board)
     }
 

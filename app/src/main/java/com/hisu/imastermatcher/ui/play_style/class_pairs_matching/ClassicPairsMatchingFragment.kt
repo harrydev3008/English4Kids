@@ -18,8 +18,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentClassicPairsMatchingBinding
-import com.hisu.imastermatcher.model.Card
-import com.hisu.imastermatcher.model.CardsResponse
+import com.hisu.imastermatcher.model.card.Card
+import com.hisu.imastermatcher.model.card.CardsResponse
 import com.hisu.imastermatcher.widget.CustomCard
 import com.makeramen.roundedimageview.RoundedImageView
 
@@ -108,8 +108,8 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 binding.btnCheck.tvCorrectAnswerDesc.text =
-                    "Không thể hoàn thành trong ${cardsResponse.allowedWrongMoveAmount} lượt..."
-                binding.btnCheck.tvCorrectAnswer.text = "Cố gắng hơn ở lần sau bạn nhé!"
+                        String.format(requireContext().getString(R.string.complete_within_turn), cardsResponse.allowedWrongMoveAmount)
+                binding.btnCheck.tvCorrectAnswer.text = requireContext().getString(R.string.better_luck_next_time)
 
                 wrongAnswerListener.invoke()
             }

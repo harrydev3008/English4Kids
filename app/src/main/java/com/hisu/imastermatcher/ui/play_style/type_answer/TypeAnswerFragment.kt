@@ -40,7 +40,7 @@ class TypeAnswerFragment(
         super.onViewCreated(view, savedInstanceState)
 
         questionModel = SentenceQuestion(
-            1, "Dịch câu này", "Bạn bao nhiêu tuổi?", "How old are you?", listOf()
+            1, "Dịch câu này", "I like cooking", "tôi thích nấu ăn", listOf()
         )
 
         binding.tvModeLevel.text = questionModel.title

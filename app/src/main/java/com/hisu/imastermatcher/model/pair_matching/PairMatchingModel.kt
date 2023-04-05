@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.model
+package com.hisu.imastermatcher.model.pair_matching
 
 data class PairMatchingModel(
     var id: Int,
