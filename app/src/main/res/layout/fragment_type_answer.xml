@@ -51,7 +51,7 @@
         android:id="@+id/edt_answer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_250sdp"
-        android:background="@drawable/bg_word_border"
+        style="@style/TypeAnswerEditTextLayoutStyle"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:gravity="top"
         android:textSize="@dimen/_16ssp"

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".ui.auth.CheckOTPFragment">
+
+    <ImageView
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_otp_authenticator"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text="@string/verify_your_otp"
+        android:textAlignment="center"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/_18ssp" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        app:alignContent="center"
+        app:alignItems="center"
+        app:justifyContent="space_evenly">
+
+        <EditText
+            android:id="@+id/edt_input_otp_1"
+            style="@style/OTPEditTextLayoutStyle"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:inputType="phone"
+            android:maxLength="1"
+            android:textSize="@dimen/_16ssp"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/edt_input_otp_2"
+            style="@style/OTPEditTextLayoutStyle"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:inputType="phone"
+            android:maxLength="1"
+            android:textSize="@dimen/_16ssp"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/edt_input_otp_3"
+            style="@style/OTPEditTextLayoutStyle"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:inputType="phone"
+            android:maxLength="1"
+            android:textSize="@dimen/_16ssp"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/edt_input_otp_4"
+            style="@style/OTPEditTextLayoutStyle"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:inputType="phone"
+            android:maxLength="1"
+            android:textSize="@dimen/_16ssp"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/edt_input_otp_5"
+            style="@style/OTPEditTextLayoutStyle"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:inputType="phone"
+            android:maxLength="1"
+            android:textSize="@dimen/_16ssp"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/edt_input_otp_6"
+            style="@style/OTPEditTextLayoutStyle"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:cursorVisible="false"
+            android:gravity="center"
+            android:inputType="phone"
+            android:maxLength="1"
+            android:textSize="@dimen/_16ssp"
+            tools:ignore="Autofill,LabelFor" />
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <TextView
+        android:id="@+id/tv_resend"
+        style="@style/OTPTextResendStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:enabled="false"
+        android:text="@string/resend_otp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_verify_otp"
+        style="@style/LoginButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:enabled="false"
+        android:paddingVertical="@dimen/_10sdp"
+        android:text="@string/confirm_otp"
+        android:textSize="@dimen/_14ssp"
+        app:cornerRadius="@dimen/_12sdp"/>
+
+</LinearLayout>

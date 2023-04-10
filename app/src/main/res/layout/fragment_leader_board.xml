@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/next"
-        android:enabled="false"
+        android:enabled="true"
         app:cornerRadius="@dimen/_8sdp"
         android:textSize="@dimen/_13ssp"
         android:paddingVertical="@dimen/_8sdp"

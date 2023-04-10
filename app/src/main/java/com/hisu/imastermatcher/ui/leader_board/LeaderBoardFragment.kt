@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentLeaderBoardBinding
@@ -30,6 +31,7 @@ class LeaderBoardFragment : Fragment() {
 
         initLeaderBoardAdapter()
         setUpLeaderBoardRecyclerView()
+//        backToLevel()
     }
 
     private fun initLeaderBoardAdapter() {
@@ -44,6 +46,10 @@ class LeaderBoardFragment : Fragment() {
 
     private fun setUpLeaderBoardRecyclerView() = binding.rvLeaderBoard.apply {
         adapter = leaderBoardAdapter
+    }
+
+    private fun backToLevel() = binding.btnNextRound.setOnClickListener {
+        findNavController().navigate(R.id.board_to_level)
     }
 
     override fun onDestroyView() {
