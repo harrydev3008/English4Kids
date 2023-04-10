@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.LayoutItemCardWordBinding
-import com.hisu.imastermatcher.model.PairMatchingModel
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingModel
 
 class MatchingAudioWordAdapter(
     var context: Context,

@@ -18,8 +18,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentClassicPairsMatchingBinding
-import com.hisu.imastermatcher.model.Card
-import com.hisu.imastermatcher.model.CardsResponse
+import com.hisu.imastermatcher.model.card.Card
+import com.hisu.imastermatcher.model.card.CardsResponse
 import com.hisu.imastermatcher.widget.CustomCard
 import com.makeramen.roundedimageview.RoundedImageView
 
@@ -58,15 +58,15 @@ class ClassicPairsMatchingFragment(
         super.onViewCreated(view, savedInstanceState)
 
         val cards = listOf(
-            Card(1, "1", R.drawable.img_test_1, false),
-            Card(2, "3", R.drawable.img_test_3, false),
-            Card(3, "2", R.drawable.img_test_2, false),
-            Card(4, "4", R.drawable.img_test_4, false),
+            Card(1, "1", R.drawable.bg_husband_vn, false),
+            Card(2, "3", R.drawable.bg_grandma_vn, false),
+            Card(3, "2", R.drawable.bg_family_en, false),
+            Card(4, "4", R.drawable.bg_grandpa_en, false),
             Card(5, "-1", -1, true),
-            Card(6, "4", R.drawable.img_test_4, false),
-            Card(7, "3", R.drawable.img_test_3, false),
-            Card(8, "2", R.drawable.img_test_2, false),
-            Card(9, "1", R.drawable.img_test_1, false)
+            Card(6, "4", R.drawable.bg_grandpa_vn, false),
+            Card(7, "3", R.drawable.bg_grandma_en, false),
+            Card(8, "2", R.drawable.bg_family_vn, false),
+            Card(9, "1", R.drawable.bg_husband_en, false)
         )
 
         cardsResponse = CardsResponse(cards, 4, 6)
@@ -85,7 +85,7 @@ class ClassicPairsMatchingFragment(
             for (i in 0 until binding.rvMatchingPairs.childCount) {
                 (binding.rvMatchingPairs.getChildAt(i) as CustomCard).flipCard()
             }
-        }, 800)
+        }, 1500)
 
         result.observe(viewLifecycleOwner) {
             if (it == true) {
@@ -108,8 +108,8 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 binding.btnCheck.tvCorrectAnswerDesc.text =
-                    "Không thể hoàn thành trong ${cardsResponse.allowedWrongMoveAmount} lượt..."
-                binding.btnCheck.tvCorrectAnswer.text = "Cố gắng hơn ở lần sau bạn nhé!"
+                        String.format(requireContext().getString(R.string.complete_within_turn), cardsResponse.allowedWrongMoveAmount)
+                binding.btnCheck.tvCorrectAnswer.text = requireContext().getString(R.string.better_luck_next_time)
 
                 wrongAnswerListener.invoke()
             }

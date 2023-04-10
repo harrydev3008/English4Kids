@@ -40,6 +40,12 @@
             android:name="mode"
             app:argType="string"
             android:defaultValue=""/>
+
+        <argument
+            android:name="courseLevels"
+            app:argType="string"
+            android:defaultValue=""/>
+
         <action
             android:id="@+id/mode_to_play"
             app:destination="@id/playFragment" />
@@ -74,6 +80,9 @@
         <action
             android:id="@+id/splash_to_course"
             app:destination="@id/courseFragment" />
+        <action
+            android:id="@+id/splash_to_regis"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/courseFragment"
@@ -88,5 +97,27 @@
         android:id="@+id/leaderBoardFragment"
         android:name="com.hisu.imastermatcher.ui.leader_board.LeaderBoardFragment"
         android:label="fragment_leader_board"
-        tools:layout="@layout/fragment_leader_board" />
+        tools:layout="@layout/fragment_leader_board" >
+        <action
+            android:id="@+id/board_to_level"
+            app:destination="@id/classModeLevelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.hisu.imastermatcher.ui.auth.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_checkOTPFragment"
+            app:destination="@id/checkOTPFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkOTPFragment"
+        android:name="com.hisu.imastermatcher.ui.auth.CheckOTPFragment"
+        android:label="fragment_check_o_t_p"
+        tools:layout="@layout/fragment_check_otp" >
+        <action
+            android:id="@+id/action_checkOTPFragment_to_courseFragment"
+            app:destination="@id/courseFragment" />
+    </fragment>
 </navigation>

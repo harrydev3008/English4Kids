@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">iMaster Matcher</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Englisk 4 Kids</string>
 
     <string name="mode_classic">Classic</string>
     <string name="mode_timer">Timer</string>
@@ -26,17 +24,40 @@
     <string name="claim_your_reward_today">Claim your reward today!</string>
     <string name="daily_reward_notification">Daily Reward Notification</string>
     <string name="leader_board_title">Chào mừng bạn đến với bảng xếp hạng tuần này!</string>
+    <string name="username">Tên hiển thị</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="login">Đăng Nhập</string>
+    <string name="verify_your_otp">Vui lòng nhập mã OTP đã được gửi đến số điện thoại của bạn</string>
+    <string name="confirm_otp">Xác Nhận</string>
+    <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
+    <string name="resend_otp">Gửi lại mã</string>
+    <!--    <string name="login_desc">??</string>-->
 
     <string name="complete_round_within">Hoàn thành trong vòng</string>
+    <string name="pick_correct_image">Chọn hình ảnh đúng</string>
     <string name="complete_lesson">Hoàn thành bài học!</string>
     <string name="total_score">Tổng Điểm</string>
     <string name="fast_score">Nhanh</string>
     <string name="perfect_score">Hoàn hảo!</string>
     <string name="what_can_you_hear">Bạn nghe được gì?</string>
+    <string name="better_luck_next_time">Cố gắng hơn ở lần sau bạn nhé!</string>
+    <string name="translate_this_sentence">Dịch câu này</string>
+    <string name="type_your_answer_here">Nhập câu trả lời của bạn tại đây…</string>
 
+    <string name="confirm_dialog_msg">Xác nhận</string>
+    <string name="warning_dialog_msg">Cảnh báo</string>
+    <string name="confirm_quit_game_play">Bạn có chắc chắn muốn thoát màn chơi không?!</string>
+    <string name="confirm_msg_quit">Thoát</string>
+    <string name="confirm_msg_stay">Chơi tiếp</string>
+
+    <!--  String patterns  -->
     <string name="tap_connect_pairs">Nhấn vào các cặp tương ứng</string>
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>
+    <string name="perfect_score_pattern">%1$d%%</string>
+    <string name="weekly_exp_pattern">%1$d KN</string>
+    <string name="complete_within_turn">Không thể hoàn thành trong %1$d lượt…</string>
 
+    <!--  random messages  -->
     <array name="correct_answer_messages">
         <item>Tuyệt vời ông mặt trời!</item>
         <item>Chính xác!</item>
@@ -52,5 +73,7 @@
         <item>Học bài kỹ lại nhaa</item>
         <item>0 điểm về chỗ!</item>
     </array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

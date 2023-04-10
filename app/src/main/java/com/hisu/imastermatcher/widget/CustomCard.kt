@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
 import com.hisu.imastermatcher.R
-import com.hisu.imastermatcher.model.Card
+import com.hisu.imastermatcher.model.card.Card
 import com.makeramen.roundedimageview.RoundedImageView
 
 class CustomCard(context: Context) : RoundedImageView(context) {

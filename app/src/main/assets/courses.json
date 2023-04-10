@@ -1,0 +1,101 @@
+[
+    {
+        "courseTitle": "Phần giới thiệu Tiếng Anh",
+        "totalLevel": 8,
+        "currentLevel": 8,
+        "isComplete": true,
+        "courseDesc": "Khởi động cùng một số ngữ pháp và cụm từ đơn giản",
+        "courseLevels": [
+            {
+                "id": 1,
+                "status": 1,
+                "description": "Một số câu hỏi, từ vựng cơ bản",
+                "score": 3.0
+            },
+            {
+                "id": 2,
+                "status": 1,
+                "description": "Học từ, cụm từ, ngữ pháp để giao tiếp cơ bản",
+                "score": 2.5
+            },
+            {
+                "id": 3,
+                "status": 0,
+                "description": "Một số ngữ pháp và cụm từ đơn giản",
+                "score": 0.0
+            },
+            {
+                "id": 4,
+                "status": -1,
+                "description": "Một số câu giao tiếp thông dụng cơ bản",
+                "score": 0.0
+            }
+        ]
+    },
+    {
+        "courseTitle": "Tiếng Anh Cơ Bản 1",
+        "totalLevel": 12,
+        "currentLevel": 2,
+        "isComplete": false,
+        "courseDesc": "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp cơ bản",
+        "courseLevels": [
+            {
+                "id": 1,
+                "status": 1,
+                "description": "Đưa ra yêu cầu lịch sự, miêu tả vị trí đồ đạc",
+                "score": 3.0
+            },
+            {
+                "id": 2,
+                "status": 0,
+                "description": "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp nâng cao",
+                "score": 0.0
+            },
+            {
+                "id": 3,
+                "status": -1,
+                "description": "Khởi động cùng một số ngữ pháp và cụm từ đơn giản",
+                "score": 0.0
+            },
+            {
+                "id": 4,
+                "status": -1,
+                "description": "Một số ngữ pháp thông dụng cơ bản",
+                "score": 0.0
+            }
+        ]
+    },
+    {
+        "courseTitle": "Tiếng Anh Cơ Bản 2",
+        "totalLevel": 20,
+        "currentLevel": 0,
+        "isComplete": false,
+        "courseDesc": "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp nâng cao",
+        "courseLevels": [
+            {
+                "id": 1,
+                "status": 0,
+                "description": "Đưa ra yêu cầu lịch sự, miêu tả vị trí đồ đạc",
+                "score": 0.0
+            },
+            {
+                "id": 2,
+                "status": -1,
+                "description": "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp nâng cao",
+                "score": 0.0
+            },
+            {
+                "id": 3,
+                "status": -1,
+                "description": "Khởi động cùng một số ngữ pháp và cụm từ đơn giản",
+                "score": 0.0
+            },
+            {
+                "id": 4,
+                "status": -1,
+                "description": "Một số ngữ pháp thông dụng cơ bản",
+                "score": 0.0
+            }
+        ]
+    }
+]

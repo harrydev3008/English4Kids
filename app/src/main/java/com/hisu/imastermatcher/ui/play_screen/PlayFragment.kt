@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.gdacciaro.iOSDialog.iOSDialogBuilder
+import com.google.gson.Gson
+import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentPlayBinding
+import com.hisu.imastermatcher.model.FinalResult
+import com.hisu.imastermatcher.utils.MyUtils
 import org.json.JSONObject
 
 class PlayFragment : Fragment() {
@@ -27,14 +32,15 @@ class PlayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pauseGame()
+        quitGame()
 
         //Todo: update later
         tempQuestions = listOf<String>(
-            "word_pair",
-            "audio_word_pair",
-            "audio_image_pair",
-            "sentence",
+//            "classic_pairs",
+//            "word_pair",
+//            "audio_word_pair",
+//            "audio_image_pair",
+//            "sentence",
             "lol"
         )
 
@@ -55,11 +61,8 @@ class PlayFragment : Fragment() {
                 .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
         } else {
             //TODO: use some 'method' to calculate total score later
-            val res = JSONObject()
-            res.put("fast_score", "3:33")
-            res.put("perfect_score", "99")
-            res.put("total_score", "69")
-            val action = PlayFragmentDirections.gameFinish(res.toString())
+            val res = MyUtils.loadJsonFromAssets(requireActivity(), "result.json")
+            val action = PlayFragmentDirections.gameFinish(res)
             findNavController().navigate(action)
         }
     }
@@ -69,8 +72,17 @@ class PlayFragment : Fragment() {
         binding.tvLife.text = "${currentLife - 1}"
     }
 
-    private fun pauseGame() = binding.ibtnClose.setOnClickListener {
-        findNavController().popBackStack()
+    private fun quitGame() = binding.ibtnClose.setOnClickListener {
+        iOSDialogBuilder(requireContext())
+            .setTitle(requireContext().getString(R.string.confirm_dialog_msg))
+            .setSubtitle(requireContext().getString(R.string.confirm_quit_game_play))
+            .setBoldPositiveLabel(true)
+            .setNegativeListener(requireContext().getString(R.string.confirm_msg_stay)){
+                it.dismiss()
+            }.setPositiveListener(requireContext().getString(R.string.confirm_msg_quit)) {
+                it.dismiss()
+                findNavController().popBackStack()
+            }.build().show()
     }
 
     override fun onDestroyView() {

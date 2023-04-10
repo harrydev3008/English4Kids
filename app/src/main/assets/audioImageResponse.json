@@ -1,0 +1,39 @@
+{
+  "images": [
+    {
+      "id": 1,
+      "pairId": 1,
+      "imageUrl": -1,
+      "answer": "Ông",
+      "isAudioWordPairs": false,
+      "audio": ""
+    },
+    {
+      "id": 2,
+      "pairId": 2,
+      "imageUrl": -1,
+      "answer": "Gia đình",
+      "isAudioWordPairs": false,
+      "audio": ""
+    },
+    {
+      "id": 3,
+      "pairId": 3,
+      "imageUrl":-1,
+      "answer": "Chồng",
+      "isAudioWordPairs": false,
+      "audio": ""
+    },
+    {
+      "id": 4,
+      "pairId": 4,
+      "imageUrl": -1,
+      "answer": "Dê dừa",
+      "isAudioWordPairs": false,
+      "audio": ""
+    }
+  ],
+  "question": "grampa",
+  "correctAnswer": "Ông",
+  "allowedMoves": 0
+}

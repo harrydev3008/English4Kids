@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentMatchingAudioWordBinding
-import com.hisu.imastermatcher.model.PairMatchingModel
-import com.hisu.imastermatcher.model.PairMatchingResponse
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingResponse
+import com.hisu.imastermatcher.utils.MyUtils
 
 class MatchingAudioWordFragment(
     private val itemTapListener: () -> Unit,
@@ -40,16 +41,7 @@ class MatchingAudioWordFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        audioImageResponse = PairMatchingResponse(
-            listOf(
-                PairMatchingModel(1, 1, -1, "Ông"),
-                PairMatchingModel(2, 2, -1, "Gia đình"),
-                PairMatchingModel(3, 3, -1, "Bố"),
-                PairMatchingModel(4, 4, -1, "Chú"),
-            ),
-            "grampa",
-            "Ông"
-        )
+        audioImageResponse = Gson().fromJson(MyUtils.loadJsonFromAssets(requireActivity(), "audioImageResponse.json"), PairMatchingResponse::class.java)
 
         val audioImageAdapter = MatchingAudioWordAdapter(requireContext()) {
             answer = it.answer

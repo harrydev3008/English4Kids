@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hisu.imastermatcher.databinding.LayoutLevelCompletedBinding
 import com.hisu.imastermatcher.databinding.LayoutLevelCurrentBinding
 import com.hisu.imastermatcher.databinding.LayoutLevelLockBinding
-import com.hisu.imastermatcher.model.CourseLevel
+import com.hisu.imastermatcher.model.course.CourseLevel
 
 class LevelAdapter(
     val levelClickListener: (level: CourseLevel) -> Unit

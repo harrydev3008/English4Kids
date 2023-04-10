@@ -10,11 +10,14 @@ import androidx.navigation.findNavController
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.google.gson.Gson
 import com.hisu.imastermatcher.MainActivity
 import com.hisu.imastermatcher.adapter.CourseItemViewPagerAdapter
 import com.hisu.imastermatcher.databinding.FragmentCourseBinding
-import com.hisu.imastermatcher.model.Course
-import java.lang.Math.abs
+import com.hisu.imastermatcher.model.course.CoursesResponse
+import com.hisu.imastermatcher.utils.MyUtils
+import kotlin.math.abs
+
 
 class CourseFragment : Fragment() {
 
@@ -22,6 +25,7 @@ class CourseFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var courseAdapter: CourseItemViewPagerAdapter
     val binding get() = _binding!!
+    private lateinit var coursesResponse: CoursesResponse
 
     private val pageColors = listOf<String>(
         "#02AF84", "#FE63BD", "#20B0F5"
@@ -38,56 +42,24 @@ class CourseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //todo: call api to fetch courses data or get data from local room db
+        getCourses()
         initFeatureMovieList()
 
-        binding.vpCourses.registerOnPageChangeCallback(object: OnPageChangeCallback() {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {}
+        binding.vpCourses.registerOnPageChangeCallback(pageChangeCallback)
+    }
 
-            override fun onPageSelected(position: Int) {
-                val curColor = pageColors[binding.vpCourses.currentItem]
-                binding.parentContainer.setBackgroundColor(Color.parseColor(curColor))
-                binding.vpCourses.setBackgroundColor(Color.parseColor(curColor))
-                courseAdapter.changePage(position, curColor)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {}
-        })
+    private fun getCourses() {
+        coursesResponse = Gson().fromJson(MyUtils.loadJsonFromAssets(requireActivity(), "courses.json"), CoursesResponse::class.java)
     }
 
     private fun initFeatureMovieList() = binding.vpCourses.apply {
-        courseAdapter = CourseItemViewPagerAdapter { //course ->
-            //todo: implement go to course here
-            val action = CourseFragmentDirections.courseToLevel(mode = it.courseTitle)
+        courseAdapter = CourseItemViewPagerAdapter {
+            val action = CourseFragmentDirections.courseToLevel(mode = it.courseTitle, courseLevels = Gson().toJson(it.courseLevels))
             findNavController().navigate(action)
         }
 
-        courseAdapter.courses = mutableListOf(
-            Course(
-                courseTitle = "Phần giới thiệu Tiếng Anh",
-                courseDesc = "Khởi động cùng một số ngữ pháp và cụm từ đơn giản",
-                currentLevel = 8,
-                totalLevel = 8,
-                isComplete = true
-            ),
-            Course(
-                courseTitle = "Tiếng Anh Cơ Bản 1",
-                courseDesc = "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp cơ bản",
-                currentLevel = 2,
-                totalLevel = 20,
-                isComplete = false
-            ),
-            Course(
-                courseTitle = "Tiếng Anh Cơ Bản 2",
-                courseDesc = "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp nâng cao",
-                currentLevel = 0,
-                totalLevel = 20,
-                isComplete = false
-            ),
-        )
+        courseAdapter.courses = coursesResponse
 
         val transformer = CompositePageTransformer()
 
@@ -108,6 +80,22 @@ class CourseFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.vpCourses.unregisterOnPageChangeCallback(pageChangeCallback)
         _binding = null
+    }
+
+    private val pageChangeCallback = object : OnPageChangeCallback() {
+        override fun onPageScrolled(
+            position: Int, positionOffset: Float, positionOffsetPixels: Int
+        ) {}
+
+        override fun onPageSelected(position: Int) {
+            val curColor = pageColors[binding.vpCourses.currentItem]
+            binding.parentContainer.setBackgroundColor(Color.parseColor(curColor))
+            binding.vpCourses.setBackgroundColor(Color.parseColor(curColor))
+            courseAdapter.changePage(position, curColor)
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {}
     }
 }

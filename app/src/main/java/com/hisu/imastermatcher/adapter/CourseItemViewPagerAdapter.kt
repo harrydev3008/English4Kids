@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.imastermatcher.databinding.LayoutCourseItemBinding
-import com.hisu.imastermatcher.model.Course
+import com.hisu.imastermatcher.model.course.Course
 
 class CourseItemViewPagerAdapter(
     private val itemClickListener: (course: Course) -> Unit

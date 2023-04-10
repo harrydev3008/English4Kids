@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.model
+package com.hisu.imastermatcher.model.course
 
 data class CourseLevel(
     val id: Int,
