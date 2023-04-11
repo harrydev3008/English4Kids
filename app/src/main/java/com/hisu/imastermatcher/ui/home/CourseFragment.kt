@@ -22,7 +22,6 @@ import kotlin.math.abs
 class CourseFragment : Fragment() {
 
     private var _binding: FragmentCourseBinding? = null
-    private lateinit var mainActivity: MainActivity
     private lateinit var courseAdapter: CourseItemViewPagerAdapter
     val binding get() = _binding!!
     private lateinit var coursesResponse: CoursesResponse
@@ -85,9 +84,7 @@ class CourseFragment : Fragment() {
     }
 
     private val pageChangeCallback = object : OnPageChangeCallback() {
-        override fun onPageScrolled(
-            position: Int, positionOffset: Float, positionOffsetPixels: Int
-        ) {}
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
         override fun onPageSelected(position: Int) {
             val curColor = pageColors[binding.vpCourses.currentItem]

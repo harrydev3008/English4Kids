@@ -1,50 +1,61 @@
-package com.hisu.imastermatcher.ui.play_style.type_answer
+package com.hisu.imastermatcher.ui.gameplay.audio_word
 
+import android.media.MediaPlayer
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.hisu.imastermatcher.R
-import com.hisu.imastermatcher.databinding.FragmentTypeAnswerBinding
-import com.hisu.imastermatcher.model.SentenceQuestion
+import com.hisu.imastermatcher.databinding.FragmentMatchingAudioWordBinding
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingResponse
+import com.hisu.imastermatcher.utils.MyUtils
 
-class TypeAnswerFragment(
+class MatchingAudioWordFragment(
     private val itemTapListener: () -> Unit,
     private val wrongAnswerListener: () -> Unit
 ) : Fragment() {
 
-    private var _binding: FragmentTypeAnswerBinding? = null
+    private var _binding: FragmentMatchingAudioWordBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var audioImageResponse: PairMatchingResponse
     private val _result = MutableLiveData<Boolean>()
     private val result: LiveData<Boolean> = _result
+    private lateinit var answer: String
 
-    private lateinit var questionModel: SentenceQuestion
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val mediaPlayer: MediaPlayer = MediaPlayer()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTypeAnswerBinding.inflate(inflater, container, false)
+        _binding = FragmentMatchingAudioWordBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        questionModel = SentenceQuestion(
-            1, "Dịch câu này", "I like cooking", "tôi thích nấu ăn", listOf()
-        )
+        audioImageResponse = Gson().fromJson(MyUtils.loadJsonFromAssets(requireActivity(), "audioImageResponse.json"), PairMatchingResponse::class.java)
 
-        binding.tvModeLevel.text = questionModel.title
-        binding.tvQuestion.text = questionModel.question
+        val audioImageAdapter = MatchingAudioWordAdapter(requireContext()) {
+            answer = it.answer
+
+            if (!binding.btnCheck.btnNextRound.isEnabled) {
+                binding.btnCheck.btnNextRound.isEnabled = true
+                binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.check)
+                binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.classic))
+                binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+            }
+        }
+
+        audioImageAdapter.pairs = audioImageResponse.data
+
+        binding.rvPickAnswer.adapter = audioImageAdapter
 
         result.observe(viewLifecycleOwner) {
             if (it == true) {
@@ -54,6 +65,8 @@ class TypeAnswerFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+
+                audioImageAdapter.isLockView = true
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -61,39 +74,35 @@ class TypeAnswerFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+                audioImageAdapter.isLockView = true
+
                 wrongAnswerListener.invoke()
             }
         }
 
         checkAnswer()
-        handleEditTextChange()
+        playAudio()
     }
 
     private fun checkAnswer() = binding.btnCheck.btnNextRound.setOnClickListener {
-        if (binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.check))) {
-            if (binding.edtAnswer.text.toString().trim().equals(questionModel.answer, ignoreCase = true)) {
+        if (binding.btnCheck.btnNextRound.text == requireContext().getString(R.string.check)) {
+            if (answer == audioImageResponse.correctAnswer) {
                 _result.postValue(true)
             } else {
                 _result.postValue(false)
-                binding.btnCheck.tvCorrectAnswer.text = questionModel.answer
+                binding.btnCheck.tvCorrectAnswer.text = audioImageResponse.correctAnswer
             }
-        } else if (binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.next))) {
+        } else {
             itemTapListener.invoke()
         }
     }
 
-    private fun handleEditTextChange() = binding.edtAnswer.addTextChangedListener {
-        if (it.toString().isNotEmpty()) {
-            binding.btnCheck.btnNextRound.isEnabled = true
-            binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.check)
-            binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.classic))
-            binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-        } else {
-            binding.btnCheck.btnNextRound.isEnabled = false
-            binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.check)
-            binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.gray_e5))
-            binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.gray_af))
-        }
+    private fun playAudio() = binding.ibtnAudioQuestion.setOnClickListener {
+        mediaPlayer.stop()
+        mediaPlayer.reset()
+        mediaPlayer.setDataSource(audioImageResponse.question)
+        mediaPlayer.prepare()
+        mediaPlayer.start()
     }
 
     override fun onDestroyView() {

@@ -3,8 +3,7 @@ package com.hisu.imastermatcher.model.pair_matching
 data class PairMatchingModel(
     var id: Int,
     var pairId: Int,
-    var imageUrl: Int,
+    var url: String, //could be image_url or audio_url
     var answer: String,
-    var isAudioWordPairs: Boolean = false,
-    var audio: String?= null
+    var isAudioQuestion: Boolean = false
 )

@@ -1,7 +1,7 @@
 package com.hisu.imastermatcher.model.card
 
 data class CardsResponse (
-    var cards: List<Card>,
+    var data: List<Card>,
     var totalPairs: Int,
-    var allowedWrongMoveAmount: Int
+    var allowedMoves: Int
 )

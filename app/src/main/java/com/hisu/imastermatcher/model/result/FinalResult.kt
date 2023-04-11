@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.model
+package com.hisu.imastermatcher.model.result
 
 data class FinalResult(
     var fastScore: String,

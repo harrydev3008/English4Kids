@@ -1,23 +1,18 @@
-package com.hisu.imastermatcher.ui.play_style.complete_sentence
+package com.hisu.imastermatcher.ui.gameplay.complete_sentence
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
 import android.view.*
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentSentenceStyleBinding
-import com.hisu.imastermatcher.model.SentenceQuestion
+import com.hisu.imastermatcher.model.translate_question.TranslateQuestionModel
 import com.hisu.imastermatcher.widget.CustomWord
 import com.hisu.imastermatcher.widget.MyCustomLayout
-import es.dmoral.toasty.Toasty
 import java.util.*
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class SentenceStyleFragment(
     private val itemTapListener: () -> Unit,
@@ -29,7 +24,7 @@ class SentenceStyleFragment(
     private val _result = MutableLiveData<Boolean>()
     private val result: LiveData<Boolean> = _result
 
-    private lateinit var questionModel: SentenceQuestion
+    private lateinit var questionModel: TranslateQuestionModel
     private lateinit var myCustomLayout: MyCustomLayout
     private lateinit var customWord: CustomWord
 
@@ -50,7 +45,7 @@ class SentenceStyleFragment(
 
         initCustomLayout()
 
-        questionModel = SentenceQuestion(
+        questionModel = TranslateQuestionModel(
             1, "Dịch câu này", "Bạn bao nhiêu tuổi?", "How old are you?",
             listOf(
                 "She",

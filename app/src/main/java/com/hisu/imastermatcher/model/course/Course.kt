@@ -6,5 +6,5 @@ data class Course (
     var currentLevel: Int = 0,
     var isComplete: Boolean = false,
     var courseDesc: String,
-    var courseLevels: List<CourseLevel>
+    var courseLevels: List<Lesson>
 )

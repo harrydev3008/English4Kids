@@ -31,6 +31,7 @@
     <string name="confirm_otp">Xác Nhận</string>
     <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
     <string name="resend_otp">Gửi lại mã</string>
+    <string name="lesson_pattern">Cửa %1$d</string>
     <!--    <string name="login_desc">??</string>-->
 
     <string name="complete_round_within">Hoàn thành trong vòng</string>
@@ -46,8 +47,9 @@
 
     <string name="confirm_dialog_msg">Xác nhận</string>
     <string name="warning_dialog_msg">Cảnh báo</string>
-    <string name="confirm_quit_game_play">Bạn có chắc chắn muốn thoát màn chơi không?!</string>
-    <string name="confirm_msg_quit">Thoát</string>
+    <string name="quit_title">Đợi đã, đừng đi mà!</string>
+    <string name="confirm_quit_game_play">Bạn có chắc muốn thoát không?! Nếu thoát bạn sẽ mất tiến trình của bài học này.</string>
+    <string name="confirm_msg_quit">Dừng lại</string>
     <string name="confirm_msg_stay">Chơi tiếp</string>
 
     <!--  String patterns  -->

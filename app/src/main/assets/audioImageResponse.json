@@ -1,39 +1,31 @@
 {
-  "images": [
+  "data": [
     {
       "id": 1,
       "pairId": 1,
-      "imageUrl": -1,
-      "answer": "Ông",
-      "isAudioWordPairs": false,
-      "audio": ""
+      "url": -1,
+      "answer": "Ông"
     },
     {
       "id": 2,
       "pairId": 2,
-      "imageUrl": -1,
-      "answer": "Gia đình",
-      "isAudioWordPairs": false,
-      "audio": ""
+      "url": -1,
+      "answer": "Gia đình"
     },
     {
       "id": 3,
       "pairId": 3,
-      "imageUrl":-1,
-      "answer": "Chồng",
-      "isAudioWordPairs": false,
-      "audio": ""
+      "url":-1,
+      "answer": "Chồng"
     },
     {
       "id": 4,
       "pairId": 4,
-      "imageUrl": -1,
-      "answer": "Dê dừa",
-      "isAudioWordPairs": false,
-      "audio": ""
+      "url": -1,
+      "answer": "Dê dừa"
     }
   ],
-  "question": "grampa",
+  "question": "https://firebasestorage.googleapis.com/v0/b/englisk4kidsdemo.appspot.com/o/baseball.mp3?alt=media&token=9126c562-e50c-4d4a-a449-49a78f6f5c80",
   "correctAnswer": "Ông",
   "allowedMoves": 0
 }

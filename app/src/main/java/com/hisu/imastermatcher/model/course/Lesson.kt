@@ -1,6 +1,6 @@
 package com.hisu.imastermatcher.model.course
 
-data class CourseLevel(
+data class Lesson(
     val id: Int,
     /*
     * status:

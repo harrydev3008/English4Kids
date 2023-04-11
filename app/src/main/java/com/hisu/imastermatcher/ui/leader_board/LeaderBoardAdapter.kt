@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.LayoutItemLeaderBoardBinding
-import com.hisu.imastermatcher.model.leader_board.LeaderBoardUser
+import com.hisu.imastermatcher.model.leader_board.LeaderBoardModel
 
 class LeaderBoardAdapter(var context: Context) :
     RecyclerView.Adapter<LeaderBoardAdapter.LeaderBoardItemViewHolder>() {
 
-    var leaderBoardUsers = mutableListOf<LeaderBoardUser>()
+    var leaderBoardUsers = mutableListOf<LeaderBoardModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaderBoardItemViewHolder {
         return LeaderBoardItemViewHolder(
@@ -30,7 +30,7 @@ class LeaderBoardAdapter(var context: Context) :
 
     inner class LeaderBoardItemViewHolder(var binding: LayoutItemLeaderBoardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(context:Context, data: LeaderBoardUser) = binding.apply {
+        fun bindData(context:Context, data: LeaderBoardModel) = binding.apply {
             tvIndex.text = "${data.rank}"
             tvUsername.text = data.username
             tvWeekExp.text = String.format(context.getString(R.string.weekly_exp_pattern), data.totalScore)

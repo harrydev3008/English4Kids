@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.ui.play_style.match_pairs
+package com.hisu.imastermatcher.ui.gameplay.match_pairs
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -42,7 +42,7 @@ class MatchingWordPairsAdapter(
         }
 
     override fun getItemViewType(position: Int): Int {
-        return if (pairs[position].isAudioWordPairs) AUDIO_WORD_PAIRS_TYPE else WORD_PAIRS_TYPE
+        return if (pairs[position].isAudioQuestion) AUDIO_WORD_PAIRS_TYPE else WORD_PAIRS_TYPE
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

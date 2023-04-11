@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.ui.play_style.match_pairs
+package com.hisu.imastermatcher.ui.gameplay.match_pairs
 
 import android.os.Bundle
 import android.os.Handler
@@ -69,20 +69,20 @@ class MatchingWordPairsFragment(
         //todo: later will add audio - word pairs
         wordPairsResponse = PairMatchingResponse(
             listOf(
-                PairMatchingModel(1, 1, -1, "Màu đen", isAudioWordPairs = false),
-                PairMatchingModel(2, 2, -1, "grampa", isAudioWordPairs = true),
+                PairMatchingModel(1, 1, "-1", "Màu đen"),
+                PairMatchingModel(2, 2, "-1", "grampa", isAudioQuestion = true),
 
-                PairMatchingModel(3, 3, -1, "Bóng chày", isAudioWordPairs = false),
-                PairMatchingModel(4, 4, -1, "old", isAudioWordPairs = true),
+                PairMatchingModel(3, 3, "-1", "Bóng chày"),
+                PairMatchingModel(4, 4, "-1", "old", isAudioQuestion = true),
 
-                PairMatchingModel(5, 2, -1, "Ông", isAudioWordPairs = false),
-                PairMatchingModel(6, 5, -1, "fish", isAudioWordPairs = true),
+                PairMatchingModel(5, 2, "-1", "Ông"),
+                PairMatchingModel(6, 5, "-1", "fish", isAudioQuestion = true),
 
-                PairMatchingModel(7, 4, -1, "Cũ", isAudioWordPairs = false),
-                PairMatchingModel(8, 3, -1, "baseball", isAudioWordPairs = true),
+                PairMatchingModel(7, 4, "-1", "Cũ"),
+                PairMatchingModel(8, 3, "-1", "baseball", isAudioQuestion = true),
 
-                PairMatchingModel(9, 5, -1, "Con cá", isAudioWordPairs = false),
-                PairMatchingModel(10, 1, -1, "black", isAudioWordPairs = true),
+                PairMatchingModel(9, 5, "-1", "Con cá"),
+                PairMatchingModel(10, 1, "-1", "black", isAudioQuestion = true),
             ),
             "",
             "",
@@ -93,7 +93,7 @@ class MatchingWordPairsFragment(
 
         wordPairsAdapter = MatchingWordPairsAdapter(requireContext(), ::handle)
 
-        wordPairsAdapter.pairs = wordPairsResponse.images
+        wordPairsAdapter.pairs = wordPairsResponse.data
 
         binding.rvMatchingPairs.adapter = wordPairsAdapter
 
@@ -130,7 +130,7 @@ class MatchingWordPairsFragment(
             //in audio - word gameplay
             //if previous item & current item is audio, then reset select color of prev item
             //todo: play audio later
-            if(prev?.isAudioWordPairs == true && item.isAudioWordPairs == true) {
+            if(prev?.isAudioQuestion == true && item.isAudioQuestion == true) {
                 wordPairsAdapter.resetPairsSelected(prevPos)
                 prev = item
                 prevPos = position

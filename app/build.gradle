@@ -46,6 +46,7 @@ dependencies {
     def life_cycle_version = '2.5.1'
     def lottieVersion = '6.0.0'
     def retrofit_version = '2.9.0'
+    def glide_version = '4.15.1'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -100,4 +101,7 @@ dependencies {
     //working with API lib
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //image loading lib
+    implementation "com.github.bumptech.glide:glide:$glide_version"
 }

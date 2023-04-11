@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.ui.mode_level
+package com.hisu.imastermatcher.ui.lessons
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,23 +9,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import com.hisu.imastermatcher.R
-import com.hisu.imastermatcher.databinding.FragmentModeLevelBinding
-import com.hisu.imastermatcher.model.card.Card
-import com.hisu.imastermatcher.model.course.CourseLevelsResponse
-
+import com.hisu.imastermatcher.databinding.FragmentLessonsBinding
+import com.hisu.imastermatcher.model.course.LessonsResponse
 
 class ClassModeLevelFragment : Fragment() {
 
-    private var _binding: FragmentModeLevelBinding? = null
+    private var _binding: FragmentLessonsBinding? = null
     private val binding get() = _binding!!
     private val myNavArgs: ClassModeLevelFragmentArgs by navArgs()
-    private var levelAdapter: LevelAdapter? = null
+    private var levelAdapter: LessonAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentModeLevelBinding.inflate(inflater, container, false)
+        _binding = FragmentLessonsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,7 +48,7 @@ class ClassModeLevelFragment : Fragment() {
     }
 
     private fun setUpLevels() = binding.rvLevels.apply {
-        levelAdapter = LevelAdapter() {
+        levelAdapter = LessonAdapter(requireContext()) {
             findNavController().navigate(R.id.mode_to_play)
         }
 
@@ -59,8 +57,6 @@ class ClassModeLevelFragment : Fragment() {
     }
 
     private fun loadLevel() {
-        val levels = Gson().fromJson(myNavArgs.courseLevels, CourseLevelsResponse::class.java)
-
-        levelAdapter?.items = levels
+        levelAdapter?.lessons = Gson().fromJson(myNavArgs.courseLevels, LessonsResponse::class.java)
     }
 }

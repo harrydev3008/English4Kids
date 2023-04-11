@@ -33,9 +33,9 @@
 
     <fragment
         android:id="@+id/classModeLevelFragment"
-        android:name="com.hisu.imastermatcher.ui.mode_level.ClassModeLevelFragment"
+        android:name="com.hisu.imastermatcher.ui.lessons.ClassModeLevelFragment"
         android:label="fragment_class_mode_level"
-        tools:layout="@layout/fragment_mode_level" >
+        tools:layout="@layout/fragment_lessons" >
         <argument
             android:name="mode"
             app:argType="string"

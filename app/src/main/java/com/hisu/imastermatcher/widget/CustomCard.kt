@@ -4,10 +4,15 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.graphics.Bitmap
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.model.card.Card
 import com.makeramen.roundedimageview.RoundedImageView
@@ -33,7 +38,7 @@ class CustomCard(context: Context) : RoundedImageView(context) {
             context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._4sdp)
         )
 
-        visibility = if (card.visible) View.INVISIBLE else View.VISIBLE
+        visibility = if (card.isVisible) View.INVISIBLE else View.VISIBLE
 
         myLayoutParams.width =
             context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._70sdp)
@@ -42,7 +47,13 @@ class CustomCard(context: Context) : RoundedImageView(context) {
 
         cornerRadius = context.resources.getDimension(com.intuit.sdp.R.dimen._6sdp)
         scaleType = ScaleType.CENTER_CROP
-        setImageResource(card.imagePath)
+
+        Glide.with(context).asBitmap().load(card.imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(object : SimpleTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    setImageBitmap(resource)
+                }
+            })
 
         layoutParams = myLayoutParams
         textAlignment = TEXT_ALIGNMENT_CENTER

@@ -10,9 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentGameFinishBinding
-import com.hisu.imastermatcher.model.FinalResult
-import com.hisu.imastermatcher.ui.play_screen.PlayFragmentArgs
-import org.json.JSONObject
+import com.hisu.imastermatcher.model.result.FinalResult
 
 class GameFinishFragment : Fragment() {
 

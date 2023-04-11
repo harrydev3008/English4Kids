@@ -1,13 +1,11 @@
-package com.hisu.imastermatcher.ui.play_style.class_pairs_matching
+package com.hisu.imastermatcher.ui.gameplay.class_pairs_matching
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +14,15 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentClassicPairsMatchingBinding
 import com.hisu.imastermatcher.model.card.Card
 import com.hisu.imastermatcher.model.card.CardsResponse
+import com.hisu.imastermatcher.utils.MyUtils
 import com.hisu.imastermatcher.widget.CustomCard
 import com.makeramen.roundedimageview.RoundedImageView
 
@@ -57,26 +60,28 @@ class ClassicPairsMatchingFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //todo: impl later
+        val str =
+            "https://firebasestorage.googleapis.com/v0/b/englisk4kidsdemo.appspot.com/o/bg_family_vn.png?alt=media&token=86b037f6-3394-4614-a88a-e9742095d058"
+
         val cards = listOf(
-            Card(1, "1", R.drawable.bg_husband_vn, false),
-            Card(2, "3", R.drawable.bg_grandma_vn, false),
-            Card(3, "2", R.drawable.bg_family_en, false),
-            Card(4, "4", R.drawable.bg_grandpa_en, false),
-            Card(5, "-1", -1, true),
-            Card(6, "4", R.drawable.bg_grandpa_vn, false),
-            Card(7, "3", R.drawable.bg_grandma_en, false),
-            Card(8, "2", R.drawable.bg_family_vn, false),
-            Card(9, "1", R.drawable.bg_husband_en, false)
+            Card(1, 1, str, false),
+            Card(2, 3, str, false),
+            Card(3, 2, str, false),
+            Card(4, 4, str, false),
+            Card(5, -1, "", true),
+            Card(6, 4, str, false),
+            Card(7, 3, str, false),
+            Card(8, 2, str, false),
+            Card(9, 1, str, false)
         )
 
         cardsResponse = CardsResponse(cards, 4, 6)
 
-        val redText = SpannableString(" ${cardsResponse.allowedWrongMoveAmount} ")
-        redText.setSpan(ForegroundColorSpan(resources.getColor(R.color.light_red)), 0, redText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        binding.tvModeLevel.append(redText)
+        binding.tvModeLevel.append(MyUtils.SpannableText(" ${cardsResponse.allowedMoves} ", "#ca5866"))
         binding.tvModeLevel.append("lượt")
 
-        cardsResponse.cards.forEach {
+        cardsResponse.data.forEach {
             binding.rvMatchingPairs.addView(CustomCard(requireContext(), it, ::cardItemClick))
         }
 
@@ -108,8 +113,12 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 binding.btnCheck.tvCorrectAnswerDesc.text =
-                        String.format(requireContext().getString(R.string.complete_within_turn), cardsResponse.allowedWrongMoveAmount)
-                binding.btnCheck.tvCorrectAnswer.text = requireContext().getString(R.string.better_luck_next_time)
+                    String.format(
+                        requireContext().getString(R.string.complete_within_turn),
+                        cardsResponse.allowedMoves
+                    )
+                binding.btnCheck.tvCorrectAnswer.text =
+                    requireContext().getString(R.string.better_luck_next_time)
 
                 wrongAnswerListener.invoke()
             }
@@ -119,7 +128,7 @@ class ClassicPairsMatchingFragment(
     }
 
     private fun lockViews() {
-        for(i in 0 until binding.rvMatchingPairs.childCount) {
+        for (i in 0 until binding.rvMatchingPairs.childCount) {
             (binding.rvMatchingPairs.getChildAt(i) as CustomCard).isClickable = false
         }
     }
@@ -127,11 +136,11 @@ class ClassicPairsMatchingFragment(
     private fun cardItemClick(card: Card, front: View) {
         if (prev != null) {
 
-            if (prev?.cardID == card.cardID) return
+            if (prev?.id == card.id) return
 
             flipCard(front as ImageView, card, false)
 
-            if (card.id.lowercase().equals(prev?.id)) {
+            if (card.cardID == prev?.cardID) {
                 Handler(requireContext().mainLooper).postDelayed({
                     front.visibility = View.GONE
                     prevImage.visibility = View.GONE
@@ -153,7 +162,7 @@ class ClassicPairsMatchingFragment(
 
                     wrongMove++
 
-                    if (wrongMove == cardsResponse.allowedWrongMoveAmount) {
+                    if (wrongMove == cardsResponse.allowedMoves) {
                         _result.postValue(false)
                     }
                 }, 400)
@@ -165,7 +174,7 @@ class ClassicPairsMatchingFragment(
         }
     }
 
-    private fun flipCard(image: ImageView, card: Card, hide: Boolean) {
+    private fun flipCard(image: ImageView, card: Card, isHidden: Boolean) {
         val oa1 = ObjectAnimator.ofFloat(image, "scaleX", 1f, 0f)
         val oa2 = ObjectAnimator.ofFloat(image, "scaleX", 0f, 1f)
 
@@ -176,10 +185,20 @@ class ClassicPairsMatchingFragment(
             override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
                 super.onAnimationEnd(animation, isReverse)
 
-                if (hide)
+                if (isHidden)
                     image.setImageResource(R.drawable.placeholder)
-                else
-                    image.setImageResource(card.imagePath)
+                else {
+                    Glide.with(requireContext())
+                        .asBitmap().load(card.imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(
+                                resource: Bitmap,
+                                transition: Transition<in Bitmap>?
+                            ) {
+                                image.setImageBitmap(resource)
+                            }
+                        })
+                }
 
                 oa2.start()
             }

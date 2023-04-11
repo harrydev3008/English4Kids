@@ -1,12 +1,8 @@
 package com.hisu.imastermatcher.model.card
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class Card(
+    val id: Int,
     val cardID: Int,
-    val id: String,
-    val imagePath: Int,
-    var visible: Boolean
-): Parcelable
+    val imageUrl: String,
+    var isVisible: Boolean
+)

@@ -1,4 +1,4 @@
-package com.hisu.imastermatcher.ui.play_style.audio_image
+package com.hisu.imastermatcher.ui.gameplay.audio_word
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.imastermatcher.R
-import com.hisu.imastermatcher.databinding.LayoutItemCardImageBinding
+import com.hisu.imastermatcher.databinding.LayoutItemCardWordBinding
 import com.hisu.imastermatcher.model.pair_matching.PairMatchingModel
 
-class MatchingAudioImageAdapter(
+class MatchingAudioWordAdapter(
     var context: Context,
     private val itemTapListener: (item: PairMatchingModel) -> Unit
-) : RecyclerView.Adapter<MatchingAudioImageAdapter.CardImageViewHolder>() {
+) : RecyclerView.Adapter<MatchingAudioWordAdapter.CardWordViewHolder>() {
 
     var pairs = listOf<PairMatchingModel>()
     var isLockView = false
@@ -21,15 +21,15 @@ class MatchingAudioImageAdapter(
     private var prevPick: LinearLayout?= null
     private var curPick: LinearLayout?= null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardImageViewHolder {
-        return CardImageViewHolder(
-            LayoutItemCardImageBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardWordViewHolder {
+        return CardWordViewHolder(
+            LayoutItemCardWordBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: CardImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CardWordViewHolder, position: Int) {
         val pair = pairs[position]
 
         holder.apply {
@@ -57,11 +57,10 @@ class MatchingAudioImageAdapter(
 
     override fun getItemCount(): Int = pairs.size
 
-    inner class CardImageViewHolder(var binding: LayoutItemCardImageBinding) :
+    inner class CardWordViewHolder(var binding: LayoutItemCardWordBinding) :
         RecyclerView.ViewHolder(binding.root) {
-             fun bindData(data: PairMatchingModel) = binding.apply {
-                imvAnswerImage.setImageResource(data.imageUrl)
-                tvAnswer.text = data.answer
-            }
+        fun bindData(data: PairMatchingModel) = binding.apply {
+            tvAnswer.text = data.answer
         }
+    }
 }

@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
-import com.google.gson.Gson
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentPlayBinding
-import com.hisu.imastermatcher.model.FinalResult
 import com.hisu.imastermatcher.utils.MyUtils
-import org.json.JSONObject
+import es.dmoral.toasty.Toasty
 
 class PlayFragment : Fragment() {
 
     private var _binding: FragmentPlayBinding? = null
     private val binding get() = _binding!!
+    private var startGamePlayTime: Long = 0
 
     private lateinit var tempQuestions: List<String>
 
@@ -34,11 +33,14 @@ class PlayFragment : Fragment() {
 
         quitGame()
 
+        //todo: impl later
+        calculatePlayTime()
+
         //Todo: update later
         tempQuestions = listOf<String>(
 //            "classic_pairs",
 //            "word_pair",
-//            "audio_word_pair",
+            "audio_word_pair",
 //            "audio_image_pair",
 //            "sentence",
             "lol"
@@ -61,6 +63,11 @@ class PlayFragment : Fragment() {
                 .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
         } else {
             //TODO: use some 'method' to calculate total score later
+
+            val finishTime = System.currentTimeMillis()
+
+            Toasty.error(requireContext(), "${finishTime}, ${startGamePlayTime}, ${(finishTime - startGamePlayTime) / 1000}s", Toasty.LENGTH_SHORT).show()
+
             val res = MyUtils.loadJsonFromAssets(requireActivity(), "result.json")
             val action = PlayFragmentDirections.gameFinish(res)
             findNavController().navigate(action)
@@ -83,6 +90,14 @@ class PlayFragment : Fragment() {
                 it.dismiss()
                 findNavController().popBackStack()
             }.build().show()
+    }
+
+    private fun calculatePlayTime() {
+        startGamePlayTime = System.currentTimeMillis()
+    }
+
+    private fun calculateFinalResult() {
+        //todo: impl later
     }
 
     override fun onDestroyView() {

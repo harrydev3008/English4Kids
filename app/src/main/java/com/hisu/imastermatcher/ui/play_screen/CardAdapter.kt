@@ -3,12 +3,18 @@ package com.hisu.imastermatcher.ui.play_screen
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.LayoutItemCardBinding
 import com.hisu.imastermatcher.model.card.Card
@@ -33,7 +39,18 @@ class CardAdapter(val itemTapListener: (card: Card, img: View) -> Unit) :
 
         holder.binding.apply {
 
-            rimvCoverImage.setImageResource(item.imagePath)
+//            rimvCoverImage.setImageResource(item.imagePath)
+
+//            Glide.with(con)
+//                .asBitmap().load(card.imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(object : SimpleTarget<Bitmap>() {
+//                    override fun onResourceReady(
+//                        resource: Bitmap,
+//                        transition: Transition<in Bitmap>?
+//                    ) {
+//                        image.setImageBitmap(resource)
+//                    }
+//                })
 
             if (item.id.equals("-1")) {
                 rimvCoverImage.visibility = View.INVISIBLE

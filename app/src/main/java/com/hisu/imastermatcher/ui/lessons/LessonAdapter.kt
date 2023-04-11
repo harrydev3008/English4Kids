@@ -1,20 +1,24 @@
-package com.hisu.imastermatcher.ui.mode_level
+package com.hisu.imastermatcher.ui.lessons
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.LayoutLevelCompletedBinding
 import com.hisu.imastermatcher.databinding.LayoutLevelCurrentBinding
 import com.hisu.imastermatcher.databinding.LayoutLevelLockBinding
-import com.hisu.imastermatcher.model.course.CourseLevel
+import com.hisu.imastermatcher.model.course.Lesson
 
-class LevelAdapter(
-    val levelClickListener: (level: CourseLevel) -> Unit
+class LessonAdapter(
+    var context: Context,
+    private val levelClickListener: (level: Lesson) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var items: List<CourseLevel>
+    var lessons: List<Lesson>
         set(value) = differ.submitList(value)
         get() = differ.currentList
 
@@ -41,7 +45,7 @@ class LevelAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        val curLevel = items[position]
+        val curLevel = lessons[position]
 
         when (holder) {
             is CompletedLevelViewHolder -> {
@@ -65,35 +69,35 @@ class LevelAdapter(
         }
     }
 
-    override fun getItemViewType(position: Int): Int = when (items[position].status) {
+    override fun getItemViewType(position: Int): Int = when (lessons[position].status) {
         ViewType.LOCKED_TYPE.type -> -1
         ViewType.CURRENT_TYPE.type -> 0
         else -> 1
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = lessons.size
 
     inner class CompletedLevelViewHolder(val binding: LayoutLevelCompletedBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CourseLevel) = binding.apply {
-            tvLevel.text = "Cửa ${item.id}"
-            tvLevelDesc.text = "${item.description}"
+        fun bind(item: Lesson) = binding.apply {
+            tvLevel.text = String.format(context.getString(R.string.lesson_pattern), item.id)
+            tvLevelDesc.text = item.description
             rbLevelRate.rating = item.score
         }
     }
 
     inner class CurrentLevelViewHolder(val binding: LayoutLevelCurrentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CourseLevel) = binding.apply {
-            tvCurrentLevel.text = "Cửa ${item.id}"
-            tvCurrentLevelDesc.text = "${item.description}"
+        fun bind(item: Lesson) = binding.apply {
+            tvCurrentLevel.text = String.format(context.getString(R.string.lesson_pattern), item.id)
+            tvCurrentLevelDesc.text = item.description
         }
     }
 
     inner class LockLevelViewHolder(val binding: LayoutLevelLockBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(item: CourseLevel) = binding.apply {
-                tvNextLevelDesc.text = "${item.description}"
+            fun bind(item: Lesson) = binding.apply {
+                tvNextLevelDesc.text = item.description
             }
         }
 
@@ -103,15 +107,15 @@ class LevelAdapter(
         PLAYED_TYPE(1)
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<CourseLevel>() {
-        override fun areItemsTheSame(oldItem: CourseLevel, newItem: CourseLevel): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Lesson>() {
+        override fun areItemsTheSame(oldItem: Lesson, newItem: Lesson): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: CourseLevel, newItem: CourseLevel): Boolean {
+        override fun areContentsTheSame(oldItem: Lesson, newItem: Lesson): Boolean {
             return oldItem.id == newItem.id
         }
     }
 
-    private val differ = AsyncListDiffer<CourseLevel>(this, diffCallback)
+    private val differ = AsyncListDiffer<Lesson>(this, diffCallback)
 }

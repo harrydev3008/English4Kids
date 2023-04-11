@@ -1,26 +1,23 @@
-package com.hisu.imastermatcher.ui.play_style.audio_word
+package com.hisu.imastermatcher.ui.gameplay.audio_image
 
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.Gson
 import com.hisu.imastermatcher.R
-import com.hisu.imastermatcher.databinding.FragmentMatchingAudioWordBinding
+import com.hisu.imastermatcher.databinding.FragmentMatchingAudioImagePairsBinding
+import com.hisu.imastermatcher.model.pair_matching.PairMatchingModel
 import com.hisu.imastermatcher.model.pair_matching.PairMatchingResponse
-import com.hisu.imastermatcher.utils.MyUtils
 
-class MatchingAudioWordFragment(
+class MatchingAudioImagePairsFragment(
     private val itemTapListener: () -> Unit,
     private val wrongAnswerListener: () -> Unit
 ) : Fragment() {
 
-    private var _binding: FragmentMatchingAudioWordBinding? = null
+    private var _binding: FragmentMatchingAudioImagePairsBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var audioImageResponse: PairMatchingResponse
@@ -28,22 +25,35 @@ class MatchingAudioWordFragment(
     private val result: LiveData<Boolean> = _result
     private lateinit var answer: String
 
-    private val mediaPlayer: MediaPlayer = MediaPlayer()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMatchingAudioWordBinding.inflate(inflater, container, false)
+        _binding = FragmentMatchingAudioImagePairsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        audioImageResponse = Gson().fromJson(MyUtils.loadJsonFromAssets(requireActivity(), "audioImageResponse.json"), PairMatchingResponse::class.java)
+        audioImageResponse = PairMatchingResponse(
+            listOf(
+                PairMatchingModel(1,1, "", "Ông"),
+                PairMatchingModel(2,2, "", "Gia đình"),
+                PairMatchingModel(3,3, "", "Chồng"),
+                PairMatchingModel(4,4, "", "Dê dừa"),
+            ),
+            "Coco-goat",
+            "Dê dừa"
+        )
 
-        val audioImageAdapter = MatchingAudioWordAdapter(requireContext()) {
+        binding.tvQuestion.text = audioImageResponse.question
+
+        val audioImageAdapter = MatchingAudioImageAdapter(requireContext()) {
             answer = it.answer
 
             if (!binding.btnCheck.btnNextRound.isEnabled) {
@@ -54,7 +64,7 @@ class MatchingAudioWordFragment(
             }
         }
 
-        audioImageAdapter.pairs = audioImageResponse.images
+        audioImageAdapter.pairs = audioImageResponse.data
 
         binding.rvPickAnswer.adapter = audioImageAdapter
 
@@ -82,7 +92,6 @@ class MatchingAudioWordFragment(
         }
 
         checkAnswer()
-        playAudio()
     }
 
     private fun checkAnswer() = binding.btnCheck.btnNextRound.setOnClickListener {
@@ -96,22 +105,6 @@ class MatchingAudioWordFragment(
         } else {
             itemTapListener.invoke()
         }
-    }
-
-    private fun playAudio() = binding.ibtnAudioQuestion.setOnClickListener {
-        mediaPlayer.stop()
-        mediaPlayer.reset()
-        mediaPlayer.setDataSource(
-            requireContext(), Uri.parse(
-                String.format(
-                    requireContext().getString(R.string.audio_file_path),
-                    requireContext().packageName,
-                    audioImageResponse.question
-                )
-            )
-        )
-        mediaPlayer.prepare()
-        mediaPlayer.start()
     }
 
     override fun onDestroyView() {
