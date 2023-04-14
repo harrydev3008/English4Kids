@@ -36,7 +36,7 @@ class SplashScreenFragment : Fragment() {
                 withContext(Dispatchers.Default) { getLoginStatus() }
 
             if (isLogIn)
-                findNavController().navigate(R.id.splash_to_course)
+                findNavController().navigate(R.id.splash_to_home)
             else
                 findNavController().navigate(R.id.splash_to_regis)
         }

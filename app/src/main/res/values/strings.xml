@@ -1,28 +1,16 @@
 <resources>
     <string name="app_name">Englisk 4 Kids</string>
 
-    <string name="mode_classic">Classic</string>
-    <string name="mode_timer">Timer</string>
-    <string name="mode_topic">Topic</string>
-    <string name="mode_challenge">Challenge</string>
-    <string name="my_collections">My Collections</string>
-    <string name="level">Level </string>
-    <string name="level_classic">Classic Levels</string>
-    <string name="level_timer">Timer Levels</string>
-    <string name="continue_level">Continue Level</string>
-    <string name="pick_a_level">or pick a level</string>
-    <string name="hint_tooltip">Gimme a hint!</string>
-    <string name="score">Score: 0</string>
-    <string name="retry">Try again</string>
-    <string name="quit">Quit</string>
-    <string name="replay">Replay</string>
+    <string name="mode_learning">Học Tiếng Anh</string>
+    <string name="mode_learning_tool_tip">Vừa chơi vừa học Tiếng Anh thật vui vẻ!</string>
+    <string name="mode_competitive">Thi Đấu</string>
+    <string name="mode_competitive_tool_tip">So tài Tiếng Anh cùng các người chơi khác!</string>
+    <string name="daily_reward">Phần Thưởng Mỗi Ngày!</string>
+    <string name="tap_to_collect">Tap to collect</string>
+    <string name="continue_level">Tiếp tục</string>
     <string name="next">Tiếp Tục</string>
+    <string name="review">Ôn Tập</string>
     <string name="check">Kiểm Tra</string>
-    <string name="you_did_it">Woohoo! You did it.</string>
-    <string name="perfect">Perfect!</string>
-    <string name="daily_reward">Daily Reward</string>
-    <string name="claim_your_reward_today">Claim your reward today!</string>
-    <string name="daily_reward_notification">Daily Reward Notification</string>
     <string name="leader_board_title">Chào mừng bạn đến với bảng xếp hạng tuần này!</string>
     <string name="username">Tên hiển thị</string>
     <string name="phone_number">Số điện thoại</string>
@@ -32,7 +20,9 @@
     <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
     <string name="resend_otp">Gửi lại mã</string>
     <string name="lesson_pattern">Cửa %1$d</string>
-    <!--    <string name="login_desc">??</string>-->
+    <string name="level_pattern">Cấp %1$d</string>
+    <string name="course_progress_pattern">%1$d/%2$d</string>
+    <string name="daily_reward_date_pattern">Ngày %1$d</string>
 
     <string name="complete_round_within">Hoàn thành trong vòng</string>
     <string name="pick_correct_image">Chọn hình ảnh đúng</string>
@@ -75,7 +65,5 @@
         <item>Học bài kỹ lại nhaa</item>
         <item>0 điểm về chỗ!</item>
     </array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

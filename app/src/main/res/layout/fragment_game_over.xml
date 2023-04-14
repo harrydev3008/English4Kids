@@ -42,7 +42,7 @@
         android:drawablePadding="@dimen/_6sdp"
         android:paddingHorizontal="@dimen/_20sdp"
         android:paddingVertical="@dimen/_10sdp"
-        android:text="@string/retry"
+
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/_15ssp"
@@ -55,11 +55,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
-        android:background="@drawable/bg_timer_mode"
+        android:background="@drawable/bg_competitive_mode"
         android:drawablePadding="@dimen/_6sdp"
         android:paddingHorizontal="@dimen/_20sdp"
         android:paddingVertical="@dimen/_10sdp"
-        android:text="@string/quit"
+
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/_15ssp"

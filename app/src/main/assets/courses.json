@@ -1,6 +1,6 @@
 [
     {
-        "courseTitle": "Phần giới thiệu Tiếng Anh",
+        "courseTitle": "Giới thiệu Tiếng Anh",
         "totalLevel": 8,
         "currentLevel": 8,
         "isComplete": true,
@@ -35,7 +35,7 @@
     {
         "courseTitle": "Tiếng Anh Cơ Bản 1",
         "totalLevel": 12,
-        "currentLevel": 2,
+        "currentLevel": 8,
         "isComplete": false,
         "courseDesc": "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp cơ bản",
         "courseLevels": [
@@ -70,7 +70,8 @@
         "totalLevel": 20,
         "currentLevel": 0,
         "isComplete": false,
-        "courseDesc": "Học từ, cụm từ và chủ điểm ngữ pháp để giao tiếp nâng cao",
+        "isLock": true,
+        "courseDesc": "Học từ, cụm từ và ngữ pháp để giao tiếp nâng cao",
         "courseLevels": [
             {
                 "id": 1,

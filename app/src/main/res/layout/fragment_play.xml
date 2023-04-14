@@ -37,7 +37,7 @@
                 app:trackThickness="@dimen/_12sdp"
                 app:trackCornerRadius="20dp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/btn_pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,22 +45,24 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="@dimen/_22sdp"
-                android:layout_height="@dimen/_22sdp"
+            <ImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_centerInParent="true"
                 android:src="@drawable/ic_heart_fill" />
 
             <TextView
                 android:id="@+id/tv_life"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"
-                android:textColor="@color/text_incorrect"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto_mono_bold"
+                android:layout_centerInParent="true"
                 android:layout_marginStart="@dimen/_2sdp"
-                android:textSize="@dimen/_13sdp"/>
-        </LinearLayout>
+                android:fontFamily="@font/roboto_mono_bold"
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2

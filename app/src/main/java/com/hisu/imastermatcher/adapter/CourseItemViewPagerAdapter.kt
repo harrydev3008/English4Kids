@@ -1,24 +1,21 @@
 package com.hisu.imastermatcher.adapter
 
-import android.graphics.Color
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.LayoutCourseItemBinding
 import com.hisu.imastermatcher.model.course.Course
 
 class CourseItemViewPagerAdapter(
+    var context: Context,
     private val itemClickListener: (course: Course) -> Unit
-): RecyclerView.Adapter<CourseItemViewPagerAdapter.CourseItemViewHolder>() {
+) : RecyclerView.Adapter<CourseItemViewPagerAdapter.CourseItemViewHolder>() {
 
     var courses: List<Course> = mutableListOf()
-
-    private val pageColors = listOf<String>(
-        "#02AF84", "#FE63BD", "#20B0F5"
-    )
-
-    private var holders = mutableListOf<CourseItemViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseItemViewHolder {
         return CourseItemViewHolder(
@@ -27,46 +24,62 @@ class CourseItemViewPagerAdapter(
     }
 
     override fun onBindViewHolder(holder: CourseItemViewHolder, position: Int) {
-        holders.add(holder)
         val course = courses[position]
-        bindData(holder, course)
-    }
+        holder.apply {
+            bindData(course)
 
-    fun changePage(idx: Int, color: String) {
-        holders.forEach {
-            it.binding.courseCardContainer.setCardBackgroundColor(Color.parseColor(color))
-            it.binding.btnStartCourse.setBackgroundColor(Color.parseColor(color))
-        }
-        holders[idx].binding.pbLevel.setIndicatorColor(Color.parseColor(color))
-    }
-
-    private fun bindData(holder: CourseItemViewHolder, course: Course) = holder.binding.apply {
-        tvCourseTitle.text = course.courseTitle
-        tvCourseDesc.text = course.courseDesc
-
-        if(course.isComplete) {
-            tvCourseComplete.visibility = View.VISIBLE
-            pbLevel.visibility = View.GONE
-
-            btnStartCourse.text = "Ôn Tập"
-        } else {
-            tvCourseComplete.visibility = View.GONE
-            pbLevel.visibility = View.VISIBLE
-
-            btnStartCourse.text = "Tiếp Tục"
-
-            pbLevel.max = course.totalLevel
-            pbLevel.progress = course.currentLevel
-        }
-
-        tvCourseLevel.text = "${course.currentLevel}/${course.totalLevel}"
-
-        btnStartCourse.setOnClickListener{
-            itemClickListener.invoke(course)
+            binding.cardParent.setOnClickListener {
+                if (!course.isLock)
+                    itemClickListener.invoke(course)
+            }
         }
     }
 
     override fun getItemCount(): Int = courses.size
 
-    inner class CourseItemViewHolder(var binding: LayoutCourseItemBinding): RecyclerView.ViewHolder(binding.root)
+    inner class CourseItemViewHolder(var binding: LayoutCourseItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bindData(course: Course) = binding.apply {
+            tvCourseTitle.text = course.courseTitle
+            tvCourseDesc.text = course.courseDesc
+
+            pbCourseProgress.max = course.totalLevel
+            pbCourseProgress.progress = course.currentLevel
+
+            if (course.isComplete) {
+                setColors(R.color.level_percent_100)
+            } else {
+
+                if (course.isLock) {
+                    setColors(-1, isLock = true)
+                } else {
+                    val percentage = (course.currentLevel.toFloat() / course.totalLevel) * 100
+
+                    if (percentage <= 50) {
+                        setColors(R.color.level_percent_50)
+                    } else if (percentage <= 75) {
+                        setColors(R.color.level_percent_75)
+                    }
+                }
+            }
+
+            tvProgressNumber.text = String.format(
+                context.getString(R.string.course_progress_pattern),
+                course.currentLevel,
+                course.totalLevel
+            )
+        }
+
+        private fun setColors(color: Int, isLock: Boolean = false) = binding.apply {
+            if (isLock) {
+                cardParent.strokeColor = ContextCompat.getColor(context, R.color.light_gray)
+                tvProgressNumber.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
+            } else {
+                pbCourseProgress.setIndicatorColor(ContextCompat.getColor(context, color))
+                cardParent.strokeColor = ContextCompat.getColor(context, color)
+                tvProgressNumber.setTextColor(ContextCompat.getColor(context, color))
+            }
+        }
+    }
 }

@@ -33,19 +33,19 @@ class ClassModeLevelFragment : Fragment() {
         val mode = myNavArgs.mode
         binding.tvMode.text = mode
 
-        continueLevel()
-        backToHomePage()
+//        continueLevel()
+//        backToHomePage()
         setUpLevels()
         loadLevel()
     }
 
-    private fun backToHomePage() = binding.btnHome.setOnClickListener {
-        activity?.onBackPressed()
-    }
+//    private fun backToHomePage() = binding.btnHome.setOnClickListener {
+//        activity?.onBackPressed()
+//    }
 
-    private fun continueLevel() = binding.btnContinue.setOnClickListener {
-        findNavController().navigate(R.id.mode_to_play)
-    }
+//    private fun continueLevel() = binding.btnContinue.setOnClickListener {
+//        findNavController().navigate(R.id.mode_to_play)
+//    }
 
     private fun setUpLevels() = binding.rvLevels.apply {
         levelAdapter = LessonAdapter(requireContext()) {

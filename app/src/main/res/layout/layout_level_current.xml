@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray"
+        android:background="@color/classic"
         android:orientation="vertical">
 
         <TextView
@@ -42,7 +42,7 @@
                 android:paddingVertical="@dimen/_4sdp"
                 android:text="Đưa ra yêu cầu lịch sự, miêu tả vị trí đồ đạc"
                 android:textAlignment="center"
-                android:textColor="@color/gray"
+                android:textColor="@color/light_black"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
         </LinearLayout>

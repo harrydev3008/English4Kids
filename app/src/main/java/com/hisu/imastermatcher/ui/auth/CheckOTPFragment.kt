@@ -74,7 +74,7 @@ class CheckOTPFragment : Fragment() {
         //todo: impl later
         timer.cancel()
 
-        findNavController().navigate(R.id.action_checkOTPFragment_to_courseFragment)
+        findNavController().navigate(R.id.otp_to_home)
     }
 
     private fun initOTPEditText() {

@@ -1,13 +1,19 @@
 package com.hisu.imastermatcher.ui.dialog
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.LayoutDailyRewardBinding
+import com.hisu.imastermatcher.model.daily_reward.Reward
 
-class DailyRewardAdapter : RecyclerView.Adapter<DailyRewardAdapter.DailyRewardViewHolder>() {
+class DailyRewardAdapter(
+    var context: Context
+) : RecyclerView.Adapter<DailyRewardAdapter.DailyRewardViewHolder>() {
 
-    var rewards = listOf<String>()
+    var rewards = listOf<Reward>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyRewardViewHolder {
         return DailyRewardViewHolder(
@@ -21,8 +27,29 @@ class DailyRewardAdapter : RecyclerView.Adapter<DailyRewardAdapter.DailyRewardVi
         val todayReward = rewards[position]
 
         holder.binding.apply {
-            tvReward.text = todayReward
-            tvDay.text = "Day ${position + 1}"
+            tvReward.text = todayReward.reward.toString()
+            tvDate.text = String.format(context.getString(R.string.daily_reward_date_pattern), todayReward.id)
+
+            if(todayReward.isClaimed || todayReward.isClaimable ) {
+                tvDate.setBackgroundColor(ContextCompat.getColor(context, R.color.reward_collected))
+                dailyParentContainer.strokeColor = ContextCompat.getColor(context, R.color.reward_collected)
+
+                if(todayReward.isClaimed) {
+                    tvReward.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        ContextCompat.getDrawable(context, R.drawable.ic_complete_course_green),
+                        null, null, null
+                    )
+                } else {
+                    tvReward.setCompoundDrawables(
+                        null, null, null, null
+                    )
+                }
+
+            } else {
+                tvDate.setBackgroundColor(ContextCompat.getColor(context, R.color.reward_not_collect))
+                dailyParentContainer.strokeColor = ContextCompat.getColor(context, R.color.reward_not_collect)
+            }
+
         }
     }
 

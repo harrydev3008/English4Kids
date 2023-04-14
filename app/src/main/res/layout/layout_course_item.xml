@@ -1,114 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/course_card_container"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_12sdp">
+    android:id="@+id/card_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="@dimen/_12sdp"
+    app:strokeColor="@color/light_gray"
+    app:strokeWidth="@dimen/_4sdp">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#66464646"
-            android:gravity="center"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_12sdp">
+            android:padding="@dimen/_12sdp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_12sdp">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/pb_course_progress"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true"
+                    android:max="8"
+                    android:progress="1"
+                    app:indicatorColor="@color/classic"
+                    app:indicatorSize="@dimen/_150sdp"
+                    app:trackColor="@color/light_blue_gray"
+                    app:trackCornerRadius="10dp"
+                    app:trackThickness="@dimen/_16sdp" />
+
+                <TextView
+                    android:id="@+id/tv_progress_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="4/8"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/_24ssp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_course_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:fontFamily="@font/roboto_mono_bold"
-                android:text="Phần giới thiệu Tiếng Anh"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_course_level"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:fontFamily="@font/roboto_mono_bold"
-                android:text="8/8 Cửa"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_course_complete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:drawableLeft="@drawable/ic_complete_course"
-                android:drawablePadding="@dimen/_6sdp"
-                android:fontFamily="@font/roboto_mono_bold"
-                android:text="Hoàn thành"
-                android:textAlignment="center"
-                android:textColor="#AEDFD4"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <!--            <com.google.android.material.progressindicator.LinearProgressIndicator-->
-            <!--                android:id="@+id/pb_level"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:max="20"-->
-            <!--                android:progress="0"-->
-            <!--                android:layout_marginTop="@dimen/_12sdp"-->
-            <!--                app:indicatorColor="#02AF84"-->
-            <!--                app:trackColor="#515151"-->
-            <!--                app:trackCornerRadius="@dimen/_30sdp"-->
-            <!--                app:trackThickness="@dimen/_6sdp" />-->
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/pb_level"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:layout_weight="1"
-                android:max="100"
-                android:progress="0"
-                app:indicatorColor="#02AF84"
-                app:trackColor="#515151"
-                app:trackCornerRadius="20dp"
-                app:trackThickness="@dimen/_12sdp" />
+                android:text="Phần giới thiệu Tiếng Anh"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/_24ssp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_course_desc"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_24sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:text="Khởi động cùng một số ngữ pháp và cụm từ đơn giản"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
+                android:textColor="@color/gray_af"
+                android:textSize="@dimen/_18ssp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_start_course"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="@dimen/_12sdp"
-                android:paddingVertical="@dimen/_8sdp"
-                android:text="Ôn Tập"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
-                app:backgroundTint="#02AF84"
-                app:cornerRadius="@dimen/_10sdp" />
-
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-</ScrollView>
+</com.google.android.material.card.MaterialCardView>
