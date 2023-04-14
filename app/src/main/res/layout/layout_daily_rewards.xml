@@ -1,75 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="@dimen/_8sdp"
-    android:elevation="8dp"
-    android:backgroundTint="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@android:color/transparent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:src="@drawable/bg_header"
+        tools:ignore="ContentDescription" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_daily_rewards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/_6sdp"
+        android:background="@android:color/transparent"
+        android:paddingLeft="@dimen/_4sdp"
+        android:paddingTop="@dimen/_4sdp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        tools:itemCount="7"
+        tools:listitem="@layout/layout_daily_reward" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/daily_reward"
-            android:paddingVertical="@dimen/_8sdp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp"
-            android:background="@color/light_gray"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/_4sdp"
+        android:text="@string/tap_to_collect"
+        android:textAlignment="center"
+        android:fontFamily="@font/kavoon"
+        android:includeFontPadding="false"
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/_24ssp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_daily_rewards"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/_4sdp"
-            android:paddingVertical="@dimen/_4sdp"
-            android:layout_marginVertical="@dimen/_6sdp"
-            tools:listitem="@layout/layout_daily_reward"
-            tools:itemCount="7"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/claim_your_reward_today"
-            android:textAlignment="center"
-            android:paddingVertical="@dimen/_8sdp"
-            android:textSize="@dimen/_15ssp"
-            android:textColor="@color/black"
-            android:background="@drawable/bg_border_vertical"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/daily_reward_notification"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_8sdp"
-                android:textSize="@dimen/_14ssp"
-                android:textColor="@color/black"
-                android:background="@color/white"/>
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:backgroundTint="@color/light_blue_gray"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

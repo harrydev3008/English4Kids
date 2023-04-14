@@ -78,11 +78,11 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/splash_to_course"
-            app:destination="@id/courseFragment" />
-        <action
             android:id="@+id/splash_to_regis"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/splash_to_home"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/courseFragment"
@@ -92,6 +92,9 @@
         <action
             android:id="@+id/course_to_level"
             app:destination="@id/classModeLevelFragment" />
+        <action
+            android:id="@+id/course_to_home"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/leaderBoardFragment"
@@ -117,7 +120,16 @@
         android:label="fragment_check_o_t_p"
         tools:layout="@layout/fragment_check_otp" >
         <action
-            android:id="@+id/action_checkOTPFragment_to_courseFragment"
+            android:id="@+id/otp_to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.hisu.imastermatcher.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/home_to_course"
             app:destination="@id/courseFragment" />
     </fragment>
 </navigation>

@@ -10,6 +10,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_green">#38a3a5</color>
 
+<!--    daily reward dialog   -->
+    <color name="reward_ready_to_claim">#20B0F5</color>
+    <color name="reward_collected">#60CD0F</color>
+    <color name="reward_not_collect">#945F1E</color>
+
 <!--    <color name="classic">#1877f2</color>-->
     <color name="light_blue">#84D7FD</color>
     <color name="lighter_blue">#DDF4FE</color>
@@ -20,6 +25,7 @@
     <color name="darker_green">#60CD0F</color>
     <color name="light_purple">#D080FE</color>
     <color name="yellow">#FFC803</color>
+    <color name="lighter_yellow">#fcf300</color>
     <color name="gray">#6c757d</color>
     <color name="light_gray">#ced4da</color>
     <color name="light_blue_gray">#eff1f3</color>
@@ -31,4 +37,8 @@
     <color name="text_incorrect">#FD4C4A</color>
     <color name="correct">#D7FEB8</color>
     <color name="text_correct">#58CC00</color>
+
+    <color name="level_percent_50">#F8D356</color>
+    <color name="level_percent_75">#20B0F5</color>
+    <color name="level_percent_100">#58CC00</color>
 </resources>

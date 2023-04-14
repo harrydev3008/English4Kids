@@ -7,7 +7,9 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Window
 import android.view.WindowManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.hisu.imastermatcher.databinding.LayoutDailyRewardsBinding
+import com.hisu.imastermatcher.model.daily_reward.Reward
 
 class DailyRewardDialog() {
     private lateinit var context: Context
@@ -42,15 +44,27 @@ class DailyRewardDialog() {
         window.attributes = windowAttr
 
         binding.rvDailyRewards.apply {
-            val rewardAdapter = DailyRewardAdapter()
+
+            val gridLayoutManager = GridLayoutManager(context, 3)
+
+            gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    if(position == 6) return 3
+                    return 1
+                }
+            }
+
+            layoutManager = gridLayoutManager
+
+            val rewardAdapter = DailyRewardAdapter(context)
             rewardAdapter.rewards = listOf(
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "15"
+                Reward(1, 10, isClaimed = true, isClaimable = true),
+                Reward(2, 20, isClaimable =  true),
+                Reward(3, 30),
+                Reward(4, 40),
+                Reward(5, 50),
+                Reward(6, 60),
+                Reward(7, 100)
             )
 
             adapter = rewardAdapter

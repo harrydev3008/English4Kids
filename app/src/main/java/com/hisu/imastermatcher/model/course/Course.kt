@@ -5,6 +5,7 @@ data class Course (
     val totalLevel: Int,
     var currentLevel: Int = 0,
     var isComplete: Boolean = false,
+    var isLock: Boolean = false,
     var courseDesc: String,
     var courseLevels: List<Lesson>
 )

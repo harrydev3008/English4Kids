@@ -6,28 +6,46 @@
     android:id="@+id/parent_container"
     android:layout_height="match_parent"
     tools:context=".ui.home.CourseFragment"
-    android:background="#02AF84">
+    android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/imageView3"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/bg_border_bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/bg_demo_owl"
-        android:scaleType="fitCenter"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_homepage"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_round_home"
+            tools:ignore="ContentDescription" />
+
+        <include
+            android:id="@+id/resource"
+            layout="@layout/layout_resource" />
+
+        <ImageView
+            android:id="@+id/btn_setting"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_round_settings"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:background="#66464646"
         android:id="@+id/vp_courses"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_24sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
