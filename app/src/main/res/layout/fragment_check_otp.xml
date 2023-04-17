@@ -20,8 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
         android:paddingHorizontal="@dimen/_10sdp"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/verify_your_otp"
         android:textAlignment="center"
+        android:includeFontPadding="false"
         android:textColor="@color/light_black"
         android:textSize="@dimen/_18ssp" />
 
@@ -38,9 +40,10 @@
             style="@style/OTPEditTextLayoutStyle"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:gravity="center"
             android:inputType="phone"
+            android:textCursorDrawable="@drawable/edt_cursor"
             android:maxLength="1"
             android:textSize="@dimen/_16ssp"
             tools:ignore="Autofill,LabelFor" />
@@ -50,9 +53,10 @@
             style="@style/OTPEditTextLayoutStyle"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:gravity="center"
             android:inputType="phone"
+            android:textCursorDrawable="@drawable/edt_cursor"
             android:maxLength="1"
             android:textSize="@dimen/_16ssp"
             tools:ignore="Autofill,LabelFor" />
@@ -62,9 +66,10 @@
             style="@style/OTPEditTextLayoutStyle"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:gravity="center"
             android:inputType="phone"
+            android:textCursorDrawable="@drawable/edt_cursor"
             android:maxLength="1"
             android:textSize="@dimen/_16ssp"
             tools:ignore="Autofill,LabelFor" />
@@ -74,9 +79,10 @@
             style="@style/OTPEditTextLayoutStyle"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:gravity="center"
             android:inputType="phone"
+            android:textCursorDrawable="@drawable/edt_cursor"
             android:maxLength="1"
             android:textSize="@dimen/_16ssp"
             tools:ignore="Autofill,LabelFor" />
@@ -86,9 +92,10 @@
             style="@style/OTPEditTextLayoutStyle"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:gravity="center"
             android:inputType="phone"
+            android:textCursorDrawable="@drawable/edt_cursor"
             android:maxLength="1"
             android:textSize="@dimen/_16ssp"
             tools:ignore="Autofill,LabelFor" />
@@ -98,38 +105,46 @@
             style="@style/OTPEditTextLayoutStyle"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:gravity="center"
             android:inputType="phone"
+            android:textCursorDrawable="@drawable/edt_cursor"
             android:maxLength="1"
             android:textSize="@dimen/_16ssp"
             tools:ignore="Autofill,LabelFor" />
     </com.google.android.flexbox.FlexboxLayout>
 
-    <TextView
-        android:id="@+id/tv_resend"
-        style="@style/OTPTextResendStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
-        android:enabled="false"
-        android:text="@string/resend_otp"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_verify_otp"
-        style="@style/LoginButtonStyle"
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:enabled="false"
-        android:paddingVertical="@dimen/_10sdp"
-        android:text="@string/confirm_otp"
-        android:textSize="@dimen/_14ssp"
-        app:cornerRadius="@dimen/_12sdp"/>
+        android:layout_marginTop="@dimen/_32sdp"
+        app:justifyContent="space_evenly"
+        app:alignItems="center"
+        app:alignContent="center">
+
+        <TextView
+            android:id="@+id/tv_resend"
+            style="@style/OTPTextResendStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/resend_otp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:textSize="18sp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_verify_otp"
+            style="@style/LoginButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/confirm_otp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/_12ssp"
+            app:cornerRadius="@dimen/_8sdp"/>
+
+    </com.google.android.flexbox.FlexboxLayout>
 
 </LinearLayout>

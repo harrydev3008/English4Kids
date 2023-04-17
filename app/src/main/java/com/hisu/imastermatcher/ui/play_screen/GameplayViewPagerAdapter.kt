@@ -8,6 +8,7 @@ import com.hisu.imastermatcher.ui.gameplay.audio_word.MatchingAudioWordFragment
 import com.hisu.imastermatcher.ui.gameplay.class_pairs_matching.ClassicPairsMatchingFragment
 import com.hisu.imastermatcher.ui.gameplay.complete_sentence.SentenceStyleFragment
 import com.hisu.imastermatcher.ui.gameplay.match_pairs.MatchingWordPairsFragment
+import com.hisu.imastermatcher.ui.gameplay.multiple_choice.MultipleChoiceContainerFragment
 import com.hisu.imastermatcher.ui.gameplay.type_answer.TypeAnswerFragment
 
 class GameplayViewPagerAdapter(
@@ -41,7 +42,7 @@ class GameplayViewPagerAdapter(
         }
 
         if(curGameplay == "classic_pairs") {
-            return ClassicPairsMatchingFragment(itemTapListener, wrongAnswerListener)
+            return MultipleChoiceContainerFragment()
         }
 
         return TypeAnswerFragment(itemTapListener, wrongAnswerListener)

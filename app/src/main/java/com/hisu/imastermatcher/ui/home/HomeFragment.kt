@@ -29,6 +29,8 @@ class HomeFragment : Fragment() {
         learningMode()
         competitiveMode()
         dailyReward()
+
+        binding.btnCompetitiveMode.isEnabled = true
     }
 
     private fun learningMode() = binding.btnLearningMode.setOnClickListener {
@@ -36,7 +38,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun competitiveMode() = binding.btnCompetitiveMode.setOnClickListener {
-//        findNavController().navigate(R.id.home_to_course) todo: impl later
+        findNavController().navigate(R.id.home_to_competitive)
     }
 
     private fun dailyReward() = binding.btnDailyReward.setOnClickListener {

@@ -38,7 +38,7 @@ class PlayFragment : Fragment() {
 
         //Todo: update later
         tempQuestions = listOf<String>(
-//            "classic_pairs",
+            "classic_pairs",
 //            "word_pair",
             "audio_word_pair",
 //            "audio_image_pair",
