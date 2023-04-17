@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.gameplay.multiple_choice.MultipleChoiceContainerFragment">
+
+    <include
+        android:id="@+id/card_competitive_header"
+        layout="@layout/layout_competitive_header" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_multiple_question"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:paddingHorizontal="@dimen/_8sdp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/skip_current_question"
+        android:backgroundTint="#8937C7"
+        android:paddingVertical="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        app:cornerRadius="@dimen/_10sdp"/>
+
+</LinearLayout>

@@ -19,6 +19,10 @@
         <item name="android:textColor">@color/text_otp_state</item>
     </style>
 
+    <style name="NextQuestionStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text_skip_state</item>
+    </style>
+
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/edt_regis_state_color</item>
     </style>
@@ -38,5 +42,17 @@
 
     <style name="CompetitiveStyle" parent="Widget.AppCompat.TextView">
         <item name="android:background">@drawable/btn_bg_competitive_state</item>
+    </style>
+
+    <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">12dp</item>
+        <item name="cornerSizeBottomLeft">12dp</item>
     </style>
 </resources>

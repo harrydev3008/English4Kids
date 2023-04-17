@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/card_container"
+    android:layout_marginTop="@dimen/_5sdp">
+
+    <TextView
+        android:id="@+id/tv_answer_choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/answer_multiple_choice_pattern"
+        android:textSize="@dimen/_16ssp"
+        android:fontFamily="@font/roboto"
+        android:paddingVertical="@dimen/_8sdp"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:textStyle="bold"
+        android:textColor="@color/gray"
+        android:background="@drawable/bg_word_border" />
+
+</LinearLayout>

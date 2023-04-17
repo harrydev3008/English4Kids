@@ -15,7 +15,7 @@
     <string name="username">Tên hiển thị</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="login">Đăng Nhập</string>
-    <string name="verify_your_otp">Vui lòng nhập mã OTP đã được gửi đến số điện thoại của bạn</string>
+    <string name="verify_your_otp">Hãy nhập mã OTP đã được gửi đến số điện thoại của bạn.</string>
     <string name="confirm_otp">Xác Nhận</string>
     <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
     <string name="resend_otp">Gửi lại mã</string>
@@ -23,6 +23,9 @@
     <string name="level_pattern">Cấp %1$d</string>
     <string name="course_progress_pattern">%1$d/%2$d</string>
     <string name="daily_reward_date_pattern">Ngày %1$d</string>
+    <string name="skip_current_question">Câu hỏi kế tiếp</string>
+    <string name="question_progress_pattern">Câu hỏi thứ %1$d/%2$d</string>
+    <string name="answer_multiple_choice_pattern">%1$s. %2$s</string>
 
     <string name="complete_round_within">Hoàn thành trong vòng</string>
     <string name="pick_correct_image">Chọn hình ảnh đúng</string>
@@ -65,5 +68,7 @@
         <item>Học bài kỹ lại nhaa</item>
         <item>0 điểm về chỗ!</item>
     </array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

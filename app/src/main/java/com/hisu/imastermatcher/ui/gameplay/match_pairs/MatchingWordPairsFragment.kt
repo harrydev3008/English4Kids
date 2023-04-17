@@ -32,7 +32,7 @@ class MatchingWordPairsFragment(
     private var prev: PairMatchingModel? = null
     private var prevPos: Int = -1
     private var counter = 0
-//    private var wrongMoves = 5
+    private var wrongMoves = 0
 
 
     private val correctMsgs = listOf<String>(
@@ -129,7 +129,6 @@ class MatchingWordPairsFragment(
 
             //in audio - word gameplay
             //if previous item & current item is audio, then reset select color of prev item
-            //todo: play audio later
             if(prev?.isAudioQuestion == true && item.isAudioQuestion == true) {
                 wordPairsAdapter.resetPairsSelected(prevPos)
                 prev = item
@@ -161,6 +160,13 @@ class MatchingWordPairsFragment(
 
             } else {
                 prev = null
+
+                wrongMoves++
+
+                if(counter > wordPairsResponse.allowedMoves) {
+                    _result.postValue(false)
+                    return
+                }
 
                 Toasty.error(
                     requireContext(),

@@ -9,6 +9,7 @@
     <color name="light_black">#4B4B4B</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_green">#38a3a5</color>
+    <color name="competitive">#8937C7</color>
 
 <!--    daily reward dialog   -->
     <color name="reward_ready_to_claim">#20B0F5</color>
