@@ -9,7 +9,7 @@
     <application
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
-        android:name=".MyApplication"
+        android:name="com.hisu.english4kids.MyApplication"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/app_logo"
@@ -19,7 +19,7 @@
         android:theme="@style/Theme.IMasterMatcher"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.hisu.english4kids.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
