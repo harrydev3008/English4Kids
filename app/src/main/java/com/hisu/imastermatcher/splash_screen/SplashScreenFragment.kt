@@ -44,6 +44,6 @@ class SplashScreenFragment : Fragment() {
 
     private suspend fun  getLoginStatus(): Boolean {
         delay(3000L)
-        return true
+        return false
     }
 }

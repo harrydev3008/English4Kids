@@ -33,7 +33,6 @@ class GameFinishFragment : Fragment() {
         displayUserResult(result)
 
         nextRound()
-        backToCourse()
     }
 
     private fun displayUserResult(result: FinalResult) = binding.apply {
@@ -45,9 +44,5 @@ class GameFinishFragment : Fragment() {
     private fun nextRound() = binding.btnNextLevel.setOnClickListener {
         //todo: impl method to go to next round
         findNavController().navigate(R.id.to_leader_board)
-    }
-
-    private fun backToCourse() = binding.ibtnClose.setOnClickListener {
-        findNavController().navigate(R.id.back_to_level)
     }
 }
