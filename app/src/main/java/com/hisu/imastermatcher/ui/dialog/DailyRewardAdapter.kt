@@ -26,35 +26,41 @@ class DailyRewardAdapter(
     override fun onBindViewHolder(holder: DailyRewardViewHolder, position: Int) {
         val todayReward = rewards[position]
 
-        holder.binding.apply {
-            tvReward.text = todayReward.reward.toString()
-            tvDate.text = String.format(context.getString(R.string.daily_reward_date_pattern), todayReward.id)
-
-            if(todayReward.isClaimed || todayReward.isClaimable ) {
-                tvDate.setBackgroundColor(ContextCompat.getColor(context, R.color.reward_collected))
-                dailyParentContainer.strokeColor = ContextCompat.getColor(context, R.color.reward_collected)
-
-                if(todayReward.isClaimed) {
-                    tvReward.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        ContextCompat.getDrawable(context, R.drawable.ic_complete_course_green),
-                        null, null, null
-                    )
-                } else {
-                    tvReward.setCompoundDrawables(
-                        null, null, null, null
-                    )
-                }
-
-            } else {
-                tvDate.setBackgroundColor(ContextCompat.getColor(context, R.color.reward_not_collect))
-                dailyParentContainer.strokeColor = ContextCompat.getColor(context, R.color.reward_not_collect)
-            }
-
-        }
+        holder.bindData(todayReward)
     }
 
     override fun getItemCount(): Int = rewards.size
 
     inner class DailyRewardViewHolder(val binding: LayoutDailyRewardBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindData(todayReward: Reward) = binding.apply {
+
+            tvReward.text = String.format(
+                context.getString(R.string.daily_reward_price_pattern), todayReward.reward
+            )
+
+            tvDate.text =
+                String.format(context.getString(R.string.daily_reward_date_pattern), todayReward.id)
+
+            if (todayReward.isClaimed || todayReward.isClaimable) {
+
+                if (todayReward.isClaimed)
+                    changeContainerColor(R.color.reward_collected, true)
+                else
+                    changeContainerColor(R.color.reward_not_collect)
+
+            } else
+                changeContainerColor(R.color.gray_af)
+
+        }
+
+        private fun changeContainerColor(color: Int, isClaimed: Boolean = false) = binding.apply {
+            tvDate.setBackgroundColor(ContextCompat.getColor(context, color))
+            dailyParentContainer.strokeColor = ContextCompat.getColor(context, color)
+            coinContainer.setBackgroundColor(ContextCompat.getColor(context, color))
+
+            if (isClaimed)
+                imvRewardCover.setImageResource(R.drawable.bg_chests_complete)
+        }
+    }
 }

@@ -49,6 +49,9 @@
         <action
             android:id="@+id/mode_to_play"
             app:destination="@id/playFragment" />
+        <action
+            android:id="@+id/lesson_to_home"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
@@ -133,11 +136,20 @@
             app:destination="@id/courseFragment" />
         <action
             android:id="@+id/home_to_competitive"
-            app:destination="@id/multipleChoiceContainerFragment" />
+            app:destination="@id/matchMakingFragment" />
     </fragment>
     <fragment
         android:id="@+id/multipleChoiceContainerFragment"
         android:name="com.hisu.imastermatcher.ui.gameplay.multiple_choice.MultipleChoiceContainerFragment"
         android:label="fragment_multiple_choice_container"
         tools:layout="@layout/fragment_multiple_choice_container" />
+    <fragment
+        android:id="@+id/matchMakingFragment"
+        android:name="com.hisu.imastermatcher.ui.gameplay.multiple_choice.MatchMakingFragment"
+        android:label="fragment_match_making"
+        tools:layout="@layout/fragment_match_making" >
+        <action
+            android:id="@+id/action_matchMakingFragment_to_multipleChoiceContainerFragment"
+            app:destination="@id/multipleChoiceContainerFragment" />
+    </fragment>
 </navigation>

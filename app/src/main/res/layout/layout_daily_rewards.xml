@@ -26,16 +26,16 @@
         tools:itemCount="7"
         tools:listitem="@layout/layout_daily_reward" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_8sdp"
-        android:text="@string/tap_to_collect"
-        android:textAlignment="center"
-        android:fontFamily="@font/kavoon"
-        android:includeFontPadding="false"
-        android:textColor="@color/light_gray"
-        android:textSize="@dimen/_24ssp" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginVertical="@dimen/_8sdp"-->
+<!--        android:text="@string/tap_to_collect"-->
+<!--        android:textAlignment="center"-->
+<!--        android:fontFamily="@font/kavoon"-->
+<!--        android:includeFontPadding="false"-->
+<!--        android:textColor="@color/yellow"-->
+<!--        android:textSize="@dimen/_24ssp" />-->
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/btn_close"

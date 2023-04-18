@@ -34,14 +34,14 @@ class ClassModeLevelFragment : Fragment() {
         binding.tvMode.text = mode
 
 //        continueLevel()
-//        backToHomePage()
+        backToHomePage()
         setUpLevels()
         loadLevel()
     }
 
-//    private fun backToHomePage() = binding.btnHome.setOnClickListener {
-//        activity?.onBackPressed()
-//    }
+    private fun backToHomePage() = binding.btnHome.setOnClickListener {
+        findNavController().navigate(R.id.lesson_to_home)
+    }
 
 //    private fun continueLevel() = binding.btnContinue.setOnClickListener {
 //        findNavController().navigate(R.id.mode_to_play)

@@ -42,7 +42,7 @@ class GameplayViewPagerAdapter(
         }
 
         if(curGameplay == "classic_pairs") {
-            return MultipleChoiceContainerFragment()
+            return ClassicPairsMatchingFragment(itemTapListener, wrongAnswerListener)
         }
 
         return TypeAnswerFragment(itemTapListener, wrongAnswerListener)

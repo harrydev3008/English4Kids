@@ -1,6 +1,8 @@
 package com.hisu.imastermatcher.ui.auth
 
 import android.os.Bundle
+import android.os.Handler
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +11,13 @@ import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.hisu.imastermatcher.R
 import com.hisu.imastermatcher.databinding.FragmentRegisterBinding
+import com.hisu.imastermatcher.ui.dialog.LoadingDialog
 
 
 class RegisterFragment : Fragment() {
 
-    private var _binding: FragmentRegisterBinding?= null
-    private val binding get()= _binding!!
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +42,12 @@ class RegisterFragment : Fragment() {
 
     private fun handleUserNameTextChange() = binding.edtUsername.addTextChangedListener {
         it?.apply {
-            binding.btnLogin.isEnabled = it.isNotEmpty() && binding.edtPhoneNumber.text.toString().isNotEmpty()
+            binding.btnLogin.isEnabled =
+                it.isNotEmpty() && binding.edtPhoneNumber.text.toString().isNotEmpty()
 
-            if(it.length > 16) {
-                binding.tilUsernameContainer.helperText = "* Tên hiển thị không được vượt quá 16 kí tự!"
+            if (it.length > 16) {
+                binding.tilUsernameContainer.helperText =
+                    "* Tên hiển thị không được vượt quá 16 kí tự!"
             } else {
                 binding.tilUsernameContainer.helperText = ""
             }
@@ -51,13 +56,20 @@ class RegisterFragment : Fragment() {
 
     private fun handlePhoneNumberTextChange() = binding.edtPhoneNumber.addTextChangedListener {
         it?.apply {
-            binding.btnLogin.isEnabled = it.isNotEmpty() && binding.edtUsername.text.toString().isNotEmpty()
+            binding.btnLogin.isEnabled =
+                it.isNotEmpty() && binding.edtUsername.text.toString().isNotEmpty()
         }
     }
 
     private fun handleLoginBtn() = binding.btnLogin.setOnClickListener {
-        if(phoneNumberValidate()) {
-            findNavController().navigate(R.id.action_registerFragment_to_checkOTPFragment)
+        if (phoneNumberValidate()) {
+            val dialog = LoadingDialog(requireContext(), Gravity.CENTER)
+            dialog.showDialog()
+            Handler(requireContext().mainLooper).postDelayed({
+                dialog.dismissDialog()
+                findNavController().navigate(R.id.action_registerFragment_to_checkOTPFragment)
+            }, 10 * 1000)
+
         }
     }
 

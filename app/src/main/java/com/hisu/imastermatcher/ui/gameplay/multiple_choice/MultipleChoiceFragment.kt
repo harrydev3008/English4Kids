@@ -39,7 +39,9 @@ class MultipleChoiceFragment(
     }
 
     private fun handleItemClick(model: String, position: Int) {
-
+        if(model === question.correctAnswer) {
+            itemTapListener.invoke()
+        }
     }
 
     override fun onDestroyView() {

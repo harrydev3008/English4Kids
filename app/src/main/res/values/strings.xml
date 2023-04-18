@@ -12,7 +12,7 @@
     <string name="review">Ôn Tập</string>
     <string name="check">Kiểm Tra</string>
     <string name="leader_board_title">Chào mừng bạn đến với bảng xếp hạng tuần này!</string>
-    <string name="username">Tên hiển thị</string>
+    <string name="username">Tên E4K của bạn</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="login">Đăng Nhập</string>
     <string name="verify_your_otp">Hãy nhập mã OTP đã được gửi đến số điện thoại của bạn.</string>
@@ -22,7 +22,8 @@
     <string name="lesson_pattern">Cửa %1$d</string>
     <string name="level_pattern">Cấp %1$d</string>
     <string name="course_progress_pattern">%1$d/%2$d</string>
-    <string name="daily_reward_date_pattern">Ngày %1$d</string>
+    <string name="daily_reward_date_pattern">Day %1$d</string>
+    <string name="daily_reward_price_pattern">+%1$d</string>
     <string name="skip_current_question">Câu hỏi kế tiếp</string>
     <string name="question_progress_pattern">Câu hỏi thứ %1$d/%2$d</string>
     <string name="answer_multiple_choice_pattern">%1$s. %2$s</string>
@@ -37,6 +38,11 @@
     <string name="better_luck_next_time">Cố gắng hơn ở lần sau bạn nhé!</string>
     <string name="translate_this_sentence">Dịch câu này</string>
     <string name="type_your_answer_here">Nhập câu trả lời của bạn tại đây…</string>
+    <string name="find_component_now">Bắt đầu tìm đối thủ để tranh tài Tiếng Anh nào!</string>
+    <string name="find_match">Tìm Đối Thủ</string>
+    <string name="loading_pls_wait">Đang tìm đối thủ xứng tầm…</string>
+    <string name="accept_match">Chiến Thôi!</string>
+    <string name="cancel_match">Thoát</string>
 
     <string name="confirm_dialog_msg">Xác nhận</string>
     <string name="warning_dialog_msg">Cảnh báo</string>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.gameplay.multiple_choice.MatchMakingFragment"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_350sdp"
+        android:src="@drawable/bg_competitive"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/find_component_now"
+        android:textSize="@dimen/_24ssp"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:textColor="@color/light_black"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="@dimen/_8sdp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_find_match"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        app:cornerRadius="@dimen/_10sdp"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
+        android:backgroundTint="@color/competitive"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
+        android:paddingVertical="@dimen/_8sdp"
+        android:text="@string/find_match"/>
+
+</LinearLayout>

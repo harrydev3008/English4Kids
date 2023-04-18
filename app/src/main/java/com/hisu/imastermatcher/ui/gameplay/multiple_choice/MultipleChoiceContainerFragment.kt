@@ -40,7 +40,7 @@ class MultipleChoiceContainerFragment : Fragment() {
                 1,
                 "What is number one?",
                 listOf("mot", "hai", "ba", "bon"),
-                ""
+                "mot"
             )
         )
         questions.add(
@@ -48,7 +48,7 @@ class MultipleChoiceContainerFragment : Fragment() {
                 2,
                 "What is number two?",
                 listOf("mot 1", "hai 2", "ba 3", "bon 4"),
-                ""
+                "mot 1"
             )
         )
         questions.add(
@@ -56,18 +56,18 @@ class MultipleChoiceContainerFragment : Fragment() {
                 3,
                 "What is number three?",
                 listOf("mot 1", "hai 2", "ba 3", "bon 4"),
-                ""
+                "mot 1"
             )
         )
 
         questionAdapter.questions = questions
 
         adapter = questionAdapter
-//        isUserInputEnabled = false
+        isUserInputEnabled = false
     }
 
     private fun handleItemClick() {
-
+        binding.vpMultipleQuestion.setCurrentItem(binding.vpMultipleQuestion.currentItem + 1)
     }
 
     private fun handleWrongAnswer() {
