@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.hisu.imastermatcher'
+    namespace 'com.hisu.english4kids'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.hisu.imastermatcher"
+        applicationId "com.hisu.english4kids"
         minSdk 26
         targetSdk 32
         versionCode 1
