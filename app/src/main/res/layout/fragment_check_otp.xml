@@ -114,10 +114,22 @@
             tools:ignore="Autofill,LabelFor" />
     </com.google.android.flexbox.FlexboxLayout>
 
+    <TextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_8sdp"
+        android:text="@string/wrong_otp_err_msg"
+        android:textColor="@color/text_incorrect"
+        android:textSize="@dimen/_13ssp"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
+        android:visibility="invisible"
+        android:textAlignment="center"/>
+
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_32sdp"
         app:justifyContent="space_evenly"
         app:alignItems="center"
         app:alignContent="center">

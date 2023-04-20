@@ -1,18 +1,13 @@
 package com.hisu.english4kids.ui.auth
 
 import android.os.Bundle
-import android.os.Handler
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
-import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentRegisterBinding
-import com.hisu.english4kids.ui.dialog.LoadingDialog
-
 
 class RegisterFragment : Fragment() {
 
@@ -63,13 +58,9 @@ class RegisterFragment : Fragment() {
 
     private fun handleLoginBtn() = binding.btnLogin.setOnClickListener {
         if (phoneNumberValidate()) {
-            val dialog = LoadingDialog(requireContext(), Gravity.CENTER)
-            dialog.showDialog()
-            Handler(requireContext().mainLooper).postDelayed({
-                dialog.dismissDialog()
-                findNavController().navigate(R.id.action_registerFragment_to_checkOTPFragment)
-            }, 10 * 1000)
-
+            val phoneNumber = "+84${binding.edtPhoneNumber.text.toString().substring(1)}"
+            val action = RegisterFragmentDirections.actionRegisterFragmentToCheckOTPFragment(phoneNumber)
+            findNavController().navigate(action)
         }
     }
 
