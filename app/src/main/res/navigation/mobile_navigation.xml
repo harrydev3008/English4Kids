@@ -125,6 +125,11 @@
         <action
             android:id="@+id/otp_to_home"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string"
+            android:defaultValue=""
+            app:nullable="false"/>
     </fragment>
     <fragment
         android:id="@+id/homeFragment"

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Englisk 4 Kids</string>
-
     <string name="mode_learning">Học Tiếng Anh</string>
     <string name="mode_learning_tool_tip">Vừa chơi vừa học Tiếng Anh thật vui vẻ!</string>
     <string name="mode_competitive">Thi Đấu</string>
@@ -16,18 +15,8 @@
     <string name="phone_number">Số điện thoại</string>
     <string name="login">Đăng Nhập</string>
     <string name="verify_your_otp">Hãy nhập mã OTP đã được gửi đến số điện thoại của bạn.</string>
-    <string name="confirm_otp">Xác Nhận</string>
-    <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
-    <string name="resend_otp">Gửi lại mã</string>
-    <string name="lesson_pattern">Cửa %1$d</string>
-    <string name="level_pattern">Cấp %1$d</string>
-    <string name="course_progress_pattern">%1$d/%2$d</string>
-    <string name="daily_reward_date_pattern">Day %1$d</string>
-    <string name="daily_reward_price_pattern">+%1$d</string>
+    <string name="tap_connect_pairs">Nhấn vào các cặp tương ứng</string>
     <string name="skip_current_question">Câu hỏi kế tiếp</string>
-    <string name="question_progress_pattern">Câu hỏi thứ %1$d/%2$d</string>
-    <string name="answer_multiple_choice_pattern">%1$s. %2$s</string>
-
     <string name="complete_round_within">Hoàn thành trong vòng</string>
     <string name="pick_correct_image">Chọn hình ảnh đúng</string>
     <string name="complete_lesson">Hoàn thành bài học!</string>
@@ -44,19 +33,34 @@
     <string name="accept_match">Chiến Thôi!</string>
     <string name="cancel_match">Thoát</string>
 
+    <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>
     <string name="warning_dialog_msg">Cảnh báo</string>
     <string name="quit_title">Đợi đã, đừng đi mà!</string>
     <string name="confirm_quit_game_play">Bạn có chắc muốn thoát không?! Nếu thoát bạn sẽ mất tiến trình của bài học này.</string>
     <string name="confirm_msg_quit">Dừng lại</string>
     <string name="confirm_msg_stay">Chơi tiếp</string>
+    <string name="confirm_otp">Xác Nhận</string>
+    <string name="confirm_otp_err">Lỗi Xác Thực</string>
+
+    <!--  Error messages  -->
+    <string name="wrong_otp_err_msg">Mã OTP không chính xác. Vui lòng kiểm tra lại!</string>
+    <string name="confirm_otp_err_occur_msg">Đã có lỗi trong quá trình xác thực!\n Bạn vui lòng thử lại nhé!</string>
 
     <!--  String patterns  -->
-    <string name="tap_connect_pairs">Nhấn vào các cặp tương ứng</string>
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>
     <string name="perfect_score_pattern">%1$d%%</string>
     <string name="weekly_exp_pattern">%1$d KN</string>
     <string name="complete_within_turn">Không thể hoàn thành trong %1$d lượt…</string>
+    <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
+    <string name="resend_otp">Gửi lại mã</string>
+    <string name="lesson_pattern">Cửa %1$d</string>
+    <string name="level_pattern">Cấp %1$d</string>
+    <string name="course_progress_pattern">%1$d/%2$d</string>
+    <string name="daily_reward_date_pattern">Day %1$d</string>
+    <string name="daily_reward_price_pattern">+%1$d</string>
+    <string name="question_progress_pattern">Câu hỏi thứ %1$d/%2$d</string>
+    <string name="answer_multiple_choice_pattern">%1$s. %2$s</string>
 
     <!--  random messages  -->
     <array name="correct_answer_messages">
