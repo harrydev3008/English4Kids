@@ -156,5 +156,8 @@
         <action
             android:id="@+id/action_matchMakingFragment_to_multipleChoiceContainerFragment"
             app:destination="@id/multipleChoiceContainerFragment" />
+        <action
+            android:id="@+id/action_matchMakingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

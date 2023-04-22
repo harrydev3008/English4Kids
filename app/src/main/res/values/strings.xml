@@ -30,7 +30,10 @@
     <string name="find_component_now">Bắt đầu tìm đối thủ để tranh tài Tiếng Anh nào!</string>
     <string name="find_match">Tìm Đối Thủ</string>
     <string name="loading_pls_wait">Đang tìm đối thủ xứng tầm…</string>
+    <string name="found_opponent">Đã tìm thấy đối thủ!</string>
+    <string name="cant_find_opponent">Không tìm thấy đối thủ nào…</string>
     <string name="accept_match">Chiến Thôi!</string>
+    <string name="refind_match">Tìm Tiếp</string>
     <string name="cancel_match">Thoát</string>
 
     <!--  Confirm messages  -->
