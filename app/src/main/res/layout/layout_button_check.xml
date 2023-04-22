@@ -19,7 +19,8 @@
             android:textStyle="bold"
             android:visibility="gone"
             android:layout_marginBottom="@dimen/_6sdp"
-            android:fontFamily="@font/roboto_mono_bold"
+            android:fontFamily="@font/roboto"
+            android:includeFontPadding="false"
             android:drawableLeft="@drawable/ic_complete_course_green"
             android:drawablePadding="@dimen/_6sdp"
             android:textAlignment="center"/>

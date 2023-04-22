@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentSplashScreenBinding
+import com.hisu.english4kids.utils.local.LocalDataManager
 import kotlinx.coroutines.*
 
 class SplashScreenFragment : Fragment() {
@@ -35,6 +36,8 @@ class SplashScreenFragment : Fragment() {
             val isLogIn =
                 withContext(Dispatchers.Default) { getLoginStatus() }
 
+            delay(3 * 1000)// wait extra 3s before checking login state
+
             if (isLogIn)
                 findNavController().navigate(R.id.splash_to_home)
             else
@@ -43,7 +46,10 @@ class SplashScreenFragment : Fragment() {
     }
 
     private suspend fun  getLoginStatus(): Boolean {
-        delay(3000L)
-        return false
+
+        val localDataManager = LocalDataManager()
+        localDataManager.init(requireContext())
+
+        return localDataManager.getUserLoginState()
     }
 }

@@ -42,10 +42,12 @@
     <string name="confirm_msg_stay">Chơi tiếp</string>
     <string name="confirm_otp">Xác Nhận</string>
     <string name="confirm_otp_err">Lỗi Xác Thực</string>
+    <string name="press_again_to_exit">Nhấn lần nữa để thoát!</string>
 
     <!--  Error messages  -->
     <string name="wrong_otp_err_msg">Mã OTP không chính xác. Vui lòng kiểm tra lại!</string>
     <string name="confirm_otp_err_occur_msg">Đã có lỗi trong quá trình xác thực!\n Bạn vui lòng thử lại nhé!</string>
+    <string name="invalid_phone_format_err">Số điện thoại sai định dạng!</string>
 
     <!--  String patterns  -->
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>

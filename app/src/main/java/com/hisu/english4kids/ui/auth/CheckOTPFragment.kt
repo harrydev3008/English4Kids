@@ -1,6 +1,8 @@
 package com.hisu.english4kids.ui.auth
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -11,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
@@ -20,20 +23,25 @@ import com.google.firebase.auth.*
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentCheckOtpBinding
 import com.hisu.english4kids.ui.dialog.LoadingDialog
+import com.hisu.english4kids.utils.local.LocalDataManager
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 
 class CheckOTPFragment : Fragment() {
 
     private val binding get() = _binding!!
-    private val timer = Timer()
-    private val RESEND_DELAY_TIME = 2 * 10 //90 secs, but inorder to be ez to test, it will be 20 for now ;)
+    private var timer: CountDownTimer? = null
+    private val RESEND_DELAY_TIME = 30 * 1000L//todo: set to 60 or 90s later
     private val myArgs: CheckOTPFragmentArgs by navArgs()
 
     private var verificationID = ""
+    private var forceResendToken: PhoneAuthProvider.ForceResendingToken? = null
     private var _binding: FragmentCheckOtpBinding? = null
 
     private lateinit var mAuth: FirebaseAuth
@@ -59,41 +67,44 @@ class CheckOTPFragment : Fragment() {
         mLoadingDialog = LoadingDialog(requireContext(), Gravity.CENTER)
 
         initOTPEditText()
-        handleResendOTP()
-        handleOTPVerification()
         handleButtonVerifyOTP()
+        handleButtonResendOTP()
+        handleOTPVerification()
     }
 
     private fun countDownResendOTP() {
         binding.tvResend.isEnabled = false
 
-        val counter = AtomicInteger(RESEND_DELAY_TIME)
         val timerFormatStr = DecimalFormat("00")
 
-        val timerTask: TimerTask = object : TimerTask() {
-            override fun run() {
-                counter.decrementAndGet()
-
+        timer = object : CountDownTimer(RESEND_DELAY_TIME, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
                 requireActivity().runOnUiThread {
                     binding.tvResend.text = String.format(
                         requireContext().getString(R.string.resend_otp_timer),
-                        timerFormatStr.format(counter.get())
+                        timerFormatStr.format(millisUntilFinished / 1000)
                     )
-
-                    if (counter.get() == 0) {
-                        timer.cancel()
-                        binding.tvResend.text = requireContext().getString(R.string.resend_otp)
-                        binding.tvResend.isEnabled = true
-                    }
                 }
             }
-        }
 
-        timer.schedule(timerTask, 0, 1000)
+            override fun onFinish() {
+                requireActivity().runOnUiThread {
+                    binding.tvResend.text = requireContext().getString(R.string.resend_otp)
+                    binding.tvResend.isEnabled = true
+                }
+            }
+        }.start()
     }
 
-    private fun handleResendOTP() = binding.tvResend.setOnClickListener {
-        Toasty.error(requireContext(), "Resent OTP", Toasty.LENGTH_SHORT).show()
+    private fun disposeTimerInterval() {
+        timer?.apply {
+            this.cancel()
+            timer = null
+        }
+    }
+
+    private fun handleButtonResendOTP() = binding.tvResend.setOnClickListener {
+        handleResendOTPVerification()
     }
 
     private fun handleButtonVerifyOTP() = binding.btnVerifyOtp.setOnClickListener {
@@ -103,7 +114,16 @@ class CheckOTPFragment : Fragment() {
     }
 
     private fun navigateToNextPage() {
-        timer.cancel()
+        val localDataManager = LocalDataManager()
+        localDataManager.init(requireContext())
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            withContext(Dispatchers.IO) {
+                localDataManager.setUserLoinState(true)
+                localDataManager.setUserInfo(myArgs.phoneNumber)
+            }
+        }
+
         findNavController().navigate(R.id.otp_to_home)
     }
 
@@ -137,6 +157,12 @@ class CheckOTPFragment : Fragment() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
+    private fun handleResendOTPVerification() {
+        binding.tvResend.isEnabled = false
+        val resendOTPOptions = generateResendPhoneAuthProviderOptions(myArgs.phoneNumber);
+        PhoneAuthProvider.verifyPhoneNumber(resendOTPOptions)
+    }
+
     private fun generatePhoneAuthProviderOptions(phoneNumber: String) =
         PhoneAuthOptions.newBuilder()
             .setPhoneNumber(phoneNumber)
@@ -144,26 +170,31 @@ class CheckOTPFragment : Fragment() {
             .setActivity(requireActivity())
             .setCallbacks(otpHandlerCallback).build()
 
+    private fun generateResendPhoneAuthProviderOptions(phoneNumber: String) =
+        PhoneAuthOptions.newBuilder()
+            .setPhoneNumber(phoneNumber)
+            .setTimeout(60L, TimeUnit.SECONDS)
+            .setActivity(requireActivity())
+            .setForceResendingToken(forceResendToken!!)
+            .setCallbacks(otpResendHandlerCallback).build()
+
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        mLoadingDialog.dismissDialog()
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity(), OnCompleteListener<AuthResult> { task ->
+                mLoadingDialog.dismissDialog()
+
                 if (task.isSuccessful) {
                     navigateToNextPage()
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        iOSDialogBuilder(requireContext())
-                            .setTitle(requireContext().getString(R.string.confirm_otp_err))
-                            .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
-                            .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
-                                it.dismiss()
-                            }.build().show()
+                        binding.tvErrorMessage.visibility = View.VISIBLE
                     }
                 }
             })
     }
 
-    inner class OTPKeyEvent(private var current: EditText, private var previous: EditText?) : View.OnKeyListener {
+    inner class OTPKeyEvent(private var current: EditText, private var previous: EditText?) :
+        View.OnKeyListener {
         override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL) {
                 if (current.id != R.id.edt_input_otp_1 && current.text.toString().isEmpty()) {
@@ -205,8 +236,17 @@ class CheckOTPFragment : Fragment() {
             }
 
             override fun onVerificationFailed(exeption: FirebaseException) {
-                binding.tvErrorMessage.visibility = View.VISIBLE
-                Log.e(this@CheckOTPFragment.javaClass.name, "message: ${exeption.message}\nlocalizedMessage: ${exeption.localizedMessage}")
+                Log.e(
+                    this@CheckOTPFragment.javaClass.name,
+                    "message: ${exeption.message}\nlocalizedMessage: ${exeption.localizedMessage}"
+                )
+
+                iOSDialogBuilder(requireContext())
+                    .setTitle(requireContext().getString(R.string.confirm_otp_err))
+                    .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
             }
 
             override fun onCodeSent(
@@ -215,13 +255,39 @@ class CheckOTPFragment : Fragment() {
             ) {
                 super.onCodeSent(verificationId, forceResendingToken)
                 verificationID = verificationId
+                this@CheckOTPFragment.forceResendToken = forceResendingToken
+                countDownResendOTP()
+            }
+        }
+
+    private val otpResendHandlerCallback =
+        object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                signInWithPhoneAuthCredential(credential)
+            }
+
+            override fun onVerificationFailed(exeption: FirebaseException) {
+                binding.tvErrorMessage.visibility = View.VISIBLE
+                Log.e(
+                    this@CheckOTPFragment.javaClass.name,
+                    "message: ${exeption.message}\nlocalizedMessage: ${exeption.localizedMessage}"
+                )
+            }
+
+            override fun onCodeSent(
+                verificationId: String,
+                forceResendingToken: PhoneAuthProvider.ForceResendingToken
+            ) {
+                super.onCodeSent(verificationId, forceResendingToken)
+                verificationID = verificationId
+                this@CheckOTPFragment.forceResendToken = forceResendingToken
                 countDownResendOTP()
             }
         }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        timer.cancel()
+        disposeTimerInterval()
         _binding = null
     }
 }
