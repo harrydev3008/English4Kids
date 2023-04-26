@@ -114,17 +114,26 @@ class CheckOTPFragment : Fragment() {
     }
 
     private fun navigateToNextPage() {
-        val localDataManager = LocalDataManager()
-        localDataManager.init(requireContext())
+//        val localDataManager = LocalDataManager()
+//        localDataManager.init(requireContext())
+//
+//        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+//            withContext(Dispatchers.IO) {
+//                localDataManager.setUserLoinState(true)
+//                localDataManager.setUserInfo(myArgs.phoneNumber)
+//            }
+//        }
+        checkUserExist(false)
+    }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            withContext(Dispatchers.IO) {
-                localDataManager.setUserLoinState(true)
-                localDataManager.setUserInfo(myArgs.phoneNumber)
-            }
+    private fun checkUserExist(isExist: Boolean) {
+        //todo: call api to check if user exist or not
+        if(isExist) {
+            findNavController().navigate(R.id.otp_to_home)
+        } else {
+            val action = CheckOTPFragmentDirections.actionCheckOTPFragmentToDisplayNameFragment(myArgs.phoneNumber)
+            findNavController().navigate(action)
         }
-
-        findNavController().navigate(R.id.otp_to_home)
     }
 
     private fun getUserInputOTPCode() = StringBuilder("")

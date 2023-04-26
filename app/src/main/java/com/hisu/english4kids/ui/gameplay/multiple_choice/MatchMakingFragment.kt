@@ -32,8 +32,16 @@ class MatchMakingFragment : Fragment() {
     }
 
     private fun handleFindMatchButton() = binding.btnFindMatch.setOnClickListener {
-        val dialog = FindMatchDialog(requireContext(), Gravity.CENTER)
+        val dialog = FindMatchDialog(requireContext(), Gravity.CENTER, ::handleAccept, ::handleCancel)
         dialog.showDialog()
+    }
+
+    private fun handleAccept() {
+        findNavController().navigate(R.id.action_matchMakingFragment_to_multipleChoiceContainerFragment)
+    }
+
+    private fun handleCancel() {
+
     }
 
     private fun handleBackButton() = binding.btnBack.setOnClickListener {

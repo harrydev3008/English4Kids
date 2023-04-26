@@ -75,7 +75,7 @@ class CourseFragment : Fragment() {
     }
 
     private fun backToHomePage() = binding.btnHomepage.setOnClickListener {
-        findNavController().navigate(R.id.course_to_home)
+        findNavController().popBackStack()
     }
 
     override fun onDestroyView() {

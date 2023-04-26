@@ -14,7 +14,7 @@
         android:id="@+id/imv_answer_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_80sdp"
-        android:src="@drawable/grampa"
+        android:src="@drawable/bg"
         tools:ignore="ContentDescription" />
 
     <TextView

@@ -32,29 +32,13 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        handleUserNameTextChange()
         handlePhoneNumberTextChange()
         handleLoginBtn()
     }
 
-    private fun handleUserNameTextChange() = binding.edtUsername.addTextChangedListener {
-        it?.apply {
-            binding.btnLogin.isEnabled =
-                it.isNotEmpty() && binding.edtPhoneNumber.text.toString().isNotEmpty()
-
-            if (it.length > 16) {
-                binding.tilUsernameContainer.helperText =
-                    "* Tên hiển thị không được vượt quá 16 kí tự!"
-            } else {
-                binding.tilUsernameContainer.helperText = ""
-            }
-        }
-    }
-
     private fun handlePhoneNumberTextChange() = binding.edtPhoneNumber.addTextChangedListener {
         it?.apply {
-            binding.btnLogin.isEnabled =
-                it.isNotEmpty() && binding.edtUsername.text.toString().isNotEmpty()
+            binding.btnLogin.isEnabled = it.isNotEmpty()
         }
     }
 

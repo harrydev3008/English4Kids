@@ -21,7 +21,7 @@ class LeaderBoardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLeaderBoardBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,7 +31,7 @@ class LeaderBoardFragment : Fragment() {
 
         initLeaderBoardAdapter()
         setUpLeaderBoardRecyclerView()
-//        backToLevel()
+        backToPrev()
     }
 
     private fun initLeaderBoardAdapter() {
@@ -48,8 +48,8 @@ class LeaderBoardFragment : Fragment() {
         adapter = leaderBoardAdapter
     }
 
-    private fun backToLevel() = binding.btnNextRound.setOnClickListener {
-        findNavController().navigate(R.id.board_to_level)
+    private fun backToPrev() = binding.btnBack.setOnClickListener {
+        findNavController().navigate(R.id.action_leaderBoardFragment_to_homeFragment)
     }
 
     override fun onDestroyView() {

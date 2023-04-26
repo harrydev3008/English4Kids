@@ -20,10 +20,14 @@ class FindMatchDialog() {
     private lateinit var dialog: Dialog
     private lateinit var binding: LayoutFindMatchBinding
     private val RESEND_DELAY_TIME = 10 * 1000L
+    private lateinit var acceptCallback: () -> Unit
+    private lateinit var cancelCallback: () -> Unit
 
-    constructor(context: Context, gravity: Int): this() {
+    constructor(context: Context, gravity: Int, acceptCallback: () -> Unit, cancelCallback: () -> Unit): this() {
         this.context = context
         this.gravity = gravity
+        this.acceptCallback = acceptCallback
+        this.cancelCallback = cancelCallback
 
         initDialog()
     }
@@ -60,11 +64,13 @@ class FindMatchDialog() {
     private fun handleAcceptButton() = binding.btnAccept.setOnClickListener {
         //todo: impl later
         dismissDialog()
+        acceptCallback.invoke()
     }
 
     private fun handleCancelButton() = binding.btnCancel.setOnClickListener {
         //todo: cancel socket call impl later
         dismissDialog()
+        cancelCallback.invoke()
     }
 
     private fun handleFindAgainButton() = binding.btnFindAgain.setOnClickListener {
@@ -86,8 +92,8 @@ class FindMatchDialog() {
 //            binding.cimvAvatar.setAnimation(R.raw.swords)
             binding.cimvAvatar.pauseAnimation()
 
-            binding.btnFindAgain.visibility = View.VISIBLE
-            binding.tvLoading.text = context.getString(R.string.cant_find_opponent)
+            binding.btnAccept.visibility = View.VISIBLE
+            binding.tvLoading.text = context.getString(R.string.found_opponent)
         }
     }
 }

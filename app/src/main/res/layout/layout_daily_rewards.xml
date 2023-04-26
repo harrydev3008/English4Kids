@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,46 +7,58 @@
     android:backgroundTint="@android:color/transparent"
     android:orientation="vertical">
 
-    <ImageView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:src="@drawable/bg_header"
-        tools:ignore="ContentDescription" />
+        android:layout_height="match_parent"
+        app:layout_behavior="com.hisu.english4kids.widget.OverScrollBehavior">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_daily_rewards"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_6sdp"
-        android:background="@android:color/transparent"
-        android:paddingLeft="@dimen/_4sdp"
-        android:paddingTop="@dimen/_4sdp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
-        tools:itemCount="7"
-        tools:listitem="@layout/layout_daily_reward" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/bg_header"
+                tools:ignore="ContentDescription" />
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginVertical="@dimen/_8sdp"-->
-<!--        android:text="@string/tap_to_collect"-->
-<!--        android:textAlignment="center"-->
-<!--        android:fontFamily="@font/kavoon"-->
-<!--        android:includeFontPadding="false"-->
-<!--        android:textColor="@color/yellow"-->
-<!--        android:textSize="@dimen/_24ssp" />-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_daily_rewards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@android:color/transparent"
+                android:paddingLeft="@dimen/_4sdp"
+                android:paddingTop="@dimen/_4sdp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"
+                tools:itemCount="7"
+                tools:listitem="@layout/layout_daily_reward" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/btn_close"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_gravity="center"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@color/text_incorrect"
-        android:scaleType="centerCrop"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_close_circle"
-        tools:ignore="ContentDescription" />
+            <!--    <TextView-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_marginVertical="@dimen/_8sdp"-->
+            <!--        android:text="@string/tap_to_collect"-->
+            <!--        android:textAlignment="center"-->
+            <!--        android:fontFamily="@font/kavoon"-->
+            <!--        android:includeFontPadding="false"-->
+            <!--        android:textColor="@color/yellow"-->
+            <!--        android:textSize="@dimen/_24ssp" />-->
 
-</LinearLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/btn_close"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/text_incorrect"
+                android:scaleType="centerCrop"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_close_circle"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

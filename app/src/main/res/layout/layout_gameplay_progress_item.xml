@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/parent_container"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:paddingBottom="@dimen/_2sdp">
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center">-->
+
+<!--        <com.google.android.material.progressindicator.CircularProgressIndicator-->
+<!--            android:id="@+id/pb_progress"-->
+<!--            android:layout_width="@dimen/_80sdp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:max="1"-->
+<!--            android:progress="1"-->
+<!--            app:indicatorColor="@color/classic"-->
+<!--            app:indicatorSize="@dimen/_80sdp"-->
+<!--            app:trackColor="@color/light_blue_gray"-->
+<!--            app:trackCornerRadius="10dp"-->
+<!--            app:trackThickness="@dimen/_5sdp" />-->
+
+<!--        <de.hdodenhof.circleimageview.CircleImageView-->
+<!--            android:id="@+id/cimv_avatar"-->
+<!--            android:layout_width="@dimen/_65sdp"-->
+<!--            android:layout_height="@dimen/_65sdp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:src="@drawable/bg" />-->
+<!--    </RelativeLayout>-->
+
+    <RelativeLayout
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/bg_circle"
+        android:layout_gravity="center">
+<!--        <TextView-->
+<!--            android:id="@+id/tv_round"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:text=""-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:textSize="@dimen/_42ssp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:fontFamily="@font/kavoon"-->
+<!--            android:includeFontPadding="false"-->
+<!--            />-->
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:src="@drawable/ic_star_solid"
+            android:layout_centerInParent="true"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+
+</LinearLayout>

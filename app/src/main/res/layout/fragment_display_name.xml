@@ -4,79 +4,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.auth.RegisterFragment"
-    android:orientation="vertical"
-    >
+    tools:context=".ui.auth.DisplayNameFragment"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:src="@drawable/bg_welcome_2"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_naming"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:orientation="vertical">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_8sdp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_text"
-            android:textSize="@dimen/_20sdp"
-            android:fontFamily="@font/roboto_bold"
-            android:includeFontPadding="false"
+            android:text="@string/user_optional_desc"
             android:textColor="@color/text_correct"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/_20ssp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_phone_container"
+            android:id="@+id/til_username_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             style="@style/LoginTextInputLayoutStyle"
+            android:layout_marginTop="@dimen/_12sdp"
             app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
             app:boxCornerRadiusBottomStart="@dimen/_12sdp"
             app:boxCornerRadiusTopEnd="@dimen/_12sdp"
             app:boxCornerRadiusTopStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_12sdp"
             app:boxStrokeErrorColor="@color/light_red"
             app:helperTextTextColor="@color/light_red"
             app:boxStrokeWidth="@dimen/_2sdp"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_phone_number"
+                android:id="@+id/edt_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/phone_number"
+                android:hint="@string/username"
                 android:textCursorDrawable="@drawable/edt_cursor"
                 android:paddingVertical="@dimen/_12sdp"
                 android:textSize="@dimen/_16ssp"
-                android:inputType="phone"
-                android:maxLength="11"
+                android:inputType="text"
+                android:maxLength="20"
                 android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@string/get_start"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:paddingVertical="@dimen/_12sdp"
-            android:text="@string/get_start"
-            android:enabled="false"
-            android:textColor="@color/white"
             android:textAllCaps="true"
+            android:enabled="false"
+            android:textSize="@dimen/_15ssp"
+            android:paddingVertical="@dimen/_12sdp"
             style="@style/LoginButtonStyle"
-            app:cornerRadius="@dimen/_12sdp"/>
+            app:cornerRadius="@dimen/_12sdp"
+            />
+
     </LinearLayout>
 
 </LinearLayout>
