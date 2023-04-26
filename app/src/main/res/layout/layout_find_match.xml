@@ -9,7 +9,7 @@
     app:strokeColor="@color/light_gray">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
@@ -25,11 +25,11 @@
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="0dp"
                 android:layout_centerInParent="true"
-                android:max="8"
-                android:progress="1"
-                app:indicatorColor="@color/classic"
+                android:max="60"
+                android:progress="0"
+                app:indicatorColor="@color/light_blue_gray"
                 app:indicatorSize="@dimen/_120sdp"
-                app:trackColor="@color/light_blue_gray"
+                app:trackColor="@color/classic"
                 app:trackCornerRadius="10dp"
                 app:trackThickness="@dimen/_5sdp" />
 
@@ -39,8 +39,8 @@
                 android:layout_height="@dimen/_100sdp"
                 android:layout_centerInParent="true"
                 app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/find_opponent"
-                app:lottie_loop="true" />
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/find_opponent" />
         </RelativeLayout>
 
         <TextView
@@ -55,7 +55,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_accept"
-            android:layout_width="@dimen/_120sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/daily"
             android:fontFamily="@font/roboto_bold"
@@ -65,8 +65,19 @@
             android:text="@string/accept_match"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_find_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/classic"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            app:cornerRadius="@dimen/_10sdp"
+            android:visibility="gone"
+            android:text="@string/refind_match"/>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
-            android:layout_width="@dimen/_120sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/text_incorrect"
             android:fontFamily="@font/roboto_bold"
