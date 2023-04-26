@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentLessonsBinding
+import com.hisu.english4kids.model.course.Lesson
 import com.hisu.english4kids.model.course.LessonsResponse
 
 class ClassModeLevelFragment : Fragment() {
@@ -33,27 +34,23 @@ class ClassModeLevelFragment : Fragment() {
         val mode = myNavArgs.mode
         binding.tvMode.text = mode
 
-//        continueLevel()
         backToHomePage()
         setUpLevels()
         loadLevel()
     }
 
     private fun backToHomePage() = binding.btnHome.setOnClickListener {
-        findNavController().navigate(R.id.lesson_to_home)
+        findNavController().popBackStack()
     }
 
-//    private fun continueLevel() = binding.btnContinue.setOnClickListener {
-//        findNavController().navigate(R.id.mode_to_play)
-//    }
-
     private fun setUpLevels() = binding.rvLevels.apply {
-        levelAdapter = LessonAdapter(requireContext()) {
-            findNavController().navigate(R.id.mode_to_play)
-        }
-
+        levelAdapter = LessonAdapter(requireContext(), ::handleLessonClick)
         adapter = levelAdapter
         setHasFixedSize(true)
+    }
+
+    private fun handleLessonClick(lesson: Lesson) {
+        findNavController().navigate(R.id.action_classModeLevelFragment_to_gamePlayProgressFragment)
     }
 
     private fun loadLevel() {

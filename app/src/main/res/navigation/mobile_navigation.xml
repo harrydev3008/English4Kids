@@ -21,11 +21,6 @@
             android:defaultValue="-1"
             app:nullable="false"/>
         <action
-            android:id="@+id/play_to_mode"
-            app:destination="@id/classModeLevelFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/classModeLevelFragment"/>
-        <action
             android:id="@+id/game_finish"
             app:destination="@id/gameFinishFragment"
             />
@@ -47,11 +42,11 @@
             android:defaultValue=""/>
 
         <action
-            android:id="@+id/mode_to_play"
-            app:destination="@id/playFragment" />
-        <action
             android:id="@+id/lesson_to_home"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_classModeLevelFragment_to_gamePlayProgressFragment"
+            app:destination="@id/gamePlayProgressFragment" />
     </fragment>
 
     <fragment
@@ -65,14 +60,8 @@
             app:argType="string"
             android:defaultValue=""/>
         <action
-            android:id="@+id/back_to_level"
-            app:destination="@id/classModeLevelFragment" />
-        <action
             android:id="@+id/next_round"
             app:destination="@id/playFragment" />
-        <action
-            android:id="@+id/to_leader_board"
-            app:destination="@id/leaderBoardFragment" />
 
     </fragment>
     <fragment
@@ -100,15 +89,6 @@
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
-        android:id="@+id/leaderBoardFragment"
-        android:name="com.hisu.english4kids.ui.leader_board.LeaderBoardFragment"
-        android:label="fragment_leader_board"
-        tools:layout="@layout/fragment_leader_board" >
-        <action
-            android:id="@+id/board_to_level"
-            app:destination="@id/classModeLevelFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/registerFragment"
         android:name="com.hisu.english4kids.ui.auth.RegisterFragment"
         android:label="fragment_register"
@@ -130,6 +110,9 @@
             app:argType="string"
             android:defaultValue=""
             app:nullable="false"/>
+        <action
+            android:id="@+id/action_checkOTPFragment_to_displayNameFragment"
+            app:destination="@id/displayNameFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -142,6 +125,9 @@
         <action
             android:id="@+id/home_to_competitive"
             app:destination="@id/matchMakingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_leaderBoardFragment"
+            app:destination="@id/leaderBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/multipleChoiceContainerFragment"
@@ -159,5 +145,37 @@
         <action
             android:id="@+id/action_matchMakingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayNameFragment"
+        android:name="com.hisu.english4kids.ui.auth.DisplayNameFragment"
+        android:label="fragment_display_name"
+        tools:layout="@layout/fragment_display_name" >
+        <action
+            android:id="@+id/action_displayNameFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string"
+            android:defaultValue=""
+            app:nullable="false"/>
+    </fragment>
+    <fragment
+        android:id="@+id/leaderBoardFragment"
+        android:name="com.hisu.english4kids.ui.leader_board.LeaderBoardFragment"
+        android:label="fragment_leader_board"
+        tools:layout="@layout/fragment_leader_board" >
+        <action
+            android:id="@+id/action_leaderBoardFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gamePlayProgressFragment"
+        android:name="com.hisu.english4kids.ui.gameplay.progress.GamePlayProgressFragment"
+        android:label="fragment_game_play_progress"
+        tools:layout="@layout/fragment_game_play_progress" >
+        <action
+            android:id="@+id/action_gamePlayProgressFragment_to_playFragment"
+            app:destination="@id/playFragment" />
     </fragment>
 </navigation>

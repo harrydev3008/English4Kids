@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="11"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
         android:textColor="@color/light_black"
         android:textSize="@dimen/_16ssp"
         android:layout_marginEnd="@dimen/_8sdp"/>
@@ -32,6 +34,8 @@
         android:layout_weight="2"
         android:text="@string/app_name"
         android:textSize="@dimen/_16ssp"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
         android:textColor="@color/light_black"
         android:textStyle="bold"/>
 
@@ -41,6 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="100KN"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
         android:textAlignment="textEnd"
         android:textSize="@dimen/_16ssp"
         android:textColor="@color/light_black" />
