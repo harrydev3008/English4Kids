@@ -9,6 +9,9 @@
     <string name="continue_level">Tiếp tục</string>
     <string name="next">Tiếp Tục</string>
     <string name="back">Quay Lại</string>
+    <string name="setting">Cài Đặt</string>
+    <string name="setting_learning_remind">Nhắc học Tiếng Anh.</string>
+    <string name="setting_daily_reward_remind">Nhắc nhận quà đăng nhập.</string>
     <string name="review">Ôn Tập</string>
     <string name="check">Kiểm Tra</string>
     <string name="leader_board">Xếp Hạng Tuần</string>
@@ -40,6 +43,9 @@
     <string name="accept_match">Chiến Thôi!</string>
     <string name="refind_match">Tìm Tiếp</string>
     <string name="cancel_match">Thoát</string>
+    <string name="got_winner">We Got A Winner!</string>
+    <string name="find_next_opponent">Chiến Tiếp!</string>
+    <string name="competitive_complete_desc">Trận đấu đã kết thúc!\nBạn có muốn tìm đối thủ tiếp theo?!</string>
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>

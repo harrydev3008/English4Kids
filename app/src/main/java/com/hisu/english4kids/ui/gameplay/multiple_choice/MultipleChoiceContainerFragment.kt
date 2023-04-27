@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentMultipleChoiceContainerBinding
 import com.hisu.english4kids.model.multiple_choice.MultipleChoiceModel
 import com.hisu.english4kids.model.multiple_choice.MultipleChoicesResponse
@@ -67,7 +69,10 @@ class MultipleChoiceContainerFragment : Fragment() {
     }
 
     private fun handleItemClick() {
-        binding.vpMultipleQuestion.setCurrentItem(binding.vpMultipleQuestion.currentItem + 1)
+        if (binding.vpMultipleQuestion.currentItem < questions.size - 1)
+            binding.vpMultipleQuestion.currentItem = binding.vpMultipleQuestion.currentItem + 1
+        else
+            findNavController().navigate(R.id.action_multipleChoiceContainerFragment_to_completeCompetitiveFragment)
     }
 
     private fun handleWrongAnswer() {

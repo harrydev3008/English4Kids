@@ -18,7 +18,6 @@ class LoadingDialog() {
     constructor(context: Context, gravity: Int) : this() {
         this.context = context
         this.gravity = gravity
-
         initDialog()
     }
 
@@ -28,20 +27,16 @@ class LoadingDialog() {
         dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(binding.root)
-        dialog.setCancelable(true)
+        dialog.setCancelable(false)
 
         val window = dialog.window ?: return
-
         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val windowAttr = window.attributes
         windowAttr.gravity = gravity
         window.attributes = windowAttr
-
-        dialog.setCancelable(false)
     }
-
 
     fun showDialog() = dialog.show()
 

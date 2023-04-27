@@ -1,19 +1,17 @@
 package com.hisu.english4kids.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentHomeBinding
-import com.hisu.english4kids.model.leader_board.User
 import com.hisu.english4kids.ui.dialog.DailyRewardDialog
+import com.hisu.english4kids.ui.dialog.SettingDialog
 import com.hisu.english4kids.utils.local.LocalDataManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -48,7 +46,7 @@ class HomeFragment : Fragment() {
         leaderBoard()
         competitiveMode()
         dailyReward()
-
+        handleSettingButton()
         binding.btnCompetitiveMode.isEnabled = true
     }
 
@@ -67,6 +65,25 @@ class HomeFragment : Fragment() {
     private fun dailyReward() = binding.btnDailyReward.setOnClickListener {
         val dialog = DailyRewardDialog(requireContext(), Gravity.CENTER)
         dialog.showDialog()
+    }
+
+    private fun handleSettingButton() = binding.btnSetting.setOnClickListener {
+        SettingDialog(requireContext(), Gravity.CENTER)
+            .setSaveCallback(::handleSaveSetting)
+            .showDialog()
+    }
+
+    private fun handleSaveSetting(isRemindLearning: Boolean, isRemindDaily: Boolean) {
+//        Toast.makeText(requireContext(), "$isRemindDaily - $isRemindLearning", Toast.LENGTH_SHORT).show()
+        val localDataManager = LocalDataManager()
+        localDataManager.init(requireContext())
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            withContext(Dispatchers.IO) {
+                localDataManager.setUserRemindLearningState(isRemindLearning)
+                localDataManager.setUserRemindDailyRewardState(isRemindDaily)
+            }
+        }
     }
 
     override fun onDestroyView() {

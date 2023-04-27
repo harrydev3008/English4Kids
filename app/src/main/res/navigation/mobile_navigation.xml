@@ -9,37 +9,36 @@
         android:id="@+id/playFragment"
         android:name="com.hisu.english4kids.ui.play_screen.PlayFragment"
         android:label="fragment_play"
-        tools:layout="@layout/fragment_play" >
+        tools:layout="@layout/fragment_play">
         <argument
             android:name="level"
-            app:argType="integer"
             android:defaultValue="-1"
-            app:nullable="false"/>
+            app:argType="integer"
+            app:nullable="false" />
         <argument
             android:name="mode"
-            app:argType="integer"
             android:defaultValue="-1"
-            app:nullable="false"/>
+            app:argType="integer"
+            app:nullable="false" />
         <action
             android:id="@+id/game_finish"
-            app:destination="@id/gameFinishFragment"
-            />
+            app:destination="@id/gameFinishFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/classModeLevelFragment"
         android:name="com.hisu.english4kids.ui.lessons.ClassModeLevelFragment"
         android:label="fragment_class_mode_level"
-        tools:layout="@layout/fragment_lessons" >
+        tools:layout="@layout/fragment_lessons">
         <argument
             android:name="mode"
-            app:argType="string"
-            android:defaultValue=""/>
+            android:defaultValue=""
+            app:argType="string" />
 
         <argument
             android:name="courseLevels"
-            app:argType="string"
-            android:defaultValue=""/>
+            android:defaultValue=""
+            app:argType="string" />
 
         <action
             android:id="@+id/lesson_to_home"
@@ -53,22 +52,21 @@
         android:id="@+id/gameFinishFragment"
         android:name="com.hisu.english4kids.ui.finish.GameFinishFragment"
         android:label="fragment_game_finish"
-        tools:layout="@layout/fragment_game_finish" >
-
+        tools:layout="@layout/fragment_game_finish">
         <argument
             android:name="result"
-            app:argType="string"
-            android:defaultValue=""/>
+            android:defaultValue=""
+            app:argType="string" />
         <action
             android:id="@+id/next_round"
             app:destination="@id/playFragment" />
-
     </fragment>
+
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.hisu.english4kids.splash_screen.SplashScreenFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/splash_to_regis"
             app:destination="@id/registerFragment" />
@@ -76,11 +74,12 @@
             android:id="@+id/splash_to_home"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/courseFragment"
         android:name="com.hisu.english4kids.ui.home.CourseFragment"
         android:label="fragment_course"
-        tools:layout="@layout/fragment_course" >
+        tools:layout="@layout/fragment_course">
         <action
             android:id="@+id/course_to_level"
             app:destination="@id/classModeLevelFragment" />
@@ -88,37 +87,40 @@
             android:id="@+id/course_to_home"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.hisu.english4kids.ui.auth.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_checkOTPFragment"
             app:destination="@id/checkOTPFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/checkOTPFragment"
         android:name="com.hisu.english4kids.ui.auth.CheckOTPFragment"
         android:label="fragment_check_o_t_p"
-        tools:layout="@layout/fragment_check_otp" >
+        tools:layout="@layout/fragment_check_otp">
         <action
             android:id="@+id/otp_to_home"
             app:destination="@id/homeFragment" />
         <argument
             android:name="phoneNumber"
-            app:argType="string"
             android:defaultValue=""
-            app:nullable="false"/>
+            app:argType="string"
+            app:nullable="false" />
         <action
             android:id="@+id/action_checkOTPFragment_to_displayNameFragment"
             app:destination="@id/displayNameFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.hisu.english4kids.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/home_to_course"
             app:destination="@id/courseFragment" />
@@ -129,16 +131,22 @@
             android:id="@+id/action_homeFragment_to_leaderBoardFragment"
             app:destination="@id/leaderBoardFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/multipleChoiceContainerFragment"
         android:name="com.hisu.english4kids.ui.gameplay.multiple_choice.MultipleChoiceContainerFragment"
         android:label="fragment_multiple_choice_container"
-        tools:layout="@layout/fragment_multiple_choice_container" />
+        tools:layout="@layout/fragment_multiple_choice_container">
+        <action
+            android:id="@+id/action_multipleChoiceContainerFragment_to_completeCompetitiveFragment"
+            app:destination="@id/completeCompetitiveFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/matchMakingFragment"
         android:name="com.hisu.english4kids.ui.gameplay.multiple_choice.MatchMakingFragment"
         android:label="fragment_match_making"
-        tools:layout="@layout/fragment_match_making" >
+        tools:layout="@layout/fragment_match_making">
         <action
             android:id="@+id/action_matchMakingFragment_to_multipleChoiceContainerFragment"
             app:destination="@id/multipleChoiceContainerFragment" />
@@ -146,36 +154,52 @@
             android:id="@+id/action_matchMakingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/displayNameFragment"
         android:name="com.hisu.english4kids.ui.auth.DisplayNameFragment"
         android:label="fragment_display_name"
-        tools:layout="@layout/fragment_display_name" >
+        tools:layout="@layout/fragment_display_name">
         <action
             android:id="@+id/action_displayNameFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <argument
             android:name="phoneNumber"
-            app:argType="string"
             android:defaultValue=""
-            app:nullable="false"/>
+            app:argType="string"
+            app:nullable="false" />
     </fragment>
+
     <fragment
         android:id="@+id/leaderBoardFragment"
         android:name="com.hisu.english4kids.ui.leader_board.LeaderBoardFragment"
         android:label="fragment_leader_board"
-        tools:layout="@layout/fragment_leader_board" >
+        tools:layout="@layout/fragment_leader_board">
         <action
             android:id="@+id/action_leaderBoardFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/gamePlayProgressFragment"
         android:name="com.hisu.english4kids.ui.gameplay.progress.GamePlayProgressFragment"
         android:label="fragment_game_play_progress"
-        tools:layout="@layout/fragment_game_play_progress" >
+        tools:layout="@layout/fragment_game_play_progress">
         <action
             android:id="@+id/action_gamePlayProgressFragment_to_playFragment"
             app:destination="@id/playFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/completeCompetitiveFragment"
+        android:name="com.hisu.english4kids.ui.gameplay.multiple_choice.CompleteCompetitiveFragment"
+        android:label="fragment_complete_competitive"
+        tools:layout="@layout/fragment_complete_competitive">
+        <action
+            android:id="@+id/action_completeCompetitiveFragment_to_matchMakingFragment"
+            app:destination="@id/matchMakingFragment" />
+        <action
+            android:id="@+id/action_completeCompetitiveFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

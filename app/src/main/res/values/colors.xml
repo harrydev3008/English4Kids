@@ -42,4 +42,5 @@
     <color name="level_percent_50">#F8D356</color>
     <color name="level_percent_75">#20B0F5</color>
     <color name="level_percent_100">#58CC00</color>
+    <color name="ios_switch_color">#34c759</color>
 </resources>

@@ -1,19 +1,13 @@
 package com.hisu.english4kids.ui.auth
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Gravity
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
@@ -23,15 +17,8 @@ import com.google.firebase.auth.*
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentCheckOtpBinding
 import com.hisu.english4kids.ui.dialog.LoadingDialog
-import com.hisu.english4kids.utils.local.LocalDataManager
-import es.dmoral.toasty.Toasty
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
-import java.util.*
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicLong
 
 class CheckOTPFragment : Fragment() {
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_8sdp"
+    tools:context=".ui.gameplay.multiple_choice.CompleteCompetitiveFragment">
+
+    <TextView
+        android:id="@+id/tv_winner_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
+        android:text="@string/got_winner"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/daily"
+        android:textSize="@dimen/_30ssp" />
+
+    <LinearLayout
+        android:id="@+id/ll_winner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_winner_desc"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/_8sdp">
+
+        <RelativeLayout
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_200sdp"
+
+            android:background="@drawable/bg_winner">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg"
+                app:civ_border_color="@color/yellow"
+                app:civ_border_width="4dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_winner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/app_name"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_20ssp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_winner_container"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_12sdp">
+
+        <TextView
+            android:id="@+id/tv_correct_answer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_word_border_selected_green"
+            android:drawableStart="@drawable/ic_target_arrow_filled"
+            android:drawablePadding="@dimen/_8sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_12sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:text="Câu đúng\n18/20"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_16ssp" />
+
+        <TextView
+            android:id="@+id/tv_compelete_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_word_border_selected_image_blue"
+            android:drawableStart="@drawable/ic_round_timer"
+            android:drawablePadding="@dimen/_8sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_12sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:text="Thời gian\n02:30s"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_16ssp" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:backgroundTint="@color/daily"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
+        android:paddingVertical="@dimen/_8sdp"
+        android:text="@string/confirm_otp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        app:cornerRadius="@dimen/_10sdp" />
+
+</RelativeLayout>

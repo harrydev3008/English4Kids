@@ -9,6 +9,8 @@ class MySharedPreferences(var context: Context) {
         val SHARED_PREFERENCE = "E4K_SHARED_PREFERENCE"
         val USER_INFO_KEY = "USER_INFO"
         val USER_LOGIN_STATE = "USER_LOGIN_STATE"
+        val USER_REMIND_LEARNING_STATE = "USER_REMIND_LEARNING_STATE"
+        val USER_REMIND_DAILY_REWARD_STATE = "USER_REMIND_DAILY_REWARD_STATE"
     }
 
     private fun  getSharedPreferences() : SharedPreferences = context.getSharedPreferences(
@@ -27,7 +29,9 @@ class MySharedPreferences(var context: Context) {
         editor.apply()
     }
 
-    suspend fun getBoolean(key: String) = getSharedPreferences().getBoolean(key, false)
+    suspend fun getBooleanAsync(key: String) = getSharedPreferences().getBoolean(key, false)
+
+    fun getBoolean(key: String) = getSharedPreferences().getBoolean(key, false)
 
     suspend fun getString(key: String) = getSharedPreferences().getString(key, "")
 }
