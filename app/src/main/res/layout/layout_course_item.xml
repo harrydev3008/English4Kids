@@ -13,28 +13,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:gravity="center_vertical"
             android:orientation="vertical"
+            android:gravity="center"
             android:padding="@dimen/_12sdp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_12sdp">
+                android:layout_gravity="center">
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/pb_course_progress"
-                    android:layout_width="@dimen/_150sdp"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="0dp"
                     android:layout_centerInParent="true"
                     android:max="8"
                     android:progress="1"
                     app:indicatorColor="@color/classic"
-                    app:indicatorSize="@dimen/_150sdp"
+                    app:indicatorSize="@dimen/_100sdp"
                     app:trackColor="@color/light_blue_gray"
                     app:trackCornerRadius="10dp"
-                    app:trackThickness="@dimen/_16sdp" />
+                    app:trackThickness="@dimen/_12sdp" />
 
                 <TextView
                     android:id="@+id/tv_progress_number"
@@ -43,7 +42,7 @@
                     android:layout_centerInParent="true"
                     android:text="4/8"
                     android:textColor="@color/light_black"
-                    android:textSize="@dimen/_24ssp"
+                    android:textSize="@dimen/_20ssp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -52,10 +51,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:text="Phần giới thiệu Tiếng Anh"
+                android:fontFamily="@font/roboto_bold"
+                android:includeFontPadding="false"
                 android:textColor="@color/light_black"
-                android:textSize="@dimen/_24ssp"
+                android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
 
             <TextView
@@ -66,9 +67,10 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:text="Khởi động cùng một số ngữ pháp và cụm từ đơn giản"
                 android:textAlignment="center"
+                android:fontFamily="@font/roboto"
+                android:includeFontPadding="false"
                 android:textColor="@color/gray_af"
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold" />
-
         </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

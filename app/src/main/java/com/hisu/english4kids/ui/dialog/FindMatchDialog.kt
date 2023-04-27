@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.CountDownTimer
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -23,25 +22,22 @@ class FindMatchDialog() {
     private lateinit var acceptCallback: () -> Unit
     private lateinit var cancelCallback: () -> Unit
 
-    constructor(context: Context, gravity: Int, acceptCallback: () -> Unit, cancelCallback: () -> Unit): this() {
+    constructor(context: Context, gravity: Int): this() {
         this.context = context
         this.gravity = gravity
-        this.acceptCallback = acceptCallback
-        this.cancelCallback = cancelCallback
-
         initDialog()
     }
 
     private fun initDialog() {
         binding = LayoutFindMatchBinding.inflate(LayoutInflater.from(context), null, false)
+        binding.cimvAvatar.renderMode = RenderMode.HARDWARE
 
         dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(binding.root)
-        dialog.setCancelable(true)
+        dialog.setCancelable(false)
 
         val window = dialog.window ?: return
-
         //80% of device width
         val width = (context.resources.displayMetrics.widthPixels * 0.8).toInt()
 
@@ -52,13 +48,21 @@ class FindMatchDialog() {
         windowAttr.gravity = gravity
         window.attributes = windowAttr
 
-        dialog.setCancelable(false)
-
         handleAcceptButton()
         handleCancelButton()
         handleFindAgainButton()
-        binding.cimvAvatar.renderMode = RenderMode.HARDWARE
+
         countDownTimer.start()
+    }
+
+    fun setAcceptCallBack(acceptCallback: () -> Unit): FindMatchDialog {
+        this.acceptCallback = acceptCallback
+        return this
+    }
+
+    fun setCancelCallBack(cancelCallback: () -> Unit): FindMatchDialog {
+        this.cancelCallback = cancelCallback
+        return this
     }
 
     private fun handleAcceptButton() = binding.btnAccept.setOnClickListener {
@@ -81,7 +85,7 @@ class FindMatchDialog() {
 
     fun showDialog() = dialog.show()
 
-    fun dismissDialog() = dialog.dismiss()
+    private fun dismissDialog() = dialog.dismiss()
 
     private val countDownTimer =  object : CountDownTimer(RESEND_DELAY_TIME, 1000) {
         override fun onTick(millisUntilFinished: Long) {
