@@ -134,7 +134,7 @@
 
     <fragment
         android:id="@+id/multipleChoiceContainerFragment"
-        android:name="com.hisu.english4kids.ui.gameplay.multiple_choice.MultipleChoiceContainerFragment"
+        android:name="com.hisu.english4kids.ui.play_screen.gameplay.multiple_choice.MultipleChoiceContainerFragment"
         android:label="fragment_multiple_choice_container"
         tools:layout="@layout/fragment_multiple_choice_container">
         <action
@@ -144,7 +144,7 @@
 
     <fragment
         android:id="@+id/matchMakingFragment"
-        android:name="com.hisu.english4kids.ui.gameplay.multiple_choice.MatchMakingFragment"
+        android:name="com.hisu.english4kids.ui.play_screen.gameplay.multiple_choice.MatchMakingFragment"
         android:label="fragment_match_making"
         tools:layout="@layout/fragment_match_making">
         <action
@@ -182,7 +182,7 @@
 
     <fragment
         android:id="@+id/gamePlayProgressFragment"
-        android:name="com.hisu.english4kids.ui.gameplay.progress.GamePlayProgressFragment"
+        android:name="com.hisu.english4kids.ui.play_screen.gameplay.progress.GamePlayProgressFragment"
         android:label="fragment_game_play_progress"
         tools:layout="@layout/fragment_game_play_progress">
         <action
@@ -192,7 +192,7 @@
 
     <fragment
         android:id="@+id/completeCompetitiveFragment"
-        android:name="com.hisu.english4kids.ui.gameplay.multiple_choice.CompleteCompetitiveFragment"
+        android:name="com.hisu.english4kids.ui.play_screen.gameplay.multiple_choice.CompleteCompetitiveFragment"
         android:label="fragment_complete_competitive"
         tools:layout="@layout/fragment_complete_competitive">
         <action

@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentLeaderBoardBinding
-import com.hisu.english4kids.model.leader_board.LeaderBoardResponse
+import com.hisu.english4kids.data.model.leader_board.LeaderBoardResponse
 import com.hisu.english4kids.utils.MyUtils
 
 class LeaderBoardFragment : Fragment() {

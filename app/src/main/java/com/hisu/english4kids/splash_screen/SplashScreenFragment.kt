@@ -38,10 +38,12 @@ class SplashScreenFragment : Fragment() {
 
             delay(3 * 1000)// wait extra 3s before checking login state
 
-            if (isLogIn)
+//            findNavController().navigate(R.id.action_splashScreenFragment_to_gamePlayProgressFragment)
+
+//            if (isLogIn)
                 findNavController().navigate(R.id.splash_to_home)
-            else
-                findNavController().navigate(R.id.splash_to_regis)
+//            else
+//                findNavController().navigate(R.id.splash_to_regis)
         }
     }
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:cardCornerRadius="@dimen/_10sdp"
-    tools:context=".ui.gameplay.multiple_choice.MultipleChoiceFragment">
+    tools:context=".ui.play_screen.gameplay.multiple_choice.MultipleChoiceFragment">
 
     <TextView
         android:id="@+id/tv_question"

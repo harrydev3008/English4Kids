@@ -4,24 +4,20 @@
     <string name="mode_learning_tool_tip">Vừa chơi vừa học Tiếng Anh thật vui vẻ!</string>
     <string name="mode_competitive">Thi Đấu</string>
     <string name="mode_competitive_tool_tip">So tài Tiếng Anh cùng các người chơi khác!</string>
-    <string name="daily_reward">Phần Thưởng Mỗi Ngày!</string>
-    <string name="tap_to_collect">Tap to collect</string>
-    <string name="continue_level">Tiếp tục</string>
     <string name="next">Tiếp Tục</string>
     <string name="back">Quay Lại</string>
     <string name="setting">Cài Đặt</string>
     <string name="setting_learning_remind">Nhắc học Tiếng Anh.</string>
     <string name="setting_daily_reward_remind">Nhắc nhận quà đăng nhập.</string>
-    <string name="review">Ôn Tập</string>
     <string name="check">Kiểm Tra</string>
     <string name="leader_board">Xếp Hạng Tuần</string>
     <string name="leader_board_title">Chào mừng bạn đến với bảng xếp hạng tuần này!</string>
     <string name="username">Tên E4K của bạn!</string>
-    <string name="phone_number">Nhập số điện thoại để bắt đầu!</string>
-    <string name="login">Đăng Nhập</string>
+    <string name="phone_number">Số điện thoại</string>
     <string name="get_start">Bắt Đầu Thôi Nào!</string>
     <string name="user_optional_desc">Hãy đặt 1 biệt danh thật ngầu nào!</string>
-    <string name="welcome_text">Hi bạn!</string>
+    <string name="welcome_text">Điền số điện thoại của bạn</string>
+    <string name="welcome_text_desc">Số điện thoại dùng để đăng nhập hoặc mở tài khoản nếu bạn lần đầu dùng E4K.</string>
     <string name="verify_your_otp">Hãy nhập mã OTP đã được gửi đến số điện thoại của bạn.</string>
     <string name="tap_connect_pairs">Nhấn vào các cặp tương ứng</string>
     <string name="skip_current_question">Câu hỏi kế tiếp</string>
@@ -39,7 +35,6 @@
     <string name="find_match">Tìm Đối Thủ</string>
     <string name="loading_pls_wait">Đang tìm đối thủ xứng tầm…</string>
     <string name="found_opponent">Đã tìm thấy đối thủ!</string>
-    <string name="cant_find_opponent">Không tìm thấy đối thủ nào…</string>
     <string name="accept_match">Chiến Thôi!</string>
     <string name="refind_match">Tìm Tiếp</string>
     <string name="cancel_match">Thoát</string>
@@ -49,8 +44,6 @@
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>
-    <string name="warning_dialog_msg">Cảnh báo</string>
-    <string name="quit_title">Đợi đã, đừng đi mà!</string>
     <string name="confirm_quit_game_play">Bạn có chắc muốn thoát không?! Nếu thoát bạn sẽ mất tiến trình của bài học này.</string>
     <string name="confirm_msg_quit">Dừng lại</string>
     <string name="confirm_msg_stay">Chơi tiếp</string>
@@ -71,48 +64,18 @@
     <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
     <string name="resend_otp">Gửi lại mã</string>
     <string name="lesson_pattern">Bài %1$d</string>
-    <string name="round_pattern">Màn %1$d</string>
-    <string name="level_pattern">Cấp %1$d</string>
     <string name="course_progress_pattern">%1$d/%2$d</string>
     <string name="daily_reward_date_pattern">Day %1$d</string>
     <string name="daily_reward_price_pattern">+%1$d</string>
-    <string name="question_progress_pattern">Câu hỏi thứ %1$d/%2$d</string>
     <string name="answer_multiple_choice_pattern">%1$s. %2$s</string>
 
     <!--  random messages  -->
-    <array name="correct_answer_messages">
-        <item>Tuyệt vời ông mặt trời!</item>
-        <item>Chính xác!</item>
-        <item>Hay quá bạn ơi!</item>
-        <item>Quá xuất sắc!</item>
-        <item>10 điểm!</item>
-    </array>
 
-    <array name="wrong_answer_messages">
-        <item>Úi sai rồi!</item>
-        <item>Chúc bạn may mắn lần sau</item>
-        <item>Hic! Dịch sai rồi</item>
-        <item>Học bài kỹ lại nhaa</item>
-        <item>0 điểm về chỗ!</item>
-    </array>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Notification info   -->
     <string name="notification_learning_channel_id">notification_learning_id</string>
     <string name="notification_learning_channel_name">Nhắc học Tiếng Anh</string>
     <string name="notification_learning_title">Giờ học đến rồi!</string>
-
-    <array name="notification_learning_message">
-        <item>Úi sai rồi!</item>
-        <item>Chúc bạn may mắn lần sau</item>
-        <item>Hic! Dịch sai rồi</item>
-        <item>Học bài kỹ lại nhaa</item>
-        <item>0 điểm về chỗ!</item>
-    </array>
-
-    <string name="notification_daily_channel_id">notification_daily_id</string>
-    <string name="notification_daily_channel_name">Nhắc nhận quà đăng nhập</string>
-    <string name="notification_daily_title">Thưởng đăng nhập mỗi ngày!</string>
 
 </resources>

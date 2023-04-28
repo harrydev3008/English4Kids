@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentDisplayNameBinding
-import com.hisu.english4kids.model.leader_board.User
+import com.hisu.english4kids.data.model.leader_board.User
 import com.hisu.english4kids.utils.local.LocalDataManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
