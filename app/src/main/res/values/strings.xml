@@ -98,4 +98,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Notification info   -->
+    <string name="notification_learning_channel_id">notification_learning_id</string>
+    <string name="notification_learning_channel_name">Nhắc học Tiếng Anh</string>
+    <string name="notification_learning_title">Giờ học đến rồi!</string>
+
+    <array name="notification_learning_message">
+        <item>Úi sai rồi!</item>
+        <item>Chúc bạn may mắn lần sau</item>
+        <item>Hic! Dịch sai rồi</item>
+        <item>Học bài kỹ lại nhaa</item>
+        <item>0 điểm về chỗ!</item>
+    </array>
+
+    <string name="notification_daily_channel_id">notification_daily_id</string>
+    <string name="notification_daily_channel_name">Nhắc nhận quà đăng nhập</string>
+    <string name="notification_daily_title">Thưởng đăng nhập mỗi ngày!</string>
+
 </resources>
