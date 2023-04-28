@@ -12,7 +12,7 @@ class MyUtils {
             activity.assets.open(fileName).bufferedReader()
                 .use { it.readText() }
 
-        fun SpannableText(text: String, color: String): SpannableString {
+        fun spannableText(text: String, color: String): SpannableString {
             val textSpan = SpannableString(text)
 
             textSpan.setSpan(

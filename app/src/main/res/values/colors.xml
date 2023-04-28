@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
@@ -12,27 +11,21 @@
     <color name="competitive">#8937C7</color>
 
 <!--    daily reward dialog   -->
-    <color name="reward_ready_to_claim">#20B0F5</color>
     <color name="reward_collected">#60CD0F</color>
     <color name="reward_not_collect">#945F1E</color>
 
 <!--    <color name="classic">#1877f2</color>-->
-    <color name="light_blue">#84D7FD</color>
-    <color name="lighter_blue">#DDF4FE</color>
     <color name="classic">#20B0F5</color>
-    <color name="timer">#f0294a</color>
-<!--    <color name="daily">#2abba7</color>-->
+    <!--    <color name="daily">#2abba7</color>-->
     <color name="daily">#58CC00</color>
     <color name="darker_green">#60CD0F</color>
     <color name="light_purple">#D080FE</color>
     <color name="yellow">#FFC803</color>
-    <color name="lighter_yellow">#fcf300</color>
     <color name="gray">#6c757d</color>
     <color name="light_gray">#ced4da</color>
     <color name="light_blue_gray">#eff1f3</color>
     <color name="gray_e5">#E5E5E5</color>
     <color name="gray_af">#AFAFAF</color>
-    <color name="dark_light_gray">#b3bbc8</color>
     <color name="light_red">#ca5866</color>
     <color name="incorrect">#FEDEE0</color>
     <color name="text_incorrect">#FD4C4A</color>
@@ -42,5 +35,4 @@
     <color name="level_percent_50">#F8D356</color>
     <color name="level_percent_75">#20B0F5</color>
     <color name="level_percent_100">#58CC00</color>
-    <color name="ios_switch_color">#34c759</color>
 </resources>

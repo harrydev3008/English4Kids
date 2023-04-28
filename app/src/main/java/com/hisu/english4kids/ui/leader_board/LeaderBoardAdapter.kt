@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.LayoutItemLeaderBoardBinding
-import com.hisu.english4kids.model.leader_board.LeaderBoardModel
+import com.hisu.english4kids.data.model.leader_board.LeaderBoardModel
 
 class LeaderBoardAdapter(var context: Context) :
     RecyclerView.Adapter<LeaderBoardAdapter.LeaderBoardItemViewHolder>() {

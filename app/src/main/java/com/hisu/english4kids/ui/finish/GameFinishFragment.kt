@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentGameFinishBinding
-import com.hisu.english4kids.model.result.FinalResult
+import com.hisu.english4kids.data.model.result.FinalResult
 
 class GameFinishFragment : Fragment() {
 

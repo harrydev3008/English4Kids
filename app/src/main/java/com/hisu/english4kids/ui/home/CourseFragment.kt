@@ -9,10 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.google.gson.Gson
-import com.hisu.english4kids.R
-import com.hisu.english4kids.adapter.CourseItemViewPagerAdapter
 import com.hisu.english4kids.databinding.FragmentCourseBinding
-import com.hisu.english4kids.model.course.CoursesResponse
+import com.hisu.english4kids.data.model.course.CoursesResponse
 import com.hisu.english4kids.utils.MyUtils
 import kotlin.math.abs
 

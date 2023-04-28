@@ -19,10 +19,6 @@
         <item name="android:textColor">@color/text_otp_state</item>
     </style>
 
-    <style name="NextQuestionStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/text_skip_state</item>
-    </style>
-
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/edt_regis_state_color</item>
     </style>

@@ -14,7 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.hisu.english4kids.R
-import com.hisu.english4kids.model.card.Card
+import com.hisu.english4kids.data.model.card.Card
 import com.makeramen.roundedimageview.RoundedImageView
 
 class CustomCard(context: Context) : RoundedImageView(context) {

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ui.gameplay.multiple_choice.MultipleChoiceContainerFragment">
+    tools:context=".ui.play_screen.gameplay.multiple_choice.MultipleChoiceContainerFragment">
 
     <include
         android:id="@+id/card_competitive_header"

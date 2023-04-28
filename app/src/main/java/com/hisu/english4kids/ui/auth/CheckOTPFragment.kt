@@ -16,7 +16,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentCheckOtpBinding
-import com.hisu.english4kids.ui.dialog.LoadingDialog
+import com.hisu.english4kids.widget.dialog.LoadingDialog
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 

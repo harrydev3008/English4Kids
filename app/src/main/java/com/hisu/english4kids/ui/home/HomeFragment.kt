@@ -20,8 +20,8 @@ import com.google.android.material.badge.BadgeUtils
 import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentHomeBinding
-import com.hisu.english4kids.ui.dialog.DailyRewardDialog
-import com.hisu.english4kids.ui.dialog.SettingDialog
+import com.hisu.english4kids.widget.dialog.DailyRewardDialog
+import com.hisu.english4kids.widget.dialog.SettingDialog
 import com.hisu.english4kids.utils.local.LocalDataManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

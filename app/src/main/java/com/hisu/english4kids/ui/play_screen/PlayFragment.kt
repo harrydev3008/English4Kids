@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
+import com.google.gson.Gson
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentPlayBinding
-import com.hisu.english4kids.utils.MyUtils
-import es.dmoral.toasty.Toasty
+import com.hisu.english4kids.data.model.result.FinalResult
+import java.util.concurrent.TimeUnit
 
 class PlayFragment : Fragment() {
 
     private var _binding: FragmentPlayBinding? = null
     private val binding get() = _binding!!
     private var startGamePlayTime: Long = 0
+    private var wrongAnswer = 0
 
     private lateinit var tempQuestions: List<String>
 
@@ -31,29 +33,31 @@ class PlayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        quitGame()
-
-        //todo: impl later
-        calculatePlayTime()
+        handleQuitGameButton()
+        startGamePlayTime = System.nanoTime()
 
         //Todo: update later
         tempQuestions = listOf<String>(
-            "classic_pairs",
-//            "word_pair",
+//            "classic_pairs",
+            "word_pair",
             "audio_word_pair",
-//            "audio_image_pair",
+            "audio_image_pair",
 //            "sentence",
             "lol"
         )
 
         binding.pbStar.max = tempQuestions.size
 
-        binding.flRoundContainer.isUserInputEnabled = false
-        val temp =
-            GameplayViewPagerAdapter(requireActivity(), ::handleNextQuestion, ::handleWrongAnswer)
+        setUpViewpager()
+    }
 
+    private fun setUpViewpager() = binding.flRoundContainer.apply {
+        isUserInputEnabled = false
+
+        val temp = GameplayViewPagerAdapter(requireActivity(), ::handleNextQuestion, ::handleWrongAnswer)
         temp.gameplays = tempQuestions
-        binding.flRoundContainer.adapter = temp
+
+        adapter = temp
     }
 
     private fun handleNextQuestion() {
@@ -62,14 +66,8 @@ class PlayFragment : Fragment() {
             binding.flRoundContainer
                 .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
         } else {
-            //TODO: use some 'method' to calculate total score later
-
-            val finishTime = System.currentTimeMillis()
-
-            Toasty.error(requireContext(), "${finishTime}, ${startGamePlayTime}, ${(finishTime - startGamePlayTime) / 1000}s", Toasty.LENGTH_SHORT).show()
-
-            val res = MyUtils.loadJsonFromAssets(requireActivity(), "result.json")
-            val action = PlayFragmentDirections.gameFinish(res)
+            val finishTime = System.nanoTime() - startGamePlayTime
+            val action = PlayFragmentDirections.gameFinish(Gson().toJson(calculateFinalResult(finishTime)))
             findNavController().navigate(action)
         }
     }
@@ -77,9 +75,10 @@ class PlayFragment : Fragment() {
     private fun handleWrongAnswer() {
         val currentLife = Integer.parseInt(binding.tvLife.text.toString())
         binding.tvLife.text = "${currentLife - 1}"
+        wrongAnswer++
     }
 
-    private fun quitGame() = binding.ibtnClose.setOnClickListener {
+    private fun handleQuitGameButton() = binding.ibtnClose.setOnClickListener {
         iOSDialogBuilder(requireContext())
             .setTitle(requireContext().getString(R.string.confirm_dialog_msg))
             .setSubtitle(requireContext().getString(R.string.confirm_quit_game_play))
@@ -92,12 +91,18 @@ class PlayFragment : Fragment() {
             }.build().show()
     }
 
-    private fun calculatePlayTime() {
-        startGamePlayTime = System.currentTimeMillis()
-    }
+    private fun calculateFinalResult(finishTime: Long): String {
 
-    private fun calculateFinalResult() {
-        //todo: impl later
+        val minute = TimeUnit.NANOSECONDS.toMinutes(finishTime)
+        val second = TimeUnit.NANOSECONDS.toSeconds(finishTime)
+
+        //todo: update calculate score later
+        val finalResult =  FinalResult(
+            "$minute:$second",
+            (((tempQuestions.size - wrongAnswer).toFloat() / tempQuestions.size) * 100).toInt() ,
+            (tempQuestions.size - wrongAnswer) * if(minute < 1) 2 else 1)
+
+        return Gson().toJson(finalResult)
     }
 
     override fun onDestroyView() {

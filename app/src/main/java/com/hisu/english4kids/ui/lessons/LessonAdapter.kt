@@ -10,7 +10,7 @@ import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.LayoutLevelCompletedBinding
 import com.hisu.english4kids.databinding.LayoutLevelCurrentBinding
 import com.hisu.english4kids.databinding.LayoutLevelLockBinding
-import com.hisu.english4kids.model.course.Lesson
+import com.hisu.english4kids.data.model.course.Lesson
 
 class LessonAdapter(
     var context: Context,

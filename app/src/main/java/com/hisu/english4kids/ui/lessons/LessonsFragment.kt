@@ -10,8 +10,8 @@ import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentLessonsBinding
-import com.hisu.english4kids.model.course.Lesson
-import com.hisu.english4kids.model.course.LessonsResponse
+import com.hisu.english4kids.data.model.course.Lesson
+import com.hisu.english4kids.data.model.course.LessonsResponse
 
 class ClassModeLevelFragment : Fragment() {
 
