@@ -1,13 +1,23 @@
 package com.hisu.english4kids.ui.home
 
+import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentHomeBinding
 import com.hisu.english4kids.ui.dialog.DailyRewardDialog
@@ -18,7 +28,7 @@ import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding?= null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -32,22 +42,35 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val localDataManager = LocalDataManager()
-        localDataManager.init(requireContext())
-
-//        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-//            val userJson =  withContext(Dispatchers.Default) { localDataManager.getUserInfo() }
-//            val user = Gson().fromJson(userJson, User::class.java)
-//
-//            Log.e("test_user", "${user.phoneNumber} - ${user.username}")
-//        }
-
+        handleDailyReward()
         learningMode()
         leaderBoard()
         competitiveMode()
         dailyReward()
         handleSettingButton()
         binding.btnCompetitiveMode.isEnabled = true
+    }
+
+    @SuppressLint("UnsafeOptInUsageError")
+    private fun handleDailyReward() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+
+        val localDataManager = LocalDataManager()
+        localDataManager.init(requireContext())
+
+        val isDaily =  withContext(Dispatchers.Default) { localDataManager.getUserRemindDailyRewardState() }
+
+        if(isDaily) {
+            val badgeDrawable =  BadgeDrawable.create(requireContext())
+            badgeDrawable.number = 1
+            badgeDrawable.setContentDescriptionNumberless("!")
+            badgeDrawable.backgroundColor = requireContext().getColor(R.color.text_incorrect)
+            badgeDrawable.badgeTextColor = requireContext().getColor(R.color.white)
+            badgeDrawable.isVisible = true
+            badgeDrawable.horizontalOffset = 20
+            badgeDrawable.verticalOffset = 20
+
+            BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.btnDailyReward);
+        }
     }
 
     private fun learningMode() = binding.btnLearningMode.setOnClickListener {
@@ -74,7 +97,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleSaveSetting(isRemindLearning: Boolean, isRemindDaily: Boolean) {
-//        Toast.makeText(requireContext(), "$isRemindDaily - $isRemindLearning", Toast.LENGTH_SHORT).show()
         val localDataManager = LocalDataManager()
         localDataManager.init(requireContext())
 
