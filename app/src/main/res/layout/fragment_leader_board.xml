@@ -23,16 +23,17 @@
         android:id="@+id/tv_leader_board_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/leader_board_title"
-        android:textColor="@color/light_black"
         android:layout_below="@+id/imv_leader_board_frame"
-        android:textSize="@dimen/_20ssp"
-        android:textStyle="bold"
+        android:layout_marginTop="0dp"
         android:fontFamily="@font/roboto_bold"
         android:includeFontPadding="false"
         android:paddingHorizontal="@dimen/_4sdp"
         android:paddingVertical="@dimen/_6sdp"
-        android:textAlignment="center"/>
+        android:text="@string/leader_board_title"
+        android:textAlignment="center"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_leader_board"

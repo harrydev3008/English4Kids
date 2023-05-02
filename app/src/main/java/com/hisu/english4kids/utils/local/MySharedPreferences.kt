@@ -11,19 +11,20 @@ class MySharedPreferences(var context: Context) {
         val USER_LOGIN_STATE = "USER_LOGIN_STATE"
         val USER_REMIND_LEARNING_STATE = "USER_REMIND_LEARNING_STATE"
         val USER_REMIND_DAILY_REWARD_STATE = "USER_REMIND_DAILY_REWARD_STATE"
+        val USER_TOKEN = "USER_TOKEN"
     }
 
     private fun  getSharedPreferences() : SharedPreferences = context.getSharedPreferences(
         SHARED_PREFERENCE, Context.MODE_PRIVATE
     )
 
-    suspend fun putBoolean(key: String, value: Boolean) {
+    fun putBoolean(key: String, value: Boolean) {
         val editor = getSharedPreferences().edit()
         editor.putBoolean(key, value)
         editor.apply()
     }
 
-    suspend fun putString(key: String, value: String) {
+    fun putString(key: String, value: String) {
         val editor = getSharedPreferences().edit()
         editor.putString(key, value)
         editor.apply()
@@ -33,5 +34,5 @@ class MySharedPreferences(var context: Context) {
 
     fun getBoolean(key: String) = getSharedPreferences().getBoolean(key, false)
 
-    suspend fun getString(key: String) = getSharedPreferences().getString(key, "")
+    fun getString(key: String) = getSharedPreferences().getString(key, "")
 }

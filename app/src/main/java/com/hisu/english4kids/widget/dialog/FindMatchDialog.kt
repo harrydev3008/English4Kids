@@ -93,8 +93,10 @@ class FindMatchDialog() {
         }
 
         override fun onFinish() {
-//            binding.cimvAvatar.setAnimation(R.raw.swords)
             binding.cimvAvatar.pauseAnimation()
+            binding.cimvAvatar.setAnimation(R.raw.swords)
+            binding.cimvAvatar.resumeAnimation()
+            binding.cimvAvatar.repeatCount = 3
 
             binding.btnAccept.visibility = View.VISIBLE
             binding.tvLoading.text = context.getString(R.string.found_opponent)

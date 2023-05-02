@@ -17,8 +17,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.google.gson.Gson
 import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.databinding.FragmentHomeBinding
 import com.hisu.english4kids.widget.dialog.DailyRewardDialog
 import com.hisu.english4kids.widget.dialog.SettingDialog
@@ -31,6 +33,9 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var localDataManager: LocalDataManager
+    private lateinit var currentUser: Player
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,21 +47,36 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpView()
         handleDailyReward()
         learningMode()
         leaderBoard()
         competitiveMode()
         dailyReward()
         handleSettingButton()
-        binding.btnCompetitiveMode.isEnabled = true
+    }
+
+    private fun setUpView() {
+        localDataManager = LocalDataManager()
+        localDataManager.init(requireContext())
+
+        currentUser = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
+
+        binding.apply {
+            btnCompetitiveMode.isEnabled = currentUser.level >= 20
+            resource.tvLevel.text = String.format(
+                requireContext().getString(R.string.level_pattern),
+                currentUser.level
+            )
+        }
+    }
+
+    private fun handleSettingButton() = binding.btnSetting.setOnClickListener {
+        findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
     }
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun handleDailyReward() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-
-        val localDataManager = LocalDataManager()
-        localDataManager.init(requireContext())
-
         val isDaily =  withContext(Dispatchers.Default) { localDataManager.getUserRemindDailyRewardState() }
 
         if(isDaily) {
@@ -88,24 +108,6 @@ class HomeFragment : Fragment() {
     private fun dailyReward() = binding.btnDailyReward.setOnClickListener {
         val dialog = DailyRewardDialog(requireContext(), Gravity.CENTER)
         dialog.showDialog()
-    }
-
-    private fun handleSettingButton() = binding.btnSetting.setOnClickListener {
-        SettingDialog(requireContext(), Gravity.CENTER)
-            .setSaveCallback(::handleSaveSetting)
-            .showDialog()
-    }
-
-    private fun handleSaveSetting(isRemindLearning: Boolean, isRemindDaily: Boolean) {
-        val localDataManager = LocalDataManager()
-        localDataManager.init(requireContext())
-
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            withContext(Dispatchers.IO) {
-                localDataManager.setUserRemindLearningState(isRemindLearning)
-                localDataManager.setUserRemindDailyRewardState(isRemindDaily)
-            }
-        }
     }
 
     override fun onDestroyView() {

@@ -13,7 +13,7 @@ class NotificationReceiver: BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, context.getString(R.string.notification_learning_channel_id))
             .setAutoCancel(true)
             .setContentTitle(context.getString(R.string.notification_learning_title))
-            .setContentText("Nhích mông lên mà học tiếng anh đi con đượi!")
+            .setContentText("Vùng lên và học Tiếng Anh đi bạn ơi!")
             .setDefaults(Notification.DEFAULT_ALL)
             .setSmallIcon(R.drawable.ic_close_circle_fill)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

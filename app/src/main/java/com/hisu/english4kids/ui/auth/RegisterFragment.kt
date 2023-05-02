@@ -44,7 +44,7 @@ class RegisterFragment : Fragment() {
 
     private fun handleLoginBtn() = binding.btnLogin.setOnClickListener {
         if (phoneNumberValidate()) {
-            val phoneNumber = "+84${binding.edtPhoneNumber.text.toString().substring(1)}"
+            val phoneNumber = binding.edtPhoneNumber.text.toString()
             val action = RegisterFragmentDirections.actionRegisterFragmentToCheckOTPFragment(phoneNumber)
             findNavController().navigate(action)
         }
