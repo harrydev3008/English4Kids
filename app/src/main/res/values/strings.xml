@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Englisk 4 Kids</string>
+    <string name="app_name">English 4 Kid</string>
     <string name="mode_learning">Học Tiếng Anh</string>
     <string name="mode_learning_tool_tip">Vừa chơi vừa học Tiếng Anh thật vui vẻ!</string>
     <string name="mode_competitive">Thi Đấu</string>
@@ -41,6 +41,13 @@
     <string name="got_winner">We Got A Winner!</string>
     <string name="find_next_opponent">Chiến Tiếp!</string>
     <string name="competitive_complete_desc">Trận đấu đã kết thúc!\nBạn có muốn tìm đối thủ tiếp theo?!</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="user_info">Thông tin cá nhân</string>
+    <string name="display_name">Tên</string>
+    <string name="statistic">Thống kê</string>
+    <string name="achievement">Thành tích</string>
+    <string name="notification_setting">Cài đặt thông báo</string>
+    <string name="user_profile_and_setting">Hồ sơ &amp; Cài đặt</string>
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>
@@ -50,11 +57,14 @@
     <string name="confirm_otp">Xác Nhận</string>
     <string name="confirm_otp_err">Lỗi Xác Thực</string>
     <string name="press_again_to_exit">Nhấn lần nữa để thoát!</string>
+    <string name="confirm_logout">Bạn có chắc chắn muốn Đăng xuất không?!</string>
+    <string name="confirm_yes">Có</string>
+    <string name="confirm_no">Không</string>
 
     <!--  Error messages  -->
     <string name="wrong_otp_err_msg">Mã OTP không chính xác. Vui lòng kiểm tra lại!</string>
     <string name="confirm_otp_err_occur_msg">Đã có lỗi trong quá trình xác thực!\n Bạn vui lòng thử lại nhé!</string>
-    <string name="invalid_phone_format_err">Số điện thoại sai định dạng!</string>
+    <string name="invalid_phone_format_err">* Số điện thoại sai định dạng!</string>
 
     <!--  String patterns  -->
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>
@@ -68,6 +78,9 @@
     <string name="daily_reward_date_pattern">Day %1$d</string>
     <string name="daily_reward_price_pattern">+%1$d</string>
     <string name="answer_multiple_choice_pattern">%1$s. %2$s</string>
+    <string name="level_pattern">Cấp %1$d</string>
+    <string name="join_date_pattern">Tham gia từ</string>
+    <string name="edit_profile">Chỉnh sửa hồ sơ</string>
 
     <!--  random messages  -->
 

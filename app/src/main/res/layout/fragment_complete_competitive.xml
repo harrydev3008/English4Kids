@@ -17,6 +17,7 @@
         android:fontFamily="@font/roboto_bold"
         android:includeFontPadding="false"
         android:text="@string/got_winner"
+        android:layout_marginTop="@dimen/_6sdp"
         android:layout_centerHorizontal="true"
         android:textColor="@color/daily"
         android:textSize="@dimen/_30ssp" />

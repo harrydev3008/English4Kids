@@ -23,7 +23,7 @@ android {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
-        buildConfigField "String", "INTERNET_TIME_URL", "\"${properties.getProperty("INTERNET_TIME_URL")}\""
+        buildConfigField "String", "SERVER_URL", "\"${properties.getProperty("SERVER_URL")}\""
     }
 
     buildFeatures {

@@ -14,9 +14,22 @@ import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.CONTENT_TYPE_JSON
+import com.hisu.english4kids.data.STATUS_OK
+import com.hisu.english4kids.data.network.API
+import com.hisu.english4kids.data.network.response_model.AuthResponseModel
+import com.hisu.english4kids.data.network.response_model.SearchUserResponseModel
 import com.hisu.english4kids.databinding.FragmentCheckOtpBinding
+import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
@@ -95,28 +108,28 @@ class CheckOTPFragment : Fragment() {
     }
 
     private fun handleButtonVerifyOTP() = binding.btnVerifyOtp.setOnClickListener {
-        mLoadingDialog.showDialog()
+        requireActivity().runOnUiThread {
+            mLoadingDialog.showDialog()
+        }
         val credential = PhoneAuthProvider.getCredential(verificationID, getUserInputOTPCode())
         signInWithPhoneAuthCredential(credential);
     }
 
     private fun navigateToNextPage() {
-//        val localDataManager = LocalDataManager()
-//        localDataManager.init(requireContext())
-//
-//        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-//            withContext(Dispatchers.IO) {
-//                localDataManager.setUserLoinState(true)
-//                localDataManager.setUserInfo(myArgs.phoneNumber)
-//            }
-//        }
-        checkUserExist(false)
+        API.apiService.searchUserByPhone(myArgs.phoneNumber).enqueue(handleCheckPhoneNumberCallback)
     }
 
     private fun checkUserExist(isExist: Boolean) {
-        //todo: call api to check if user exist or not
         if(isExist) {
-            findNavController().navigate(R.id.otp_to_home)
+            requireActivity().runOnUiThread {
+                mLoadingDialog.showDialog()
+            }
+
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("phone", myArgs.phoneNumber)
+
+            val loginBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
+            API.apiService.authLogin(loginBodyRequest).enqueue(handleLoginCallback)
         } else {
             val action = CheckOTPFragmentDirections.actionCheckOTPFragmentToDisplayNameFragment(myArgs.phoneNumber)
             findNavController().navigate(action)
@@ -149,13 +162,15 @@ class CheckOTPFragment : Fragment() {
     }
 
     private fun handleOTPVerification() {
-        val options = generatePhoneAuthProviderOptions(myArgs.phoneNumber)
+        val phoneNumber = "+84${myArgs.phoneNumber.substring(1)}"
+        val options = generatePhoneAuthProviderOptions(phoneNumber)
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
     private fun handleResendOTPVerification() {
         binding.tvResend.isEnabled = false
-        val resendOTPOptions = generateResendPhoneAuthProviderOptions(myArgs.phoneNumber);
+        val phoneNumber = "+84${myArgs.phoneNumber.substring(1)}"
+        val resendOTPOptions = generateResendPhoneAuthProviderOptions(phoneNumber)
         PhoneAuthProvider.verifyPhoneNumber(resendOTPOptions)
     }
 
@@ -177,7 +192,9 @@ class CheckOTPFragment : Fragment() {
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity(), OnCompleteListener<AuthResult> { task ->
-                mLoadingDialog.dismissDialog()
+                requireActivity().runOnUiThread {
+                    mLoadingDialog.dismissDialog()
+                }
 
                 if (task.isSuccessful) {
                     navigateToNextPage()
@@ -189,7 +206,7 @@ class CheckOTPFragment : Fragment() {
             })
     }
 
-    inner class OTPKeyEvent(private var current: EditText, private var previous: EditText?) :
+    private inner class OTPKeyEvent(private var current: EditText, private var previous: EditText?) :
         View.OnKeyListener {
         override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL) {
@@ -207,7 +224,7 @@ class CheckOTPFragment : Fragment() {
         }
     }
 
-    inner class OTPTextWatcher(private var current: EditText, var next: EditText?) : TextWatcher {
+    private inner class OTPTextWatcher(private var current: EditText, var next: EditText?) : TextWatcher {
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
@@ -280,6 +297,72 @@ class CheckOTPFragment : Fragment() {
                 countDownResendOTP()
             }
         }
+
+    private val handleCheckPhoneNumberCallback = object: Callback<SearchUserResponseModel> {
+        override fun onResponse(call: Call<SearchUserResponseModel>, response: Response<SearchUserResponseModel>) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+
+            if(response.isSuccessful && response.code() == STATUS_OK) { //user existed
+                response.body()?.apply {
+                    val searchUserResponseModel = this
+                    Log.e("test", searchUserResponseModel.data?.user!!.phone)
+                    checkUserExist(true)
+                }
+            } else {
+                checkUserExist(false)
+            }
+        }
+
+        override fun onFailure(call: Call<SearchUserResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+            Log.e(CheckOTPFragment::class.java.name, t.message ?: "error message")
+        }
+    }
+
+    private val handleLoginCallback = object: Callback<AuthResponseModel> {
+        override fun onResponse(call: Call<AuthResponseModel>, response: Response<AuthResponseModel>) {
+
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+
+            if(response.isSuccessful && response.code() == STATUS_OK) {
+                response.body()?.apply {
+                    this.data?.apply {
+                        val localDataManager = LocalDataManager()
+                        localDataManager.init(requireContext())
+
+                        val playerInfoJson = Gson().toJson(this.player)
+
+                        localDataManager.setUserLoinState(true)
+                        localDataManager.setUserInfo(playerInfoJson)
+
+                        findNavController().navigate(R.id.otp_to_home)
+                    }
+                }
+            } else {
+                response.errorBody()?.apply {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.confirm_otp_err))
+                        .setSubtitle(this.string())
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<AuthResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+            Log.e(CheckOTPFragment::class.java.name, t.message ?: "error message")
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

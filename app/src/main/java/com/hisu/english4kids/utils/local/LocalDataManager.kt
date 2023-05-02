@@ -14,17 +14,17 @@ class LocalDataManager {
         MySharedPreferences(context)
     }
 
-    suspend fun setUserLoinState(loginState: Boolean) {
+    fun setUserLoinState(loginState: Boolean) {
         mySharedPreferences.putBoolean(MySharedPreferences.USER_LOGIN_STATE, loginState)
     }
 
     suspend fun getUserLoginState() = mySharedPreferences.getBooleanAsync(MySharedPreferences.USER_LOGIN_STATE)
 
-    suspend fun setUserInfo(userInfo: String) {
+    fun setUserInfo(userInfo: String) {
         mySharedPreferences.putString(MySharedPreferences.USER_INFO_KEY, userInfo)
     }
 
-    suspend fun getUserInfo() = mySharedPreferences.getString(MySharedPreferences.USER_INFO_KEY)
+    fun getUserInfo() = mySharedPreferences.getString(MySharedPreferences.USER_INFO_KEY)
 
     suspend fun setUserRemindLearningState(learningRemindState: Boolean) {
         mySharedPreferences.putBoolean(MySharedPreferences.USER_REMIND_LEARNING_STATE, learningRemindState)
@@ -39,4 +39,11 @@ class LocalDataManager {
 
     fun getUserRemindDailyRewardState() =
         mySharedPreferences.getBoolean(MySharedPreferences.USER_REMIND_DAILY_REWARD_STATE)
+
+    suspend fun setUserToken(token: String) {
+        mySharedPreferences.putString(MySharedPreferences.USER_TOKEN, token)
+    }
+
+    fun getUserToken() =
+        mySharedPreferences.getString(MySharedPreferences.USER_TOKEN)
 }

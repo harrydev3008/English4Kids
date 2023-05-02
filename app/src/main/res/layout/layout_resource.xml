@@ -7,7 +7,7 @@
     android:paddingHorizontal="@dimen/_8sdp">
 
     <TextView
-        android:id="@+id/tv_power"
+        android:id="@+id/tv_level"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -15,7 +15,7 @@
         android:drawableLeft="@drawable/ic_level"
         android:paddingHorizontal="@dimen/_8sdp"
         android:paddingVertical="@dimen/_4sdp"
-        android:text="lvl 30"
+        android:text="@string/level_pattern"
         android:fontFamily="@font/roboto_bold"
         android:includeFontPadding="false"
         android:textAlignment="center"

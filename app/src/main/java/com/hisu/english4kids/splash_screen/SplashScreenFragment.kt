@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentSplashScreenBinding
 import com.hisu.english4kids.utils.local.LocalDataManager
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 class SplashScreenFragment : Fragment() {
 
@@ -38,12 +40,10 @@ class SplashScreenFragment : Fragment() {
 
             delay(3 * 1000)// wait extra 3s before checking login state
 
-//            findNavController().navigate(R.id.action_splashScreenFragment_to_gamePlayProgressFragment)
-
-//            if (isLogIn)
+            if (isLogIn)
                 findNavController().navigate(R.id.splash_to_home)
-//            else
-//                findNavController().navigate(R.id.splash_to_regis)
+            else
+                findNavController().navigate(R.id.splash_to_regis)
         }
     }
 

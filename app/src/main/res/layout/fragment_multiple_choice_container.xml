@@ -21,12 +21,13 @@
         android:paddingHorizontal="@dimen/_8sdp" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/skip_current_question"
         android:backgroundTint="#8937C7"
         android:paddingVertical="@dimen/_8sdp"
-        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_margin="@dimen/_12sdp"
         app:cornerRadius="@dimen/_10sdp"/>
 
 </LinearLayout>

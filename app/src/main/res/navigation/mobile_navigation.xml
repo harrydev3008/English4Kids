@@ -130,6 +130,9 @@
         <action
             android:id="@+id/action_homeFragment_to_leaderBoardFragment"
             app:destination="@id/leaderBoardFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
 
     <fragment
@@ -201,5 +204,27 @@
         <action
             android:id="@+id/action_completeCompetitiveFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+
+        <argument
+            android:name="result"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
+        <argument
+            android:name="time"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.hisu.english4kids.ui.home.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 </navigation>
