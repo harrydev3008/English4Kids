@@ -111,6 +111,10 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="false" />
+        <argument
+            android:name="authType"
+            android:defaultValue="0"
+            app:argType="integer"/>
         <action
             android:id="@+id/action_checkOTPFragment_to_displayNameFragment"
             app:destination="@id/displayNameFragment" />

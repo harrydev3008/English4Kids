@@ -21,7 +21,6 @@ import com.hisu.english4kids.data.CONTENT_TYPE_JSON
 import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
-import com.hisu.english4kids.data.network.response_model.SearchUserResponseModel
 import com.hisu.english4kids.databinding.FragmentCheckOtpBinding
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
@@ -49,8 +48,6 @@ class CheckOTPFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAuth = FirebaseAuth.getInstance()
-        mAuth.setLanguageCode("vi")
     }
 
     override fun onCreateView(
@@ -64,6 +61,8 @@ class CheckOTPFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mAuth = FirebaseAuth.getInstance()
+        mAuth.setLanguageCode("vi")
         mLoadingDialog = LoadingDialog(requireContext(), Gravity.CENTER)
 
         initOTPEditText()
@@ -116,7 +115,11 @@ class CheckOTPFragment : Fragment() {
     }
 
     private fun navigateToNextPage() {
-        API.apiService.searchUserByPhone(myArgs.phoneNumber).enqueue(handleCheckPhoneNumberCallback)
+        if(myArgs.authType == 0) { //1 -> login, 0 -> register
+            checkUserExist(false)
+        } else if(myArgs.authType == 1) {
+            checkUserExist(true)
+        }
     }
 
     private fun checkUserExist(isExist: Boolean) {
@@ -298,31 +301,6 @@ class CheckOTPFragment : Fragment() {
             }
         }
 
-    private val handleCheckPhoneNumberCallback = object: Callback<SearchUserResponseModel> {
-        override fun onResponse(call: Call<SearchUserResponseModel>, response: Response<SearchUserResponseModel>) {
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-
-            if(response.isSuccessful && response.code() == STATUS_OK) { //user existed
-                response.body()?.apply {
-                    val searchUserResponseModel = this
-                    Log.e("test", searchUserResponseModel.data?.user!!.phone)
-                    checkUserExist(true)
-                }
-            } else {
-                checkUserExist(false)
-            }
-        }
-
-        override fun onFailure(call: Call<SearchUserResponseModel>, t: Throwable) {
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-            Log.e(CheckOTPFragment::class.java.name, t.message ?: "error message")
-        }
-    }
-
     private val handleLoginCallback = object: Callback<AuthResponseModel> {
         override fun onResponse(call: Call<AuthResponseModel>, response: Response<AuthResponseModel>) {
 
@@ -346,12 +324,14 @@ class CheckOTPFragment : Fragment() {
                 }
             } else {
                 response.errorBody()?.apply {
-                    iOSDialogBuilder(requireContext())
-                        .setTitle(requireContext().getString(R.string.confirm_otp_err))
-                        .setSubtitle(this.string())
-                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
-                            it.dismiss()
-                        }.build().show()
+                    requireActivity().runOnUiThread {
+                        iOSDialogBuilder(requireContext())
+                            .setTitle(requireContext().getString(R.string.request_err))
+                            .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                            .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                                it.dismiss()
+                            }.build().show()
+                    }
                 }
             }
         }
@@ -359,6 +339,13 @@ class CheckOTPFragment : Fragment() {
         override fun onFailure(call: Call<AuthResponseModel>, t: Throwable) {
             requireActivity().runOnUiThread {
                 mLoadingDialog.dismissDialog()
+
+                iOSDialogBuilder(requireContext())
+                    .setTitle(requireContext().getString(R.string.request_err))
+                    .setSubtitle(requireContext().getString(R.string.err_network_not_connected))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
             }
             Log.e(CheckOTPFragment::class.java.name, t.message ?: "error message")
         }

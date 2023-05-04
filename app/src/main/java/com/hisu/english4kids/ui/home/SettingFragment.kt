@@ -21,6 +21,7 @@ import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
 import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.databinding.FragmentSettingBinding
+import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
 import com.hisu.english4kids.widget.dialog.SettingDialog
@@ -68,6 +69,10 @@ class SettingFragment : Fragment() {
         localDataManager.init(requireContext())
 
         currentUser = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
+
+        binding.tvUsername.text = currentUser.username
+        binding.tvPhoneNumber.text = currentUser.phone
+        binding.cimvUserPfp.setImageBitmap(MyUtils.createImageFromText(requireContext(), currentUser.username))
     }
 
     private fun handleBackButton() = binding.btnHomepage.setOnClickListener {

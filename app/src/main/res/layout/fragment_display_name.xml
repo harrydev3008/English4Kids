@@ -26,8 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/user_optional_desc"
-            android:textColor="@color/text_correct"
+            android:textColor="@color/light_black"
             android:includeFontPadding="false"
+            android:fontFamily="@font/roboto_bold"
             android:textSize="@dimen/_20ssp"
             android:textStyle="bold" />
 
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             style="@style/LoginTextInputLayoutStyle"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
             app:boxCornerRadiusBottomStart="@dimen/_12sdp"
             app:boxCornerRadiusTopEnd="@dimen/_12sdp"

@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.hisu.english4kids.R
@@ -98,13 +99,25 @@ class DisplayNameFragment : Fragment() {
                     }
                 }
             } else {
-                //todo: impl later
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
+                }
             }
         }
 
         override fun onFailure(call: Call<AuthResponseModel>, t: Throwable) {
             requireActivity().runOnUiThread {
                 mLoadingDialog.dismissDialog()
+                iOSDialogBuilder(requireContext()).setTitle(requireContext().getString(R.string.request_err))
+                    .setSubtitle(t.message?: requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
             }
             Log.e(DisplayNameFragment::class.java.name, t.message ?: "error message")
         }

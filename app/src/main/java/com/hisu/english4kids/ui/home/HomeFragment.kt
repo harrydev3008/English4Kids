@@ -1,30 +1,22 @@
 package com.hisu.english4kids.ui.home
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.gson.Gson
-import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.databinding.FragmentHomeBinding
-import com.hisu.english4kids.widget.dialog.DailyRewardDialog
-import com.hisu.english4kids.widget.dialog.SettingDialog
 import com.hisu.english4kids.utils.local.LocalDataManager
+import com.hisu.english4kids.widget.dialog.DailyRewardDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
