@@ -27,6 +27,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:id="@+id/tv_game_progress_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_6sdp"

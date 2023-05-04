@@ -57,9 +57,9 @@
             app:boxCornerRadiusBottomStart="@dimen/_12sdp"
             app:boxCornerRadiusTopEnd="@dimen/_12sdp"
             app:boxCornerRadiusTopStart="@dimen/_12sdp"
-            app:boxStrokeErrorColor="@color/light_red"
+            app:boxStrokeErrorColor="@color/text_incorrect"
             app:boxStrokeWidth="@dimen/_2sdp"
-            app:helperTextTextColor="@color/light_red"
+            app:helperTextTextColor="@color/text_incorrect"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -67,11 +67,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_number"
-                android:textColorHint="@color/gray"
-                android:inputType="phone"
-                android:maxLength="11"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="10"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_12sdp"
+                android:textColorHint="@color/gray"
                 android:textCursorDrawable="@drawable/edt_cursor"
                 android:textSize="@dimen/_16ssp" />
 

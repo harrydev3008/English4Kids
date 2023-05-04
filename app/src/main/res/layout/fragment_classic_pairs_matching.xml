@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.play_screen.gameplay.class_pairs_matching.ClassicPairsMatchingFragment">
 
     <TextView
@@ -20,19 +21,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_mode_level"
+        android:layout_above="@+id/btn_check"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical">
 
-        <GridLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_matching_pairs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:columnCount="3"
             android:paddingLeft="@dimen/_4sdp"
             android:paddingTop="@dimen/_4sdp"
-            android:rowCount="3"
-            android:useDefaultMargins="true" />
+            app:spanCount="2"
+            tools:itemCount="4"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/layout_item_card"/>
     </LinearLayout>
 
     <include

@@ -33,19 +33,21 @@ class LeaderBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            val localDataManager = LocalDataManager()
-            localDataManager.init(requireContext())
-            val json = localDataManager.getUserInfo()
-            val user = Gson().fromJson(json, Player::class.java)
-            tvLeaderBoardTitle.text = "Chào mừng "
-            tvLeaderBoardTitle.append(MyUtils.spannableText(user.username, "#FD4C4A"))
-            tvLeaderBoardTitle.append(" đến với bảng xếp hạng tuần này!")
-        }
+        loadUserInfo()
 
         initLeaderBoardAdapter()
         setUpLeaderBoardRecyclerView()
         backToPrev()
+    }
+
+    private fun loadUserInfo() = binding.apply {
+        val localDataManager = LocalDataManager()
+        localDataManager.init(requireContext())
+        val json = localDataManager.getUserInfo()
+        val user = Gson().fromJson(json, Player::class.java)
+        tvLeaderBoardTitle.text = "Chào mừng "
+        tvLeaderBoardTitle.append(MyUtils.spannableText(user.username, "#FD4C4A"))
+        tvLeaderBoardTitle.append(" đến với bảng xếp hạng tuần này!")
     }
 
     private fun initLeaderBoardAdapter() {

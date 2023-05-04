@@ -8,21 +8,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.Gson
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.model.game_play.GameStyleFive
 import com.hisu.english4kids.databinding.FragmentMatchingAudioWordBinding
-import com.hisu.english4kids.data.model.pair_matching.PairMatchingResponse
-import com.hisu.english4kids.utils.MyUtils
 
 class MatchingAudioWordFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: () -> Unit
+    private val wrongAnswerListener: () -> Unit,
+    private val correctAnswerListener: (score: Int) -> Unit,
+    private val gameStyleFive: GameStyleFive
 ) : Fragment() {
 
     private var _binding: FragmentMatchingAudioWordBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var audioImageResponse: PairMatchingResponse
     private val _result = MutableLiveData<Boolean>()
     private val result: LiveData<Boolean> = _result
     private lateinit var answer: String
@@ -32,7 +30,7 @@ class MatchingAudioWordFragment(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMatchingAudioWordBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,10 +38,8 @@ class MatchingAudioWordFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        audioImageResponse = Gson().fromJson(MyUtils.loadJsonFromAssets(requireActivity(), "audioImageResponse.json"), PairMatchingResponse::class.java)
-
         val audioImageAdapter = MatchingAudioWordAdapter(requireContext()) {
-            answer = it.answer
+            answer = it.cardId
 
             if (!binding.btnCheck.btnNextRound.isEnabled) {
                 binding.btnCheck.btnNextRound.isEnabled = true
@@ -53,7 +49,7 @@ class MatchingAudioWordFragment(
             }
         }
 
-        audioImageAdapter.pairs = audioImageResponse.data
+        audioImageAdapter.pairs = gameStyleFive.cards
 
         binding.rvPickAnswer.adapter = audioImageAdapter
 
@@ -67,6 +63,7 @@ class MatchingAudioWordFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 audioImageAdapter.isLockView = true
+                correctAnswerListener.invoke(gameStyleFive.score)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -86,11 +83,16 @@ class MatchingAudioWordFragment(
 
     private fun checkAnswer() = binding.btnCheck.btnNextRound.setOnClickListener {
         if (binding.btnCheck.btnNextRound.text == requireContext().getString(R.string.check)) {
-            if (answer == audioImageResponse.correctAnswer) {
+            if (answer == gameStyleFive.correctAns) {
                 _result.postValue(true)
             } else {
                 _result.postValue(false)
-                binding.btnCheck.tvCorrectAnswer.text = audioImageResponse.correctAnswer
+
+                val correctAnswer = gameStyleFive.cards.first {
+                    it.cardId == gameStyleFive.correctAns
+                }
+
+                binding.btnCheck.tvCorrectAnswer.text = correctAnswer.word
             }
         } else {
             itemTapListener.invoke()
@@ -100,7 +102,7 @@ class MatchingAudioWordFragment(
     private fun playAudio() = binding.ibtnAudioQuestion.setOnClickListener {
         mediaPlayer.stop()
         mediaPlayer.reset()
-        mediaPlayer.setDataSource(audioImageResponse.question)
+        mediaPlayer.setDataSource(gameStyleFive.question)
         mediaPlayer.prepare()
         mediaPlayer.start()
     }

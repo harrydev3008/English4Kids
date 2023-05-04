@@ -10,6 +10,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.gdacciaro.iOSDialog.iOSDialog
+import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.hisu.english4kids.R
@@ -18,6 +20,7 @@ import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
 import com.hisu.english4kids.databinding.FragmentDisplayNameBinding
+import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
 import okhttp3.MediaType
@@ -63,6 +66,17 @@ class DisplayNameFragment : Fragment() {
     }
 
     private fun handleSaveButton() = binding.btnSave.setOnClickListener {
+        if(MyUtils.isNetworkAvailable(requireContext())) {
+            handleRegisterEvent()
+        } else {
+            iOSDialogBuilder(requireContext())
+                .setTitle(requireContext().getString(R.string.confirm_otp))
+                .setSubtitle(requireContext().getString(R.string.err_network_not_available))
+                .setPositiveListener(requireContext().getString(R.string.confirm_otp), iOSDialog::dismiss).build().show()
+        }
+    }
+
+    private fun handleRegisterEvent() {
         val jsonObject = JsonObject()
         jsonObject.addProperty("phone", myArgs.phoneNumber)
         jsonObject.addProperty("username", binding.edtUsername.text.toString().trim())
@@ -89,7 +103,7 @@ class DisplayNameFragment : Fragment() {
                         val localDataManager = LocalDataManager()
                         localDataManager.init(requireContext())
 
-                        val playerInfoJson = Gson().toJson(this.newPlayer)
+                        val playerInfoJson = Gson().toJson(this.player)
 
                         localDataManager.setUserLoinState(true)
                         localDataManager.setUserInfo(playerInfoJson)
@@ -98,13 +112,25 @@ class DisplayNameFragment : Fragment() {
                     }
                 }
             } else {
-                //todo: impl later
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
+                }
             }
         }
 
         override fun onFailure(call: Call<AuthResponseModel>, t: Throwable) {
             requireActivity().runOnUiThread {
                 mLoadingDialog.dismissDialog()
+                iOSDialogBuilder(requireContext()).setTitle(requireContext().getString(R.string.request_err))
+                    .setSubtitle(t.message?: requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
             }
             Log.e(DisplayNameFragment::class.java.name, t.message ?: "error message")
         }

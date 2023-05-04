@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.model.card.Card
 import com.hisu.english4kids.databinding.LayoutAudioWordMatchingBinding
 import com.hisu.english4kids.databinding.LayoutWordMatchingBinding
-import com.hisu.english4kids.data.model.pair_matching.PairMatchingModel
 
 
 class MatchingWordPairsAdapter(
     var context: Context,
-    private val itemTapListener: (item: PairMatchingModel, position: Int) -> Unit
+    private val itemTapListener: (item: Card, position: Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val WORD_PAIRS_TYPE = 1
@@ -23,7 +23,7 @@ class MatchingWordPairsAdapter(
 
     private val mediaPlayer: MediaPlayer = MediaPlayer()
 
-    var pairs = listOf<PairMatchingModel>()
+    var pairs = listOf<Card>()
     private var holders = mutableListOf<RecyclerView.ViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -42,7 +42,7 @@ class MatchingWordPairsAdapter(
         }
 
     override fun getItemViewType(position: Int): Int {
-        return if (pairs[position].isAudioQuestion) AUDIO_WORD_PAIRS_TYPE else WORD_PAIRS_TYPE
+        return if (pairs[position].isAudio) AUDIO_WORD_PAIRS_TYPE else WORD_PAIRS_TYPE
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -69,27 +69,17 @@ class MatchingWordPairsAdapter(
             }
 
             is AudioWordPairViewHolder -> {
-                //todo: impl later
                 holder.binding.apply {
 
                     levelParent.setOnClickListener {
-
-                        playAudio(
-                            String.format(
-                                context.getString(R.string.audio_file_path),
-                                context.packageName,
-                                pair.answer
-                            )
-                        )
+                        playAudio(pair.answer)
 
                         levelParent.background =
                             ContextCompat.getDrawable(
                                 context,
                                 R.drawable.bg_word_border_selected_image_blue
                             )
-
-                        itemTapListener.invoke(pair, position)//todo: impl later
-
+                        itemTapListener.invoke(pair, position)
                     }
                 }
             }
@@ -150,7 +140,7 @@ class MatchingWordPairsAdapter(
 
     inner class WordPairViewHolder(var binding: LayoutWordMatchingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(data: PairMatchingModel) = binding.apply {
+        fun bindData(data: Card) = binding.apply {
             tvAnswer.text = data.answer
         }
     }

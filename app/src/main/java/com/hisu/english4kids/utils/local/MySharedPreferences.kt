@@ -11,7 +11,8 @@ class MySharedPreferences(var context: Context) {
         val USER_LOGIN_STATE = "USER_LOGIN_STATE"
         val USER_REMIND_LEARNING_STATE = "USER_REMIND_LEARNING_STATE"
         val USER_REMIND_DAILY_REWARD_STATE = "USER_REMIND_DAILY_REWARD_STATE"
-        val USER_TOKEN = "USER_TOKEN"
+        val USER_ACCESS_TOKEN = "USER_ACCESS_TOKEN"
+        val USER_REFRESH_TOKEN = "USER_REFRESH_TOKEN"
     }
 
     private fun  getSharedPreferences() : SharedPreferences = context.getSharedPreferences(

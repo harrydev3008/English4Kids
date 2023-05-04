@@ -1,22 +1,29 @@
 package com.hisu.english4kids.ui.play_screen.gameplay.class_pairs_matching
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
+import android.content.Context
+import android.graphics.Bitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
-import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.hisu.english4kids.R
-import com.hisu.english4kids.databinding.LayoutItemCardBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.hisu.english4kids.data.model.card.Card
+import com.hisu.english4kids.databinding.LayoutItemCardBinding
 
-class CardAdapter(val itemTapListener: (card: Card, img: View) -> Unit) :
+class CardAdapter(
+    var context: Context,
+    val itemTapListener: (card: Card, frontCard: LinearLayout, backCard: TextView, parent: RelativeLayout) -> Unit
+) :
     RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
-    var items = listOf<Card>()
+    var cards = listOf<Card>()
     private val holders = mutableListOf<CardViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -28,65 +35,60 @@ class CardAdapter(val itemTapListener: (card: Card, img: View) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        val item = items[position]
-        holders.add(holder)
+        val card = cards[position]
+        if (card.isVisible)
+            holders.add(holder)
 
-        holder.binding.apply {
+        holder.bindData(card)
+    }
 
-//            rimvCoverImage.setImageResource(item.imagePath)
+    fun hideCards() {
+        holders.forEach {
+            it.binding.cardParent.isClickable = true
+            it.binding.cardBack.visibility = View.VISIBLE
+            it.binding.cardFront.visibility = View.INVISIBLE
+        }
+    }
 
-//            Glide.with(con)
-//                .asBitmap().load(card.imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(object : SimpleTarget<Bitmap>() {
-//                    override fun onResourceReady(
-//                        resource: Bitmap,
-//                        transition: Transition<in Bitmap>?
-//                    ) {
-//                        image.setImageBitmap(resource)
-//                    }
-//                })
+    override fun getItemCount(): Int = cards.size
 
-            if (item.id.equals("-1")) {
-                rimvCoverImage.visibility = View.INVISIBLE
+    inner class CardViewHolder(val binding: LayoutItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bindData(card: Card) = binding. apply{
+            val size =
+                if (itemCount > 4)
+                    (context.resources.displayMetrics.widthPixels * 0.30).toInt()
+                else
+                    (context.resources.displayMetrics.widthPixels * 0.40).toInt()
+
+            val params = RelativeLayout.LayoutParams(size, size)
+
+            params.setMargins(
+                0,
+                0,
+                context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._4sdp),
+                context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._4sdp)
+            )
+
+            cardParent.layoutParams = params
+
+            Glide.with(context)
+                .asBitmap().load(card.imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        rimvCoverImage.setImageBitmap(resource)
+                    }
+                })
+
+            tvWord.text = card.word
+
+            if (card.cardId == "-1" || !card.isVisible) {
+                cardBack.visibility = View.INVISIBLE
+                cardFront.visibility = View.INVISIBLE
             } else {
                 rimvCoverImage.visibility = View.VISIBLE
-                rimvCoverImage.setOnClickListener {
-                    itemTapListener.invoke(item, rimvCoverImage)
-                }
+                cardParent.setOnClickListener { itemTapListener.invoke(card, cardFront, cardBack, cardParent) }
+                cardParent.isClickable = false
             }
         }
     }
-
-    public fun hideCards() {
-        holders.forEach {
-            flipCard(it.binding.rimvCoverImage)
-        }
-    }
-
-    private fun flipCard(image: ImageView) {
-        val oa1 = ObjectAnimator.ofFloat(image, "scaleX", 1f, 0f)
-        val oa2 = ObjectAnimator.ofFloat(image, "scaleX", 0f, 1f)
-
-        oa1.interpolator = DecelerateInterpolator()
-        oa2.interpolator = DecelerateInterpolator()
-
-        oa1.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
-                super.onAnimationEnd(animation, isReverse)
-
-                image.setImageResource(R.drawable.placeholder)
-
-                oa2.start()
-            }
-        })
-
-        oa1.start()
-        oa1.duration = 200
-        oa2.duration = 200
-    }
-
-    override fun getItemCount(): Int = items.size
-
-    inner class CardViewHolder(val binding: LayoutItemCardBinding) :
-        RecyclerView.ViewHolder(binding.root)
 }

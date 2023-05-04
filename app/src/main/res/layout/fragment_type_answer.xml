@@ -58,6 +58,7 @@
         android:textColor="@color/light_black"
         android:layout_below="@+id/question_container"
         android:padding="@dimen/_10sdp"
+        android:text=""
         android:layout_marginTop="@dimen/_8sdp"
         android:hint="@string/type_your_answer_here"
         android:inputType="textMultiLine"

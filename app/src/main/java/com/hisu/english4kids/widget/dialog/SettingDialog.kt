@@ -7,17 +7,8 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.appcompat.widget.SwitchCompat
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
-import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.LayoutAppSettingsBinding
-import com.hisu.english4kids.data.model.leader_board.User
 import com.hisu.english4kids.utils.local.LocalDataManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class SettingDialog() {
 

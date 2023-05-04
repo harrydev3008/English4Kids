@@ -1,6 +1,7 @@
 package com.hisu.english4kids.ui.home
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -15,6 +16,7 @@ class CourseItemViewPagerAdapter(
 ) : RecyclerView.Adapter<CourseItemViewPagerAdapter.CourseItemViewHolder>() {
 
     var courses: List<Course> = mutableListOf()
+    private val colors = context.resources.getStringArray(R.array.course_color_list)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseItemViewHolder {
         return CourseItemViewHolder(
@@ -25,9 +27,17 @@ class CourseItemViewPagerAdapter(
     override fun onBindViewHolder(holder: CourseItemViewHolder, position: Int) {
         val course = courses[position]
         holder.apply {
-            bindData(course)
+            bindData(course, position)
 
-            binding.cardParent.setOnClickListener {
+            if(position == 0) {
+                holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm)
+            } else if(position == 1) {
+                holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm_2)
+            } else if(position == 2) {
+                holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm_3)
+            }
+
+            binding.btnStartCourse.setOnClickListener {
                 if (!course.isLock)
                     itemClickListener.invoke(course)
             }
@@ -39,27 +49,26 @@ class CourseItemViewPagerAdapter(
     inner class CourseItemViewHolder(var binding: LayoutCourseItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindData(course: Course) = binding.apply {
-            tvCourseTitle.text = course.courseTitle
-            tvCourseDesc.text = course.courseDesc
+        fun bindData(course: Course, position: Int) = binding.apply {
+            tvCourseTitle.text = course.title
+            tvCourseDesc.text = course.description
 
             pbCourseProgress.max = course.totalLevel
             pbCourseProgress.progress = course.currentLevel
 
             if (course.isComplete) {
-                setColors(R.color.level_percent_100)
+                btnStartCourse.text = context.getString(R.string.review)
             } else {
 
-                if (course.isLock) {
-                    setColors(-1, isLock = true)
-                } else {
-                    val percentage = (course.currentLevel.toFloat() / course.totalLevel) * 100
+                cardParent.strokeColor = Color.parseColor(colors[position])
+                pbCourseProgress.setIndicatorColor(Color.parseColor(colors[position]))
+                btnStartCourse.setBackgroundColor(Color.parseColor(colors[position]))
 
-                    if (percentage <= 50) {
-                        setColors(R.color.level_percent_50)
-                    } else if (percentage <= 75) {
-                        setColors(R.color.level_percent_75)
-                    }
+                if (course.isLock) {
+                    cardParent.strokeColor = ContextCompat.getColor(context, R.color.light_gray)
+                    tvProgressNumber.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
+                    tvCourseTitle.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
+                    btnStartCourse.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
                 }
             }
 
@@ -68,17 +77,6 @@ class CourseItemViewPagerAdapter(
                 course.currentLevel,
                 course.totalLevel
             )
-        }
-
-        private fun setColors(color: Int, isLock: Boolean = false) = binding.apply {
-            if (isLock) {
-                cardParent.strokeColor = ContextCompat.getColor(context, R.color.light_gray)
-                tvProgressNumber.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
-            } else {
-                pbCourseProgress.setIndicatorColor(ContextCompat.getColor(context, color))
-                cardParent.strokeColor = ContextCompat.getColor(context, color)
-                tvProgressNumber.setTextColor(ContextCompat.getColor(context, color))
-            }
         }
     }
 }

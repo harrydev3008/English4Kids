@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_12sdp"
+    app:strokeColor="@color/light_blue_gray"
+    app:strokeWidth="@dimen/_2sdp">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@color/white"
+      android:paddingVertical="@dimen/_12sdp"
+      android:paddingHorizontal="@dimen/_10sdp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center|start"
+          android:paddingVertical="@dimen/_4sdp">
+
+          <TextView
+              android:id="@+id/tv_current_coin"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/you_are_having_pattern"
+              android:drawablePadding="@dimen/_8sdp"
+              android:textColor="@color/yellow"
+              android:fontFamily="@font/roboto_bold"
+              android:includeFontPadding="false"
+              android:drawableRight="@drawable/ic_coin"
+              android:textSize="@dimen/_18ssp"/>
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/out_of_life"
+          android:textAlignment="center"
+          android:layout_marginVertical="@dimen/_16sdp"
+          android:textColor="@color/light_black"
+          android:textSize="@dimen/_20ssp"
+          android:fontFamily="@font/roboto_bold"
+          android:includeFontPadding="false"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/out_of_life_desc"
+          android:textAlignment="center"
+          android:textColor="@color/gray"
+          android:textSize="@dimen/_18ssp"
+          android:fontFamily="@font/roboto"
+          android:includeFontPadding="false"/>
+
+      <LinearLayout
+          android:id="@+id/btn_purchase_full_life"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:background="@drawable/bg_word_border"
+          android:layout_marginTop="@dimen/_12sdp"
+          android:paddingHorizontal="@dimen/_10sdp"
+          android:paddingVertical="@dimen/_12sdp">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="@string/restore_full_life"
+              android:drawableStart="@drawable/ic_heart_fill"
+              android:drawablePadding="@dimen/_8sdp"
+              android:textColor="@color/light_black"
+              android:fontFamily="@font/roboto_bold"
+              android:includeFontPadding="false"
+              android:textSize="@dimen/_18ssp"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="500"
+              android:gravity="center"
+              android:textSize="@dimen/_18ssp"
+              android:fontFamily="@font/roboto_bold"
+              android:includeFontPadding="false"
+              android:drawablePadding="@dimen/_4sdp"
+              android:drawableStart="@drawable/ic_coin"
+              android:textColor="@color/yellow"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/btn_purchase_three_life"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:background="@drawable/bg_word_border"
+          android:layout_marginTop="@dimen/_12sdp"
+          android:paddingHorizontal="@dimen/_10sdp"
+          android:paddingVertical="@dimen/_12sdp">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="@string/restore_3_life"
+              android:drawableStart="@drawable/ic_heart_fill"
+              android:drawablePadding="@dimen/_8sdp"
+              android:textColor="@color/light_black"
+              android:fontFamily="@font/roboto_bold"
+              android:includeFontPadding="false"
+              android:textSize="@dimen/_18ssp"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="300"
+              android:gravity="center"
+              android:textSize="@dimen/_18ssp"
+              android:fontFamily="@font/roboto_bold"
+              android:includeFontPadding="false"
+              android:drawablePadding="@dimen/_4sdp"
+              android:drawableStart="@drawable/ic_coin"
+              android:textColor="@color/yellow"/>
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/btn_exit"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingVertical="@dimen/_8sdp"
+          android:text="@string/no_thanks"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:layout_marginTop="@dimen/_12sdp"
+          android:textSize="@dimen/_20ssp"
+          android:fontFamily="@font/roboto_bold"
+          android:includeFontPadding="false"
+          android:drawablePadding="@dimen/_4sdp"
+          android:textColor="@color/classic"/>
+  </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

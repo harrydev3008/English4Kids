@@ -47,20 +47,20 @@
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold" />
 
-                <RatingBar
-                    android:id="@+id/rb_level_rate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleY="1"
-                    android:scaleX="1"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:progressBackgroundTint="@color/black"
-                    android:progressTint="@color/yellow"
-                    android:numStars="3"
-                    android:rating="2"
-                    android:transformPivotX="0dp"
-                    android:transformPivotY="0dp"
-                    android:stepSize="0.5" />
+<!--                <RatingBar-->
+<!--                    android:id="@+id/rb_level_rate"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scaleY="1"-->
+<!--                    android:scaleX="1"-->
+<!--                    style="?android:attr/ratingBarStyleSmall"-->
+<!--                    android:progressBackgroundTint="@color/black"-->
+<!--                    android:progressTint="@color/yellow"-->
+<!--                    android:numStars="3"-->
+<!--                    android:rating="2"-->
+<!--                    android:transformPivotX="0dp"-->
+<!--                    android:transformPivotY="0dp"-->
+<!--                    android:stepSize="0.5" />-->
             </LinearLayout>
         </LinearLayout>
 

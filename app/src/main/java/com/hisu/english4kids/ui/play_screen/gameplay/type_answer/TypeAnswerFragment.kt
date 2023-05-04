@@ -1,20 +1,22 @@
 package com.hisu.english4kids.ui.play_screen.gameplay.type_answer
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.model.game_play.GameStyleFour
 import com.hisu.english4kids.databinding.FragmentTypeAnswerBinding
-import com.hisu.english4kids.data.model.translate_question.TranslateQuestionModel
 
 class TypeAnswerFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: () -> Unit
+    private val wrongAnswerListener: () -> Unit,
+    private val correctAnswerListener: (score: Int) -> Unit,
+    private val gameStyleFour: GameStyleFour
 ) : Fragment() {
 
     private var _binding: FragmentTypeAnswerBinding? = null
@@ -22,16 +24,10 @@ class TypeAnswerFragment(
     private val _result = MutableLiveData<Boolean>()
     private val result: LiveData<Boolean> = _result
 
-    private lateinit var questionModel: TranslateQuestionModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTypeAnswerBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,12 +35,7 @@ class TypeAnswerFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        questionModel = TranslateQuestionModel(
-            1, "Dịch câu này", "I like cooking", "tôi thích nấu ăn", listOf()
-        )
-
-        binding.tvModeLevel.text = questionModel.title
-        binding.tvQuestion.text = questionModel.question
+        binding.tvQuestion.text = gameStyleFour.question
 
         result.observe(viewLifecycleOwner) {
             if (it == true) {
@@ -54,6 +45,7 @@ class TypeAnswerFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+                correctAnswerListener.invoke(gameStyleFour.score)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -71,13 +63,14 @@ class TypeAnswerFragment(
 
     private fun checkAnswer() = binding.btnCheck.btnNextRound.setOnClickListener {
         if (binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.check))) {
-            if (binding.edtAnswer.text.toString().trim().equals(questionModel.answer, ignoreCase = true)) {
+            if (binding.edtAnswer.text.toString().trim().equals(gameStyleFour.correctAns, ignoreCase = true)) {
                 _result.postValue(true)
             } else {
                 _result.postValue(false)
-                binding.btnCheck.tvCorrectAnswer.text = questionModel.answer
+                binding.btnCheck.tvCorrectAnswer.text = gameStyleFour.correctAns
             }
         } else if (binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.next))) {
+            binding.edtAnswer.setText("")
             itemTapListener.invoke()
         }
     }

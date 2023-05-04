@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentCompleteCompetitiveBinding
-import com.hisu.english4kids.ui.lessons.ClassModeLevelFragmentArgs
 
 class CompleteCompetitiveFragment : Fragment() {
 

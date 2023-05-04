@@ -7,15 +7,15 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.model.card.Card
 import com.hisu.english4kids.databinding.LayoutItemCardWordBinding
-import com.hisu.english4kids.data.model.pair_matching.PairMatchingModel
 
 class MatchingAudioWordAdapter(
     var context: Context,
-    private val itemTapListener: (item: PairMatchingModel) -> Unit
+    private val itemTapListener: (item: Card) -> Unit
 ) : RecyclerView.Adapter<MatchingAudioWordAdapter.CardWordViewHolder>() {
 
-    var pairs = listOf<PairMatchingModel>()
+    var pairs = listOf<Card>()
     var isLockView = false
 
     private var prevPick: LinearLayout?= null
@@ -59,8 +59,8 @@ class MatchingAudioWordAdapter(
 
     inner class CardWordViewHolder(var binding: LayoutItemCardWordBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(data: PairMatchingModel) = binding.apply {
-            tvAnswer.text = data.answer
+        fun bindData(data: Card) = binding.apply {
+            tvAnswer.text = data.word
         }
     }
 }

@@ -55,7 +55,7 @@ class LessonAdapter(
             }
 
             is CurrentLevelViewHolder -> {
-                holder.bind(curLevel)
+                holder.bind(curLevel, position)
                 holder.binding.levelParent.setOnClickListener {
                     levelClickListener.invoke(curLevel)
                 }
@@ -79,16 +79,16 @@ class LessonAdapter(
     inner class CompletedLevelViewHolder(val binding: LayoutLevelCompletedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Lesson) = binding.apply {
-            tvLevel.text = String.format(context.getString(R.string.lesson_pattern), item.id)
+            tvLevel.text = String.format(context.getString(R.string.lesson_pattern), item._id)
             tvLevelDesc.text = item.description
-            rbLevelRate.rating = item.score
+//            rbLevelRate.rating = item.score
         }
     }
 
     inner class CurrentLevelViewHolder(val binding: LayoutLevelCurrentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Lesson) = binding.apply {
-            tvCurrentLevel.text = String.format(context.getString(R.string.lesson_pattern), item.id)
+        fun bind(item: Lesson, position: Int) = binding.apply {
+            tvCurrentLevel.text = String.format(context.getString(R.string.lesson_pattern), position + 1)
             tvCurrentLevelDesc.text = item.description
         }
     }
@@ -108,11 +108,11 @@ class LessonAdapter(
 
     private val diffCallback = object : DiffUtil.ItemCallback<Lesson>() {
         override fun areItemsTheSame(oldItem: Lesson, newItem: Lesson): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem._id == newItem._id
         }
 
         override fun areContentsTheSame(oldItem: Lesson, newItem: Lesson): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem._id == newItem._id
         }
     }
 
