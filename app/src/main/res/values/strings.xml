@@ -15,7 +15,7 @@
     <string name="username">Tên E4K của bạn!</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="get_start">Bắt Đầu Thôi Nào!</string>
-    <string name="user_optional_desc">Hãy đặt 1 biệt danh thật ngầu nào!</string>
+    <string name="user_optional_desc">Hãy đặt biệt danh thật ngầu nào!</string>
     <string name="welcome_text">Điền số điện thoại của bạn</string>
     <string name="welcome_text_desc">Số điện thoại dùng để đăng nhập hoặc mở tài khoản nếu bạn lần đầu dùng E4K.</string>
     <string name="verify_your_otp">Hãy nhập mã OTP đã được gửi đến số điện thoại của bạn.</string>
@@ -56,6 +56,8 @@
     <string name="confirm_msg_stay">Chơi tiếp</string>
     <string name="confirm_otp">Xác Nhận</string>
     <string name="confirm_otp_err">Lỗi Xác Thực</string>
+    <string name="request_err">Lỗi</string>
+    <string name="request_err_desc">Đã xảy ra lỗi! Bạn vui lòng thử lại sau nhé!</string>
     <string name="press_again_to_exit">Nhấn lần nữa để thoát!</string>
     <string name="confirm_logout">Bạn có chắc chắn muốn Đăng xuất không?!</string>
     <string name="confirm_yes">Có</string>
@@ -65,6 +67,8 @@
     <string name="wrong_otp_err_msg">Mã OTP không chính xác. Vui lòng kiểm tra lại!</string>
     <string name="confirm_otp_err_occur_msg">Đã có lỗi trong quá trình xác thực!\n Bạn vui lòng thử lại nhé!</string>
     <string name="invalid_phone_format_err">* Số điện thoại sai định dạng!</string>
+    <string name="err_network_not_connected">Không kết nối được với máy chủ!</string>
+    <string name="err_network_not_available">Không có kết nối internet!</string>
 
     <!--  String patterns  -->
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>

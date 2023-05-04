@@ -90,7 +90,7 @@
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:src="@mipmap/app_icon"
-            app:civ_border_color="@color/daily"
+            app:civ_border_color="@color/gray"
             app:civ_border_width="@dimen/_2sdp" />
 
     </LinearLayout>
