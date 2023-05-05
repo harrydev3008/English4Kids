@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,7 +15,9 @@
         android:layout_height="?actionBarSize"
         android:background="@drawable/bg_border_bottom"
         android:gravity="center"
+        android:layout_alignParentTop="true"
         android:orientation="horizontal"
+        android:elevation="4dp"
         android:paddingHorizontal="@dimen/_4sdp">
 
         <ImageView
@@ -45,99 +47,20 @@
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vp_courses"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingHorizontal="25dp"
-        android:layout_marginTop="@dimen/_24sdp" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="?actionBarSize"
+        android:scrollbarStyle="outsideOverlay"
+        android:orientation="vertical"
+        tools:itemCount="10"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/layout_course_item"
+         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingVertical="@dimen/_10sdp"
-        android:paddingHorizontal="@dimen/_6sdp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="397\nChương đã học"
-                android:textSize="@dimen/_14ssp"
-                android:textColor="@color/light_black"
-                android:drawableStart="@drawable/ic_book_open_text"
-                android:background="@drawable/bg_word_border_selected_image_blue"
-                android:paddingStart="@dimen/_6sdp"
-                android:drawablePadding="@dimen/_6sdp"
-                android:fontFamily="@font/roboto_bold"
-                android:includeFontPadding="false"
-                android:paddingVertical="@dimen/_12sdp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="3979999\nTổng KN"
-                android:textSize="@dimen/_14ssp"
-                android:textColor="@color/light_black"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:drawableStart="@drawable/ic_target_arrow_filled"
-                android:background="@drawable/bg_word_border_selected_green"
-                android:fontFamily="@font/roboto_bold"
-                android:includeFontPadding="false"
-                android:paddingStart="@dimen/_6sdp"
-                android:drawablePadding="@dimen/_6sdp"
-                android:paddingVertical="@dimen/_12sdp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_6sdp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="0\nSố lần thi đấu"
-            android:textSize="@dimen/_14ssp"
-            android:fontFamily="@font/roboto_bold"
-            android:includeFontPadding="false"
-            android:drawableStart="@drawable/ic_sword_fight"
-            android:textColor="@color/light_black"
-            android:background="@drawable/bg_word_border_selected_red"
-            android:paddingStart="@dimen/_6sdp"
-            android:drawablePadding="@dimen/_6sdp"
-            android:paddingVertical="@dimen/_12sdp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="0\nSố lần thắng"
-            android:textSize="@dimen/_14ssp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:fontFamily="@font/roboto_bold"
-            android:includeFontPadding="false"
-            android:textColor="@color/light_black"
-            android:drawableStart="@drawable/ic_trophy"
-            android:background="@drawable/bg_word_border_selected_yellow"
-            android:paddingStart="@dimen/_6sdp"
-            android:drawablePadding="@dimen/_6sdp"
-            android:paddingVertical="@dimen/_12sdp"/>
-
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

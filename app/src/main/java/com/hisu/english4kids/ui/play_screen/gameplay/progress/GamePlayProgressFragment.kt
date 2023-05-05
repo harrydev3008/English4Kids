@@ -1,13 +1,17 @@
 package com.hisu.english4kids.ui.play_screen.gameplay.progress
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.BUNDLE_LESSON_DATA
+import com.hisu.english4kids.data.model.game_play.Gameplay
 import com.hisu.english4kids.databinding.FragmentGamePlayProgressBinding
 
 class GamePlayProgressFragment : Fragment() {
@@ -35,7 +39,21 @@ class GamePlayProgressFragment : Fragment() {
         gridLayoutManager.spanSizeLookup = spanSizeLookUp
 
         layoutManager = gridLayoutManager
-        adapter = GameplayProgressAdapter(requireContext(), ::handleGameplayRoundClick)
+
+        val gameProgressAdapter = GameplayProgressAdapter(requireContext(), ::handleGameplayRoundClick)
+
+        val itemType = object : TypeToken<List<Object>>() {}.type
+        val temp = Gson().fromJson<List<Object>>(arguments?.getString(BUNDLE_LESSON_DATA), itemType)
+
+        val mGamePlays = mutableListOf<Gameplay>()
+
+        for(i in 0 until temp.size) {
+            mGamePlays.add( Gameplay(1))
+        }
+
+        gameProgressAdapter.gameplays = mGamePlays
+
+        adapter = gameProgressAdapter
     }
 
     private fun back() = binding.btnHome.setOnClickListener {
@@ -43,7 +61,7 @@ class GamePlayProgressFragment : Fragment() {
     }
 
     private fun handleGameplayRoundClick() {
-        findNavController().navigate(R.id.action_gamePlayProgressFragment_to_playFragment)
+        findNavController().navigate(R.id.action_gamePlayProgressFragment_to_playFragment, arguments)
     }
 
     private val spanSizeLookUp = object : GridLayoutManager.SpanSizeLookup() {

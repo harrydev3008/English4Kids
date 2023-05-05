@@ -18,7 +18,9 @@ class LocalDataManager {
         mySharedPreferences.putBoolean(MySharedPreferences.USER_LOGIN_STATE, loginState)
     }
 
-    suspend fun getUserLoginState() = mySharedPreferences.getBooleanAsync(MySharedPreferences.USER_LOGIN_STATE)
+    suspend fun getUserLoginStateAsync() = mySharedPreferences.getBooleanAsync(MySharedPreferences.USER_LOGIN_STATE)
+
+    fun getUserLoginState() = mySharedPreferences.getBoolean(MySharedPreferences.USER_LOGIN_STATE)
 
     fun setUserInfo(userInfo: String) {
         mySharedPreferences.putString(MySharedPreferences.USER_INFO_KEY, userInfo)
@@ -40,10 +42,17 @@ class LocalDataManager {
     fun getUserRemindDailyRewardState() =
         mySharedPreferences.getBoolean(MySharedPreferences.USER_REMIND_DAILY_REWARD_STATE)
 
-    suspend fun setUserToken(token: String) {
-        mySharedPreferences.putString(MySharedPreferences.USER_TOKEN, token)
+    fun setUserAccessToken(token: String) {
+        mySharedPreferences.putString(MySharedPreferences.USER_ACCESS_TOKEN, token)
     }
 
-    fun getUserToken() =
-        mySharedPreferences.getString(MySharedPreferences.USER_TOKEN)
+    fun getUserAccessToken() =
+        mySharedPreferences.getString(MySharedPreferences.USER_ACCESS_TOKEN)
+
+    fun setUserRefreshToken(token: String) {
+        mySharedPreferences.putString(MySharedPreferences.USER_REFRESH_TOKEN, token)
+    }
+
+    fun getUserRefreshToken() =
+        mySharedPreferences.getString(MySharedPreferences.USER_REFRESH_TOKEN)
 }

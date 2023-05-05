@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/_130sdp"
+    android:id="@+id/card_parent"
+    android:layout_height="@dimen/_130sdp"
     android:layout_marginEnd="@dimen/_4sdp"
     android:layout_marginBottom="@dimen/_4sdp">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/rimv_cover_image"
-        android:animateLayoutChanges="true"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
-        android:src="@drawable/placeholder"
-        android:scaleType="centerCrop"
-        app:riv_corner_radius="@dimen/_6sdp"/>
+    <TextView
+        android:id="@+id/card_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_word_border_black"
+        android:fontFamily="@font/kavoon"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="2dp"
+        android:text="@string/question_mark"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_40sdp"
+        android:visibility="invisible" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/card_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_word_border"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="4dp"
+        android:visibility="visible">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/rimv_cover_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:animateLayoutChanges="true"
+            android:scaleType="center"
+            app:riv_corner_radius_top_left="16dp"
+            app:riv_corner_radius_top_right="16dp"
+            android:src="@drawable/test_rm"/>
+
+        <TextView
+            android:id="@+id/tv_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_14ssp" />
+    </LinearLayout>
+
+</RelativeLayout>

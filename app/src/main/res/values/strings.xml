@@ -13,6 +13,7 @@
     <string name="leader_board">Xếp Hạng Tuần</string>
     <string name="leader_board_title">Chào mừng bạn đến với bảng xếp hạng tuần này!</string>
     <string name="username">Tên E4K của bạn!</string>
+    <string name="username_desc">Tên hiển thị</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="get_start">Bắt Đầu Thôi Nào!</string>
     <string name="user_optional_desc">Hãy đặt biệt danh thật ngầu nào!</string>
@@ -24,7 +25,7 @@
     <string name="complete_round_within">Hoàn thành trong vòng</string>
     <string name="pick_correct_image">Chọn hình ảnh đúng</string>
     <string name="complete_lesson">Hoàn thành bài học!</string>
-    <string name="total_score">Tổng Điểm</string>
+    <string name="total_score">Điểm</string>
     <string name="fast_score">Nhanh</string>
     <string name="perfect_score">Hoàn hảo!</string>
     <string name="what_can_you_hear">Bạn nghe được gì?</string>
@@ -32,7 +33,7 @@
     <string name="translate_this_sentence">Dịch câu này</string>
     <string name="type_your_answer_here">Nhập câu trả lời của bạn tại đây…</string>
     <string name="find_component_now">Bắt đầu tìm đối thủ để tranh tài Tiếng Anh nào!</string>
-    <string name="find_match">Tìm Đối Thủ</string>
+    <string name="find_match">Ghép Trận</string>
     <string name="loading_pls_wait">Đang tìm đối thủ xứng tầm…</string>
     <string name="found_opponent">Đã tìm thấy đối thủ!</string>
     <string name="accept_match">Chiến Thôi!</string>
@@ -48,6 +49,18 @@
     <string name="achievement">Thành tích</string>
     <string name="notification_setting">Cài đặt thông báo</string>
     <string name="user_profile_and_setting">Hồ sơ &amp; Cài đặt</string>
+    <string name="user_profile_desc">Hồ sơ của bạn</string>
+    <string name="review">Ôn Tập</string>
+    <string name="game_play_lock_desc_title">Màn chơi bị khoá</string>
+    <string name="game_play_lock_desc">Hãy hoàn thành tất cả các màn chơi trước để mở khoá bạn nhé!</string>
+    <string name="out_of_life">Bạn đã hết trái tim!</string>
+    <string name="out_of_life_desc">Sử dụng vàng đã tích luỹ để mua thêm trái tim bạn nhé!</string>
+    <string name="restore_full_life">Hồi hoàn toàn</string>
+    <string name="restore_3_life">Hồi 3 tim</string>
+    <string name="edit_profile">Chỉnh sửa hồ sơ</string>
+    <string name="no_thanks">Không, cảm ơn</string>
+    <string name="save">Lưu</string>
+    <string name="question_mark">\?</string>
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>
@@ -78,13 +91,13 @@
     <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
     <string name="resend_otp">Gửi lại mã</string>
     <string name="lesson_pattern">Bài %1$d</string>
-    <string name="course_progress_pattern">%1$d/%2$d</string>
+    <string name="course_progress_pattern">%1$d/%2$d bài học</string>
     <string name="daily_reward_date_pattern">Day %1$d</string>
     <string name="daily_reward_price_pattern">+%1$d</string>
     <string name="answer_multiple_choice_pattern">%1$s. %2$s</string>
     <string name="level_pattern">Cấp %1$d</string>
-    <string name="join_date_pattern">Tham gia từ</string>
-    <string name="edit_profile">Chỉnh sửa hồ sơ</string>
+    <string name="you_are_having_pattern">Bạn đang có %1$d</string>
+    <string name="join_date_pattern">Tham gia tháng %1$s, %2$s</string>
 
     <!--  random messages  -->
 
@@ -94,5 +107,20 @@
     <string name="notification_learning_channel_id">notification_learning_id</string>
     <string name="notification_learning_channel_name">Nhắc học Tiếng Anh</string>
     <string name="notification_learning_title">Giờ học đến rồi!</string>
+
+    <string-array name="course_color_list">
+        <item>#58CC00</item>
+        <item>#945F1E</item>
+        <item>#20B0F5</item>
+        <item>#FD4C4A</item>
+        <item>#D080FE</item>
+        <item>#20B0F5</item>
+        <item>#945F1E</item>
+        <item>#58CC00</item>
+        <item>#FD4C4A</item>
+        <item>#F8D356</item>
+    </string-array>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

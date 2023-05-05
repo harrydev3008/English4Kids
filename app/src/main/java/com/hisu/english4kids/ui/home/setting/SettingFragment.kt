@@ -1,4 +1,4 @@
-package com.hisu.english4kids.ui.home
+package com.hisu.english4kids.ui.home.setting
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -55,9 +55,10 @@ class SettingFragment : Fragment() {
 
         initView()
 
+        mLoadingDialog = LoadingDialog(requireContext(), Gravity.CENTER)
         handleSettingButton()
         handleEditProfileEvent()
-        handleLogoutEvent()
+        handleLogoutButton()
         handleBackButton()
         //todo: thong ke
     }
@@ -68,10 +69,22 @@ class SettingFragment : Fragment() {
         localDataManager = LocalDataManager()
         localDataManager.init(requireContext())
 
-        currentUser = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
+        val playJson = localDataManager.getUserInfo()
+
+        if(playJson == null || playJson.isEmpty()) return
+
+        currentUser = Gson().fromJson(playJson, Player::class.java)
 
         binding.tvUsername.text = currentUser.username
         binding.tvPhoneNumber.text = currentUser.phone
+
+        val year = currentUser.registerDate.substring(0, 4)
+        val month = currentUser.registerDate.subSequence(5, 7)
+
+        binding.tvJoinDate.text = String.format(
+            requireContext().getString(R.string.join_date_pattern),
+            month, year
+        )
         binding.cimvUserPfp.setImageBitmap(MyUtils.createImageFromText(requireContext(), currentUser.username))
     }
 
@@ -95,10 +108,21 @@ class SettingFragment : Fragment() {
     }
 
     private fun handleEditProfileEvent() = binding.btnEditProfile.setOnClickListener {
-        Toast.makeText(requireContext(), "impl later", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_settingFragment_to_updateProfileFragment)
     }
 
-    private fun handleLogoutEvent() = binding.tvLogout.setOnClickListener {
+    private fun handleLogoutButton() = binding.tvLogout.setOnClickListener {
+        if(MyUtils.isNetworkAvailable(requireContext())) {
+            handleLogoutEvent()
+        } else {
+            iOSDialogBuilder(requireContext())
+                .setTitle(requireContext().getString(R.string.confirm_otp))
+                .setSubtitle(requireContext().getString(R.string.err_network_not_available))
+                .setPositiveListener(requireContext().getString(R.string.confirm_otp), iOSDialog::dismiss).build().show()
+        }
+    }
+
+    private fun handleLogoutEvent() {
         iOSDialogBuilder(requireContext())
             .setTitle(requireContext().getString(R.string.confirm_otp))
             .setSubtitle(requireContext().getString(R.string.confirm_logout))
@@ -122,25 +146,32 @@ class SettingFragment : Fragment() {
 
     private val handleLogoutCallback = object: Callback<AuthResponseModel> {
         override fun onResponse(call: Call<AuthResponseModel>, response: Response<AuthResponseModel>) {
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-
             if(response.isSuccessful && response.code() == STATUS_OK) {
 
                 localDataManager.setUserLoinState(false)
-                localDataManager.setUserInfo("")//clear user info
 
                 Handler(requireContext().mainLooper).postDelayed({
+                    requireActivity().runOnUiThread {
+                        mLoadingDialog.dismissDialog()
+                    }
                     findNavController().navigate(R.id.action_settingFragment_to_registerFragment)
                 }, 3 * 1000)
+            } else {
+                requireActivity().runOnUiThread {
+                    mLoadingDialog.dismissDialog()
+                }
             }
-            //todo: handle else case
         }
 
         override fun onFailure(call: Call<AuthResponseModel>, t: Throwable) {
             requireActivity().runOnUiThread {
                 mLoadingDialog.dismissDialog()
+                iOSDialogBuilder(requireContext())
+                    .setTitle(requireContext().getString(R.string.request_err))
+                    .setSubtitle(requireContext().getString(R.string.err_network_not_connected))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
             }
             Log.e(SettingFragment::class.java.name, t.message ?: "error message")
         }

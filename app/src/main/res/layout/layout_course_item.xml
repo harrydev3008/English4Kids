@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_12sdp"
-    app:strokeColor="@color/light_gray"
+    app:strokeColor="@color/daily"
+    android:layout_marginTop="@dimen/_12sdp"
     app:strokeWidth="@dimen/_4sdp">
 
         <LinearLayout
@@ -13,49 +15,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:orientation="vertical"
             android:gravity="center"
-            android:padding="@dimen/_12sdp">
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/pb_course_progress"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="0dp"
-                    android:layout_centerInParent="true"
-                    android:max="8"
-                    android:progress="1"
-                    app:indicatorColor="@color/classic"
-                    app:indicatorSize="@dimen/_100sdp"
-                    app:trackColor="@color/light_blue_gray"
-                    app:trackCornerRadius="10dp"
-                    app:trackThickness="@dimen/_12sdp" />
-
-                <TextView
-                    android:id="@+id/tv_progress_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="4/8"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/_20ssp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/imv_temp_avatar"
+                android:layout_width="@dimen/_140sdp"
+                android:layout_height="@dimen/_140sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_rm"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_course_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:text="Phần giới thiệu Tiếng Anh"
                 android:fontFamily="@font/roboto_bold"
                 android:includeFontPadding="false"
+                android:text="Phần giới thiệu Tiếng Anh"
                 android:textColor="@color/light_black"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/pb_course_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:max="8"
+                android:progress="1"
+                app:indicatorColor="@color/daily"
+                app:indicatorSize="@dimen/_80sdp"
+                app:trackColor="@color/light_blue_gray"
+                app:trackCornerRadius="10dp"
+                app:trackThickness="@dimen/_12sdp" />
+
+            <TextView
+                android:id="@+id/tv_progress_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/course_progress_pattern"
+                android:textColor="@color/light_black"
+                android:fontFamily="@font/roboto"
+                android:includeFontPadding="false"
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
 
@@ -65,12 +70,25 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:text="Khởi động cùng một số ngữ pháp và cụm từ đơn giản"
-                android:textAlignment="center"
                 android:fontFamily="@font/roboto"
                 android:includeFontPadding="false"
+                android:text="Khởi động cùng một số ngữ pháp và cụm từ đơn giản"
+                android:textAlignment="center"
                 android:textColor="@color/gray_af"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_17ssp"
                 android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_start_course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:enabled="true"
+                android:paddingVertical="@dimen/_8sdp"
+                android:text="@string/next"
+                android:backgroundTint="@color/daily"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp"
+                app:cornerRadius="@dimen/_10sdp" />
         </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

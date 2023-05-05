@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.SearchUserResponseModel
 import com.hisu.english4kids.databinding.FragmentRegisterBinding
+import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.widget.dialog.LoadingDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,12 +60,22 @@ class RegisterFragment : Fragment() {
     }
 
     private fun handleLoginBtn() = binding.btnLogin.setOnClickListener {
+        binding.edtPhoneNumber.clearFocus()
         if (phoneNumberValidate()) {
-            requireActivity().runOnUiThread {
-                mLoadingDialog.showDialog()
-            }
 
-            API.apiService.searchUserByPhone(binding.edtPhoneNumber.text.toString()).enqueue(handleCheckPhoneNumberCallback)
+            if(MyUtils.isNetworkAvailable(requireContext())) {
+                requireActivity().runOnUiThread {
+                    mLoadingDialog.showDialog()
+                }
+                API.apiService.searchUserByPhone(binding.edtPhoneNumber.text.toString()).enqueue(handleCheckPhoneNumberCallback)
+            } else {
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.confirm_otp))
+                        .setSubtitle(requireContext().getString(R.string.err_network_not_available))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp), iOSDialog::dismiss).build().show()
+                }
+            }
         }
     }
 
@@ -72,8 +84,9 @@ class RegisterFragment : Fragment() {
         val patternPhoneNumber = Pattern.compile("^(032|033|034|035|036|037|038|039|086|096|097|098|070|079|077|076|078|089|090|093|083|084|085|081|082|088|091|094|052|056|058|092|059|099|087)[0-9]{7}$")
 
         if (!patternPhoneNumber.matcher(binding.edtPhoneNumber.text.toString()).matches()) {
-            binding.tilPhoneContainer.helperText = getString(R.string.invalid_phone_format_err);
-            return false;
+            binding.tilPhoneContainer.helperText = getString(R.string.invalid_phone_format_err)
+            binding.edtPhoneNumber.requestFocus()
+            return false
         }
 
         return true

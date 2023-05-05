@@ -78,6 +78,7 @@ class TypeAnswerFragment(
                 binding.btnCheck.tvCorrectAnswer.text = questionModel.answer
             }
         } else if (binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.next))) {
+            binding.edtAnswer.setText("")
             itemTapListener.invoke()
         }
     }

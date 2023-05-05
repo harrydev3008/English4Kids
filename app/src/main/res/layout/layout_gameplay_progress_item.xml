@@ -36,9 +36,10 @@
 <!--    </RelativeLayout>-->
 
     <RelativeLayout
+        android:id="@+id/outer_circle"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
-        android:background="@drawable/bg_circle"
+        android:background="@drawable/bg_circle_black"
         android:layout_gravity="center">
 <!--        <TextView-->
 <!--            android:id="@+id/tv_round"-->
@@ -53,9 +54,10 @@
 <!--            android:includeFontPadding="false"-->
 <!--            />-->
         <ImageView
+            android:id="@+id/inner_img"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:src="@drawable/ic_star_solid"
+            android:src="@drawable/ic_round_lock"
             android:layout_centerInParent="true"
             tools:ignore="ContentDescription" />
     </RelativeLayout>

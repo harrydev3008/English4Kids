@@ -1,11 +1,13 @@
 package com.hisu.english4kids.ui.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -36,7 +38,7 @@ class CheckOTPFragment : Fragment() {
 
     private val binding get() = _binding!!
     private var timer: CountDownTimer? = null
-    private val RESEND_DELAY_TIME = 30 * 1000L//todo: set to 60 or 90s later
+    private val RESEND_DELAY_TIME = 99 * 1000L
     private val myArgs: CheckOTPFragmentArgs by navArgs()
 
     private var verificationID = ""
@@ -238,8 +240,11 @@ class CheckOTPFragment : Fragment() {
 
             if (text.length == 1 && next != null)
                 next?.requestFocus()
-            else
-                current.requestFocus()
+            else if(text.length == 1 && next == null) {
+                current.clearFocus()
+                val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+            }
 
             binding.btnVerifyOtp.isEnabled = getUserInputOTPCode().length > 5
         }
@@ -318,6 +323,8 @@ class CheckOTPFragment : Fragment() {
 
                         localDataManager.setUserLoinState(true)
                         localDataManager.setUserInfo(playerInfoJson)
+                        localDataManager.setUserAccessToken(this.accessToken)
+                        localDataManager.setUserRefreshToken(this.refreshToken)
 
                         findNavController().navigate(R.id.otp_to_home)
                     }

@@ -21,13 +21,13 @@
             app:argType="integer"
             app:nullable="false" />
         <action
-            android:id="@+id/game_finish"
-            app:destination="@id/gameFinishFragment" />
+            android:id="@+id/action_playFragment_to_courseFragment"
+            app:destination="@id/courseFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/classModeLevelFragment"
-        android:name="com.hisu.english4kids.ui.lessons.ClassModeLevelFragment"
+        android:name="com.hisu.english4kids.ui.lessons.LessonsFragment"
         android:label="fragment_class_mode_level"
         tools:layout="@layout/fragment_lessons">
         <argument
@@ -36,7 +36,7 @@
             app:argType="string" />
 
         <argument
-            android:name="courseLevels"
+            android:name="courseId"
             android:defaultValue=""
             app:argType="string" />
 
@@ -46,20 +46,9 @@
         <action
             android:id="@+id/action_classModeLevelFragment_to_gamePlayProgressFragment"
             app:destination="@id/gamePlayProgressFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/gameFinishFragment"
-        android:name="com.hisu.english4kids.ui.finish.GameFinishFragment"
-        android:label="fragment_game_finish"
-        tools:layout="@layout/fragment_game_finish">
-        <argument
-            android:name="result"
-            android:defaultValue=""
-            app:argType="string" />
         <action
-            android:id="@+id/next_round"
-            app:destination="@id/playFragment" />
+            android:id="@+id/action_classModeLevelFragment_to_courseFragment"
+            app:destination="@id/courseFragment" />
     </fragment>
 
     <fragment
@@ -73,6 +62,9 @@
         <action
             android:id="@+id/splash_to_home"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_classicPairsMatchingFragment"
+            app:destination="@id/classicPairsMatchingFragment" />
     </fragment>
 
     <fragment
@@ -224,11 +216,28 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.hisu.english4kids.ui.home.SettingFragment"
+        android:name="com.hisu.english4kids.ui.home.setting.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" >
         <action
             android:id="@+id/action_settingFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.hisu.english4kids.ui.home.setting.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile" >
+        <action
+            android:id="@+id/action_updateProfileFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/classicPairsMatchingFragment"
+        android:name="com.hisu.english4kids.ui.play_screen.gameplay.class_pairs_matching.ClassicPairsMatchingFragment"
+        android:label="fragment_classic_pairs_matching"
+        tools:layout="@layout/fragment_classic_pairs_matching" />
 </navigation>

@@ -107,6 +107,7 @@
             android:layout_height="@dimen/_40sdp"
             android:cursorVisible="true"
             android:gravity="center"
+            android:imeOptions="actionDone"
             android:inputType="phone"
             android:textCursorDrawable="@drawable/edt_cursor"
             android:maxLength="1"

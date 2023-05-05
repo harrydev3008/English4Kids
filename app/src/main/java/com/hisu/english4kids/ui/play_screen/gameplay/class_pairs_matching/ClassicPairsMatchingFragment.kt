@@ -3,33 +3,29 @@ package com.hisu.english4kids.ui.play_screen.gameplay.class_pairs_matching
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
-import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
+import androidx.recyclerview.widget.GridLayoutManager
 import com.hisu.english4kids.R
-import com.hisu.english4kids.databinding.FragmentClassicPairsMatchingBinding
 import com.hisu.english4kids.data.model.card.Card
-import com.hisu.english4kids.data.model.card.CardsResponse
+import com.hisu.english4kids.data.model.game_play.GameStyleOne
+import com.hisu.english4kids.databinding.FragmentClassicPairsMatchingBinding
 import com.hisu.english4kids.utils.MyUtils
-import com.hisu.english4kids.widget.CustomCard
-import com.makeramen.roundedimageview.RoundedImageView
-
 
 class ClassicPairsMatchingFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: () -> Unit
+    private val wrongAnswerListener: () -> Unit,
+    private var gameStyleOne: GameStyleOne
 ) : Fragment() {
 
     private var _binding: FragmentClassicPairsMatchingBinding? = null
@@ -38,20 +34,17 @@ class ClassicPairsMatchingFragment(
     private val result: LiveData<Boolean> = _result
 
     private var prev: Card? = null
-    private lateinit var prevImage: RoundedImageView
-    private lateinit var cardsResponse: CardsResponse
+    private lateinit var prevCardBack: TextView
+    private lateinit var prevCardFront: LinearLayout
+    private lateinit var prevCardParent: RelativeLayout
 
-    private var counter = 0;
-    private var wrongMove = 0;
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var counter = 0
+    private var wrongMove = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentClassicPairsMatchingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,41 +52,35 @@ class ClassicPairsMatchingFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //todo: impl later
-        val str =
-            "https://firebasestorage.googleapis.com/v0/b/englisk4kidsdemo.appspot.com/o/bg_family_vn.png?alt=media&token=86b037f6-3394-4614-a88a-e9742095d058"
-
-        val cards = listOf(
-            Card(1, 1, str, false),
-            Card(2, 3, str, false),
-            Card(3, 2, str, false),
-            Card(4, 4, str, false),
-            Card(5, -1, "", true),
-            Card(6, 4, str, false),
-            Card(7, 3, str, false),
-            Card(8, 2, str, false),
-            Card(9, 1, str, false)
-        )
-
-        cardsResponse = CardsResponse(cards, 4, 6)
-
-        binding.tvModeLevel.append(MyUtils.spannableText(" ${cardsResponse.allowedMoves} ", "#ca5866"))
+        binding.tvModeLevel.append(MyUtils.spannableText(" ${gameStyleOne.allowedMoves} ", "#ca5866"))
         binding.tvModeLevel.append("lượt")
 
-        cardsResponse.data.forEach {
-            binding.rvMatchingPairs.addView(CustomCard(requireContext(), it, ::cardItemClick))
-        }
+        observeResult()
+        addActionForBtnCheck()
+        setUpRecyclerView()
+    }
 
-        //Give user around 1s to memorize
+    private fun setUpRecyclerView() = binding.rvMatchingPairs.apply {
+        val cardAdapter = CardAdapter(requireContext(), ::cardItemClick)
+        cardAdapter.cards = gameStyleOne.cards
+
+        val gridLayoutMgr = GridLayoutManager(
+            requireContext(),
+            if(gameStyleOne.cards.size > 4) 3 else 2
+        )
+
+        binding.rvMatchingPairs.layoutManager = gridLayoutMgr
+        binding.rvMatchingPairs.adapter = cardAdapter
+
+        //Give user around 2-5s to memorize
         Handler(requireContext().mainLooper).postDelayed({
-            for (i in 0 until binding.rvMatchingPairs.childCount) {
-                (binding.rvMatchingPairs.getChildAt(i) as CustomCard).flipCard()
-            }
-        }, 1500)
+            cardAdapter.hideCards()
+        }, 3000)
+    }
 
+    private fun observeResult() {
         result.observe(viewLifecycleOwner) {
             if (it == true) {
-                lockViews()
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.GONE
@@ -102,7 +89,6 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
             } else {
-                lockViews()
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -114,7 +100,7 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.tvCorrectAnswerDesc.text =
                     String.format(
                         requireContext().getString(R.string.complete_within_turn),
-                        cardsResponse.allowedMoves
+                        gameStyleOne.allowedMoves
                     )
                 binding.btnCheck.tvCorrectAnswer.text =
                     requireContext().getString(R.string.better_luck_next_time)
@@ -122,60 +108,56 @@ class ClassicPairsMatchingFragment(
                 wrongAnswerListener.invoke()
             }
         }
-
-        addActionForBtnCheck()
     }
 
-    private fun lockViews() {
-        for (i in 0 until binding.rvMatchingPairs.childCount) {
-            (binding.rvMatchingPairs.getChildAt(i) as CustomCard).isClickable = false
-        }
-    }
-
-    private fun cardItemClick(card: Card, front: View) {
+    private fun cardItemClick(card: Card, frontCard: LinearLayout, backCard: TextView, parent: RelativeLayout) {
         if (prev != null) {
 
-            if (prev?.id == card.id) return
+            if (prev?.cardId == card.cardId) return
 
-            flipCard(front as ImageView, card, false)
+            flip(parent, frontCard, backCard, false)
 
-            if (card.cardID == prev?.cardID) {
-                Handler(requireContext().mainLooper).postDelayed({
-                    front.visibility = View.GONE
-                    prevImage.visibility = View.GONE
-                    prev = null
+            if (card.pairId == prev?.pairId) {
 
-                    counter++
+                parent.isClickable = false
+                prevCardParent.isClickable = false
 
-                    //When all the pairs are matched
-                    if (counter == cardsResponse.totalPairs) {
-                        _result.postValue(true)
-                    }
-                }, 500)
+                frontCard.visibility = View.INVISIBLE
+                backCard.visibility = View.INVISIBLE
+                prevCardBack.visibility = View.INVISIBLE
+                prevCardFront.visibility = View.INVISIBLE
+
+                prev = null
+                counter++
+
+                //When all the pairs are matched
+                if (counter == gameStyleOne.totalPairs) {
+                    _result.postValue(true)
+                }
             } else {
                 prev = null
 
-                Handler(requireContext().mainLooper).postDelayed({
-                    flipCard(front, card, true)
-                    flipCard(prevImage, card, true)
+                flip(parent, frontCard, backCard, true)
+                flip(prevCardParent, prevCardFront, prevCardBack, true)
 
-                    wrongMove++
+                wrongMove++
 
-                    if (wrongMove == cardsResponse.allowedMoves) {
-                        _result.postValue(false)
-                    }
-                }, 400)
+                if (wrongMove == gameStyleOne.allowedMoves) {
+                    _result.postValue(false)
+                }
             }
         } else {
-            flipCard(front as ImageView, card, false)
             prev = card
-            prevImage = front as RoundedImageView
+            prevCardFront = frontCard
+            prevCardBack = backCard
+            prevCardParent = parent
+            flip(parent, frontCard, backCard, false)
         }
     }
 
-    private fun flipCard(image: ImageView, card: Card, isHidden: Boolean) {
-        val oa1 = ObjectAnimator.ofFloat(image, "scaleX", 1f, 0f)
-        val oa2 = ObjectAnimator.ofFloat(image, "scaleX", 0f, 1f)
+    private fun flip(parent: View, front: LinearLayout, back: TextView, isHidden: Boolean) {
+        val oa1 = ObjectAnimator.ofFloat(parent, "scaleX", 1f, 0f)
+        val oa2 = ObjectAnimator.ofFloat(parent, "scaleX", 0f, 1f)
 
         oa1.interpolator = DecelerateInterpolator()
         oa2.interpolator = DecelerateInterpolator()
@@ -184,19 +166,12 @@ class ClassicPairsMatchingFragment(
             override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {
                 super.onAnimationEnd(animation, isReverse)
 
-                if (isHidden)
-                    image.setImageResource(R.drawable.placeholder)
-                else {
-                    Glide.with(requireContext())
-                        .asBitmap().load(card.imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(object : SimpleTarget<Bitmap>() {
-                            override fun onResourceReady(
-                                resource: Bitmap,
-                                transition: Transition<in Bitmap>?
-                            ) {
-                                image.setImageBitmap(resource)
-                            }
-                        })
+                if (isHidden) {
+                    front.visibility = View.INVISIBLE
+                    back.visibility = View.VISIBLE
+                } else {
+                    front.visibility = View.VISIBLE
+                    back.visibility = View.INVISIBLE
                 }
 
                 oa2.start()
@@ -210,6 +185,9 @@ class ClassicPairsMatchingFragment(
 
     private fun addActionForBtnCheck() = binding.btnCheck.btnNextRound.setOnClickListener {
         if (binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.next))) {
+            counter = 0
+            wrongMove = 0
+            prev = null
             itemTapListener.invoke()
         }
     }

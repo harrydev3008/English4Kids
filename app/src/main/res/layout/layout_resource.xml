@@ -4,7 +4,7 @@
     android:layout_height="?actionBarSize"
     android:layout_weight="1"
     android:gravity="center"
-    android:paddingHorizontal="@dimen/_8sdp">
+    android:paddingHorizontal="@dimen/_2sdp">
 
     <TextView
         android:id="@+id/tv_level"
@@ -22,11 +22,14 @@
         android:textColor="@color/text_incorrect"
         android:textSize="@dimen/_16ssp" />
 
+    <View
+        android:layout_width="@dimen/_4sdp"
+        android:layout_height="match_parent"/>
+
     <TextView
         android:id="@+id/tv_coins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
         android:layout_weight="1"
         android:background="@drawable/bg_rounded"
         android:drawableLeft="@drawable/ic_coin"

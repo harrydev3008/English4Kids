@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -19,6 +20,7 @@ import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
 import com.hisu.english4kids.databinding.FragmentDisplayNameBinding
+import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
 import okhttp3.MediaType
@@ -64,6 +66,17 @@ class DisplayNameFragment : Fragment() {
     }
 
     private fun handleSaveButton() = binding.btnSave.setOnClickListener {
+        if(MyUtils.isNetworkAvailable(requireContext())) {
+            handleRegisterEvent()
+        } else {
+            iOSDialogBuilder(requireContext())
+                .setTitle(requireContext().getString(R.string.confirm_otp))
+                .setSubtitle(requireContext().getString(R.string.err_network_not_available))
+                .setPositiveListener(requireContext().getString(R.string.confirm_otp), iOSDialog::dismiss).build().show()
+        }
+    }
+
+    private fun handleRegisterEvent() {
         val jsonObject = JsonObject()
         jsonObject.addProperty("phone", myArgs.phoneNumber)
         jsonObject.addProperty("username", binding.edtUsername.text.toString().trim())
@@ -90,7 +103,7 @@ class DisplayNameFragment : Fragment() {
                         val localDataManager = LocalDataManager()
                         localDataManager.init(requireContext())
 
-                        val playerInfoJson = Gson().toJson(this.newPlayer)
+                        val playerInfoJson = Gson().toJson(this.player)
 
                         localDataManager.setUserLoinState(true)
                         localDataManager.setUserInfo(playerInfoJson)
