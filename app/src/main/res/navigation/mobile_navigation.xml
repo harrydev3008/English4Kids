@@ -62,9 +62,6 @@
         <action
             android:id="@+id/splash_to_home"
             app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_splashScreenFragment_to_classicPairsMatchingFragment"
-            app:destination="@id/classicPairsMatchingFragment" />
     </fragment>
 
     <fragment
@@ -235,9 +232,4 @@
             android:id="@+id/action_updateProfileFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/classicPairsMatchingFragment"
-        android:name="com.hisu.english4kids.ui.play_screen.gameplay.class_pairs_matching.ClassicPairsMatchingFragment"
-        android:label="fragment_classic_pairs_matching"
-        tools:layout="@layout/fragment_classic_pairs_matching" />
 </navigation>

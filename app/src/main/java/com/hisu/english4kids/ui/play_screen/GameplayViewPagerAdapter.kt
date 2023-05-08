@@ -36,10 +36,10 @@ class GameplayViewPagerAdapter(
         val obj = gson.fromJson(gson.toJsonTree(curGameplay), JsonObject::class.java)
         val gameType = "${obj.get("playType").toString()[0]}".toInt()
 
-//        if (gameType == 1) {
-//            val gameTypeOne = gson.fromJson(obj, GameStyleOne::class.java)
-//            return ClassicPairsMatchingFragment(itemTapListener, wrongAnswerListener, gameTypeOne)
-//        }
+        if (gameType == 1) {
+            val gameTypeOne = gson.fromJson(obj, GameStyleOne::class.java)
+            return ClassicPairsMatchingFragment(itemTapListener, wrongAnswerListener, gameTypeOne)
+        }
 
         if (gameType == 2) {
             return MatchingAudioImagePairsFragment(itemTapListener, wrongAnswerListener)

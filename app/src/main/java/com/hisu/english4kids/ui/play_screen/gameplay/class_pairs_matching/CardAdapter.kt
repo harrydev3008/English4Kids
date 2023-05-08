@@ -2,6 +2,7 @@ package com.hisu.english4kids.ui.play_screen.gameplay.class_pairs_matching
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,15 +36,10 @@ class CardAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val card = cards[position]
-
-        if (!card.isVisible)
+        if (card.isVisible)
             holders.add(holder)
 
         holder.bindData(card)
-
-        holder.binding.apply {
-
-        }
     }
 
     fun hideCards() {
@@ -82,7 +78,9 @@ class CardAdapter(
                     }
                 })
 
-            if (card.cardId == "-1" || card.isVisible) {
+            tvWord.text = card.word
+
+            if (card.cardId == "-1" || !card.isVisible) {
                 cardBack.visibility = View.INVISIBLE
                 cardFront.visibility = View.INVISIBLE
             } else {

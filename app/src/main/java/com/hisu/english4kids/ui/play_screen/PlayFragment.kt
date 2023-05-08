@@ -72,6 +72,7 @@ class PlayFragment : Fragment() {
         }
 
         if (binding.flRoundContainer.currentItem < gameplays.size - 1) {
+            gameplayViewPagerAdapter.notifyItemChanged(binding.flRoundContainer.currentItem + 1)
             binding.pbStar.progress = binding.pbStar.progress + 1
             binding.flRoundContainer
                 .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)

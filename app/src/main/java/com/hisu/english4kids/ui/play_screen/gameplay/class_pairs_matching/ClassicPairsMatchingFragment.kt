@@ -62,11 +62,19 @@ class ClassicPairsMatchingFragment(
 
     private fun setUpRecyclerView() = binding.rvMatchingPairs.apply {
         val cardAdapter = CardAdapter(requireContext(), ::cardItemClick)
-        cardAdapter.cards = gameStyleOne.cards
+
+        if(gameStyleOne.cards.size > 4) {
+            val tempCards = mutableListOf<Card>()
+            tempCards.addAll(gameStyleOne.cards)
+            tempCards.add(5, Card("-1", "-1", "", false, ""))
+            cardAdapter.cards = tempCards
+        } else {
+            cardAdapter.cards = gameStyleOne.cards
+        }
 
         val gridLayoutMgr = GridLayoutManager(
             requireContext(),
-            if(gameStyleOne.cards.size > 4) 3 else 2
+            if (gameStyleOne.cards.size > 4) 3 else 2
         )
 
         binding.rvMatchingPairs.layoutManager = gridLayoutMgr
@@ -118,33 +126,36 @@ class ClassicPairsMatchingFragment(
             flip(parent, frontCard, backCard, false)
 
             if (card.pairId == prev?.pairId) {
+                Handler(requireContext().mainLooper).postDelayed({
+                    parent.isClickable = false
+                    prevCardParent.isClickable = false
 
-                parent.isClickable = false
-                prevCardParent.isClickable = false
+                    frontCard.visibility = View.INVISIBLE
+                    backCard.visibility = View.INVISIBLE
+                    prevCardBack.visibility = View.INVISIBLE
+                    prevCardFront.visibility = View.INVISIBLE
 
-                frontCard.visibility = View.INVISIBLE
-                backCard.visibility = View.INVISIBLE
-                prevCardBack.visibility = View.INVISIBLE
-                prevCardFront.visibility = View.INVISIBLE
+                    prev = null
+                    counter++
 
-                prev = null
-                counter++
-
-                //When all the pairs are matched
-                if (counter == gameStyleOne.totalPairs) {
-                    _result.postValue(true)
-                }
+                    //When all the pairs are matched
+                    if (counter == gameStyleOne.totalPairs) {
+                        _result.postValue(true)
+                    }
+                }, 500)
             } else {
                 prev = null
 
-                flip(parent, frontCard, backCard, true)
-                flip(prevCardParent, prevCardFront, prevCardBack, true)
+                Handler(requireContext().mainLooper).postDelayed({
+                    flip(parent, frontCard, backCard, true)
+                    flip(prevCardParent, prevCardFront, prevCardBack, true)
 
-                wrongMove++
+                    wrongMove++
 
-                if (wrongMove == gameStyleOne.allowedMoves) {
-                    _result.postValue(false)
-                }
+                    if (wrongMove == gameStyleOne.allowedMoves) {
+                        _result.postValue(false)
+                    }
+                }, 400)
             }
         } else {
             prev = card

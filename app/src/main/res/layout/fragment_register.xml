@@ -67,12 +67,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_number"
-                android:textColorHint="@color/gray"
-                android:inputType="number"
                 android:imeOptions="actionDone"
+                android:inputType="number"
                 android:maxLength="10"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_12sdp"
+                android:textColorHint="@color/gray"
                 android:textCursorDrawable="@drawable/edt_cursor"
                 android:textSize="@dimen/_16ssp" />
 
