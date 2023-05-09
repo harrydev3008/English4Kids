@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.RenderMode
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -47,25 +48,26 @@ class SplashScreenFragment : Fragment() {
         localDataManager = LocalDataManager()
         localDataManager.init(requireContext())
 
-        findNavController().navigate(R.id.splash_to_home)
+        //make lottie less laggy
+        binding.splashView.renderMode = RenderMode.HARDWARE
 
-//        val userLoginState = getLoginStatus()
-//        val currentUser = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
-//
-//        if(userLoginState) {
-//            Handler(requireContext().mainLooper).postDelayed({
-//                val jsonObject = JsonObject()
-//                jsonObject.addProperty("phone", currentUser.phone)
-//
-//                val loginBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
-//
-//                API.apiService.authLogin(loginBodyRequest).enqueue(handleLoginCallback)
-//            }, 5 * 1000)
-//        } else {
-//            Handler(requireContext().mainLooper).postDelayed({
-//                findNavController().navigate(R.id.splash_to_regis)
-//            }, 3 * 1000)
-//        }
+        val userLoginState = getLoginStatus()
+        val currentUser = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
+
+        if(userLoginState) {
+            Handler(requireContext().mainLooper).postDelayed({
+                val jsonObject = JsonObject()
+                jsonObject.addProperty("phone", currentUser.phone)
+
+                val loginBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
+
+                API.apiService.authLogin(loginBodyRequest).enqueue(handleLoginCallback)
+            }, 5 * 1000)
+        } else {
+            Handler(requireContext().mainLooper).postDelayed({
+                findNavController().navigate(R.id.splash_to_regis)
+            }, 3 * 1000)
+        }
     }
 
     private val handleLoginCallback = object : Callback<AuthResponseModel> {
@@ -82,6 +84,8 @@ class SplashScreenFragment : Fragment() {
 
                         localDataManager.setUserLoinState(true)
                         localDataManager.setUserInfo(playerInfoJson)
+                        localDataManager.setUserAccessToken(this.accessToken)
+                        localDataManager.setUserRefreshToken(this.refreshToken)
 
                         findNavController().navigate(R.id.splash_to_home)
                     }

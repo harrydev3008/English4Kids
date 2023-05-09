@@ -61,6 +61,7 @@
     <string name="no_thanks">Không, cảm ơn</string>
     <string name="save">Lưu</string>
     <string name="question_mark">\?</string>
+    <string name="complete_this_sentence">Hoàn thành câu hỏi sau</string>
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>

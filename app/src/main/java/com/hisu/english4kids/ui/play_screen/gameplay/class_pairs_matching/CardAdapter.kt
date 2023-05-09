@@ -44,6 +44,7 @@ class CardAdapter(
 
     fun hideCards() {
         holders.forEach {
+            it.binding.cardParent.isClickable = true
             it.binding.cardBack.visibility = View.VISIBLE
             it.binding.cardFront.visibility = View.INVISIBLE
         }
@@ -86,6 +87,7 @@ class CardAdapter(
             } else {
                 rimvCoverImage.visibility = View.VISIBLE
                 cardParent.setOnClickListener { itemTapListener.invoke(card, cardFront, cardBack, cardParent) }
+                cardParent.isClickable = false
             }
         }
     }

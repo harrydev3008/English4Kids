@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.model.game_play.GameStyleThree
 import com.hisu.english4kids.databinding.FragmentSentenceStyleBinding
 import com.hisu.english4kids.data.model.translate_question.TranslateQuestionModel
 import com.hisu.english4kids.widget.CustomWord
@@ -16,7 +17,9 @@ import java.util.*
 
 class SentenceStyleFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: () -> Unit
+    private val wrongAnswerListener: () -> Unit,
+    private val correctAnswerListener: (score: Int) -> Unit,
+    private val gameStyleThree: GameStyleThree
 ) : Fragment() {
 
     private var _binding: FragmentSentenceStyleBinding? = null
@@ -24,7 +27,6 @@ class SentenceStyleFragment(
     private val _result = MutableLiveData<Boolean>()
     private val result: LiveData<Boolean> = _result
 
-    private lateinit var questionModel: TranslateQuestionModel
     private lateinit var myCustomLayout: MyCustomLayout
     private lateinit var customWord: CustomWord
 
@@ -35,31 +37,16 @@ class SentenceStyleFragment(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSentenceStyleBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initCustomLayout()
 
-        questionModel = TranslateQuestionModel(
-            1, "Dịch câu này", "Bạn bao nhiêu tuổi?", "How old are you?",
-            listOf(
-                "She",
-                "uncle",
-                "him",
-                "age",
-                "hair",
-                "your",
-                "my"
-            )
-        )
-
-        binding.tvModeLevel.text = questionModel.title
-        binding.tvQuestion.text = questionModel.question
+        binding.tvQuestion.text = gameStyleThree.question
         initData()
 
         result.observe(viewLifecycleOwner) {
@@ -70,6 +57,7 @@ class SentenceStyleFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+                correctAnswerListener.invoke(gameStyleThree.score)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -92,45 +80,26 @@ class SentenceStyleFragment(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
+        params.setMargins(
+            requireContext().resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._12sdp),
+            requireContext().resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._10sdp),
+            0,
+            0
+        )
+
         params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
         binding.answerContainer.addView(myCustomLayout, params)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initData() {
-        val wordsSentence = randomizeMoreWord().shuffled()
+        val wordsSentence = gameStyleThree.randomWords
 
         for (word in wordsSentence) {
             val customWord = CustomWord(requireContext(), word)
             customWord.setOnTouchListener(TouchListener())
             myCustomLayout.push(customWord)
         }
-    }
-
-    private fun randomizeMoreWord(): List<String> {
-        val random = Random()
-        val wordsFromSentence = questionModel.answer.split(" ");
-        val words = mutableListOf<String>()
-        words.addAll(wordsFromSentence)
-
-        /**
-         * count all words from the Answer and add 3 random words to confuse user
-         * ex:
-         *  + answer = "How old are you?"
-         *  + randomWords = ["She",Uncle","Him","Age","Hair","Your","My"]
-         *
-         * we will get 3 more random words from the question.randomWords
-         * out: [ "Him", "She", "How", "you?", "old", "are" ]
-         */
-        val totalWords = wordsFromSentence.size + 3
-
-        while (words.size < totalWords) {
-            val word = questionModel.randomWords[random.nextInt(questionModel.randomWords.size)]
-            if (!words.contains(word))
-                words.add(word)
-        }
-
-        return words
     }
 
     private fun lockViews() {
@@ -172,13 +141,13 @@ class SentenceStyleFragment(
                 answer.append(curCustomWord.text.toString()).append(" ")
             }
 
-            if (answer.toString().trim() == questionModel.answer) {
+            if (answer.toString().trim() == gameStyleThree.correctAns) {
                 lockViews()
                 _result.postValue(true)
             } else {
                 lockViews()
                 _result.postValue(false)
-                binding.btnCheck.tvCorrectAnswer.text = questionModel.answer
+                binding.btnCheck.tvCorrectAnswer.text = gameStyleThree.correctAns
             }
 
         } else if (binding.btnCheck.btnNextRound.text.equals(requireContext().getString(R.string.next))) {

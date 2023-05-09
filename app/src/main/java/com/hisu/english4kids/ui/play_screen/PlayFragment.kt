@@ -1,6 +1,7 @@
 package com.hisu.english4kids.ui.play_screen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.BUNDLE_LESSON_DATA
-import com.hisu.english4kids.data.model.game_play.GameStyleOne
 import com.hisu.english4kids.data.model.result.FinalResult
 import com.hisu.english4kids.databinding.FragmentPlayBinding
 import com.hisu.english4kids.widget.dialog.GameFinishDialog
@@ -23,8 +23,11 @@ class PlayFragment : Fragment() {
 
     private var _binding: FragmentPlayBinding? = null
     private val binding get() = _binding!!
+
     private var startGamePlayTime: Long = 0
-    private var wrongAnswer = 0
+    private var wrongAnswerCount = 0
+    private var correctAnswerCount = 0
+    private var totalScore = 0
 
     private lateinit var gameplayViewPagerAdapter: GameplayViewPagerAdapter
     private lateinit var gameplays: List<Object>
@@ -57,8 +60,7 @@ class PlayFragment : Fragment() {
     private fun setUpViewpager() = binding.flRoundContainer.apply {
         isUserInputEnabled = false
 
-        gameplayViewPagerAdapter =
-            GameplayViewPagerAdapter(requireActivity(), ::handleNextQuestion, ::handleWrongAnswer)
+        gameplayViewPagerAdapter = GameplayViewPagerAdapter(requireActivity(), ::handleNextQuestion, ::handleWrongAnswer, ::handleCorrectAnswer)
         gameplayViewPagerAdapter.setGamePlays(gameplays)
 
         adapter = gameplayViewPagerAdapter
@@ -89,10 +91,11 @@ class PlayFragment : Fragment() {
 
             finishDialog.setNextLessonCallback {
 
-                wrongAnswer = 0
+                wrongAnswerCount = 0
                 binding.pbStar.max = gameplays.size
                 gameplayViewPagerAdapter.setGamePlays(gameplays)
                 binding.flRoundContainer.adapter = gameplayViewPagerAdapter
+                startGamePlayTime = System.nanoTime()
 
                 finishDialog.dismissDialog()
             }
@@ -102,11 +105,16 @@ class PlayFragment : Fragment() {
     private fun handleWrongAnswer() {
         var currentLife = Integer.parseInt(binding.tvLife.text.toString())
         currentLife--
-        wrongAnswer++
+        wrongAnswerCount++
         binding.tvLife.text = "$currentLife"
 
         if (currentLife == 0)
             heartDialog.showDialog()
+    }
+
+    private fun handleCorrectAnswer(score: Int) {
+        correctAnswerCount++
+        totalScore += score
     }
 
     private fun initDialog() {
@@ -140,12 +148,12 @@ class PlayFragment : Fragment() {
 
         val minute = TimeUnit.NANOSECONDS.toMinutes(finishTime)
         val second = TimeUnit.NANOSECONDS.toSeconds(finishTime)
+        totalScore = if (minute < 1) totalScore * 2 else totalScore
 
-        //todo: update calculate score later
         val finalResult = FinalResult(
             "$minute:$second",
-            (((gameplays.size - wrongAnswer).toFloat() / gameplays.size) * 100).toInt(),
-            (gameplays.size - wrongAnswer) * if (minute < 1) 2 else 1
+            ((correctAnswerCount.toFloat() / gameplays.size) * 100).toInt(),
+            totalScore
         )
 
         return Gson().toJsonTree(finalResult)

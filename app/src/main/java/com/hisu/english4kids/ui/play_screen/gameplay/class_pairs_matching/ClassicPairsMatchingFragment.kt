@@ -23,8 +23,9 @@ import com.hisu.english4kids.databinding.FragmentClassicPairsMatchingBinding
 import com.hisu.english4kids.utils.MyUtils
 
 class ClassicPairsMatchingFragment(
-    private val itemTapListener: () -> Unit,
+    private val nextQuestionListener: () -> Unit,
     private val wrongAnswerListener: () -> Unit,
+    private val correctAnswerListener: (score: Int) -> Unit,
     private var gameStyleOne: GameStyleOne
 ) : Fragment() {
 
@@ -96,6 +97,8 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
+
+                correctAnswerListener.invoke(gameStyleOne.score)
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -199,7 +202,7 @@ class ClassicPairsMatchingFragment(
             counter = 0
             wrongMove = 0
             prev = null
-            itemTapListener.invoke()
+            nextQuestionListener.invoke()
         }
     }
 

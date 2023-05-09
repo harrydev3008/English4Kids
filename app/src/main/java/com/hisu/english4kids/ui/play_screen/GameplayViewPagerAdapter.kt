@@ -1,12 +1,13 @@
 package com.hisu.english4kids.ui.play_screen
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.hisu.english4kids.data.model.game_play.GameStyleOne
+import com.hisu.english4kids.data.model.game_play.GameStyleThree
+import com.hisu.english4kids.data.model.game_play.GameStyleTwo
 import com.hisu.english4kids.ui.play_screen.gameplay.audio_image.MatchingAudioImagePairsFragment
 import com.hisu.english4kids.ui.play_screen.gameplay.audio_word.MatchingAudioWordFragment
 import com.hisu.english4kids.ui.play_screen.gameplay.class_pairs_matching.ClassicPairsMatchingFragment
@@ -16,8 +17,9 @@ import com.hisu.english4kids.ui.play_screen.gameplay.type_answer.TypeAnswerFragm
 
 class GameplayViewPagerAdapter(
     fragmentActivity: FragmentActivity,
-    private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: () -> Unit
+    private val nextRoundListener: () -> Unit,
+    private val wrongAnswerListener: () -> Unit,
+    private val correctAnswerListener: (score: Int) -> Unit
 ) : FragmentStateAdapter(fragmentActivity) {
 
     var gameplays = listOf<Object>()
@@ -37,26 +39,28 @@ class GameplayViewPagerAdapter(
         val gameType = "${obj.get("playType").toString()[0]}".toInt()
 
         if (gameType == 1) {
-            val gameTypeOne = gson.fromJson(obj, GameStyleOne::class.java)
-            return ClassicPairsMatchingFragment(itemTapListener, wrongAnswerListener, gameTypeOne)
+            val gameStyleOne = gson.fromJson(obj, GameStyleOne::class.java)
+            return ClassicPairsMatchingFragment(nextRoundListener, wrongAnswerListener, correctAnswerListener, gameStyleOne)
         }
 
         if (gameType == 2) {
-            return MatchingAudioImagePairsFragment(itemTapListener, wrongAnswerListener)
+            val gameStyleTwo = gson.fromJson(obj, GameStyleTwo::class.java)
+            return MatchingAudioImagePairsFragment(nextRoundListener, wrongAnswerListener, correctAnswerListener, gameStyleTwo)
         }
 
         if (gameType == 3) {
-            return SentenceStyleFragment(itemTapListener, wrongAnswerListener)
+            val gameStyleThree = gson.fromJson(obj, GameStyleThree::class.java)
+            return SentenceStyleFragment(nextRoundListener, wrongAnswerListener, correctAnswerListener, gameStyleThree)
         }
 
         if (gameType == 4) {
-            return TypeAnswerFragment(itemTapListener, wrongAnswerListener)
+            return TypeAnswerFragment(nextRoundListener, wrongAnswerListener)
         }
 
         if (gameType == 5) {
-            return MatchingAudioWordFragment(itemTapListener, wrongAnswerListener)
+            return MatchingAudioWordFragment(nextRoundListener, wrongAnswerListener)
         }
 
-        return MatchingWordPairsFragment(itemTapListener, wrongAnswerListener)
+        return MatchingWordPairsFragment(nextRoundListener, wrongAnswerListener)
     }
 }

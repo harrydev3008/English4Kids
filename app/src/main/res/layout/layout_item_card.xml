@@ -5,6 +5,7 @@
     android:id="@+id/card_parent"
     android:layout_height="@dimen/_130sdp"
     android:layout_marginEnd="@dimen/_4sdp"
+    android:clickable="false"
     android:layout_marginBottom="@dimen/_4sdp">
 
     <TextView
@@ -30,7 +31,6 @@
         android:background="@drawable/bg_word_border"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="4dp"
         android:visibility="visible">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -42,13 +42,14 @@
             android:scaleType="center"
             app:riv_corner_radius_top_left="16dp"
             app:riv_corner_radius_top_right="16dp"
-            android:src="@drawable/test_rm"/>
+            android:src="@drawable/bg_no_imgage_place_holder"/>
 
         <TextView
             android:id="@+id/tv_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"
+            android:paddingVertical="@dimen/_4sdp"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
             android:textColor="@color/light_black"

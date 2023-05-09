@@ -12,15 +12,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.model.card.Card
 import com.hisu.english4kids.databinding.LayoutItemCardImageBinding
 import com.hisu.english4kids.data.model.pair_matching.PairMatchingModel
 
 class MatchingAudioImageAdapter(
     var context: Context,
-    private val itemTapListener: (item: PairMatchingModel) -> Unit
+    private val itemTapListener: (item: Card) -> Unit
 ) : RecyclerView.Adapter<MatchingAudioImageAdapter.CardImageViewHolder>() {
 
-    var pairs = listOf<PairMatchingModel>()
+    var pairs = listOf<Card>()
     var isLockView = false
 
     private var prevPick: LinearLayout?= null
@@ -64,10 +65,9 @@ class MatchingAudioImageAdapter(
 
     inner class CardImageViewHolder(var binding: LayoutItemCardImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
-             fun bindData(data: PairMatchingModel) = binding.apply {
-//                imvAnswerImage.setImageResource(data.imageUrl)
+             fun bindData(data: Card) = binding.apply {
                  Glide.with(context)
-                     .asBitmap().load(data.url).diskCacheStrategy(DiskCacheStrategy.ALL)
+                     .asBitmap().load(data.imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
                      .into(object : SimpleTarget<Bitmap>() {
                          override fun onResourceReady(
                              resource: Bitmap,
@@ -76,7 +76,7 @@ class MatchingAudioImageAdapter(
                              imvAnswerImage.setImageBitmap(resource)
                          }
                      })
-                tvAnswer.text = data.answer
+                tvAnswer.text = data.word
             }
         }
 }
