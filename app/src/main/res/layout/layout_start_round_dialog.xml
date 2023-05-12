@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/classic"
+    app:cardCornerRadius="@dimen/_12sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_round"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/round_pattern"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="@string/start_round_to_earn_pattern"
+            android:textColor="@color/classic"
+            android:textAllCaps="true"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/_14ssp"
+            android:paddingVertical="@dimen/_12sdp"
+            app:cornerRadius="@dimen/_12sdp"/>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

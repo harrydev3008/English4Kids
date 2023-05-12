@@ -26,7 +26,11 @@
         android:layout_height="wrap_content"
         android:text="@string/skip_current_question"
         android:backgroundTint="#8937C7"
-        android:paddingVertical="@dimen/_8sdp"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_15ssp"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
+        android:paddingVertical="@dimen/_10sdp"
         android:layout_margin="@dimen/_12sdp"
         app:cornerRadius="@dimen/_10sdp"/>
 

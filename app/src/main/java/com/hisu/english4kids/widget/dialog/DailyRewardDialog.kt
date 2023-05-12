@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.view.Window
 import android.view.WindowManager
 import androidx.recyclerview.widget.GridLayoutManager
-import com.hisu.english4kids.databinding.LayoutDailyRewardsBinding
 import com.hisu.english4kids.data.model.daily_reward.Reward
+import com.hisu.english4kids.databinding.LayoutDailyRewardsBinding
 
 class DailyRewardDialog() {
     private lateinit var context: Context
@@ -35,7 +35,6 @@ class DailyRewardDialog() {
         val window = dialog.window ?: return
 
         val width = (context.resources.displayMetrics.widthPixels * 0.90).toInt()
-        val height = (context.resources.displayMetrics.heightPixels * 0.90).toInt()
 
         window.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

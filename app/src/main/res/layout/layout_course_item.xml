@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_parent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:cardCornerRadius="@dimen/_12sdp"
     app:strokeColor="@color/daily"
-    android:layout_marginTop="@dimen/_12sdp"
     app:strokeWidth="@dimen/_4sdp">
 
         <LinearLayout
@@ -22,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/imv_temp_avatar"
-                android:layout_width="@dimen/_140sdp"
-                android:layout_height="@dimen/_140sdp"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_rm"
                 tools:ignore="ContentDescription" />
@@ -37,7 +36,7 @@
                 android:includeFontPadding="false"
                 android:text="Phần giới thiệu Tiếng Anh"
                 android:textColor="@color/light_black"
-                android:textSize="@dimen/_20ssp"
+                android:textSize="@dimen/_18ssp"
                 android:textStyle="bold" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -51,7 +50,7 @@
                 app:indicatorSize="@dimen/_80sdp"
                 app:trackColor="@color/light_blue_gray"
                 app:trackCornerRadius="10dp"
-                app:trackThickness="@dimen/_12sdp" />
+                app:trackThickness="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/tv_progress_number"
@@ -61,7 +60,7 @@
                 android:textColor="@color/light_black"
                 android:fontFamily="@font/roboto"
                 android:includeFontPadding="false"
-                android:textSize="@dimen/_20ssp"
+                android:textSize="@dimen/_15ssp"
                 android:textStyle="bold" />
 
             <TextView
@@ -69,26 +68,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginVertical="@dimen/_20sdp"
                 android:fontFamily="@font/roboto"
                 android:includeFontPadding="false"
-                android:text="Khởi động cùng một số ngữ pháp và cụm từ đơn giản"
+                android:text="Khởi động cùng một số cụm từ và ngữ pháp cơ bản"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textAlignment="center"
                 android:textColor="@color/gray_af"
-                android:textSize="@dimen/_17ssp"
+                android:textSize="@dimen/_16ssp"
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_start_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
                 android:enabled="true"
                 android:paddingVertical="@dimen/_8sdp"
                 android:text="@string/next"
+                android:fontFamily="@font/roboto_bold"
+                android:includeFontPadding="false"
                 android:backgroundTint="@color/daily"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
+                android:textSize="@dimen/_14ssp"
                 app:cornerRadius="@dimen/_10sdp" />
         </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

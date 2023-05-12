@@ -55,4 +55,16 @@ class LocalDataManager {
 
     fun getUserRefreshToken() =
         mySharedPreferences.getString(MySharedPreferences.USER_REFRESH_TOKEN)
+
+    fun setCourseInfo(course: String) {
+        mySharedPreferences.putString(MySharedPreferences.COURSE_INFO, course)
+    }
+
+    fun getCourseInfo() = mySharedPreferences.getString(MySharedPreferences.COURSE_INFO)
+
+    fun setLessonsInfo(lesson: String) {
+        mySharedPreferences.putString(MySharedPreferences.LESSON_INFO, lesson)
+    }
+
+    fun getLessonsInfo() = mySharedPreferences.getString(MySharedPreferences.LESSON_INFO)
 }

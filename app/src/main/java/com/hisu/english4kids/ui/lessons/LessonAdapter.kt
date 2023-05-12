@@ -5,105 +5,77 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.english4kids.R
-import com.hisu.english4kids.databinding.LayoutLevelCompletedBinding
-import com.hisu.english4kids.databinding.LayoutLevelCurrentBinding
-import com.hisu.english4kids.databinding.LayoutLevelLockBinding
 import com.hisu.english4kids.data.model.course.Lesson
+import com.hisu.english4kids.data.model.game_play.Gameplay
+import com.hisu.english4kids.databinding.LayoutLessonHeaderBinding
+import com.hisu.english4kids.ui.home.GameplayProgressAdapter
 
 class LessonAdapter(
     var context: Context,
-    private val levelClickListener: (level: Lesson) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val lessonClickListener: (level: Lesson, fromRound: Int) -> Unit
+) : RecyclerView.Adapter<LessonAdapter.LessonsViewHolder>() {
 
     var lessons: List<Lesson>
         set(value) = differ.submitList(value)
         get() = differ.currentList
 
-    override fun onCreateViewHolder(parent: ViewGroup, p: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-
-        return when (p) {
-            ViewType.LOCKED_TYPE.type -> {
-                val view = LayoutLevelLockBinding.inflate(inflater, parent, false)
-                LockLevelViewHolder(view)
-            }
-
-            ViewType.CURRENT_TYPE.type -> {
-                val view = LayoutLevelCurrentBinding.inflate(inflater, parent, false)
-                CurrentLevelViewHolder(view)
-            }
-
-            else -> {
-                val view = LayoutLevelCompletedBinding.inflate(inflater, parent, false)
-                CompletedLevelViewHolder(view)
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, p: Int): LessonAdapter.LessonsViewHolder {
+        return LessonsViewHolder(
+            LayoutLessonHeaderBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LessonAdapter.LessonsViewHolder, position: Int) {
+        val lesson = lessons[position]
+        holder.bindData(lesson, position)
 
-        val curLevel = lessons[position]
-
-        when (holder) {
-            is CompletedLevelViewHolder -> {
-                holder.bind(curLevel)
-                holder.binding.levelParent.setOnClickListener {
-                    levelClickListener.invoke(curLevel)
-                }
-            }
-
-            is CurrentLevelViewHolder -> {
-                holder.bind(curLevel, position)
-                holder.binding.levelParent.setOnClickListener {
-                    levelClickListener.invoke(curLevel)
-                }
-            }
-
-            else -> {
-                //todo: current lock level
-                (holder as LockLevelViewHolder).bind(curLevel)
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int = when (lessons[position].status) {
-        ViewType.LOCKED_TYPE.type -> -1
-        ViewType.CURRENT_TYPE.type -> 0
-        else -> 1
     }
 
     override fun getItemCount(): Int = lessons.size
 
-    inner class CompletedLevelViewHolder(val binding: LayoutLevelCompletedBinding) :
+    inner class LessonsViewHolder(var binding: LayoutLessonHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Lesson) = binding.apply {
-            tvLevel.text = String.format(context.getString(R.string.lesson_pattern), item._id)
-            tvLevelDesc.text = item.description
-//            rbLevelRate.rating = item.score
-        }
-    }
+        fun bindData(lesson: Lesson, index: Int) = binding.apply {
+            tvHeader.text = String.format(
+                context.getString(R.string.lesson_pattern),
+                index + 1
+            )
 
-    inner class CurrentLevelViewHolder(val binding: LayoutLevelCurrentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Lesson, position: Int) = binding.apply {
-            tvCurrentLevel.text = String.format(context.getString(R.string.lesson_pattern), position + 1)
-            tvCurrentLevelDesc.text = item.description
-        }
-    }
+            tvHeaderDesc.text = lesson.description
 
-    inner class LockLevelViewHolder(val binding: LayoutLevelLockBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-            fun bind(item: Lesson) = binding.apply {
-                tvNextLevelDesc.text = item.description
+            val gridLayoutManager = GridLayoutManager(context, 2)
+            gridLayoutManager.spanSizeLookup = spanSizeLookUp
+
+            val gameProgressAdapter = GameplayProgressAdapter(context) { position ->
+                lessonClickListener.invoke(lesson, position)
             }
-        }
 
-    enum class ViewType(val type: Int) {
-        LOCKED_TYPE(-1),
-        CURRENT_TYPE(0),
-        PLAYED_TYPE(1)
+            val mGamePlays = mutableListOf<Gameplay>()
+
+            for(i in 0 until lesson.rounds.size) {
+                if(i % 2 == 0)
+                    mGamePlays.add( Gameplay(1))
+                else
+                    mGamePlays.add( Gameplay(0))
+            }
+
+            gameProgressAdapter.gameplays = mGamePlays
+
+            rvRounds.layoutManager = gridLayoutManager
+            rvRounds.adapter = gameProgressAdapter
+        }
+    }
+
+    private val spanSizeLookUp = object : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            if (position == 0 || position % 5 == 0) return 2
+            return 1
+        }
     }
 
     private val diffCallback = object : DiffUtil.ItemCallback<Lesson>() {

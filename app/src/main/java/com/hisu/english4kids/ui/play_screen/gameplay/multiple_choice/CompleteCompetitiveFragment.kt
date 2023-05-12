@@ -37,17 +37,7 @@ class CompleteCompetitiveFragment : Fragment() {
     }
 
     private fun handleConfirmButton() = binding.btnFinish.setOnClickListener {
-        iOSDialogBuilder(requireContext())
-            .setTitle(requireContext().getString(R.string.confirm_dialog_msg))
-            .setSubtitle(requireContext().getString(R.string.competitive_complete_desc))
-            .setBoldPositiveLabel(true)
-            .setNegativeListener(requireContext().getString(R.string.find_next_opponent)){
-                it.dismiss()
-                findNavController().navigate(R.id.action_completeCompetitiveFragment_to_matchMakingFragment)
-            }.setPositiveListener(requireContext().getString(R.string.cancel_match)) {
-                it.dismiss()
-                findNavController().navigate(R.id.action_completeCompetitiveFragment_to_homeFragment)
-            }.build().show()
+        findNavController().navigate(R.id.action_completeCompetitiveFragment_to_homeFragment)
     }
 
     override fun onDestroyView() {

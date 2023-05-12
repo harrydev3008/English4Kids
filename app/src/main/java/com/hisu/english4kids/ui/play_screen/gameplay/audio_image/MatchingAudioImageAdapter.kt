@@ -14,7 +14,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.card.Card
 import com.hisu.english4kids.databinding.LayoutItemCardImageBinding
-import com.hisu.english4kids.data.model.pair_matching.PairMatchingModel
 
 class MatchingAudioImageAdapter(
     var context: Context,

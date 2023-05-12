@@ -86,7 +86,7 @@ class MyUtils {
             val density = context.resources.displayMetrics.density
             val roundPx = 100 * density;
 
-            paintCircle.color = ContextCompat.getColor(context, R.color.daily)
+            paintCircle.color = ContextCompat.getColor(context, R.color.white)
             paintCircle.isAntiAlias = true
 
 //            canvas.drawARGB(1, 108, 117, 125)
@@ -94,7 +94,7 @@ class MyUtils {
             canvas.drawRoundRect(rectF, roundPx, roundPx, paintCircle)
 
             paintText.textAlign = Paint.Align.CENTER
-            paintText.color = context.getColor(R.color.white)
+            paintText.color = context.getColor(R.color.gray)
             paintText.textSize = 64f
 
             val xPos = (canvas.width / 2).toFloat()

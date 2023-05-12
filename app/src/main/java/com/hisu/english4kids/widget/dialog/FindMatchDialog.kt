@@ -38,10 +38,8 @@ class FindMatchDialog() {
         dialog.setCancelable(false)
 
         val window = dialog.window ?: return
-        //80% of device width
-        val width = (context.resources.displayMetrics.widthPixels * 0.8).toInt()
 
-        window.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val windowAttr = window.attributes

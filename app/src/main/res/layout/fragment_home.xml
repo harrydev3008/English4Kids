@@ -24,9 +24,16 @@
             android:src="@drawable/ic_daily_reward"
             tools:ignore="ContentDescription" />
 
-        <include
-            android:id="@+id/resource"
-            layout="@layout/layout_resource" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="@dimen/_18ssp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="Học Tiếng Anh"/>
 
         <ImageView
             android:id="@+id/btn_setting"
@@ -36,13 +43,21 @@
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_courses"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/bg_home_2"
+        android:layout_weight="1.5"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="@dimen/_20sdp"
         tools:ignore="ContentDescription" />
+
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/circle_indicator"
+        android:layout_width="match_parent"
+        app:ci_drawable="@drawable/bg_indicator"
+        android:layout_height="@dimen/_20sdp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,25 +68,10 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/btn_learning_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_classic_mode"
-            android:drawableEnd="@drawable/ic_baseline_window"
-            android:drawablePadding="@dimen/_8sdp"
-            android:paddingHorizontal="@dimen/_16sdp"
-            android:tooltipText="@string/mode_learning_tool_tip"
-            android:paddingVertical="@dimen/_8sdp"
-            android:text="@string/mode_learning"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp"/>
-
-        <TextView
             android:id="@+id/btn_leader_board"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_leader_board_mode"
+            android:background="@drawable/bg_classic_mode"
             android:drawableEnd="@drawable/ic_ranking_star"
             android:drawablePadding="@dimen/_8sdp"
             android:paddingHorizontal="@dimen/_16sdp"
@@ -85,13 +85,12 @@
 
         <TextView
             android:id="@+id/btn_competitive_mode"
-            style="@style/CompetitiveStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_energy_arrow"
             android:drawablePadding="@dimen/_8sdp"
-            android:enabled="false"
             android:paddingHorizontal="@dimen/_16sdp"
+            android:background="@drawable/btn_bg_competitive_state"
             android:paddingVertical="@dimen/_8sdp"
             android:text="@string/mode_competitive"
             android:textAlignment="center"

@@ -48,7 +48,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeTopRight">0dp</item>
-        <item name="cornerSizeBottomRight">12dp</item>
-        <item name="cornerSizeBottomLeft">12dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+        <item name="cornerSizeBottomLeft">20dp</item>
     </style>
 </resources>

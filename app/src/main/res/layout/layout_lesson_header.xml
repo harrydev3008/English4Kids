@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/daily"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_12sdp">
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18ssp" />
+
+        <TextView
+            android:id="@+id/tv_header_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:includeFontPadding="false"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_rounds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_8sdp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:isScrollContainer="false"
+        tools:itemCount="10"
+        android:paddingVertical="@dimen/_8sdp"
+        tools:listitem="@layout/layout_gameplay_progress_item" />
+
+</LinearLayout>

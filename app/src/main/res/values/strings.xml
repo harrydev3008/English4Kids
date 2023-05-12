@@ -2,7 +2,7 @@
     <string name="app_name">English 4 Kid</string>
     <string name="mode_learning">Học Tiếng Anh</string>
     <string name="mode_learning_tool_tip">Vừa chơi vừa học Tiếng Anh thật vui vẻ!</string>
-    <string name="mode_competitive">Thi Đấu</string>
+    <string name="mode_competitive">Luyện Tập</string>
     <string name="mode_competitive_tool_tip">So tài Tiếng Anh cùng các người chơi khác!</string>
     <string name="next">Tiếp Tục</string>
     <string name="back">Quay Lại</string>
@@ -32,10 +32,11 @@
     <string name="better_luck_next_time">Cố gắng hơn ở lần sau bạn nhé!</string>
     <string name="translate_this_sentence">Dịch câu này</string>
     <string name="type_your_answer_here">Nhập câu trả lời của bạn tại đây…</string>
-    <string name="find_component_now">Bắt đầu tìm đối thủ để tranh tài Tiếng Anh nào!</string>
+    <string name="find_component_now">Bắt đầu thử thách trình độ Tiếng Anh của bản thân nào!</string>
     <string name="find_match">Ghép Trận</string>
     <string name="loading_pls_wait">Đang tìm đối thủ xứng tầm…</string>
-    <string name="found_opponent">Đã tìm thấy đối thủ!</string>
+    <string name="loading_test">Hệ thống đang tạo bài luyện tập…</string>
+    <string name="found_opponent">Đã có bài luyện tập!</string>
     <string name="accept_match">Chiến Thôi!</string>
     <string name="refind_match">Tìm Tiếp</string>
     <string name="cancel_match">Thoát</string>
@@ -48,7 +49,7 @@
     <string name="statistic">Thống kê</string>
     <string name="achievement">Thành tích</string>
     <string name="notification_setting">Cài đặt thông báo</string>
-    <string name="user_profile_and_setting">Hồ sơ &amp; Cài đặt</string>
+    <string name="user_profile_and_setting">Hồ sơ</string>
     <string name="user_profile_desc">Hồ sơ của bạn</string>
     <string name="review">Ôn Tập</string>
     <string name="game_play_lock_desc_title">Màn chơi bị khoá</string>
@@ -76,6 +77,8 @@
     <string name="confirm_logout">Bạn có chắc chắn muốn Đăng xuất không?!</string>
     <string name="confirm_yes">Có</string>
     <string name="confirm_no">Không</string>
+    <string name="complete_multiple_choice_mode">Hoàn thành bài luyện tập!</string>
+    <string name="review_submit">Xem lại câu sai</string>
 
     <!--  Error messages  -->
     <string name="wrong_otp_err_msg">Mã OTP không chính xác. Vui lòng kiểm tra lại!</string>
@@ -83,6 +86,7 @@
     <string name="invalid_phone_format_err">* Số điện thoại sai định dạng!</string>
     <string name="err_network_not_connected">Không kết nối được với máy chủ!</string>
     <string name="err_network_not_available">Không có kết nối internet!</string>
+    <string name="err_connect_internet_to_learn">Kết nối mạng để bắt đầu bài học bạn nhé!</string>
 
     <!--  String patterns  -->
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>
@@ -99,6 +103,8 @@
     <string name="level_pattern">Cấp %1$d</string>
     <string name="you_are_having_pattern">Bạn đang có %1$d</string>
     <string name="join_date_pattern">Tham gia tháng %1$s, %2$s</string>
+    <string name="round_pattern">Màn %1$d / %2$d</string>
+    <string name="start_round_to_earn_pattern">Bắt đầu +%1$d vàng</string>
 
     <!--  random messages  -->
 

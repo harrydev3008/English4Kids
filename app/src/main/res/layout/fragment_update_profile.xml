@@ -62,36 +62,16 @@
             android:src="@drawable/test_rm"
             android:layout_gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username_desc"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:textSize="@dimen/_20ssp"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/light_black"
-            android:includeFontPadding="false"/>
-
         <EditText
             android:id="@+id/edt_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_word_border"
             android:paddingVertical="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:hint="@string/username"
             android:textSize="@dimen/_16ssp"
-            android:paddingHorizontal="@dimen/_8sdp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone_number"
-            android:textSize="@dimen/_20ssp"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/light_black"
-            android:includeFontPadding="false"/>
+            android:paddingHorizontal="@dimen/_12sdp"/>
 
         <EditText
             android:id="@+id/edt_phone_number"
@@ -99,12 +79,24 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_word_border"
             android:paddingVertical="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:hint="@string/phone_number"
+            android:textColor="@color/light_black"
             android:enabled="false"
             android:inputType="number"
             android:textSize="@dimen/_16ssp"
-            android:paddingHorizontal="@dimen/_8sdp"/>
+            android:paddingHorizontal="@dimen/_12sdp"/>
+
+        <TextView
+            android:id="@+id/tv_join_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/roboto"
+            android:includeFontPadding="false"
+            android:text="@string/join_date_pattern"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_16ssp" />
 
     </LinearLayout>
 
@@ -124,19 +116,21 @@
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_10sdp"
             android:text="@string/save"
+            android:enabled="false"
+            style="@style/LoginButtonStyle"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
             android:textColor="@color/white"
+            android:textAllCaps="false"
             android:textSize="@dimen/_14ssp"
-            app:backgroundTint="@color/daily"
             app:cornerRadius="@dimen/_10sdp"/>
 
         <TextView
-            android:id="@+id/btn_exit"
+            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_10sdp"
-            android:text="@string/cancel_match"
+            android:text="@string/logout"
             android:layout_marginTop="@dimen/_6sdp"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"

@@ -20,6 +20,7 @@ import com.hisu.english4kids.data.network.response_model.AuthResponseModel
 import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.databinding.FragmentSplashScreenBinding
 import com.hisu.english4kids.ui.auth.CheckOTPFragment
+import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -56,13 +57,17 @@ class SplashScreenFragment : Fragment() {
 
         if(userLoginState) {
             Handler(requireContext().mainLooper).postDelayed({
-                val jsonObject = JsonObject()
-                jsonObject.addProperty("phone", currentUser.phone)
+                if(MyUtils.isNetworkAvailable(requireContext())) {
+                    val jsonObject = JsonObject()
+                    jsonObject.addProperty("phone", currentUser.phone)
 
-                val loginBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
+                    val loginBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
 
-                API.apiService.authLogin(loginBodyRequest).enqueue(handleLoginCallback)
-            }, 5 * 1000)
+                    API.apiService.authLogin(loginBodyRequest).enqueue(handleLoginCallback)
+                } else {
+                    findNavController().navigate(R.id.splash_to_home)
+                }
+            }, 4 * 1000)
         } else {
             Handler(requireContext().mainLooper).postDelayed({
                 findNavController().navigate(R.id.splash_to_regis)

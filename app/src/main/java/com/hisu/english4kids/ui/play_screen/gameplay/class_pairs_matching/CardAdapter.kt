@@ -2,7 +2,6 @@ package com.hisu.english4kids.ui.play_screen.gameplay.class_pairs_matching
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

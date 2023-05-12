@@ -44,17 +44,18 @@
         android:id="@+id/btn_find_match"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="@dimen/_12sdp"
-        app:cornerRadius="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_12sdp"
+        android:layout_marginBottom="19dp"
+        android:backgroundTint="@color/competitive"
         android:fontFamily="@font/roboto_bold"
         android:includeFontPadding="false"
-        android:backgroundTint="@color/competitive"
-        android:textColor="@color/white"
+        android:paddingVertical="@dimen/_12sdp"
+        android:text="@string/mode_competitive"
         android:textAllCaps="false"
-        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
-        android:layout_marginVertical="@dimen/_12sdp"
-        android:paddingVertical="@dimen/_8sdp"
-        android:text="@string/find_match"/>
+        app:cornerRadius="@dimen/_10sdp" />
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.hisu.english4kids.ui.play_screen.gameplay.progress
+package com.hisu.english4kids.ui.home
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.hisu.english4kids.databinding.LayoutGameplayProgressItemBinding
 
 class GameplayProgressAdapter(
     var context: Context,
-    private val gameplayClickListener: () -> Unit
+    private val gameplayClickListener: (position: Int) -> Unit
 ) : RecyclerView.Adapter<GameplayProgressAdapter.GameplayProgressViewHolder>() {
 
     var gameplays = listOf<Gameplay>()
@@ -40,7 +40,7 @@ class GameplayProgressAdapter(
         }
 
         holder.binding.parentContainer.setOnClickListener {
-            gameplayClickListener.invoke()
+            gameplayClickListener.invoke(position)
         }
 //        holder.bindData()
     }

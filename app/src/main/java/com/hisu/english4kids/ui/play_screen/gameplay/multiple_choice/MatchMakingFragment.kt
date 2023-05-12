@@ -44,7 +44,7 @@ class MatchMakingFragment : Fragment() {
     }
 
     private fun handleCancel() {
-
+        findNavController().popBackStack()
     }
 
     private fun handleBackButton() = binding.btnBack.setOnClickListener {

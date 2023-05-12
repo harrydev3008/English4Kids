@@ -15,7 +15,7 @@
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimationView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_300sdp"
+            android:layout_height="@dimen/_250sdp"
             android:layout_alignParentTop="true"
             android:paddingHorizontal="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lottieAnimationView"
+            android:layout_above="@+id/layout_below"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -176,9 +178,25 @@
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tv_coins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableEnd="@drawable/ic_coin"
+                android:fontFamily="@font/roboto_bold"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:text="+ 100"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/_20ssp" />
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_below"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

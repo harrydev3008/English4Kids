@@ -86,18 +86,19 @@ class PlayFragment : Fragment() {
 
             finishDialog.setExitCallback {
                 finishDialog.dismissDialog()
-                findNavController().navigate(R.id.action_playFragment_to_courseFragment)
+                findNavController().navigate(R.id.play_to_lesson)
             }
 
             finishDialog.setNextLessonCallback {
 
-                wrongAnswerCount = 0
-                binding.pbStar.max = gameplays.size
-                gameplayViewPagerAdapter.setGamePlays(gameplays)
-                binding.flRoundContainer.adapter = gameplayViewPagerAdapter
-                startGamePlayTime = System.nanoTime()
-
                 finishDialog.dismissDialog()
+                findNavController().popBackStack()
+
+//                wrongAnswerCount = 0
+//                binding.pbStar.max = gameplays.size
+//                gameplayViewPagerAdapter.setGamePlays(gameplays)
+//                binding.flRoundContainer.adapter = gameplayViewPagerAdapter
+//                startGamePlayTime = System.nanoTime()
             }
         }
     }
@@ -140,7 +141,7 @@ class PlayFragment : Fragment() {
                 it.dismiss()
             }.setPositiveListener(requireContext().getString(R.string.confirm_msg_quit)) {
                 it.dismiss()
-                findNavController().navigate(R.id.action_playFragment_to_courseFragment)
+                findNavController().navigate(R.id.action_playFragment_to_homeFragment)
             }.build().show()
     }
 

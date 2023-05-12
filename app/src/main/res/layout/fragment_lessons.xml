@@ -1,61 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.lessons.LessonsFragment">
 
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/daily"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_6sdp"
+        app:alignItems="center"
+        app:justifyContent="space_between">
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_fire_solid"
+            android:drawablePadding="@dimen/_6sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
+
+        <TextView
+            android:id="@+id/tv_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_coin"
+            android:drawablePadding="@dimen/_6sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLength="3"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:text="999"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
+
+        <TextView
+            android:id="@+id/tv_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_heart_fill"
+            android:drawablePadding="@dimen/_6sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLength="1"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:text="5"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <TextView
+        android:id="@+id/tv_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/bg_border_bottom"
+        android:drawableStart="@drawable/ic_side_menu"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        android:text="@string/mode_learning"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@drawable/bg_border_bottom"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_4sdp">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/btn_home"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/ic_round_arrow_back_24"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/tv_mode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingHorizontal="@dimen/_8sdp"
-                android:paddingVertical="@dimen/_4sdp"
-                android:text="@string/mode_learning"
-                android:fontFamily="@font/roboto_bold"
-                android:includeFontPadding="false"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp" />
-
-            <View
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"/>
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_levels"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:paddingLeft="@dimen/_6sdp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:listitem="@layout/layout_level_completed" />
+            app:layout_behavior="com.hisu.english4kids.widget.OverScrollBehavior"
+            android:overScrollMode="never">
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_lessons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/_8sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="4"
+                tools:listitem="@layout/layout_lesson_header" />
+        </androidx.core.widget.NestedScrollView>
 
-</ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_lessons"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        tools:itemCount="4"-->
+<!--        tools:listitem="@layout/layout_lesson_header" />-->
+
+</LinearLayout>
