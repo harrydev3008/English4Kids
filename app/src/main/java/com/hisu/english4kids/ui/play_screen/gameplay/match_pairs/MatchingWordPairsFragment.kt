@@ -18,9 +18,10 @@ import java.util.*
 
 class MatchingWordPairsFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: () -> Unit,
-    private val correctAnswerListener: (score: Int) -> Unit,
-    private val gameStyleSix: GameStyleSix
+    private val wrongAnswerListener: (position: Int) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String) -> Unit,
+    private val gameStyleSix: GameStyleSix,
+    private var gameIndex: Int
 ) : Fragment() {
 
     private var _binding: FragmentMatchingWordPairsBinding? = null
@@ -84,7 +85,7 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                correctAnswerListener.invoke(gameStyleSix.score)
+                correctAnswerListener.invoke(gameStyleSix.score, gameStyleSix.roundId)
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -93,7 +94,7 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                wrongAnswerListener.invoke()
+                wrongAnswerListener.invoke(gameIndex)
             }
         }
 

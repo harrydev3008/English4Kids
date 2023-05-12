@@ -63,6 +63,7 @@
     <string name="save">Lưu</string>
     <string name="question_mark">\?</string>
     <string name="complete_this_sentence">Hoàn thành câu hỏi sau</string>
+    <string name="update_username_success">Cập nhật thông tin thành công!</string>
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>
@@ -79,6 +80,8 @@
     <string name="confirm_no">Không</string>
     <string name="complete_multiple_choice_mode">Hoàn thành bài luyện tập!</string>
     <string name="review_submit">Xem lại câu sai</string>
+    <string name="oopss">Úi! Có bài sai!</string>
+    <string name="fix_wrong_exp">Cùng nhau sửa những bài tập bạn đã làm sai nào!</string>
 
     <!--  Error messages  -->
     <string name="wrong_otp_err_msg">Mã OTP không chính xác. Vui lòng kiểm tra lại!</string>
@@ -87,6 +90,7 @@
     <string name="err_network_not_connected">Không kết nối được với máy chủ!</string>
     <string name="err_network_not_available">Không có kết nối internet!</string>
     <string name="err_connect_internet_to_learn">Kết nối mạng để bắt đầu bài học bạn nhé!</string>
+    <string name="err_unsaved_update">Thông tin đã chỉnh sửa chưa được lưu. Bạn có chắc muốn thoát?!</string>
 
     <!--  String patterns  -->
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>
@@ -104,7 +108,8 @@
     <string name="you_are_having_pattern">Bạn đang có %1$d</string>
     <string name="join_date_pattern">Tham gia tháng %1$s, %2$s</string>
     <string name="round_pattern">Màn %1$d / %2$d</string>
-    <string name="start_round_to_earn_pattern">Bắt đầu +%1$d vàng</string>
+    <string name="start_round_to_earn_pattern">Bắt đầu ngay</string>
+    <string name="bonus_gold_pattern">+ %1$d</string>
 
     <!--  random messages  -->
 

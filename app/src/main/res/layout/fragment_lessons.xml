@@ -19,7 +19,7 @@
         app:justifyContent="space_between">
 
         <TextView
-            android:id="@+id/tv_level"
+            android:id="@+id/tv_weekly_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_fire_solid"

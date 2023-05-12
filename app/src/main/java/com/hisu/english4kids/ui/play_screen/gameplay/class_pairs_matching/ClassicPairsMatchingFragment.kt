@@ -24,9 +24,10 @@ import com.hisu.english4kids.utils.MyUtils
 
 class ClassicPairsMatchingFragment(
     private val nextQuestionListener: () -> Unit,
-    private val wrongAnswerListener: () -> Unit,
-    private val correctAnswerListener: (score: Int) -> Unit,
-    private var gameStyleOne: GameStyleOne
+    private val wrongAnswerListener: (position: Int) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String) -> Unit,
+    private var gameStyleOne: GameStyleOne,
+    private var gameIndex: Int
 ) : Fragment() {
 
     private var _binding: FragmentClassicPairsMatchingBinding? = null
@@ -98,7 +99,7 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
-                correctAnswerListener.invoke(gameStyleOne.score)
+                correctAnswerListener.invoke(gameStyleOne.score, gameStyleOne.roundId)
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -116,7 +117,7 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.tvCorrectAnswer.text =
                     requireContext().getString(R.string.better_luck_next_time)
 
-                wrongAnswerListener.invoke()
+                wrongAnswerListener.invoke(gameIndex)
             }
         }
     }

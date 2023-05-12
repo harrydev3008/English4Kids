@@ -4,10 +4,7 @@ import com.google.gson.GsonBuilder
 import com.hisu.english4kids.BuildConfig
 import com.hisu.english4kids.data.*
 import com.hisu.english4kids.data.model.InternetTimeModel
-import com.hisu.english4kids.data.network.response_model.AuthResponseModel
-import com.hisu.english4kids.data.network.response_model.CourseResponseModel
-import com.hisu.english4kids.data.network.response_model.LessonResponseModel
-import com.hisu.english4kids.data.network.response_model.SearchUserResponseModel
+import com.hisu.english4kids.data.network.response_model.*
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -62,4 +59,17 @@ interface ApiService {
 
     @POST(PATH_AUTH_LOGOUT)
     fun authLogout(@Body body: RequestBody): Call<AuthResponseModel>
+
+    @POST(PATH_UPDATE_USER_DIARY)
+    fun updateDiary(@Header("Authorization") token: String, @Body body: RequestBody): Call<Any>
+
+    @POST(PATH_BUY_HEART)
+    fun buyHeart(@Header("Authorization") token: String, @Body body: RequestBody): Call<UpdateUserResponseModel>
+
+    @POST(PATH_UPDATE_GOLDS)
+    fun updateGolds(@Header("Authorization") token: String, @Body body: RequestBody): Call<UpdateUserResponseModel>
+
+    //  ----------- PUT REQUEST -----------
+    @PUT(PATH_UPDATE_USER_INFO)
+    fun updateUserInfo(@Header("Authorization") token: String, @Body body: RequestBody): Call<UpdateUserResponseModel>
 }

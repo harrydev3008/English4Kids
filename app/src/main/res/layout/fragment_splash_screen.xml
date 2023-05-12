@@ -11,9 +11,8 @@
         android:id="@+id/splash_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lottie_rawRes="@raw/loading"
+        app:lottie_rawRes="@raw/splash_e4k"
         android:paddingHorizontal="@dimen/_8sdp"
-        app:lottie_autoPlay="true"
-        app:lottie_repeatCount="2"/>
+        app:lottie_autoPlay="true"/>
 
 </FrameLayout>

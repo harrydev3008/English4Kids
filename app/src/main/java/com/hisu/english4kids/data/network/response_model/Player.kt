@@ -6,10 +6,10 @@ import com.google.gson.annotations.SerializedName
 data class Player(
     @SerializedName("_id")
     val id: String,
-    val level: Int,
     val phone: String,
     val registerDate: String,
-    val role: String,
     val username: String,
-    val weeklyScore: Int
+    var weeklyScore: Int = 0,
+    var golds: Int = 0,
+    var hearts: Int = 0
 )

@@ -68,6 +68,7 @@ class GameFinishDialog() {
         tvFastScore.text = result.fastScore
         tvPerfectScore.text = String.format(context.getString(R.string.perfect_score_pattern), result.perfectScore)
         tvTotalExpScore.text = result.totalScore.toString()
+        tvCoins.text = String.format(context.getString(R.string.bonus_gold_pattern), result.golds)
     }
 
     private fun handleExitButton() = binding.btnExit.setOnClickListener {

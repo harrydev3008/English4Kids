@@ -6,6 +6,8 @@ const val STATUS_NOT_FOUND = 404
 const val STATUS_SERVER_DOWN = 500
 
 const val BUNDLE_LESSON_DATA = "BUNDLE_LESSON_DATA"
+const val BUNDLE_LESSON_ID_DATA = "BUNDLE_LESSON_ID_DATA"
+const val BUNDLE_COURSE_ID_DATA = "BUNDLE_COURSE_ID_DATA"
 
 //Content type
 const val CONTENT_TYPE_JSON = "application/json"
@@ -25,3 +27,11 @@ const val PATH_GET_LESSON_BY_COURSE_ID = "lession/player/{courseId}"
 const val PATH_AUTH_LOGIN = "auth/player/login"
 const val PATH_AUTH_REGISTER = "auth/player/register"
 const val PATH_AUTH_LOGOUT = "auth/player/logout"
+
+//diary
+const val PATH_UPDATE_USER_DIARY = "diary/player"
+
+//user player
+const val PATH_UPDATE_USER_INFO = "user/player"
+const val PATH_BUY_HEART = "user/player/hearts"
+const val PATH_UPDATE_GOLDS = "user/player/updateGolds"

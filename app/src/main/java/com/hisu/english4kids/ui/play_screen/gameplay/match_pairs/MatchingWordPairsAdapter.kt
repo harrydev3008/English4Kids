@@ -63,7 +63,7 @@ class MatchingWordPairsAdapter(
                             )
                         binding.tvAnswer.setTextColor(context.getColor(R.color.classic))
 
-                        itemTapListener.invoke(pair, position)//todo: impl later
+                        itemTapListener.invoke(pair, position)
                     }
                 }
             }

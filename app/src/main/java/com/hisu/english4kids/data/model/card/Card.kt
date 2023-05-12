@@ -4,7 +4,7 @@ data class Card(
     val cardId: String = "",
     val pairId: String = "",
     val imageUrl: String = "",
-    var isVisible: Boolean = false,
+    var isVisible: Boolean = true,
     var isAudio: Boolean = false,
     var word: String = "",
     var answer: String = ""

@@ -16,9 +16,10 @@ import com.hisu.english4kids.data.model.pair_matching.PairMatchingResponse
 
 class MatchingAudioImagePairsFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: () -> Unit,
-    private val correctAnswerListener: (score: Int) -> Unit,
-    private val gameStyleTwo: GameStyleTwo
+    private val wrongAnswerListener: (position: Int) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String) -> Unit,
+    private val gameStyleTwo: GameStyleTwo,
+    private var gameIndex: Int
 ) : Fragment() {
 
     private var _binding: FragmentMatchingAudioImagePairsBinding? = null
@@ -66,7 +67,7 @@ class MatchingAudioImagePairsFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 audioImageAdapter.isLockView = true
-                correctAnswerListener.invoke(gameStyleTwo.score)
+                correctAnswerListener.invoke(gameStyleTwo.score, gameStyleTwo.roundId)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -76,7 +77,7 @@ class MatchingAudioImagePairsFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
                 audioImageAdapter.isLockView = true
 
-                wrongAnswerListener.invoke()
+                wrongAnswerListener.invoke(gameIndex)
             }
         }
 

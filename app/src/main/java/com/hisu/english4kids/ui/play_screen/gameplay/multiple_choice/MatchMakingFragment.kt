@@ -1,7 +1,7 @@
 package com.hisu.english4kids.ui.play_screen.gameplay.multiple_choice
 
 import android.os.Bundle
-import android.view.Gravity
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.FragmentMatchMakingBinding
-import com.hisu.english4kids.widget.dialog.FindMatchDialog
+import com.hisu.english4kids.widget.dialog.WalkingLoadingDialog
 
 class MatchMakingFragment : Fragment() {
 
@@ -32,11 +32,20 @@ class MatchMakingFragment : Fragment() {
     }
 
     private fun handleFindMatchButton() = binding.btnFindMatch.setOnClickListener {
-        val dialog = FindMatchDialog(requireContext(), Gravity.CENTER)
-            .setAcceptCallBack(::handleAccept)
-            .setCancelCallBack(::handleCancel)
+//        val dialog = FindMatchDialog(requireContext(), Gravity.CENTER)
+//            .setAcceptCallBack(::handleAccept)
+//            .setCancelCallBack(::handleCancel)
+//
+//        dialog.showDialog()
+        //todo: call api to generate questions
 
-        dialog.showDialog()
+        val walkingLoadingDialog = WalkingLoadingDialog(requireContext())
+        walkingLoadingDialog.showDialog()
+
+        Handler(requireContext().mainLooper).postDelayed({
+            walkingLoadingDialog.dismissDialog()
+            findNavController().navigate(R.id.action_matchMakingFragment_to_multipleChoiceContainerFragment)
+        }, 5000)
     }
 
     private fun handleAccept() {

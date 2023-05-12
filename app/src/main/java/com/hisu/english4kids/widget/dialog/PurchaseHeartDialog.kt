@@ -55,13 +55,11 @@ class PurchaseHeartDialog(){
     }
 
     private fun handleFullRestoreButton() = binding.btnPurchaseFullLife.setOnClickListener {
-        dismissDialog()
-        btnPurchaseCallback.invoke(500)
+        btnPurchaseCallback.invoke(5)
     }
 
     private fun handleRestoreThreeButton() = binding.btnPurchaseThreeLife.setOnClickListener {
-        dismissDialog()
-        btnPurchaseCallback.invoke(300)
+        btnPurchaseCallback.invoke(3)
     }
 
     fun showDialog() = dialog.show()

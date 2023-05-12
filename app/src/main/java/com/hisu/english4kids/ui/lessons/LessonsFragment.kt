@@ -10,15 +10,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.BUNDLE_COURSE_ID_DATA
 import com.hisu.english4kids.data.BUNDLE_LESSON_DATA
+import com.hisu.english4kids.data.BUNDLE_LESSON_ID_DATA
 import com.hisu.english4kids.data.STATUS_OK
-import com.hisu.english4kids.data.model.course.Course
 import com.hisu.english4kids.data.model.course.Lesson
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.DataLesson
 import com.hisu.english4kids.data.network.response_model.LessonResponseModel
+import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.databinding.FragmentLessonsBinding
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
@@ -51,9 +52,20 @@ class LessonsFragment : Fragment() {
 
         binding.tvMode.text = myNavArgs.title
 
+        initView()
         backToHomePage()
         setUpLevels()
         loadLevel()
+    }
+
+    private fun initView() {
+        val user = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
+
+        binding.apply {
+            tvWeeklyScore.text = user.weeklyScore.toString()
+            tvCoins.text = user.golds.toString()
+            tvHeart.text = user.hearts.toString()
+        }
     }
 
     private fun backToHomePage() = binding.tvMode.setOnClickListener {
@@ -77,11 +89,17 @@ class LessonsFragment : Fragment() {
             )
 
             startRoundDialog.setStartBtnEvent {
+                startRoundDialog.dismissDialog()
+
                 val bundle = Bundle()
                 bundle.putString(
                     BUNDLE_LESSON_DATA,
                     Gson().toJson(lesson.rounds.slice(position until lesson.rounds.size))
                 )
+
+                bundle.putString(BUNDLE_LESSON_ID_DATA, lesson._id)
+                bundle.putString(BUNDLE_COURSE_ID_DATA, myNavArgs.courseId)
+
                 findNavController().navigate(R.id.action_classModeLevelFragment_to_playFragment, bundle)
             }
 

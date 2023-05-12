@@ -96,7 +96,6 @@ class SplashScreenFragment : Fragment() {
                     }
                 }
             } else {
-                response.errorBody()?.apply {
                     requireActivity().runOnUiThread {
                         iOSDialogBuilder(requireContext())
                             .setTitle(requireContext().getString(R.string.request_err))
@@ -105,7 +104,6 @@ class SplashScreenFragment : Fragment() {
                                 it.dismiss()
                             }.build().show()
                     }
-                }
             }
         }
 
@@ -118,7 +116,7 @@ class SplashScreenFragment : Fragment() {
                         it.dismiss()
                     }.build().show()
             }
-            Log.e(CheckOTPFragment::class.java.name, t.message ?: "error message")
+            Log.e(SplashScreenFragment::class.java.name, t.message ?: "error message")
         }
     }
 

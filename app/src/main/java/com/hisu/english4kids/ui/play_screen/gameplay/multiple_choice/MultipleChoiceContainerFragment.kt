@@ -2,20 +2,16 @@ package com.hisu.english4kids.ui.play_screen.gameplay.multiple_choice
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
-import com.google.gson.Gson
-import com.hisu.english4kids.R
-import com.hisu.english4kids.data.model.leader_board.User
-import com.hisu.english4kids.databinding.FragmentMultipleChoiceContainerBinding
 import com.hisu.english4kids.data.model.multiple_choice.MultipleChoiceModel
 import com.hisu.english4kids.data.model.multiple_choice.MultipleChoicesResponse
-import com.hisu.english4kids.utils.MyUtils
-import com.hisu.english4kids.utils.local.LocalDataManager
+import com.hisu.english4kids.databinding.FragmentMultipleChoiceContainerBinding
+import com.hisu.english4kids.widget.dialog.WalkingLoadingDialog
 import java.util.concurrent.TimeUnit
 
 class MultipleChoiceContainerFragment : Fragment() {
@@ -26,6 +22,7 @@ class MultipleChoiceContainerFragment : Fragment() {
     private var wrongAnswer = 0
     private var correctAnswer = 0
     private var startGamePlayTime: Long = 0
+    private lateinit var mWalkingLoadingDialog: WalkingLoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +34,9 @@ class MultipleChoiceContainerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mWalkingLoadingDialog = WalkingLoadingDialog(requireContext())
+
         setUpViewPager()
         handleNextQuestion()
     }
@@ -123,6 +123,12 @@ class MultipleChoiceContainerFragment : Fragment() {
         }
 
         override fun onFinish() {
+
+            requireActivity().runOnUiThread {
+                mWalkingLoadingDialog.setLoadingText("Đang chấm điểm!\nBạn chờ tý nha!")
+                mWalkingLoadingDialog.showDialog()
+            }
+
             val finishTime = System.nanoTime() - startGamePlayTime
             val minute = TimeUnit.NANOSECONDS.toMinutes(finishTime)
             val second = TimeUnit.NANOSECONDS.toSeconds(finishTime)
@@ -131,7 +137,11 @@ class MultipleChoiceContainerFragment : Fragment() {
                 result = "${questions.size - wrongAnswer}/${questions.size}",
                 time = "$minute:${second}s"
             )
-            findNavController().navigate(action)
+
+            Handler(requireActivity().mainLooper).postDelayed({
+                mWalkingLoadingDialog.dismissDialog()
+                findNavController().navigate(action)
+            }, 4000)
         }
     }
 

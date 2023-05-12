@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
@@ -19,6 +20,7 @@ import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
 import com.hisu.english4kids.data.network.response_model.Player
+import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
 import com.hisu.english4kids.databinding.FragmentUpdateProfileBinding
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
@@ -54,6 +56,7 @@ class UpdateProfileFragment : Fragment() {
         handleBackButton()
         handleSaveButton()
         handleLogoutButton()
+        handleEditTextChange()
     }
 
     private fun initView() {
@@ -86,7 +89,19 @@ class UpdateProfileFragment : Fragment() {
     }
 
     private fun handleBackButton() = binding.btnBack.setOnClickListener {
-        findNavController().popBackStack()
+        if(!binding.btnSave.isEnabled) {
+            findNavController().popBackStack()
+        } else {
+            iOSDialogBuilder(requireContext())
+                .setTitle(requireContext().getString(R.string.confirm_otp))
+                .setSubtitle(requireContext().getString(R.string.err_unsaved_update))
+                .setPositiveListener(requireContext().getString(R.string.confirm_yes)) {
+                    it.dismiss()
+                    findNavController().popBackStack()
+                }
+                .setNegativeListener(requireContext().getString(R.string.confirm_no), iOSDialog::dismiss)
+                .build().show()
+        }
     }
 
     private fun handleSaveButton() = binding.btnSave.setOnClickListener {
@@ -100,8 +115,22 @@ class UpdateProfileFragment : Fragment() {
         }
     }
 
+    private fun handleEditTextChange() = binding.edtUserName.addTextChangedListener {
+        it?.apply {
+            binding.btnSave.isEnabled = it.toString() != currentUser.username
+        }
+    }
+
     private fun handleSaveUserInfoEvent() {
-        //todo: call api
+        requireActivity().runOnUiThread {
+            mLoadingDialog.showDialog()
+        }
+
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("username", binding.edtUserName.text.toString())
+
+        val updateUserBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
+        API.apiService.updateUserInfo("Bearer ${localDataManager.getUserAccessToken()}",updateUserBodyRequest).enqueue(handleUpdateCallback)
     }
 
     private fun handleLogoutButton() = binding.btnLogout.setOnClickListener {
@@ -159,6 +188,57 @@ class UpdateProfileFragment : Fragment() {
         override fun onFailure(call: Call<AuthResponseModel>, t: Throwable) {
             requireActivity().runOnUiThread {
                 mLoadingDialog.dismissDialog()
+                iOSDialogBuilder(requireContext())
+                    .setTitle(requireContext().getString(R.string.request_err))
+                    .setSubtitle(requireContext().getString(R.string.err_network_not_connected))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
+            }
+            Log.e(UpdateProfileFragment::class.java.name, t.message ?: "error message")
+        }
+    }
+
+    private val handleUpdateCallback = object: Callback<UpdateUserResponseModel> {
+        override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+
+            if(response.isSuccessful && response.code() == STATUS_OK) {
+                response.body()?.apply {
+                    this.data?.apply {
+                        val playerInfoJson = Gson().toJson(this.updatedUser)
+                        localDataManager.setUserInfo(playerInfoJson)
+
+                        requireActivity().runOnUiThread {
+                            iOSDialogBuilder(requireContext())
+                                .setTitle(requireContext().getString(R.string.confirm_otp))
+                                .setSubtitle(requireContext().getString(R.string.update_username_success))
+                                .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                                    it.dismiss()
+                                    binding.edtUserName.setText(this.updatedUser.username)
+                                    binding.edtUserName.hint = this.updatedUser.username
+                                }.build().show()
+                        }
+                    }
+                }
+            } else {
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<UpdateUserResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+
                 iOSDialogBuilder(requireContext())
                     .setTitle(requireContext().getString(R.string.request_err))
                     .setSubtitle(requireContext().getString(R.string.err_network_not_connected))

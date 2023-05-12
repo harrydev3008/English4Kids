@@ -17,13 +17,11 @@ class StartRoundDialog() {
     private lateinit var context: Context
     private lateinit var dialog: Dialog
     private lateinit var binding: LayoutStartRoundDialogBinding
-    private lateinit var round: BaseGamePlay
     private lateinit var title: String
     private lateinit var btnStart: () -> Unit
 
     constructor(context: Context, title: String) : this() {
         this.context = context
-//        this.round = round
         this.title = title
         initDialog()
     }
