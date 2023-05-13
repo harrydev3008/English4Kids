@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
@@ -23,7 +24,7 @@ import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.GameFinishDialog
 import com.hisu.english4kids.widget.dialog.LoadingDialog
 import com.hisu.english4kids.widget.dialog.PurchaseHeartDialog
-import com.hisu.english4kids.widget.dialog.WalkingLoadingDialog
+import es.dmoral.toasty.Toasty
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -59,9 +60,6 @@ class PlayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val walkingLoadingDialog = WalkingLoadingDialog(requireContext())
-        walkingLoadingDialog.showDialog()
 
         mLoadingDialog = LoadingDialog(requireContext(), Gravity.CENTER)
 
@@ -160,34 +158,42 @@ class PlayFragment : Fragment() {
         }
     }
 
-    private fun handleWrongAnswer(position: Int) {
+    private fun handleWrongAnswer(position: Int, isPlayed: Boolean) {
         unfinishedGameplays.add(gameplays[position])
 
-        var currentLife = Integer.parseInt(binding.tvLife.text.toString())
-        currentLife--
-        wrongAnswerCount++
-        binding.tvLife.text = "$currentLife"
+        if(!isPlayed) {
+            var currentLife = Integer.parseInt(binding.tvLife.text.toString())
+            currentLife--
+            wrongAnswerCount++
+            binding.tvLife.text = "$currentLife"
 
-        if (currentLife == 0)
-            heartDialog.showDialog()
+            if (currentLife == 0)
+                heartDialog.showDialog()
+        }
     }
 
-    private fun handleCorrectAnswer(score: Int, roundId: String) {
+    private fun handleCorrectAnswer(score: Int, roundId: String, isPlayed: Boolean) {
         correctAnswerCount++
-        totalScore += score
 
-        val obj = JsonObject()
-        obj.addProperty("userId", player.id)
-        obj.addProperty("courseId", arguments?.getString(BUNDLE_COURSE_ID_DATA))
-        obj.addProperty("lessionId", arguments?.getString(BUNDLE_LESSON_ID_DATA))
-        obj.addProperty("roundId", roundId)
-        obj.addProperty("score", score)
+        if(!isPlayed) {
+            Toasty.success(requireContext(), "+ ${(score / 2).toInt()} vàng!", Toasty.LENGTH_SHORT).show()
+            totalScore += score
+            val obj = JsonObject()
+            obj.addProperty("userId", player.id)
+            obj.addProperty("courseId", arguments?.getString(BUNDLE_COURSE_ID_DATA))
+            obj.addProperty("lessionId", arguments?.getString(BUNDLE_LESSON_ID_DATA))
+            obj.addProperty("roundId", roundId)
+            obj.addProperty("score", score)
+            obj.addProperty("hearts", Integer.parseInt(binding.tvLife.text.toString()))
 
-        val requestBody = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), obj.toString())
+            val requestBody = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), obj.toString())
 
-        API.apiService.updateDiary(
-            "Bearer ${localDataManager.getUserAccessToken()}", requestBody
-        ).enqueue(handleUpdateDiaryCallback)
+            API.apiService.updateDiary(
+                "Bearer ${localDataManager.getUserAccessToken()}", requestBody
+            ).enqueue(handleUpdateDiaryCallback)
+        } else {
+            Log.e("teest", "???")
+        }
     }
 
     private fun initDialog() {
@@ -217,7 +223,17 @@ class PlayFragment : Fragment() {
                 it.dismiss()
             }.setPositiveListener(requireContext().getString(R.string.confirm_msg_quit)) {
                 it.dismiss()
-                findNavController().navigate(R.id.action_playFragment_to_homeFragment)
+
+                requireActivity().runOnUiThread {
+                    mLoadingDialog.showDialog()
+                }
+
+                val obj = JsonObject()
+                obj.addProperty("hearts", Integer.parseInt(binding.tvLife.text.toString()))
+                val requestBody = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), obj.toString())
+
+                API.apiService.updateHeart("Bearer ${localDataManager.getUserAccessToken()}", requestBody).enqueue(handleUpdateHeart)
+
             }.build().show()
     }
 
@@ -266,6 +282,13 @@ class PlayFragment : Fragment() {
 
                         requireActivity().runOnUiThread {
                             binding.tvLife.text = this.updatedUser.hearts.toString()
+                            iOSDialogBuilder(requireContext())
+                                .setTitle(requireContext().getString(R.string.confirm_otp))
+                                .setSubtitle(requireContext().getString(R.string.buy_heart_success))
+                                .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                                    it.dismiss()
+                                    heartDialog.dismissDialog()
+                                }.build().show()
                         }
                     }
                 }
@@ -301,6 +324,43 @@ class PlayFragment : Fragment() {
                     this.data?.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
+                    }
+                }
+            } else {
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<UpdateUserResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+            Log.e(PlayFragment::class.java.name, t.message?: "error message")
+        }
+    }
+
+    private val handleUpdateHeart = object: Callback<UpdateUserResponseModel> {
+        override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
+
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+
+            if(response.isSuccessful && response.code() == STATUS_OK) {
+                response.body()?.apply {
+                    this.data?.apply {
+                        val playerInfoJson = Gson().toJson(this.updatedUser)
+                        localDataManager.setUserInfo(playerInfoJson)
+                        requireActivity().runOnUiThread {
+                            findNavController().navigate(R.id.action_playFragment_to_homeFragment)
+                        }
                     }
                 }
             } else {

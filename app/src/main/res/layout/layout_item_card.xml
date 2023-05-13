@@ -40,6 +40,8 @@
             android:layout_weight="3"
             android:animateLayoutChanges="true"
             android:scaleType="center"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             app:riv_corner_radius_top_left="16dp"
             app:riv_corner_radius_top_right="16dp"
             android:src="@drawable/bg_no_imgage_place_holder"/>

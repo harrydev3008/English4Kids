@@ -4,17 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
-    tools:context=".ui.auth.RegisterFragment">
+    tools:context=".ui.auth.LoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tv_login_now"
+        android:layout_above="@+id/tv_register_now"
         android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:gravity="center_vertical"
         android:orientation="vertical"
+        android:gravity="center_vertical"
         android:padding="@dimen/_12sdp">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -70,39 +68,6 @@
                 android:textColorHint="@color/gray"
                 android:textCursorDrawable="@drawable/edt_cursor"
                 android:textSize="@dimen/_16ssp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_display_name_container"
-            style="@style/LoginTextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:background="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_12sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_12sdp"
-            app:boxCornerRadiusTopStart="@dimen/_12sdp"
-            app:boxStrokeErrorColor="@color/text_incorrect"
-            app:boxStrokeWidth="@dimen/_2sdp"
-            app:helperTextTextColor="@color/text_incorrect"
-            app:hintEnabled="false">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_display_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/username"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:maxLength="12"
-                android:maxLines="1"
-                android:paddingVertical="@dimen/_12sdp"
-                android:textColorHint="@color/gray"
-                android:textCursorDrawable="@drawable/edt_cursor"
-                android:textSize="@dimen/_16ssp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -136,48 +101,30 @@
                 android:textSize="@dimen/_16ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_confirm_password_container"
-            style="@style/LoginTextInputLayoutStyle"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_forgot_password"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_marginTop="@dimen/_12sdp"
-            android:background="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_12sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_12sdp"
-            app:boxCornerRadiusTopStart="@dimen/_12sdp"
-            app:boxStrokeErrorColor="@color/text_incorrect"
-            app:boxStrokeWidth="@dimen/_2sdp"
-            app:helperTextTextColor="@color/text_incorrect"
-            app:hintEnabled="false"
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/confirm_password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingVertical="@dimen/_12sdp"
-                android:textColorHint="@color/gray"
-                android:textCursorDrawable="@drawable/edt_cursor"
-                android:textSize="@dimen/_16ssp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/forgot_password"
+            android:textColor="@color/daily"
+            android:textSize="@dimen/_16ssp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
+            style="@style/LoginButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_12sdp"
-            android:backgroundTint="@color/text_correct"
+            android:enabled="false"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/_12sdp"
-            android:text="@string/welcome_text_register"
+            android:text="@string/welcome_text_login"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"
@@ -185,13 +132,13 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_login_now"
+        android:id="@+id/tv_register_now"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:paddingVertical="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_12sdp"
-        android:text="@string/have_account_desc"
+        android:text="@string/no_account_desc"
         android:textAlignment="center"
         android:textColor="@color/light_black"
         android:textSize="@dimen/_16ssp"

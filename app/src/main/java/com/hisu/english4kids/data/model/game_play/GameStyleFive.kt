@@ -8,6 +8,6 @@ class GameStyleFive  (
     score: Int,
     var question: String,
     var correctAns: String,
-    var isAudio: Boolean = false,
+    var isPlayed: Boolean = false,
     var cards: List<Card>
 ) : BaseGamePlay(roundId, playType, score)

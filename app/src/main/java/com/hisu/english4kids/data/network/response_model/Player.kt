@@ -11,5 +11,7 @@ data class Player(
     val username: String,
     var weeklyScore: Int = 0,
     var golds: Int = 0,
-    var hearts: Int = 0
+    var hearts: Int = 0,
+    var claimCount:Int = 0,
+    var lastClaimdDate: String = ""
 )

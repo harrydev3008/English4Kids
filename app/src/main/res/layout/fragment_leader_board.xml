@@ -32,22 +32,30 @@
         android:text="@string/leader_board_title"
         android:textAlignment="center"
         android:textColor="@color/light_black"
-        android:textSize="@dimen/_20ssp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_leader_board"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_back"
         android:layout_below="@id/tv_leader_board_title"
         android:layout_marginVertical="@dimen/_16sdp"
-        android:background="@drawable/bg_word_border_selected_image_blue"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
-        tools:itemCount="2"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/layout_item_leader_board" />
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/gray_e5"
+        app:cardCornerRadius="@dimen/_12sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_leader_board"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_back"
+            android:layout_below="@id/tv_leader_board_title"
+            tools:itemCount="2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/layout_item_leader_board" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_back"

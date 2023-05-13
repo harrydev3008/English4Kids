@@ -16,8 +16,8 @@ import java.util.*
 
 class SentenceStyleFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String) -> Unit,
+    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit,
     private val gameStyleThree: GameStyleThree,
     private var gameIndex: Int
 ) : Fragment() {
@@ -57,7 +57,7 @@ class SentenceStyleFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                correctAnswerListener.invoke(gameStyleThree.score, gameStyleThree.roundId)
+                correctAnswerListener.invoke(gameStyleThree.score, gameStyleThree.roundId, gameStyleThree.isPlayed)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -65,7 +65,7 @@ class SentenceStyleFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                wrongAnswerListener.invoke(gameIndex)
+                wrongAnswerListener.invoke(gameIndex, gameStyleThree.isPlayed)
             }
         }
 

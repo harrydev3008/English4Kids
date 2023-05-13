@@ -2,6 +2,7 @@ package com.hisu.english4kids.ui.lessons
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +12,16 @@ import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.hisu.english4kids.R
-import com.hisu.english4kids.data.BUNDLE_COURSE_ID_DATA
-import com.hisu.english4kids.data.BUNDLE_LESSON_DATA
-import com.hisu.english4kids.data.BUNDLE_LESSON_ID_DATA
-import com.hisu.english4kids.data.STATUS_OK
+import com.hisu.english4kids.data.*
 import com.hisu.english4kids.data.model.course.Lesson
 import com.hisu.english4kids.data.network.API
-import com.hisu.english4kids.data.network.response_model.DataLesson
-import com.hisu.english4kids.data.network.response_model.LessonResponseModel
-import com.hisu.english4kids.data.network.response_model.Player
+import com.hisu.english4kids.data.network.ApiService
+import com.hisu.english4kids.data.network.response_model.*
 import com.hisu.english4kids.databinding.FragmentLessonsBinding
+import com.hisu.english4kids.ui.play_screen.PlayFragment
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
+import com.hisu.english4kids.widget.dialog.LoadingDialog
 import com.hisu.english4kids.widget.dialog.StartRoundDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,6 +34,7 @@ class LessonsFragment : Fragment() {
     private val myNavArgs: LessonsFragmentArgs by navArgs()
     private var lessonsAdapter: LessonAdapter? = null
     private lateinit var localDataManager: LocalDataManager
+    private lateinit var mLoadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +46,8 @@ class LessonsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mLoadingDialog = LoadingDialog(requireContext(), Gravity.CENTER)
 
         localDataManager = LocalDataManager()
         localDataManager.init(requireContext())
@@ -59,12 +61,8 @@ class LessonsFragment : Fragment() {
     }
 
     private fun initView() {
-        val user = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
-
-        binding.apply {
-            tvWeeklyScore.text = user.weeklyScore.toString()
-            tvCoins.text = user.golds.toString()
-            tvHeart.text = user.hearts.toString()
+        if(MyUtils.isNetworkAvailable(requireContext())) {
+            API.apiService.getUserInfo("Bearer ${localDataManager.getUserAccessToken()}").enqueue(handleGetUserInfo)
         }
     }
 
@@ -78,14 +76,16 @@ class LessonsFragment : Fragment() {
         adapter = lessonsAdapter
     }
 
-    private fun handleLessonClick(lesson: Lesson, position: Int) {
+    private fun handleLessonClick(lesson: Lesson, position: Int, status: Int) {
         if(MyUtils.isNetworkAvailable(requireContext())) {
 
             val startRoundDialog = StartRoundDialog(
                 requireContext(),
                 String.format(
-                    requireContext().getString(R.string.round_pattern), position + 1, lesson.rounds.size
-                )
+                    requireContext().getString(R.string.round_pattern),
+                    position + 1,
+                    lesson.rounds.size
+                ), status
             )
 
             startRoundDialog.setStartBtnEvent {
@@ -99,8 +99,13 @@ class LessonsFragment : Fragment() {
 
                 bundle.putString(BUNDLE_LESSON_ID_DATA, lesson._id)
                 bundle.putString(BUNDLE_COURSE_ID_DATA, myNavArgs.courseId)
+                val isLessonCompleted = lesson.playedRounds == lesson.totalRounds
+                bundle.putBoolean(BUNDLE_ROUND_PLAYED_DATA, isLessonCompleted)
 
-                findNavController().navigate(R.id.action_classModeLevelFragment_to_playFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_classModeLevelFragment_to_playFragment,
+                    bundle
+                )
             }
 
             startRoundDialog.showDialog()
@@ -118,24 +123,14 @@ class LessonsFragment : Fragment() {
     }
 
     private fun loadLevel() {
-        if (MyUtils.isNetworkAvailable(requireContext()))
-            API.apiService.getLessonByCourseId(
-                "Bearer ${localDataManager.getUserAccessToken()}",
-                myNavArgs.courseId
-            ).enqueue(handleGetLessonCallback)
-        else {
-            val localLessons = Gson().fromJson(localDataManager.getLessonsInfo(), DataLesson::class.java)
-            lessonsAdapter?.lessons = localLessons.lession
-            lessonsAdapter?.notifyDataSetChanged()
-            binding.rvLessons.adapter = lessonsAdapter
-        }
+        API.apiService.getLessonByCourseId(
+            "Bearer ${localDataManager.getUserAccessToken()}",
+            myNavArgs.courseId
+        ).enqueue(handleGetLessonCallback)
     }
 
     private val handleGetLessonCallback = object : Callback<LessonResponseModel> {
-        override fun onResponse(
-            call: Call<LessonResponseModel>,
-            response: Response<LessonResponseModel>
-        ) {
+        override fun onResponse(call: Call<LessonResponseModel>, response: Response<LessonResponseModel>) {
             if (response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
                     this.data?.apply {
@@ -158,6 +153,46 @@ class LessonsFragment : Fragment() {
                     }.build().show()
             }
             Log.e(LessonsFragment::class.java.name, t.message ?: "error message")
+        }
+    }
+
+    private val handleGetUserInfo = object: Callback<SearchUserResponseModel> {
+        override fun onResponse(call: Call<SearchUserResponseModel>, response: Response<SearchUserResponseModel>) {
+
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+
+            if(response.isSuccessful && response.code() == STATUS_OK) {
+                response.body()?.apply {
+                    this.data.user.apply {
+                        val playerInfoJson = Gson().toJson(this)
+                            localDataManager.setUserInfo(playerInfoJson)
+
+                            requireActivity().runOnUiThread {
+                                binding.tvWeeklyScore.text = this.weeklyScore.toString()
+                                binding.tvCoins.text = this.golds.toString()
+                                binding.tvHeart.text = this.hearts.toString()
+                            }
+                    }
+                }
+            } else {
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<SearchUserResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+            Log.e(LessonsFragment::class.java.name, t.message?: "error message")
         }
     }
 }

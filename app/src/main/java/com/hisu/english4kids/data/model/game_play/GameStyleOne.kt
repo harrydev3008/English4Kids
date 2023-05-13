@@ -8,5 +8,6 @@ class GameStyleOne(
     score: Int,
     var allowedMoves: Int,
     var totalPairs: Int,
+    var isPlayed: Boolean = false,
     var cards: List<Card>
 ) : BaseGamePlay(roundId, playType, score)

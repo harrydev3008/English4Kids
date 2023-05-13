@@ -2,6 +2,7 @@ package com.hisu.english4kids.ui.play_screen.gameplay.match_pairs
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,8 @@ import java.util.*
 
 class MatchingWordPairsFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String) -> Unit,
+    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit,
     private val gameStyleSix: GameStyleSix,
     private var gameIndex: Int
 ) : Fragment() {
@@ -42,15 +43,15 @@ class MatchingWordPairsFragment(
         "Chính xác!",
         "Hay quá bạn ơi!",
         "Quá xuất sắc!",
-        "10 điểm!"
+        "Hoàn hảo!"
     )
 
     private val wrongMsgs = listOf<String>(
         "Úi sai rồi!",
-        "Chúc bạn may mắn lần sau",
+        "Sai rồi! Làm lại nào!",
         "Hic! Dịch sai rồi",
-        "Học bài kỹ lại nhaa",
-        "0 điểm về chỗ!"
+        "Thất bại là mẹ thành công!",
+        "Dù sai vẫn cố! Đừng nản!"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +86,7 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                correctAnswerListener.invoke(gameStyleSix.score, gameStyleSix.roundId)
+                correctAnswerListener.invoke(gameStyleSix.score, gameStyleSix.roundId, gameStyleSix.isPlayed)
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -94,7 +95,16 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                wrongAnswerListener.invoke(gameIndex)
+
+                binding.btnCheck.tvCorrectAnswerDesc.text =
+                    String.format(
+                        requireContext().getString(R.string.complete_within_turn),
+                        gameStyleSix.allowedMoves
+                    )
+                binding.btnCheck.tvCorrectAnswer.text =
+                    requireContext().getString(R.string.better_luck_next_time)
+
+                wrongAnswerListener.invoke(gameIndex, gameStyleSix.isPlayed)
             }
         }
 
@@ -135,6 +145,7 @@ class MatchingWordPairsFragment(
                 prevPos = -1
 
                 if (counter == gameStyleSix.totalPairs) {
+                    Log.e("tesst", "${counter} - ${gameStyleSix.totalPairs}")
                     _result.postValue(true)
                 }
 
@@ -143,7 +154,7 @@ class MatchingWordPairsFragment(
 
                 wrongMoves++
 
-                if(counter > gameStyleSix.allowedMoves) {
+                if(wrongMoves > gameStyleSix.allowedMoves) {
                     _result.postValue(false)
                     return
                 }

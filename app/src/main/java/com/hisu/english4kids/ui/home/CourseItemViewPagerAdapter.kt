@@ -35,6 +35,10 @@ class CourseItemViewPagerAdapter(
                 holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm_2)
             } else if(position == 2) {
                 holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm_3)
+            } else if(position == 3) {
+                holder.binding.imvTempAvatar.setImageResource(R.drawable.rm_test_4)
+            } else {
+                holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm_3)
             }
 
             binding.btnStartCourse.setOnClickListener {

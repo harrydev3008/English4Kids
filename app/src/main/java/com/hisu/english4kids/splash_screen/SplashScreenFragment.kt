@@ -17,9 +17,7 @@ import com.hisu.english4kids.data.CONTENT_TYPE_JSON
 import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
-import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.databinding.FragmentSplashScreenBinding
-import com.hisu.english4kids.ui.auth.CheckOTPFragment
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import okhttp3.MediaType
@@ -53,57 +51,44 @@ class SplashScreenFragment : Fragment() {
         binding.splashView.renderMode = RenderMode.HARDWARE
 
         val userLoginState = getLoginStatus()
-        val currentUser = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
 
         if(userLoginState) {
             Handler(requireContext().mainLooper).postDelayed({
                 if(MyUtils.isNetworkAvailable(requireContext())) {
                     val jsonObject = JsonObject()
-                    jsonObject.addProperty("phone", currentUser.phone)
+                    jsonObject.addProperty("refreshToken", localDataManager.getUserRefreshToken())
 
-                    val loginBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
+                    val ssoBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
 
-                    API.apiService.authLogin(loginBodyRequest).enqueue(handleLoginCallback)
+                    API.apiService.checkSSO(ssoBodyRequest).enqueue(handleCheckSSOCallback)
                 } else {
                     findNavController().navigate(R.id.splash_to_home)
                 }
             }, 4 * 1000)
         } else {
             Handler(requireContext().mainLooper).postDelayed({
-                findNavController().navigate(R.id.splash_to_regis)
+                findNavController().navigate(R.id.splash_to_login)
             }, 3 * 1000)
         }
     }
 
-    private val handleLoginCallback = object : Callback<AuthResponseModel> {
-        override fun onResponse(
-            call: Call<AuthResponseModel>,
-            response: Response<AuthResponseModel>
-        ) {
-
+    private val handleCheckSSOCallback = object : Callback<AuthResponseModel> {
+        override fun onResponse(call: Call<AuthResponseModel>, response: Response<AuthResponseModel>) {
             if (response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
                     this.data?.apply {
-
                         val playerInfoJson = Gson().toJson(this.player)
 
                         localDataManager.setUserLoinState(true)
                         localDataManager.setUserInfo(playerInfoJson)
                         localDataManager.setUserAccessToken(this.accessToken)
-                        localDataManager.setUserRefreshToken(this.refreshToken)
 
                         findNavController().navigate(R.id.splash_to_home)
                     }
                 }
             } else {
-                    requireActivity().runOnUiThread {
-                        iOSDialogBuilder(requireContext())
-                            .setTitle(requireContext().getString(R.string.request_err))
-                            .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
-                            .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
-                                it.dismiss()
-                            }.build().show()
-                    }
+                localDataManager.setUserLoinState(false)
+                findNavController().navigate(R.id.splash_to_login)
             }
         }
 

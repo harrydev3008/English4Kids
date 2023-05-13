@@ -1,4 +1,4 @@
-package com.hisu.english4kids.ui.leader_board
+package com.hisu.english4kids.ui.auth
 
 import android.os.Bundle
 import android.util.Log
@@ -7,24 +7,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.CONTENT_TYPE_JSON
 import com.hisu.english4kids.data.STATUS_OK
-import com.hisu.english4kids.databinding.FragmentLeaderBoardBinding
-import com.hisu.english4kids.data.model.leader_board.LeaderBoardResponse
-import com.hisu.english4kids.data.model.leader_board.User
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
-import com.hisu.english4kids.data.network.response_model.LeaderBoardResponseModel
-import com.hisu.english4kids.data.network.response_model.Player
-import com.hisu.english4kids.ui.auth.LoginFragment
+import com.hisu.english4kids.databinding.FragmentResetPasswordBinding
 import com.hisu.english4kids.utils.MyUtils
-import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -32,20 +27,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LeaderBoardFragment : Fragment() {
+class ResetPasswordFragment : Fragment() {
 
-    private var _binding: FragmentLeaderBoardBinding? = null
+    private var _binding: FragmentResetPasswordBinding?= null
     private val binding get() = _binding!!
-    private lateinit var leaderBoardAdapter: LeaderBoardAdapter
-    private lateinit var localDataManager: LocalDataManager
-    private lateinit var currentPlayer: Player
+    private val myArgs: ResetPasswordFragmentArgs by navArgs()
     private lateinit var mLoadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLeaderBoardBinding.inflate(inflater, container, false)
+        _binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -54,38 +47,34 @@ class LeaderBoardFragment : Fragment() {
 
         mLoadingDialog = LoadingDialog(requireContext(), Gravity.CENTER)
 
-        loadUserInfo()
-        setUpLeaderBoardRecyclerView()
-        backToPrev()
-        getLeaderBoard()
+        handlePasswordTextChange()
+        handleButtonResetPassword()
     }
 
-    private fun loadUserInfo() = binding.apply {
-        localDataManager = LocalDataManager()
-        localDataManager.init(requireContext())
-        val json = localDataManager.getUserInfo()
-        currentPlayer = Gson().fromJson(json, Player::class.java)
-        tvLeaderBoardTitle.text = "Chào mừng "
-        tvLeaderBoardTitle.append(MyUtils.spannableText(currentPlayer.username, "#FD4C4A"))
-        tvLeaderBoardTitle.append(" đến với bảng xếp hạng tuần này!")
+    private fun handlePasswordTextChange() = binding.edtPassword.addTextChangedListener {
+        if (it.toString().isEmpty()) {
+            binding.tilPasswordContainer.helperText = getString(R.string.empty_password_err)
+        } else if (it.toString().length < 8) {
+            binding.tilPasswordContainer.helperText = getString(R.string.invalid_password_err)
+        } else {
+            binding.tilPasswordContainer.helperText = ""
+            binding.btnSave.isEnabled = true
+        }
     }
 
-    private fun setUpLeaderBoardRecyclerView() = binding.rvLeaderBoard.apply {
-        leaderBoardAdapter = LeaderBoardAdapter(requireContext(), currentPlayer)
-        adapter = leaderBoardAdapter
-    }
-
-    private fun backToPrev() = binding.btnBack.setOnClickListener {
-        findNavController().navigate(R.id.action_leaderBoardFragment_to_homeFragment)
-    }
-
-    private fun getLeaderBoard() {
+    private fun handleButtonResetPassword() = binding.btnSave.setOnClickListener {
         if (MyUtils.isNetworkAvailable(requireContext())) {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("phone", myArgs.phone)
+            jsonObject.addProperty("newPassword", binding.edtPassword.text.toString())
+
+            val changePasswordBodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
+
             requireActivity().runOnUiThread {
                 mLoadingDialog.showDialog()
             }
 
-            API.apiService.getLeaderBoard("Bearer ${localDataManager.getUserAccessToken()}").enqueue(handleGetLeaderBoard)
+            API.apiService.recoverPassword(changePasswordBodyRequest).enqueue(handleChangePasswordCallback)
         } else {
             requireActivity().runOnUiThread {
                 iOSDialogBuilder(requireContext())
@@ -99,23 +88,25 @@ class LeaderBoardFragment : Fragment() {
         }
     }
 
-    private val handleGetLeaderBoard = object: Callback<LeaderBoardResponseModel> {
-        override fun onResponse(call: Call<LeaderBoardResponseModel>, response: Response<LeaderBoardResponseModel>) {
-
+    private val handleChangePasswordCallback = object: Callback<AuthResponseModel> {
+        override fun onResponse(call: Call<AuthResponseModel>, response: Response<AuthResponseModel>) {
             if(response.isSuccessful && response.code() == STATUS_OK) {
-                response.body()?.apply {
-                    leaderBoardAdapter.leaderBoardUsers = this.data.players
-                    leaderBoardAdapter.notifyDataSetChanged()
-
-                    requireActivity().runOnUiThread {
-                        mLoadingDialog.dismissDialog()
-                    }
+                requireActivity().runOnUiThread {
+                    mLoadingDialog.dismissDialog()
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.confirm_otp))
+                        .setSubtitle(requireContext().getString(R.string.change_password_success))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                            findNavController().navigate(R.id.reset_pwd_to_login)
+                        }.build().show()
                 }
             } else {
                 requireActivity().runOnUiThread {
                     mLoadingDialog.dismissDialog()
-                    iOSDialogBuilder(requireContext()).setTitle(requireContext().getString(R.string.request_err))
-                        .setSubtitle(requireContext().getString(R.string.err_getting_leader_board))
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
                         .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
                             it.dismiss()
                         }.build().show()
@@ -123,7 +114,7 @@ class LeaderBoardFragment : Fragment() {
             }
         }
 
-        override fun onFailure(call: Call<LeaderBoardResponseModel>, t: Throwable) {
+        override fun onFailure(call: Call<AuthResponseModel>, t: Throwable) {
             requireActivity().runOnUiThread {
                 mLoadingDialog.dismissDialog()
                 iOSDialogBuilder(requireContext()).setTitle(requireContext().getString(R.string.request_err))
@@ -132,7 +123,7 @@ class LeaderBoardFragment : Fragment() {
                         it.dismiss()
                     }.build().show()
             }
-            Log.e(LeaderBoardFragment::class.java.name, t.message ?: "error message")
+            Log.e(LoginFragment::class.java.name, t.message ?: "error message")
         }
     }
 

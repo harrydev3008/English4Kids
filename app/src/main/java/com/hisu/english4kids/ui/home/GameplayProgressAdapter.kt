@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.game_play.Gameplay
 import com.hisu.english4kids.databinding.LayoutGameplayProgressItemBinding
 
 class GameplayProgressAdapter(
     var context: Context,
-    private val gameplayClickListener: (position: Int) -> Unit
+    private val gameplayClickListener: (position: Int, status: Int) -> Unit
 ) : RecyclerView.Adapter<GameplayProgressAdapter.GameplayProgressViewHolder>() {
 
     var gameplays = listOf<Gameplay>()
@@ -40,7 +41,16 @@ class GameplayProgressAdapter(
         }
 
         holder.binding.parentContainer.setOnClickListener {
-            gameplayClickListener.invoke(position)
+            if(gameplay.status != -1) {
+                gameplayClickListener.invoke(position, gameplay.status)
+            } else {
+                iOSDialogBuilder(context)
+                    .setTitle(context.getString(R.string.round_locked_desc))
+                    .setSubtitle(context.getString(R.string.round_locked))
+                    .setPositiveListener(context.getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
+            }
         }
 //        holder.bindData()
     }
@@ -48,9 +58,5 @@ class GameplayProgressAdapter(
     override fun getItemCount(): Int = gameplays.size
 
     inner class GameplayProgressViewHolder(var binding: LayoutGameplayProgressItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bindData() {
-
-        }
-    }
+        RecyclerView.ViewHolder(binding.root)
 }

@@ -1,6 +1,6 @@
 package com.hisu.english4kids.data.network.response_model
 
-data class SearchUserResponseModel(
-    var data: DataUser,
+data class LeaderBoardResponseModel(
+    var data: DataLeaderBoard,
     val success: Boolean
 )

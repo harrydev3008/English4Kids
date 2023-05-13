@@ -39,6 +39,7 @@ class UpdateProfileFragment : Fragment() {
     private lateinit var currentUser: Player
     private lateinit var mLoadingDialog: LoadingDialog
     private lateinit var localDataManager: LocalDataManager
+    private var isDataChanged = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +58,7 @@ class UpdateProfileFragment : Fragment() {
         handleSaveButton()
         handleLogoutButton()
         handleEditTextChange()
+        handleChangePassword()
     }
 
     private fun initView() {
@@ -89,8 +91,8 @@ class UpdateProfileFragment : Fragment() {
     }
 
     private fun handleBackButton() = binding.btnBack.setOnClickListener {
-        if(!binding.btnSave.isEnabled) {
-            findNavController().popBackStack()
+        if(!isDataChanged) {
+            findNavController().navigate(R.id.action_updateProfileFragment_to_homeFragment)
         } else {
             iOSDialogBuilder(requireContext())
                 .setTitle(requireContext().getString(R.string.confirm_otp))
@@ -104,8 +106,13 @@ class UpdateProfileFragment : Fragment() {
         }
     }
 
+    private fun handleChangePassword() = binding.edtPassword.setOnClickListener {
+        findNavController().navigate(R.id.change_password)
+    }
+
     private fun handleSaveButton() = binding.btnSave.setOnClickListener {
         if(MyUtils.isNetworkAvailable(requireContext())) {
+            binding.edtUserName.clearFocus()
             handleSaveUserInfoEvent()
         } else {
             iOSDialogBuilder(requireContext())
@@ -117,7 +124,7 @@ class UpdateProfileFragment : Fragment() {
 
     private fun handleEditTextChange() = binding.edtUserName.addTextChangedListener {
         it?.apply {
-            binding.btnSave.isEnabled = it.toString() != currentUser.username
+            isDataChanged = it.toString() != currentUser.username
         }
     }
 
@@ -176,11 +183,17 @@ class UpdateProfileFragment : Fragment() {
                     requireActivity().runOnUiThread {
                         mLoadingDialog.dismissDialog()
                     }
-                    findNavController().navigate(R.id.profile_to_regis)
+                    findNavController().navigate(R.id.profile_to_login)
                 }, 3 * 1000)
             } else {
                 requireActivity().runOnUiThread {
                     mLoadingDialog.dismissDialog()
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
                 }
             }
         }
@@ -219,6 +232,7 @@ class UpdateProfileFragment : Fragment() {
                                     it.dismiss()
                                     binding.edtUserName.setText(this.updatedUser.username)
                                     binding.edtUserName.hint = this.updatedUser.username
+                                    isDataChanged = false
                                 }.build().show()
                         }
                     }

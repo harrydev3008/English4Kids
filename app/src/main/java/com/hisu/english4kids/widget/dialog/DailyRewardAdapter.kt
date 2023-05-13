@@ -10,7 +10,8 @@ import com.hisu.english4kids.databinding.LayoutDailyRewardBinding
 import com.hisu.english4kids.data.model.daily_reward.Reward
 
 class DailyRewardAdapter(
-    var context: Context
+    var context: Context,
+    var claimReward: (reward: Reward) -> Unit
 ) : RecyclerView.Adapter<DailyRewardAdapter.DailyRewardViewHolder>() {
 
     var rewards = listOf<Reward>()
@@ -39,15 +40,18 @@ class DailyRewardAdapter(
                 context.getString(R.string.daily_reward_price_pattern), todayReward.reward
             )
 
-            tvDate.text =
-                String.format(context.getString(R.string.daily_reward_date_pattern), todayReward.id)
+            tvDate.text = String.format(context.getString(R.string.daily_reward_date_pattern), todayReward.id)
 
             if (todayReward.isClaimed || todayReward.isClaimable) {
 
                 if (todayReward.isClaimed)
                     changeContainerColor(R.color.reward_collected, true)
-                else
+                else {
                     changeContainerColor(R.color.reward_not_collect)
+                    dailyParentContainer.setOnClickListener{
+                        claimReward.invoke(todayReward)
+                    }
+                }
 
             } else
                 changeContainerColor(R.color.gray_af)

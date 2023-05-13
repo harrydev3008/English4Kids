@@ -57,11 +57,11 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen">
         <action
-            android:id="@+id/splash_to_regis"
-            app:destination="@id/registerFragment" />
-        <action
             android:id="@+id/splash_to_home"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/splash_to_login"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_registerFragment_to_checkOTPFragment"
             app:destination="@id/checkOTPFragment" />
+        <action
+            android:id="@+id/regis_to_login"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -88,12 +91,22 @@
             app:argType="string"
             app:nullable="false" />
         <argument
+            android:name="displayName"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="password"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+        <argument
             android:name="authType"
             android:defaultValue="0"
             app:argType="integer"/>
         <action
-            android:id="@+id/action_checkOTPFragment_to_displayNameFragment"
-            app:destination="@id/displayNameFragment" />
+            android:id="@+id/otp_to_reset_pwd"
+            app:destination="@id/resetPasswordFragment" />
     </fragment>
 
     <fragment
@@ -139,21 +152,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/displayNameFragment"
-        android:name="com.hisu.english4kids.ui.auth.DisplayNameFragment"
-        android:label="fragment_display_name"
-        tools:layout="@layout/fragment_display_name">
-        <action
-            android:id="@+id/action_displayNameFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <argument
-            android:name="phoneNumber"
-            android:defaultValue=""
-            app:argType="string"
-            app:nullable="false" />
-    </fragment>
-
-    <fragment
         android:id="@+id/leaderBoardFragment"
         android:name="com.hisu.english4kids.ui.leader_board.LeaderBoardFragment"
         android:label="fragment_leader_board"
@@ -194,7 +192,64 @@
         android:label="fragment_update_profile"
         tools:layout="@layout/fragment_update_profile" >
         <action
-            android:id="@+id/profile_to_regis"
-            app:destination="@id/splashScreenFragment" />
+            android:id="@+id/change_password"
+            app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/profile_to_login"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_updateProfileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.hisu.english4kids.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/login_to_regis"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/login_to_home"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/forgot_password"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.hisu.english4kids.ui.home.setting.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/change_password_done"
+            app:destination="@id/updateProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.hisu.english4kids.ui.auth.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/reset_password"
+            app:destination="@id/checkOTPFragment" />
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.hisu.english4kids.ui.auth.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" >
+        <action
+            android:id="@+id/reset_pwd_to_login"
+            app:destination="@id/loginFragment" />
+
+        <argument
+            android:name="phone"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
     </fragment>
 </navigation>

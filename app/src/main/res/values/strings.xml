@@ -13,14 +13,24 @@
     <string name="leader_board">Xếp Hạng Tuần</string>
     <string name="leader_board_title">Chào mừng bạn đến với bảng xếp hạng tuần này!</string>
     <string name="username">Tên E4K của bạn!</string>
+    <string name="password">Mật khẩu</string>
+    <string name="hidden_password">●●●●●●●</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="change_password">Đổi mật khẩu</string>
     <string name="username_desc">Tên hiển thị</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="get_start">Bắt Đầu Thôi Nào!</string>
     <string name="user_optional_desc">Hãy đặt biệt danh thật ngầu nào!</string>
-    <string name="welcome_text">Điền số điện thoại của bạn</string>
+    <string name="welcome_text_register">Đăng ký</string>
+    <string name="have_account_desc">Đã có tài khoản? <font fgcolor='#58CC00'><u>Đăng nhập ngay</u></font></string>
+    <string name="no_account_desc">Chưa có tài khoản? <font fgcolor='#58CC00'><u>Đăng ký ngay</u></font></string>
+    <string name="welcome_text_login">Đăng nhập</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="old_password">Mật khẩu cũ</string>
+    <string name="new_password">Mật khẩu mới</string>
     <string name="welcome_text_desc">Số điện thoại dùng để đăng nhập hoặc mở tài khoản nếu bạn lần đầu dùng E4K.</string>
     <string name="verify_your_otp">Hãy nhập mã OTP đã được gửi đến số điện thoại của bạn.</string>
-    <string name="tap_connect_pairs">Nhấn vào các cặp tương ứng</string>
+    <string name="tap_connect_pairs">Chọn các cặp tương ứng</string>
     <string name="skip_current_question">Câu hỏi kế tiếp</string>
     <string name="complete_round_within">Hoàn thành trong vòng</string>
     <string name="pick_correct_image">Chọn hình ảnh đúng</string>
@@ -30,7 +40,7 @@
     <string name="perfect_score">Hoàn hảo!</string>
     <string name="what_can_you_hear">Bạn nghe được gì?</string>
     <string name="better_luck_next_time">Cố gắng hơn ở lần sau bạn nhé!</string>
-    <string name="translate_this_sentence">Dịch câu này</string>
+    <string name="translate_this_sentence">Hoàn thành câu này</string>
     <string name="type_your_answer_here">Nhập câu trả lời của bạn tại đây…</string>
     <string name="find_component_now">Bắt đầu thử thách trình độ Tiếng Anh của bản thân nào!</string>
     <string name="find_match">Ghép Trận</string>
@@ -51,6 +61,7 @@
     <string name="notification_setting">Cài đặt thông báo</string>
     <string name="user_profile_and_setting">Hồ sơ</string>
     <string name="user_profile_desc">Hồ sơ của bạn</string>
+    <string name="done">Hoàn Tất</string>
     <string name="review">Ôn Tập</string>
     <string name="game_play_lock_desc_title">Màn chơi bị khoá</string>
     <string name="game_play_lock_desc">Hãy hoàn thành tất cả các màn chơi trước để mở khoá bạn nhé!</string>
@@ -64,6 +75,7 @@
     <string name="question_mark">\?</string>
     <string name="complete_this_sentence">Hoàn thành câu hỏi sau</string>
     <string name="update_username_success">Cập nhật thông tin thành công!</string>
+    <string name="forgot_password_desc">Nhập số điện thoại bạn đã dùng để đăng ký để xác thực và lấy lại mật khẩu!</string>
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>
@@ -82,20 +94,37 @@
     <string name="review_submit">Xem lại câu sai</string>
     <string name="oopss">Úi! Có bài sai!</string>
     <string name="fix_wrong_exp">Cùng nhau sửa những bài tập bạn đã làm sai nào!</string>
+    <string name="round_locked_desc">Màn chơi bị khoá</string>
+    <string name="round_locked">Hoàn thành các màn chơi trước để mở khoá màn chơi này bạn nhé!</string>
+    <string name="change_password_success">Thay đổi mật khẩu thành công!</string>
+    <string name="claimed_success">Nhận quà đăng nhập thành công!\n Trở lại và nhận thêm quà vào ngày mai bạn nhé!</string>
+    <string name="claimed_err">Đã xảy ra lỗi trong lúc phát thưởng..\nBạn thử lại sau nhé!</string>
+    <string name="buy_heart_success">Mua tim thành công! Cùng học tiếp bạn nhé!</string>
 
     <!--  Error messages  -->
     <string name="wrong_otp_err_msg">Mã OTP không chính xác. Vui lòng kiểm tra lại!</string>
     <string name="confirm_otp_err_occur_msg">Đã có lỗi trong quá trình xác thực!\n Bạn vui lòng thử lại nhé!</string>
-    <string name="invalid_phone_format_err">* Số điện thoại sai định dạng!</string>
+    <string name="wrong_phone_or_password">Số điện thoại hoặc mật khẩu không chính xác!</string>
+    <string name="wrong_old_password">Mật khẩu cũ không chính xác!</string>
+    <string name="err_getting_leader_board">Đã có lỗi trong quá trình xử lý bảng xếp hạng!\nBạn thử lại sau nhé!</string>
+    <string name="invalid_phone_format_err">* Số điện thoại không hợp lệ!</string>
+    <string name="phone_existed">* Số điện thoại đã được sử dụng bởi người dùng khác!</string>
+    <string name="phone_not_existed">* Số điện thoại này không tồn tại hoặc chưa đăng ký tài khoản E4K!</string>
+    <string name="empty_phone_err">* Số điện thoại không được bỏ trống!</string>
+    <string name="empty_display_err">* Tên hiển thị không được bỏ trống!</string>
+    <string name="invalid_display_err">* Tên phải có ít nhất 4, nhiều nhất 12 kí tự!</string>
+    <string name="empty_password_err">* Mật khẩu không được bỏ trống!</string>
+    <string name="invalid_password_err">* Mật khẩu phải có ít nhất 8 kí tự!</string>
+    <string name="invalid_cf_password_err">* Mật khẩu không trùng khớp!</string>
     <string name="err_network_not_connected">Không kết nối được với máy chủ!</string>
     <string name="err_network_not_available">Không có kết nối internet!</string>
-    <string name="err_connect_internet_to_learn">Kết nối mạng để bắt đầu bài học bạn nhé!</string>
+    <string name="err_connect_internet_to_learn">Kết nối mạng để bắt đầu học bạn nhé!</string>
     <string name="err_unsaved_update">Thông tin đã chỉnh sửa chưa được lưu. Bạn có chắc muốn thoát?!</string>
 
     <!--  String patterns  -->
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>
     <string name="perfect_score_pattern">%1$d%%</string>
-    <string name="weekly_exp_pattern">%1$d KN</string>
+    <string name="weekly_exp_pattern">%1$d</string>
     <string name="complete_within_turn">Không thể hoàn thành trong %1$d lượt…</string>
     <string name="resend_otp_timer">Gửi lại mã (%1$s)</string>
     <string name="resend_otp">Gửi lại mã</string>
@@ -109,11 +138,8 @@
     <string name="join_date_pattern">Tham gia tháng %1$s, %2$s</string>
     <string name="round_pattern">Màn %1$d / %2$d</string>
     <string name="start_round_to_earn_pattern">Bắt đầu ngay</string>
+    <string name="start_played_round_to_earn_pattern">Ôn tập</string>
     <string name="bonus_gold_pattern">+ %1$d</string>
-
-    <!--  random messages  -->
-
-    <!-- TODO: Remove or change this placeholder text -->
 
     <!-- Notification info   -->
     <string name="notification_learning_channel_id">notification_learning_id</string>
@@ -132,7 +158,7 @@
         <item>#FD4C4A</item>
         <item>#F8D356</item>
     </string-array>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

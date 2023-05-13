@@ -8,7 +8,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Window
 import android.view.WindowManager
+import com.google.gson.Gson
+import com.hisu.english4kids.R
+import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.databinding.LayoutPurchaseHeartBinding
+import com.hisu.english4kids.utils.local.LocalDataManager
 
 class PurchaseHeartDialog(){
 
@@ -34,11 +38,10 @@ class PurchaseHeartDialog(){
         dialog.setContentView(binding.root)
         dialog.setCancelable(false)
 
-//        val width = (context.resources.displayMetrics.widthPixels * 0.95).toInt()
-//        val height = (context.resources.displayMetrics.heightPixels * 0.95).toInt()
+        val size = (context.resources.displayMetrics.widthPixels * 0.95).toInt()
 
         val window = dialog.window ?: return
-        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window.setLayout(size, WindowManager.LayoutParams.WRAP_CONTENT)
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val windowAttr = window.attributes
@@ -48,6 +51,17 @@ class PurchaseHeartDialog(){
         handleExitButton()
         handleFullRestoreButton()
         handleRestoreThreeButton()
+
+        val localDataManager = LocalDataManager()
+        localDataManager.init(context)
+
+        val currentUser = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
+
+        binding.tvCurrentCoin.text = String.format(
+            context.getString(R.string.you_are_having_pattern),
+            currentUser.golds
+        )
+
     }
 
     private fun handleExitButton() = binding.btnExit.setOnClickListener {

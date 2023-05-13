@@ -8,5 +8,6 @@ class GameStyleTwo(
     score: Int,
     var question: String,
     var correctAns: String,
+    var isPlayed: Boolean = false,
     var cards: List<Card>
 ): BaseGamePlay(roundId, playType, score)

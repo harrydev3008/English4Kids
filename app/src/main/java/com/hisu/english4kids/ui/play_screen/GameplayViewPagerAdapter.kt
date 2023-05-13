@@ -16,8 +16,8 @@ import com.hisu.english4kids.ui.play_screen.gameplay.type_answer.TypeAnswerFragm
 class GameplayViewPagerAdapter(
     fragmentActivity: FragmentActivity,
     private val nextRoundListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String) -> Unit
+    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit
 ) : FragmentStateAdapter(fragmentActivity) {
 
     var gameplays = listOf<Object>()

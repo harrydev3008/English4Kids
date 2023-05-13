@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,19 +17,25 @@ import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.google.gson.JsonObject
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.CONTENT_TYPE_JSON
 import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.model.course.Course
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.CourseResponseModel
 import com.hisu.english4kids.data.network.response_model.DataCourse
+import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
 import com.hisu.english4kids.databinding.FragmentHomeBinding
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.DailyRewardDialog
+import com.hisu.english4kids.widget.dialog.LoadingDialog
+import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +49,8 @@ class HomeFragment : Fragment() {
     private lateinit var localDataManager: LocalDataManager
     private lateinit var coursesResponse: List<Course>
     private lateinit var courseAdapter: CourseItemViewPagerAdapter
+    private lateinit var mLoadingDialog: LoadingDialog
+    private lateinit var dialog: DailyRewardDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,9 +63,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mLoadingDialog = LoadingDialog(requireContext(), Gravity.CENTER)
+
         setUpView()
         handleDailyReward()
-        initFeatureMovieList()
+        initCoursesList()
         getCourses()
         leaderBoard()
         competitiveMode()
@@ -100,7 +111,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun dailyReward() = binding.btnDailyReward.setOnClickListener {
-        val dialog = DailyRewardDialog(requireContext(), Gravity.CENTER)
+         dialog = DailyRewardDialog(requireContext(), Gravity.CENTER) {
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("golds", it.reward)
+
+            val bodyRequest = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), jsonObject.toString())
+
+            requireActivity().runOnUiThread {
+                mLoadingDialog.showDialog()
+            }
+
+            API.apiService.claimDailyReward("Bearer ${localDataManager.getUserAccessToken()}" ,bodyRequest).enqueue(handleClaimDaily)
+        }
         dialog.showDialog()
     }
 
@@ -118,18 +140,29 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initFeatureMovieList() = binding.vpCourses.apply {
+    private fun initCoursesList() = binding.vpCourses.apply {
         courseAdapter = CourseItemViewPagerAdapter(requireContext()) {
-            val action = HomeFragmentDirections.homeToLesson(
-                courseId = it._id,
-                title = it.title
-            )
-            findNavController().navigate(action)
+            if(MyUtils.isNetworkAvailable(requireContext())) {
+                val action = HomeFragmentDirections.homeToLesson(
+                    courseId = it._id,
+                    title = it.title
+                )
+                findNavController().navigate(action)
+            } else {
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.err_network_not_available))
+                        .setSubtitle(requireContext().getString(R.string.err_connect_internet_to_learn))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
+                }
+            }
         }
 
         val transformer = CompositePageTransformer()
 
-        transformer.addTransformer(MarginPageTransformer(30))
+        transformer.addTransformer(MarginPageTransformer(15))
         transformer.addTransformer { page, position ->
             val r = 1 - abs(position)
             page.scaleY = 0.85f + r * 0.15f
@@ -160,6 +193,53 @@ class HomeFragment : Fragment() {
         }
 
         override fun onFailure(call: Call<CourseResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                iOSDialogBuilder(requireContext())
+                    .setTitle(requireContext().getString(R.string.request_err))
+                    .setSubtitle(requireContext().getString(R.string.err_network_not_connected))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
+            }
+            Log.e(HomeFragment::class.java.name, t.message ?: "error message")
+        }
+    }
+
+    private val handleClaimDaily = object : Callback<UpdateUserResponseModel> {
+        override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
+            if (response.isSuccessful && response.code() == STATUS_OK) {
+                response.body()?.apply {
+                    this.data?.apply {
+                        val playerInfoJson = Gson().toJson(this.updatedUser)
+                        localDataManager.setUserLoinState(true)
+                        localDataManager.setUserInfo(playerInfoJson)
+
+                        requireActivity().runOnUiThread {
+                            mLoadingDialog.dismissDialog()
+                            iOSDialogBuilder(requireContext())
+                                .setTitle(requireContext().getString(R.string.confirm_otp))
+                                .setSubtitle(requireContext().getString(R.string.claimed_success))
+                                .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                                    it.dismiss()
+                                    dialog.dismissDialog()
+                                }.build().show()
+                        }
+                    }
+                }
+            } else {
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.claimed_err))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                            dialog.dismissDialog()
+                        }.build().show()
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<UpdateUserResponseModel>, t: Throwable) {
             requireActivity().runOnUiThread {
                 iOSDialogBuilder(requireContext())
                     .setTitle(requireContext().getString(R.string.request_err))

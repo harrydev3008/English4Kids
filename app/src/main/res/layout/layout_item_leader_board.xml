@@ -4,8 +4,11 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:id="@+id/parent_view"
     android:gravity="center_vertical"
-    android:layout_marginTop="@dimen/_10sdp">
+    android:paddingVertical="@dimen/_10sdp"
+    android:paddingHorizontal="@dimen/_6sdp">
 
     <TextView
         android:id="@+id/tv_index"
@@ -20,8 +23,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cimv_user_pfp"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
         android:src="@drawable/bg"
         app:civ_border_width="2dp"
         app:civ_border_color="@color/classic"
@@ -33,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:text="@string/app_name"
-        android:textSize="@dimen/_16ssp"
+        android:textSize="@dimen/_15ssp"
         android:fontFamily="@font/roboto_bold"
         android:includeFontPadding="false"
         android:textColor="@color/light_black"
@@ -48,6 +51,6 @@
         android:fontFamily="@font/roboto_bold"
         android:includeFontPadding="false"
         android:textAlignment="textEnd"
-        android:textSize="@dimen/_16ssp"
+        android:textSize="@dimen/_14ssp"
         android:textColor="@color/light_black" />
 </LinearLayout>

@@ -9,5 +9,6 @@ class GameStyleSix  (
     var question: String,
     var cards: List<Card>,
     var allowedMoves: Int = 0,
+    var isPlayed: Boolean = false,
     var totalPairs: Int = 0,
 ) : BaseGamePlay(roundId, playType, score)

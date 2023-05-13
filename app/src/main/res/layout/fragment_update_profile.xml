@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.setting.UpdateProfileFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        android:layout_alignParentTop="true"
         android:background="@drawable/bg_border_bottom"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:paddingHorizontal="@dimen/_4sdp">
+        android:paddingHorizontal="@dimen/_8sdp">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -23,76 +23,127 @@
             android:src="@drawable/ic_round_arrow_back_24"
             tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/tv_title"
+        <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_4sdp"
-            android:text="@string/user_profile_desc"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
-            android:textAlignment="center"
+            android:text="@string/done"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp" />
-
-        <Space
-            android:id="@+id/btn_setting_notification"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:textSize="@dimen/_18ssp"
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_above="@+id/btn_logout"
         android:layout_below="@+id/linearLayout"
-        android:layout_above="@+id/bottom_action_btn"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_12sdp">
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_10sdp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/user_profile_desc"
+            android:textAlignment="center"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_20ssp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cimv_user_pfp"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            app:civ_border_color="@color/gray"
-            app:civ_border_width="2dp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_gravity="center"
             android:src="@drawable/test_rm"
-            android:layout_gravity="center"/>
+            app:civ_border_color="@color/gray"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/display_name"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_18ssp" />
 
         <EditText
             android:id="@+id/edt_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_word_border"
-            android:paddingVertical="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_12sdp"
             android:hint="@string/username"
+            android:inputType="text"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_10sdp"
             android:textSize="@dimen/_16ssp"
-            android:paddingHorizontal="@dimen/_12sdp"/>
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/phone_number"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_18ssp" />
 
         <EditText
             android:id="@+id/edt_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_word_border"
-            android:paddingVertical="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:hint="@string/phone_number"
-            android:textColor="@color/light_black"
             android:enabled="false"
-            android:inputType="number"
+            android:hint="@string/phone_number"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:textColor="@color/light_black"
             android:textSize="@dimen/_16ssp"
-            android:paddingHorizontal="@dimen/_12sdp"/>
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/password"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_18ssp" />
+
+        <TextView
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_word_border"
+            android:text="@string/hidden_password"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_18ssp"
+            tools:ignore="Autofill" />
 
         <TextView
             android:id="@+id/tv_join_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_12sdp"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
             android:text="@string/join_date_pattern"
             android:textColor="@color/light_black"
@@ -100,43 +151,21 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/bottom_action_btn"
+    <TextView
+        android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginVertical="@dimen/_10sdp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/_10sdp">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_10sdp"
-            android:text="@string/save"
-            android:enabled="false"
-            style="@style/LoginButtonStyle"
-            android:fontFamily="@font/roboto_bold"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:textSize="@dimen/_14ssp"
-            app:cornerRadius="@dimen/_10sdp"/>
-
-        <TextView
-            android:id="@+id/btn_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_10sdp"
-            android:text="@string/logout"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:fontFamily="@font/roboto_bold"
-            android:includeFontPadding="false"
-            android:textColor="@color/text_incorrect"
-            android:textSize="@dimen/_18ssp"
-            android:textAlignment="center"/>
-    </LinearLayout>
+        android:layout_marginTop="@dimen/_6sdp"
+        android:background="@drawable/bg_word_border_selected_red"
+        android:fontFamily="@font/roboto_bold"
+        android:includeFontPadding="false"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:text="@string/logout"
+        android:textAlignment="center"
+        android:textColor="@color/text_incorrect"
+        android:textSize="@dimen/_18ssp" />
 
 </RelativeLayout>

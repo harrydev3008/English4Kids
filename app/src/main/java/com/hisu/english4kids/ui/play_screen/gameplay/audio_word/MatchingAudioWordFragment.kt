@@ -14,8 +14,8 @@ import com.hisu.english4kids.databinding.FragmentMatchingAudioWordBinding
 
 class MatchingAudioWordFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String) -> Unit,
+    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit,
     private val gameStyleFive: GameStyleFive,
     private var gameIndex: Int
 ) : Fragment() {
@@ -64,7 +64,7 @@ class MatchingAudioWordFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 audioImageAdapter.isLockView = true
-                correctAnswerListener.invoke(gameStyleFive.score, gameStyleFive.roundId)
+                correctAnswerListener.invoke(gameStyleFive.score, gameStyleFive.roundId, gameStyleFive.isPlayed)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -74,7 +74,7 @@ class MatchingAudioWordFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
                 audioImageAdapter.isLockView = true
 
-                wrongAnswerListener.invoke(gameIndex)
+                wrongAnswerListener.invoke(gameIndex, gameStyleFive.isPlayed)
             }
         }
 

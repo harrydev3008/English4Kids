@@ -70,7 +70,7 @@ class MyUtils {
 //            return "${letters[0][0]}${letters[1][0]}".uppercase()
         }
 
-        fun createImageFromText(context: Context, text: String): Bitmap {
+        fun createImageFromText(context: Context, text: String, color: String = ""): Bitmap {
 
             val width = 150
             val height = 150
@@ -94,7 +94,12 @@ class MyUtils {
             canvas.drawRoundRect(rectF, roundPx, roundPx, paintCircle)
 
             paintText.textAlign = Paint.Align.CENTER
-            paintText.color = context.getColor(R.color.gray)
+
+            if (color.isEmpty())
+                paintText.color = context.getColor(R.color.gray)
+            else
+                paintText.color = Color.parseColor(color)
+
             paintText.textSize = 64f
 
             val xPos = (canvas.width / 2).toFloat()

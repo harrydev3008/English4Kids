@@ -36,7 +36,7 @@
                 android:includeFontPadding="false"
                 android:text="Phần giới thiệu Tiếng Anh"
                 android:textColor="@color/light_black"
-                android:textSize="@dimen/_18ssp"
+                android:textSize="@dimen/_16ssp"
                 android:textStyle="bold" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/_20sdp"
+                android:layout_marginVertical="@dimen/_12sdp"
                 android:fontFamily="@font/roboto"
                 android:includeFontPadding="false"
                 android:text="Khởi động cùng một số cụm từ và ngữ pháp cơ bản"
@@ -76,7 +76,7 @@
                 android:ellipsize="end"
                 android:textAlignment="center"
                 android:textColor="@color/gray_af"
-                android:textSize="@dimen/_16ssp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton

@@ -5,5 +5,6 @@ class GameStyleFour (
     playType: Int,
     score: Int,
     var question: String,
-    var correctAns: String
+    var correctAns: String,
+    var isPlayed: Boolean = false,
 ) : BaseGamePlay(roundId, playType, score)
