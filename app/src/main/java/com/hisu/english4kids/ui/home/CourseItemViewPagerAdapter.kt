@@ -24,25 +24,17 @@ class CourseItemViewPagerAdapter(
         )
     }
 
+    private var imageResources = context.resources.getIntArray(R.array.course_cover_images)
+
     override fun onBindViewHolder(holder: CourseItemViewHolder, position: Int) {
         val course = courses[position]
         holder.apply {
             bindData(course, position)
 
-            if(position == 0) {
-                holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm)
-            } else if(position == 1) {
-                holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm_2)
-            } else if(position == 2) {
-                holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm_3)
-            } else if(position == 3) {
-                holder.binding.imvTempAvatar.setImageResource(R.drawable.rm_test_4)
-            } else {
-                holder.binding.imvTempAvatar.setImageResource(R.drawable.test_rm_3)
-            }
+            holder.binding.imvTempAvatar.setImageResource(imageResources[position])
 
             binding.btnStartCourse.setOnClickListener {
-                if (!course.isLock)
+                if (!course.isLock)//todo: have to check this logic
                     itemClickListener.invoke(course)
             }
         }
@@ -60,20 +52,16 @@ class CourseItemViewPagerAdapter(
             pbCourseProgress.max = course.totalLevel
             pbCourseProgress.progress = course.currentLevel
 
-            if (course.isComplete) {
-                btnStartCourse.text = context.getString(R.string.review)
-            } else {
 
-                cardParent.strokeColor = Color.parseColor(colors[position])
-                pbCourseProgress.setIndicatorColor(Color.parseColor(colors[position]))
-                btnStartCourse.setBackgroundColor(Color.parseColor(colors[position]))
+            cardParent.strokeColor = Color.parseColor(colors[position])
+            pbCourseProgress.setIndicatorColor(Color.parseColor(colors[position]))
+            btnStartCourse.setBackgroundColor(Color.parseColor(colors[position]))
 
-                if (course.isLock) {
-                    cardParent.strokeColor = ContextCompat.getColor(context, R.color.light_gray)
-                    tvProgressNumber.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
-                    tvCourseTitle.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
-                    btnStartCourse.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
-                }
+            if (course.isLock) {
+                cardParent.strokeColor = ContextCompat.getColor(context, R.color.light_gray)
+                tvProgressNumber.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
+                tvCourseTitle.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
+                btnStartCourse.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
             }
 
             tvProgressNumber.text = String.format(
@@ -81,6 +69,14 @@ class CourseItemViewPagerAdapter(
                 course.currentLevel,
                 course.totalLevel
             )
+
+            if(course.currentLevel == 0) {
+                btnStartCourse.text = context.getString(R.string.start_course)
+            } else if(course.currentLevel < course.totalLevel) {
+                btnStartCourse.text = context.getString(R.string.next)
+            } else {
+                btnStartCourse.text = context.getString(R.string.review)
+            }
         }
     }
 }

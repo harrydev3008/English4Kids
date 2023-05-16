@@ -36,7 +36,7 @@
         android:layout_below="@id/imv_background"
         android:layout_marginTop="@dimen/_8sdp"
         android:textColor="@color/light_black"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"
         android:paddingHorizontal="@dimen/_8sdp"/>
 
@@ -49,7 +49,7 @@
         android:layout_marginVertical="@dimen/_12sdp"
         android:layout_marginBottom="19dp"
         android:backgroundTint="@color/competitive"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"
         android:paddingVertical="@dimen/_12sdp"
         android:text="@string/mode_competitive"

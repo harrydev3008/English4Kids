@@ -7,7 +7,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -31,7 +30,6 @@ import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.DailyRewardDialog
 import com.hisu.english4kids.widget.dialog.LoadingDialog
-import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
@@ -209,7 +207,7 @@ class HomeFragment : Fragment() {
         override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
             if (response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
-                    this.data?.apply {
+                    this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserLoinState(true)
                         localDataManager.setUserInfo(playerInfoJson)

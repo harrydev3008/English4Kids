@@ -13,6 +13,8 @@
         android:text="@string/complete_this_sentence"
         android:layout_alignParentTop="true"
         android:paddingHorizontal="@dimen/_8sdp"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:includeFontPadding="false"
         android:textColor="@color/light_black"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold" />
@@ -43,6 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
             android:text="@string/app_name"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
             android:textColor="@color/black"
             android:textStyle="italic"
             android:textSize="@dimen/_16ssp" />

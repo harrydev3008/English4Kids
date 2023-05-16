@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/_8sdp"
         android:text="@string/resend_otp"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/be_vietnam_bold"
         android:textColor="@color/light_black"
         android:textSize="@dimen/_18ssp" />
 

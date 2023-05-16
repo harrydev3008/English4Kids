@@ -31,9 +31,9 @@
             android:textAlignment="center"
             android:textSize="@dimen/_18ssp"
             android:textColor="@color/white"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
-            android:text="Học Tiếng Anh"/>
+            android:text="@string/app_name"/>
 
         <ImageView
             android:id="@+id/btn_setting"
@@ -59,10 +59,12 @@
         android:layout_height="@dimen/_20sdp"
         />
 
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        app:flexDirection="column"
+        app:justifyContent="space_evenly"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/_40sdp"
         android:gravity="center">
@@ -75,9 +77,10 @@
             android:drawableEnd="@drawable/ic_ranking_star"
             android:drawablePadding="@dimen/_8sdp"
             android:paddingHorizontal="@dimen/_16sdp"
-            android:paddingVertical="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
             android:text="@string/leader_board"
-            android:layout_marginVertical="@dimen/_12sdp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp"
@@ -91,12 +94,14 @@
             android:drawablePadding="@dimen/_8sdp"
             android:paddingHorizontal="@dimen/_16sdp"
             android:background="@drawable/btn_bg_competitive_state"
-            android:paddingVertical="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_12sdp"
             android:text="@string/mode_competitive"
             android:textAlignment="center"
             android:textColor="@color/white"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
             android:textSize="@dimen/_16ssp"
             android:tooltipText="@string/mode_competitive_tool_tip"/>
-    </LinearLayout>
+    </com.google.android.flexbox.FlexboxLayout>
 
 </LinearLayout>

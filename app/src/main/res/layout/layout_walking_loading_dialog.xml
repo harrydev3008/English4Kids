@@ -30,7 +30,7 @@
             android:textSize="@dimen/_17ssp"
             android:textAlignment="center"
             android:textColor="@color/light_black"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"/>
 
     </LinearLayout>

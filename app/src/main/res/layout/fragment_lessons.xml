@@ -10,7 +10,7 @@
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="63dp"
         android:background="@color/daily"
         android:gravity="center"
         android:orientation="horizontal"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_fire_solid"
             android:drawablePadding="@dimen/_6sdp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/be_vietnam_bold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:paddingHorizontal="@dimen/_8sdp"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_coin"
             android:drawablePadding="@dimen/_6sdp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/be_vietnam_bold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:maxLength="3"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_heart_fill"
             android:drawablePadding="@dimen/_6sdp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/be_vietnam_bold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:maxLength="1"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_border_bottom"
         android:drawableStart="@drawable/ic_side_menu"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"
         android:paddingHorizontal="@dimen/_8sdp"
         android:paddingBottom="@dimen/_8sdp"
@@ -105,14 +105,5 @@
         </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rv_lessons"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--        tools:itemCount="4"-->
-<!--        tools:listitem="@layout/layout_lesson_header" />-->
 
 </LinearLayout>

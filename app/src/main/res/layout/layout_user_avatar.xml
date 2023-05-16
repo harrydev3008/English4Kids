@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/be_vietnam"
         android:textSize="@dimen/_14ssp"
         android:includeFontPadding="false"
         android:layout_marginTop="@dimen/_2sdp"

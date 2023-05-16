@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imv_leader_board_frame"
         android:layout_marginTop="0dp"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"
         android:paddingHorizontal="@dimen/_4sdp"
         android:paddingVertical="@dimen/_6sdp"

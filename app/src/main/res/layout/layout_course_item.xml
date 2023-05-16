@@ -32,9 +32,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/be_vietnam_bold"
                 android:includeFontPadding="false"
-                android:text="Phần giới thiệu Tiếng Anh"
+                android:text="@string/course_title_pattern"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold" />
@@ -58,9 +58,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/course_progress_pattern"
                 android:textColor="@color/light_black"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/be_vietnam"
                 android:includeFontPadding="false"
-                android:textSize="@dimen/_15ssp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <TextView
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginVertical="@dimen/_12sdp"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/be_vietnam"
                 android:includeFontPadding="false"
                 android:text="Khởi động cùng một số cụm từ và ngữ pháp cơ bản"
                 android:maxLines="2"
@@ -86,7 +86,8 @@
                 android:enabled="true"
                 android:paddingVertical="@dimen/_8sdp"
                 android:text="@string/next"
-                android:fontFamily="@font/roboto_bold"
+                android:textAllCaps="true"
+                android:fontFamily="@font/be_vietnam_bold"
                 android:includeFontPadding="false"
                 android:backgroundTint="@color/daily"
                 android:textColor="@color/white"

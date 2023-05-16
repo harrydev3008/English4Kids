@@ -11,8 +11,9 @@
         android:id="@+id/tv_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:text="Translate me"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:includeFontPadding="false"
+        android:text="@string/app_name"
         android:textColor="@color/gray"
         android:textSize="@dimen/_16sdp"
         android:paddingVertical="@dimen/_16sdp"

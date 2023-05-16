@@ -135,7 +135,7 @@ class LoginFragment : Fragment() {
 
             if(response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
-                    this.data?.apply {
+                    this.data.apply {
                         val localDataManager = LocalDataManager()
                         localDataManager.init(requireContext())
 

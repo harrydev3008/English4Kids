@@ -17,6 +17,8 @@
         android:paddingVertical="@dimen/_6sdp"
         android:text="@string/app_name"
         android:textAlignment="center"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:includeFontPadding="false"
         android:textColor="@color/light_black"
         android:textStyle="bold"
         android:textSize="@dimen/_16ssp" />

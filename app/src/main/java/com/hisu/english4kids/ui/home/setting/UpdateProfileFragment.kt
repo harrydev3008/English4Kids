@@ -220,7 +220,7 @@ class UpdateProfileFragment : Fragment() {
 
             if(response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
-                    this.data?.apply {
+                    this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
 

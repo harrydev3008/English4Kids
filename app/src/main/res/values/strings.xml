@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">English 4 Kid</string>
+    <string name="app_name">English For Kid</string>
     <string name="mode_learning">Học Tiếng Anh</string>
     <string name="mode_learning_tool_tip">Vừa chơi vừa học Tiếng Anh thật vui vẻ!</string>
     <string name="mode_competitive">Luyện Tập</string>
@@ -140,6 +140,8 @@
     <string name="start_round_to_earn_pattern">Bắt đầu ngay</string>
     <string name="start_played_round_to_earn_pattern">Ôn tập</string>
     <string name="bonus_gold_pattern">+ %1$d</string>
+    <string name="course_title_pattern">Phần %1$d: %2$s</string>
+    <string name="start_course">Bắt Đầu</string>
 
     <!-- Notification info   -->
     <string name="notification_learning_channel_id">notification_learning_id</string>
@@ -158,7 +160,17 @@
         <item>#FD4C4A</item>
         <item>#F8D356</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <integer-array name="course_cover_images">
+        <item>@drawable/test_rm</item>
+        <item>@drawable/test_rm_2</item>
+        <item>@drawable/test_rm_3</item>
+        <item>@drawable/rm_test_4</item>
+        <item>@drawable/test_rm_2</item>
+        <item>@drawable/test_rm</item>
+        <item>@drawable/test_rm_3</item>
+    </integer-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

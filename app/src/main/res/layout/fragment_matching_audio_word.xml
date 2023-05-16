@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/what_can_you_hear"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:includeFontPadding="false"
         android:layout_alignParentTop="true"
         android:paddingHorizontal="@dimen/_8sdp"
         android:textColor="@color/light_black"

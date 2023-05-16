@@ -5,7 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/card_parent"
-    app:cardBackgroundColor="@color/classic"
+    app:cardBackgroundColor="@color/light_blue_gray"
+    app:strokeWidth="@dimen/_2sdp"
+    app:strokeColor="@color/gray_af"
     app:cardCornerRadius="@dimen/_12sdp">
 
     <LinearLayout
@@ -15,39 +17,26 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_round"
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/round_pattern"
+            android:text="@string/app_name"
             android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
-            android:textColor="@color/white"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_18ssp" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/be_vietnam"
+            android:includeFontPadding="false"
+            android:justificationMode="inter_word"
+            android:textColor="@color/gray"
             android:textSize="@dimen/_16ssp" />
-
-        <TextView
-            android:id="@+id/tv_played"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bạn đã hoàn thành màn chơi này, chơi lại sẽ được ôn lại kiến thức, không mất tim nhưng không có điểm!"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:justificationMode="inter_word"
-            android:fontFamily="@font/be_vietnam"
-            android:includeFontPadding="false"
-            android:textSize="@dimen/_14ssp" />
-
-        <TextView
-            android:id="@+id/tv_not_played"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Màn chơi mới! Hoàn thành sẽ có thưởng!"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:justificationMode="inter_word"
-            android:fontFamily="@font/be_vietnam"
-            android:includeFontPadding="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_start"
