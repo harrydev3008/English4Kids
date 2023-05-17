@@ -15,10 +15,8 @@ import com.hisu.english4kids.R
 import com.hisu.english4kids.data.*
 import com.hisu.english4kids.data.model.course.Lesson
 import com.hisu.english4kids.data.network.API
-import com.hisu.english4kids.data.network.ApiService
 import com.hisu.english4kids.data.network.response_model.*
 import com.hisu.english4kids.databinding.FragmentLessonsBinding
-import com.hisu.english4kids.ui.play_screen.PlayFragment
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
@@ -56,8 +54,8 @@ class LessonsFragment : Fragment() {
 
         initView()
         backToHomePage()
-        setUpLevels()
-        loadLevel()
+        setUpLessonsRecyclerView()
+        loadLessons()
     }
 
     private fun initView() {
@@ -71,7 +69,7 @@ class LessonsFragment : Fragment() {
 //        findNavController().navigate(R.id.action_classModeLevelFragment_to_courseFragment)
     }
 
-    private fun setUpLevels() = binding.rvLessons.apply {
+    private fun setUpLessonsRecyclerView() = binding.rvLessons.apply {
         lessonsAdapter = LessonAdapter(requireContext(), ::handleLessonClick)
         adapter = lessonsAdapter
     }
@@ -122,7 +120,7 @@ class LessonsFragment : Fragment() {
         }
     }
 
-    private fun loadLevel() {
+    private fun loadLessons() {
         API.apiService.getLessonByCourseId(
             "Bearer ${localDataManager.getUserAccessToken()}",
             myNavArgs.courseId
@@ -133,7 +131,7 @@ class LessonsFragment : Fragment() {
         override fun onResponse(call: Call<LessonResponseModel>, response: Response<LessonResponseModel>) {
             if (response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
-                    this.data?.apply {
+                    this.data.apply {
                         lessonsAdapter?.lessons = this.lession
                         lessonsAdapter?.notifyDataSetChanged()
                         binding.rvLessons.adapter = lessonsAdapter

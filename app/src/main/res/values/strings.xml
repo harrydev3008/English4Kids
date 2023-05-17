@@ -94,6 +94,8 @@
     <string name="review_submit">Xem lại câu sai</string>
     <string name="oopss">Úi! Có bài sai!</string>
     <string name="fix_wrong_exp">Cùng nhau sửa những bài tập bạn đã làm sai nào!</string>
+    <string name="course_locked_desc">Khoá học bị khoá</string>
+    <string name="course_locked">Hoàn thành các khoá học trước để mở khoá khoá học này bạn nhé!</string>
     <string name="round_locked_desc">Màn chơi bị khoá</string>
     <string name="round_locked">Hoàn thành các màn chơi trước để mở khoá màn chơi này bạn nhé!</string>
     <string name="change_password_success">Thay đổi mật khẩu thành công!</string>

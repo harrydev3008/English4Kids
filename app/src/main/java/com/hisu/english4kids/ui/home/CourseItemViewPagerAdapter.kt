@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hisu.english4kids.R
 import com.hisu.english4kids.databinding.LayoutCourseItemBinding
 import com.hisu.english4kids.data.model.course.Course
+import com.hisu.english4kids.widget.dialog.MessageDialog
 
 class CourseItemViewPagerAdapter(
     var context: Context,
@@ -24,19 +25,13 @@ class CourseItemViewPagerAdapter(
         )
     }
 
-    private var imageResources = context.resources.getIntArray(R.array.course_cover_images)
+    private var imageResources = context.resources.obtainTypedArray(R.array.course_cover_images)
 
     override fun onBindViewHolder(holder: CourseItemViewHolder, position: Int) {
         val course = courses[position]
         holder.apply {
+            binding.imvTempAvatar.setImageResource(imageResources.getResourceId(position, R.drawable.rm_test_4))
             bindData(course, position)
-
-            holder.binding.imvTempAvatar.setImageResource(imageResources[position])
-
-            binding.btnStartCourse.setOnClickListener {
-                if (!course.isLock)//todo: have to check this logic
-                    itemClickListener.invoke(course)
-            }
         }
     }
 
@@ -52,16 +47,24 @@ class CourseItemViewPagerAdapter(
             pbCourseProgress.max = course.totalLevel
             pbCourseProgress.progress = course.currentLevel
 
-
             cardParent.strokeColor = Color.parseColor(colors[position])
             pbCourseProgress.setIndicatorColor(Color.parseColor(colors[position]))
             btnStartCourse.setBackgroundColor(Color.parseColor(colors[position]))
 
-            if (course.isLock) {
+            if (position != 0 && course.currentLevel == 0 && courses[position - 1].currentLevel < courses[position - 1].totalLevel) {
                 cardParent.strokeColor = ContextCompat.getColor(context, R.color.light_gray)
                 tvProgressNumber.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
                 tvCourseTitle.setTextColor(ContextCompat.getColor(context, R.color.light_gray))
                 btnStartCourse.setBackgroundColor(ContextCompat.getColor(context, R.color.light_gray))
+
+                btnStartCourse.setOnClickListener {
+                    MessageDialog(context, context.getString(R.string.course_locked_desc), context.getString(R.string.course_locked), true).showDialog()
+                }
+
+            } else {
+                btnStartCourse.setOnClickListener {
+                    itemClickListener.invoke(course)
+                }
             }
 
             tvProgressNumber.text = String.format(

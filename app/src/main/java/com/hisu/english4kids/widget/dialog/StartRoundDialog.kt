@@ -65,6 +65,10 @@ class StartRoundDialog() {
             binding.btnStart.text = context.getString(R.string.start_round_to_earn_pattern)
         }
 
+        binding.btnClose.setOnClickListener {
+            dismissDialog()
+        }
+
         binding.btnStart.setOnClickListener {
             btnStart.invoke()
         }

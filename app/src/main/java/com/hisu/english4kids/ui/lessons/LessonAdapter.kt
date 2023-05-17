@@ -48,9 +48,6 @@ class LessonAdapter(
             tvHeader.text = lesson.title
             tvHeaderDesc.text = lesson.description
 
-            val gridLayoutManager = GridLayoutManager(context, 2)
-            gridLayoutManager.spanSizeLookup = spanSizeLookUp
-
             val gameProgressAdapter = GameplayProgressAdapter(context) { position, status: Int ->
                 run {
                     lessonClickListener.invoke(lesson, position, status)
@@ -59,52 +56,55 @@ class LessonAdapter(
 
             val mGamePlays = mutableListOf<Gameplay>()
 
-            if(lessonPosition != 0 && lessons[lessonPosition - 1].playedRounds <  lessons[lessonPosition - 1].totalRounds) {
-                for(i in 0 until lesson.rounds.size) {
-                    mGamePlays.add(Gameplay(-1))
-                }
-            } else {
-                for(i in 0 until lesson.rounds.size) {
-                    val obj = gson.fromJson(gson.toJsonTree(lesson.rounds[i]), JsonObject::class.java)
+//todo: refactor later
 
-                    if(obj.get("isPlayed") != null) {
-                        if ((obj.get("isPlayed").toString()).toBoolean())
-                            mGamePlays.add(Gameplay(1))
-                        else {
+//            if(lessonPosition != 0 && lessons[lessonPosition - 1].playedRounds <  lessons[lessonPosition - 1].totalRounds) {
+//                for(i in 0 until lesson.rounds.size) {
+//                    mGamePlays.add(Gameplay(-1))
+//                }
+//            } else {
+//                for(i in 0 until lesson.rounds.size) {
+//                    val obj = gson.fromJson(gson.toJsonTree(lesson.rounds[i]), JsonObject::class.java)
+//
+//                    if(obj.get("isPlayed") != null) {
+//                        if ((obj.get("isPlayed").toString()).toBoolean())
+//                            mGamePlays.add(Gameplay(1))
+//                        else {
+//
+//                            if (i == 0) {
+//                                mGamePlays.add(Gameplay(0))
+//                            } else if(i != 0) {
+//                                val prevObj = gson.fromJson(gson.toJsonTree(lesson.rounds[i - 1]), JsonObject::class.java)
+//                                if((prevObj.get("isPlayed").toString()).toBoolean()) {
+//                                    mGamePlays.add(Gameplay(0))
+//                                } else {
+//                                    mGamePlays.add(Gameplay(-1))
+//                                }
+//                            }else {
+//                                mGamePlays.add(Gameplay(-1))
+//                            }
+//                        }
+//                    } else {
+//                        if((lesson.playedRounds == 0 && i == 0) || (lesson.playedRounds < lesson.totalRounds && i == lesson.playedRounds - 1))
+//                            mGamePlays.add(Gameplay(0))
+//                        else
+//                            mGamePlays.add(Gameplay(-1))
+//                    }
+//                }
+//            }
 
-                            if (i == 0) {
-                                mGamePlays.add(Gameplay(0))
-                            } else if(i != 0) {
-                                val prevObj = gson.fromJson(gson.toJsonTree(lesson.rounds[i - 1]), JsonObject::class.java)
-                                if((prevObj.get("isPlayed").toString()).toBoolean()) {
-                                    mGamePlays.add(Gameplay(0))
-                                } else {
-                                    mGamePlays.add(Gameplay(-1))
-                                }
-                            }else {
-                                mGamePlays.add(Gameplay(-1))
-                            }
-                        }
-                    } else {
-                        if((lesson.playedRounds == 0 && i == 0) || (lesson.playedRounds < lesson.totalRounds && i == lesson.playedRounds - 1))
-                            mGamePlays.add(Gameplay(0))
-                        else
-                            mGamePlays.add(Gameplay(-1))
-                    }
-                }
-            }
+            gameProgressAdapter.gameplays = listOf(//todo: test, remove this one later
+                Gameplay(1),
+                Gameplay(1),
+                Gameplay(0),
+                Gameplay(-1),
+                Gameplay(-1),
+                Gameplay(-1),
+                Gameplay(-1),
+                Gameplay(-1),
+            )
 
-            gameProgressAdapter.gameplays = mGamePlays
-
-            rvRounds.layoutManager = gridLayoutManager
             rvRounds.adapter = gameProgressAdapter
-        }
-    }
-
-    private val spanSizeLookUp = object : GridLayoutManager.SpanSizeLookup() {
-        override fun getSpanSize(position: Int): Int {
-            if (position == 0 || position % 5 == 0) return 2
-            return 1
         }
     }
 

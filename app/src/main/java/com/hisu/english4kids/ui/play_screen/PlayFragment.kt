@@ -23,6 +23,7 @@ import com.hisu.english4kids.databinding.FragmentPlayBinding
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.GameFinishDialog
 import com.hisu.english4kids.widget.dialog.LoadingDialog
+import com.hisu.english4kids.widget.dialog.MessageDialog
 import com.hisu.english4kids.widget.dialog.PurchaseHeartDialog
 import es.dmoral.toasty.Toasty
 import okhttp3.MediaType
@@ -136,24 +137,21 @@ class PlayFragment : Fragment() {
                     findNavController().popBackStack()
                 }
             } else {
-                iOSDialogBuilder(requireContext())
-                    .setTitle(requireContext().getString(R.string.oopss))
-                    .setSubtitle(requireContext().getString(R.string.fix_wrong_exp))
-                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
-                        it.dismiss()
+                MessageDialog(
+                    requireContext(), requireContext().getString(R.string.oopss),
+                    requireContext().getString(R.string.fix_wrong_exp)
+                ).setStartBtnEvent {
+                    gameplays.clear()
+                    gameplays.addAll(unfinishedGameplays)
+                    unfinishedGameplays.clear()
 
-                        gameplays.clear()
-                        gameplays.addAll(unfinishedGameplays)
-                        unfinishedGameplays.clear()
-
-                        wrongAnswerCount = 0
-                        binding.pbStar.max = gameplays.size
-                        binding.pbStar.progress = 0
-                        gameplayViewPagerAdapter.setGamePlays(gameplays)
-                        gameplayViewPagerAdapter.notifyDataSetChanged()
-                        binding.flRoundContainer.adapter = gameplayViewPagerAdapter
-
-                    }.build().show()
+                    wrongAnswerCount = 0
+                    binding.pbStar.max = gameplays.size
+                    binding.pbStar.progress = 0
+                    gameplayViewPagerAdapter.setGamePlays(gameplays)
+                    gameplayViewPagerAdapter.notifyDataSetChanged()
+                    binding.flRoundContainer.adapter = gameplayViewPagerAdapter
+                }.showDialog()
             }
         }
     }
@@ -276,7 +274,7 @@ class PlayFragment : Fragment() {
 
             if(response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
-                    this.data?.apply {
+                    this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
 
@@ -321,7 +319,7 @@ class PlayFragment : Fragment() {
 
             if(response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
-                    this.data?.apply {
+                    this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
                     }
@@ -355,7 +353,7 @@ class PlayFragment : Fragment() {
 
             if(response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
-                    this.data?.apply {
+                    this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
                         requireActivity().runOnUiThread {

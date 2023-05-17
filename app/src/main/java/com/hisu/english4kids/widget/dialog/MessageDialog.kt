@@ -29,8 +29,9 @@ class MessageDialog() {
         initDialog()
     }
 
-    fun setStartBtnEvent(btnStartCallback: () -> Unit) {
+    fun setStartBtnEvent(btnStartCallback: () -> Unit): MessageDialog {
         this.btnStartCallback = btnStartCallback
+        return this@MessageDialog
     }
 
     private fun initDialog() {
@@ -62,15 +63,25 @@ class MessageDialog() {
             cardParent.strokeColor = ContextCompat.getColor(context, R.color.gray_af)
             tvTitle.setTextColor(ContextCompat.getColor(context, R.color.gray))
             tvSubtitle.setTextColor(ContextCompat.getColor(context, R.color.gray))
-            btnStart.visibility = View.GONE
+            btnStart.visibility = View.VISIBLE
+            btnStart.text = context.getString(R.string.confirm_otp)
+            btnStart.setBackgroundColor(ContextCompat.getColor(context, R.color.gray_af))
+            btnStart.setTextColor(ContextCompat.getColor(context, R.color.light_blue_gray))
+
+            btnStart.setOnClickListener {
+               dismissDialog()
+            }
         } else {
             cardParent.setCardBackgroundColor(ContextCompat.getColor(context, R.color.classic))
             tvTitle.setTextColor(ContextCompat.getColor(context, R.color.white))
             tvSubtitle.setTextColor(ContextCompat.getColor(context, R.color.white))
             btnStart.visibility = View.VISIBLE
             btnStart.text = context.getString(R.string.start_round_to_earn_pattern)
+            btnStart.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+            btnStart.setTextColor(ContextCompat.getColor(context, R.color.classic))
 
             btnStart.setOnClickListener {
+                dismissDialog()
                 btnStartCallback.invoke()
             }
         }

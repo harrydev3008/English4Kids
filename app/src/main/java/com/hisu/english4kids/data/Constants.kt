@@ -16,30 +16,31 @@ const val CONTENT_TYPE_JSON = "application/json"
 const val PATH_INTERNET_TIME = "api/timezone/Asia/Ho_Chi_Minh/"
 
 //public - no token needed
-const val PATH_SEARCH_USER_BY_PHONE = "public/player/search"
+const val PATH_SEARCH_USER_BY_PHONE = "public/search"
 
 //course - token needed
-const val PATH_GET_COURSE = "course/player"
+const val PATH_GET_COURSE = "course/"
 
 //lesson - token needed
-const val PATH_GET_LESSON_BY_COURSE_ID = "lession/player/{courseId}"
+const val PATH_GET_LESSON_BY_COURSE_ID = "lession/{courseId}"
 
 //auth
-const val PATH_AUTH_LOGIN = "auth/player/login"
-const val PATH_AUTH_REGISTER = "auth/player/register"
-const val PATH_AUTH_LOGOUT = "auth/player/logout"
-const val PATH_AUTH_CHANGE_PASSWORD = "user/player/change-password"
-const val PATH_AUTH_FORGOT_PASSWORD = "user/player/forget-password"
-const val CHECK_SSO = "auth/player/checkSSO"
+const val PATH_AUTH_LOGIN = "auth/login"
+const val PATH_AUTH_REGISTER = "auth/register"
+const val PATH_AUTH_LOGOUT = "auth/logout"
+const val CHECK_SSO = "auth/checkSSO"
 
-//diary
+//diary - token needed
 const val PATH_UPDATE_USER_DIARY = "diary/player"
 
-//user player
-const val PATH_UPDATE_USER_INFO = "user/player"
-const val PATH_BUY_HEART = "user/player/hearts"
-const val PATH_UPDATE_GOLDS = "user/player/updateGolds"
-const val PATH_GET_WEEKLY_RANK = "user/player/scoreBoard"
-const val PATH_GET_USER_INFO = "user/player"
-const val PATH_DAILY = "user/player/login-rewards"
-const val PATH_UPDATE_HEART = "user/player/update-hearts"
+//user player - token needed
+const val PATH_UPDATE_USER_INFO = "user"
+const val PATH_GET_USER_INFO = "user"
+const val PATH_BUY_HEART = "user/hearts"
+const val PATH_UPDATE_GOLDS = "user/updateGolds"
+const val PATH_GET_WEEKLY_RANK = "user/scoreBoard"
+
+const val PATH_DAILY = "user/login-rewards"
+const val PATH_UPDATE_HEART = "user/update-hearts"
+const val PATH_AUTH_CHANGE_PASSWORD = "user/change-password"
+const val PATH_AUTH_FORGOT_PASSWORD = "user/forget-password"
