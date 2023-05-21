@@ -23,19 +23,37 @@
             android:background="@android:color/transparent"
             tools:ignore="ContentDescription" />
 
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/pb_star"
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:max="100"
-                android:progress="0"
-                android:layout_gravity="center"
-                app:indicatorColor="@color/darker_green"
-                app:trackColor="@color/gray_e5"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                app:trackThickness="@dimen/_12sdp"
-                app:trackCornerRadius="20dp" />
+                android:layout_weight="1">
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/pb_star"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:max="10"
+                    android:progress="0"
+                    app:indicatorColor="@color/darker_green"
+                    app:trackColor="@color/gray_e5"
+                    app:trackCornerRadius="20dp"
+                    app:trackThickness="@dimen/_16sdp" />
+
+                <TextView
+                    android:id="@+id/tv_current_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/game_progress_pattern"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/btn_pause"

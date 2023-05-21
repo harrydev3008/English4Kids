@@ -86,7 +86,7 @@
                 android:enabled="true"
                 android:paddingVertical="@dimen/_8sdp"
                 android:text="@string/next"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:fontFamily="@font/be_vietnam_bold"
                 android:includeFontPadding="false"
                 android:backgroundTint="@color/daily"

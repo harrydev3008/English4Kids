@@ -107,6 +107,9 @@
         <action
             android:id="@+id/otp_to_reset_pwd"
             app:destination="@id/resetPasswordFragment" />
+        <action
+            android:id="@+id/action_checkOTPFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
 
     <fragment
@@ -251,5 +254,14 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.hisu.english4kids.ui.auth.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

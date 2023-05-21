@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".ui.auth.WelcomeFragment"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingHorizontal="@dimen/_12sdp">
+
+    <TextView
+        android:id="@+id/tv_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_18ssp"
+        android:textColor="@color/light_black"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:includeFontPadding="false"
+        android:text="Chọn level của bạn"
+        android:paddingVertical="@dimen/_12sdp"/>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/btn_save"
+       android:layout_below="@+id/tv_app"
+       android:gravity="center"
+       android:orientation="vertical">
+
+       <LinearLayout
+           android:id="@+id/layout_starter"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:background="@drawable/bg_word_border"
+           android:paddingVertical="@dimen/_8sdp"
+           android:paddingHorizontal="@dimen/_4sdp">
+
+           <ImageView
+               android:layout_width="0dp"
+               android:layout_height="@dimen/_80sdp"
+               android:layout_weight="1"
+               android:scaleType="centerCrop"
+               android:src="@drawable/test_rm_2"/>
+
+           <androidx.appcompat.widget.LinearLayoutCompat
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="2"
+               android:orientation="vertical">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Lần đầu tiên học Tiếng Anh?"
+                   android:textColor="@color/light_black"
+                   android:textSize="@dimen/_18ssp"
+                   android:fontFamily="@font/be_vietnam_bold"
+                   android:includeFontPadding="false"/>
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Học từ số 0!"
+                   android:textColor="@color/gray"
+                   android:textSize="@dimen/_18ssp"
+                   android:fontFamily="@font/be_vietnam"
+                   android:includeFontPadding="false"/>
+           </androidx.appcompat.widget.LinearLayoutCompat>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/layout_inter"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:background="@drawable/bg_word_border"
+           android:paddingVertical="@dimen/_8sdp"
+           android:layout_marginTop="@dimen/_24sdp"
+           android:paddingHorizontal="@dimen/_4sdp">
+
+           <ImageView
+               android:layout_width="0dp"
+               android:layout_height="@dimen/_80sdp"
+               android:layout_weight="1"
+               android:scaleType="centerCrop"
+               android:src="@drawable/test_rm_3"/>
+
+           <androidx.appcompat.widget.LinearLayoutCompat
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="2"
+               android:orientation="vertical">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Biết một chút Tiếng Anh"
+                   android:textColor="@color/light_black"
+                   android:textSize="@dimen/_18ssp"
+                   android:fontFamily="@font/be_vietnam_bold"
+                   android:includeFontPadding="false"/>
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Bắt đầu ngay!"
+                   android:textColor="@color/gray"
+                   android:textSize="@dimen/_18ssp"
+                   android:fontFamily="@font/be_vietnam"
+                   android:includeFontPadding="false"/>
+           </androidx.appcompat.widget.LinearLayoutCompat>
+
+       </LinearLayout>
+
+   </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/confirm_otp"
+        android:backgroundTint="@color/daily"
+        app:cornerRadius="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_8sdp"
+        android:textSize="@dimen/_16ssp"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:includeFontPadding="false"/>
+
+</RelativeLayout>

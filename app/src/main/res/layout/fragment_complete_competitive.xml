@@ -113,18 +113,32 @@
             app:justifyContent="space_evenly"
             app:alignItems="center">
 
-            <TextView
-                android:id="@+id/tv_coins"
+            <LinearLayout
+                android:id="@+id/coin_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:drawablePadding="@dimen/_8sdp"
-                android:drawableEnd="@drawable/ic_coin"
-                android:fontFamily="@font/roboto_bold"
-                android:includeFontPadding="false"
-                android:text="+ 100"
-                android:textColor="@color/yellow"
-                android:textSize="@dimen/_20ssp" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_2sdp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_gold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/yellow"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:includeFontPadding="false"
+                    android:text="+100"
+                    android:textSize="@dimen/_20ssp"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_coin_reward"
+                    android:layout_marginStart="@dimen/_8sdp"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_weekly_score"
@@ -147,6 +161,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_12sdp"
         android:layout_alignParentBottom="true">
 
         <com.google.android.material.button.MaterialButton

@@ -30,7 +30,7 @@
         android:textSize="@dimen/_15ssp"
         android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"
-        android:paddingVertical="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_8sdp"
         android:layout_margin="@dimen/_12sdp"
         app:cornerRadius="@dimen/_10sdp"/>
 

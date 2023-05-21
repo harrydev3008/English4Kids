@@ -15,6 +15,7 @@ import com.hisu.english4kids.data.model.card.Card
 import com.hisu.english4kids.data.model.game_play.GameStyleSix
 import com.hisu.english4kids.databinding.FragmentMatchingWordPairsBinding
 import es.dmoral.toasty.Toasty
+import java.lang.ref.WeakReference
 import java.util.*
 
 class MatchingWordPairsFragment(
@@ -71,7 +72,7 @@ class MatchingWordPairsFragment(
 
         binding.tvModeLevel.text = requireContext().getString(R.string.tap_connect_pairs)
 
-        wordPairsAdapter = MatchingWordPairsAdapter(requireContext(), ::handle)
+        wordPairsAdapter = MatchingWordPairsAdapter(WeakReference(requireActivity()), requireContext(), ::handle)
 
         wordPairsAdapter.pairs = gameStyleSix.cards
 

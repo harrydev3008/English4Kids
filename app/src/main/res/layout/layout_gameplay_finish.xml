@@ -62,46 +62,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cardCornerRadius="@dimen/_16sdp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/yellow"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="@string/total_score"
-                            android:textAlignment="center"
-                            android:fontFamily="@font/be_vietnam"
-                            android:includeFontPadding="false"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_14ssp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tv_total_exp_score"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
-                            android:background="@drawable/bg_rounded_white"
-                            android:paddingVertical="@dimen/_10sdp"
-                            android:text="999"
-                            android:textAlignment="center"
-                            android:textColor="@color/yellow"
-                            android:textSize="@dimen/_16ssp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_weight="1"
                     app:cardCornerRadius="@dimen/_16sdp">
 
@@ -183,22 +144,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 app:justifyContent="space_evenly"
                 app:alignItems="center">
 
-                <TextView
-                    android:id="@+id/tv_coins"
+                <LinearLayout
+                    android:id="@+id/coin_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:drawableEnd="@drawable/ic_coin"
-                    android:fontFamily="@font/roboto_bold"
-                    android:includeFontPadding="false"
-                    android:text="+ 100"
-                    android:textColor="@color/yellow"
-                    android:textSize="@dimen/_20ssp" />
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_2sdp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_gold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/yellow"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:fontFamily="@font/be_vietnam_bold"
+                        android:includeFontPadding="false"
+                        android:text="+100"
+                        android:textSize="@dimen/_18ssp"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@drawable/ic_coin_reward"
+                        android:layout_marginStart="@dimen/_8sdp"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_weekly_score"
@@ -207,9 +182,9 @@
                     android:gravity="center"
                     android:drawablePadding="@dimen/_8sdp"
                     android:drawableEnd="@drawable/ic_fire_solid"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/be_vietnam_bold"
                     android:includeFontPadding="false"
-                    android:text="+ 100"
+                    android:text="+100"
                     android:textColor="@color/text_incorrect"
                     android:textSize="@dimen/_20ssp" />
             </com.google.android.flexbox.FlexboxLayout>

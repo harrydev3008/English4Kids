@@ -11,6 +11,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import com.hisu.english4kids.R
+import java.util.concurrent.TimeUnit
 
 class MyUtils {
     companion object {
@@ -108,6 +109,12 @@ class MyUtils {
             canvas.drawText(getLetterFromName(text), xPos, yPos, paintText);
 
             return output
+        }
+
+        fun convertMilliSecondsToMMSS(time: Long): String {
+            val minute = TimeUnit.MILLISECONDS.toMinutes(time)
+            val second = TimeUnit.MILLISECONDS.toSeconds(time) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(time))
+            return String.format("%02d:%02d", minute, second)
         }
     }
 }

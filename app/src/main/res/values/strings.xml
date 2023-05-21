@@ -144,6 +144,8 @@
     <string name="bonus_gold_pattern">+ %1$d</string>
     <string name="course_title_pattern">Phần %1$d: %2$s</string>
     <string name="start_course">Bắt Đầu</string>
+    <string name="game_progress_pattern">%1$d/%2$d</string>
+    <string name="multiple_choice_pattern">Câu: %1$02d/%2$02d</string>
 
     <!-- Notification info   -->
     <string name="notification_learning_channel_id">notification_learning_id</string>

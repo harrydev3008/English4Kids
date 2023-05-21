@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.multiple_choice.MultipleChoiceModel
 import com.hisu.english4kids.data.model.multiple_choice.MultipleChoicesResponse
 import com.hisu.english4kids.databinding.FragmentMultipleChoiceContainerBinding
@@ -36,6 +37,10 @@ class MultipleChoiceContainerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mWalkingLoadingDialog = WalkingLoadingDialog(requireContext())
+
+        binding.cardCompetitiveHeader.tvQuestionCount.text = String.format(
+            requireContext().getString(R.string.multiple_choice_pattern), 5, 20
+        )
 
         setUpViewPager()
         handleNextQuestion()
@@ -119,7 +124,7 @@ class MultipleChoiceContainerFragment : Fragment() {
 
     private val countDownTimer =  object : CountDownTimer(10 * 1000L, 1000) {
         override fun onTick(millisUntilFinished: Long) {
-            binding.cardCompetitiveHeader.pbTimer.progress = binding.cardCompetitiveHeader.pbTimer.progress - 1
+//            binding.cardCompetitiveHeader.pbTimer.progress = binding.cardCompetitiveHeader.pbTimer.progress - 1
         }
 
         override fun onFinish() {

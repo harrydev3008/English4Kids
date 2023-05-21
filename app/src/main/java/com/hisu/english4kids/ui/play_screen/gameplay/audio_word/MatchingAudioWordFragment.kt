@@ -1,6 +1,5 @@
 package com.hisu.english4kids.ui.play_screen.gameplay.audio_word
 
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.game_play.GameStyleFive
 import com.hisu.english4kids.databinding.FragmentMatchingAudioWordBinding
@@ -25,8 +25,6 @@ class MatchingAudioWordFragment(
     private val _result = MutableLiveData<Boolean>()
     private val result: LiveData<Boolean> = _result
     private lateinit var answer: String
-
-    private val mediaPlayer: MediaPlayer = MediaPlayer()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,11 +99,7 @@ class MatchingAudioWordFragment(
     }
 
     private fun playAudio() = binding.ibtnAudioQuestion.setOnClickListener {
-        mediaPlayer.stop()
-        mediaPlayer.reset()
-        mediaPlayer.setDataSource(gameStyleFive.question)
-        mediaPlayer.prepare()
-        mediaPlayer.start()
+        (requireActivity() as MainActivity).playAudio(gameStyleFive.question)
     }
 
     override fun onDestroyView() {

@@ -1,12 +1,13 @@
 package com.hisu.english4kids.ui.play_screen
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
@@ -20,6 +21,7 @@ import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
 import com.hisu.english4kids.databinding.FragmentPlayBinding
+import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.GameFinishDialog
 import com.hisu.english4kids.widget.dialog.LoadingDialog
@@ -31,7 +33,6 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.concurrent.TimeUnit
 
 class PlayFragment : Fragment() {
 
@@ -67,17 +68,25 @@ class PlayFragment : Fragment() {
         localDataManager = LocalDataManager()
         localDataManager.init(requireContext())
 
+    }
+
+    private fun initView() {
         player = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
 
         initDialog()
         handleQuitGameButton()
-        startGamePlayTime = System.nanoTime()
+        startGamePlayTime = SystemClock.elapsedRealtime()
 
         val itemType = object : TypeToken<List<Object>>() {}.type
         val temp = Gson().fromJson<List<Object>>(arguments?.getString(BUNDLE_LESSON_DATA), itemType)
         gameplays.addAll(temp)
 
         binding.pbStar.max = gameplays.size
+        binding.tvCurrentProgress.text = String.format(
+            requireContext().getString(R.string.game_progress_pattern),
+            binding.pbStar.progress, binding.pbStar.max
+        )
+
         binding.tvLife.text = player.hearts.toString()
 
         setUpViewpager()
@@ -102,12 +111,25 @@ class PlayFragment : Fragment() {
         if (binding.flRoundContainer.currentItem < gameplays.size - 1) {
             gameplayViewPagerAdapter.notifyItemChanged(binding.flRoundContainer.currentItem + 1)
             binding.pbStar.progress = binding.pbStar.progress + 1
+
+            binding.tvCurrentProgress.text = String.format(
+                requireContext().getString(R.string.game_progress_pattern),
+                binding.pbStar.progress, binding.pbStar.max
+            )
+
+            if(binding.pbStar.progress > binding.pbStar.max / 2) {
+                binding.tvCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            } else {
+                binding.tvCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_black))
+            }
+
             binding.flRoundContainer
                 .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
         } else {
 
             if(unfinishedGameplays.size == 0) {
-                val finishTime = System.nanoTime() - startGamePlayTime
+                val finishTime = SystemClock.elapsedRealtime() - startGamePlayTime
+
                 val gameRes = calculateFinalResult(finishTime)
 
                 requireActivity().runOnUiThread {
@@ -123,8 +145,7 @@ class PlayFragment : Fragment() {
                     "Bearer ${localDataManager.getUserAccessToken()}", requestBody
                 ).enqueue(handleUpdateGolds)
 
-                val finishDialog =
-                    GameFinishDialog(requireContext(), Gson().toJsonTree(gameRes))
+                val finishDialog = GameFinishDialog(requireContext(), Gson().toJsonTree(gameRes))
                 finishDialog.showDialog()
 
                 finishDialog.setExitCallback {
@@ -157,6 +178,7 @@ class PlayFragment : Fragment() {
     }
 
     private fun handleWrongAnswer(position: Int, isPlayed: Boolean) {
+        //todo: call api to update wrong question later
         unfinishedGameplays.add(gameplays[position])
 
         if(!isPlayed) {
@@ -236,19 +258,12 @@ class PlayFragment : Fragment() {
     }
 
     private fun calculateFinalResult(finishTime: Long): FinalResult {
-
-        val minute = TimeUnit.NANOSECONDS.toMinutes(finishTime)
-        val second = TimeUnit.NANOSECONDS.toSeconds(finishTime)
-        totalScore = if (minute < 1) totalScore * 2 else totalScore
-
-        val finalResult = FinalResult(
-            "$minute:$second",
+        return FinalResult(
+            MyUtils.convertMilliSecondsToMMSS(finishTime),
             ((correctAnswerCount.toFloat() / gameplays.size) * 100).toInt(),
             totalScore,
             golds = totalScore / 2
         )
-
-        return finalResult
     }
 
     private val handleUpdateDiaryCallback = object: Callback<Any> {

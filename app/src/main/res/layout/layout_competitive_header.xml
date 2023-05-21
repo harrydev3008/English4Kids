@@ -6,42 +6,53 @@
     style="@style/CustomCardViewStyle"
     android:backgroundTint="#8937C7">
 
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/_8sdp">
+        app:justifyContent="space_between"
+        app:alignItems="center"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_6sdp">
 
         <TextView
-            android:id="@+id/tv_question"
+            android:id="@+id/tv_question_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Câu 01/30"
+            android:text="Câu 01/25"
             android:layout_gravity="center"
             android:fontFamily="@font/be_vietnam_bold"
-            android:paddingVertical="@dimen/_4sdp"
-            android:paddingHorizontal="@dimen/_10sdp"
             android:includeFontPadding="false"
             android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="@dimen/_16ssp"/>
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/pb_timer"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:max="20"
-            android:progress="10"
-            android:layout_marginVertical="@dimen/_8sdp"
-            android:layout_gravity="center"
-            app:indicatorColor="@color/text_correct"
-            app:trackColor="@color/white"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            app:trackThickness="@dimen/_12sdp"
-            app:trackCornerRadius="20dp" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="end">
 
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/ic_timer_white"/>
 
+            <TextView
+                android:id="@+id/tv_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02:30"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:fontFamily="@font/be_vietnam_bold"
+                android:includeFontPadding="false"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textSize="@dimen/_16ssp"/>
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.flexbox.FlexboxLayout>
 
 </com.google.android.material.card.MaterialCardView>

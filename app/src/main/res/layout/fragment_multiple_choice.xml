@@ -12,7 +12,7 @@
         android:id="@+id/tv_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_12sdp"
         android:text="@string/resend_otp"
         android:fontFamily="@font/be_vietnam_bold"
         android:textColor="@color/light_black"

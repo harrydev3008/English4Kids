@@ -6,8 +6,11 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hisu.english4kids.databinding.ActivityMainBinding
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var backPressTime = 0L
     private val PRESS_TIME_INTERVAL = 2 * 1000
     private lateinit var mExitToast: Toast
+    private lateinit var mMediaPlayer:MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +36,22 @@ class MainActivity : AppCompatActivity() {
         val localDataManager = LocalDataManager()
         localDataManager.init(this)
 
-        createNotyChannel()
+        setUpMediaPlayer()
 
-        val isLearningRemind = localDataManager.getUserRemindLearningState()
+//        createNotyChannel()
+//        scheduleNotification()
+    }
 
-        if(isLearningRemind) {
-            scheduleNotification()
+    private fun setUpMediaPlayer() {
+        mMediaPlayer = MediaPlayer()
+
+        mMediaPlayer.setOnPreparedListener {
+            it?.start()
+        }
+
+        mMediaPlayer.setOnCompletionListener {
+            it?.stop()
+            it?.reset()
         }
     }
 
@@ -114,6 +128,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         backPressTime = System.currentTimeMillis()
+    }
+
+    fun playAudio(uri: String) {
+        try {
+            mMediaPlayer.stop()
+            mMediaPlayer.reset()
+            mMediaPlayer.setDataSource(this, Uri.parse(uri))
+            mMediaPlayer.prepareAsync()
+        } catch(e: Exception) {
+            Log.e(MainActivity::class.java.name, e.message ?: "Error while trying to play audio")
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mMediaPlayer.release()
     }
 
     override fun onDestroy() {

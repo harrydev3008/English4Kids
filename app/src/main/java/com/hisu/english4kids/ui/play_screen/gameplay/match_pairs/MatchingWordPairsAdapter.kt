@@ -1,27 +1,26 @@
 package com.hisu.english4kids.ui.play_screen.gameplay.match_pairs
 
+import android.app.Activity
 import android.content.Context
-import android.media.MediaPlayer
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.card.Card
 import com.hisu.english4kids.databinding.LayoutAudioWordMatchingBinding
 import com.hisu.english4kids.databinding.LayoutWordMatchingBinding
-
+import java.lang.ref.WeakReference
 
 class MatchingWordPairsAdapter(
+    private var weakActivity: WeakReference<Activity>,
     var context: Context,
     private val itemTapListener: (item: Card, position: Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val WORD_PAIRS_TYPE = 1
     private val AUDIO_WORD_PAIRS_TYPE = 2
-
-    private val mediaPlayer: MediaPlayer = MediaPlayer()
 
     var pairs = listOf<Card>()
     private var holders = mutableListOf<RecyclerView.ViewHolder>()
@@ -72,7 +71,7 @@ class MatchingWordPairsAdapter(
                 holder.binding.apply {
 
                     levelParent.setOnClickListener {
-                        playAudio(pair.answer)
+                        (weakActivity.get() as MainActivity).playAudio(pair.answer)
 
                         levelParent.background =
                             ContextCompat.getDrawable(
@@ -84,18 +83,6 @@ class MatchingWordPairsAdapter(
                 }
             }
         }
-    }
-
-    private fun playAudio(audio: String) {
-        /*
-        * when the previous audio is playing, stop the prev one, reset the state then play current
-        * audio file. Without .reset() wont work
-        */
-        mediaPlayer.stop()
-        mediaPlayer.reset()
-        mediaPlayer.setDataSource(context, Uri.parse(audio))
-        mediaPlayer.prepare()
-        mediaPlayer.start()
     }
 
     fun correctPairsSelected(position: Int) {

@@ -331,7 +331,7 @@ class CheckOTPFragment : Fragment() {
                                 mLoadingDialog.dismissDialog()
                             }
 
-                            findNavController().navigate(R.id.otp_to_home)
+                            findNavController().navigate(R.id.action_checkOTPFragment_to_welcomeFragment)
                         }, 3 * 1000)
                     }
                 }
