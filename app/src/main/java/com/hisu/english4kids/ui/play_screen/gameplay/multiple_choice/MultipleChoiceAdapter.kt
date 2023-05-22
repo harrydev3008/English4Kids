@@ -7,18 +7,19 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.english4kids.R
+import com.hisu.english4kids.data.model.exam.Answer
 import com.hisu.english4kids.databinding.LayoutMultipleChoiceItemBinding
+import com.hisu.english4kids.utils.MyUtils
 
 class MultipleChoiceAdapter(
     var context: Context,
-    private val itemTapListener: (item: String, position: Int) -> Unit
+    private val itemTapListener: (item: Answer) -> Unit
 ) : RecyclerView.Adapter<MultipleChoiceAdapter.MultipleChoiceViewHolder>() {
 
-    var choices = listOf<String>()
-    var isLockView = false
+    var answers = listOf<Answer>()
 
-    private var prevPick: TextView?= null
-    private var curPick: TextView?= null
+    private var prevPick: TextView? = null
+    private var curPick: TextView? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultipleChoiceViewHolder {
         return MultipleChoiceViewHolder(
@@ -30,54 +31,39 @@ class MultipleChoiceAdapter(
     }
 
     override fun onBindViewHolder(holder: MultipleChoiceViewHolder, position: Int) {
-        val choice = choices[position]
-        holder.bindData(choice, position)
+        val answer = answers[position]
+        holder.bindData(answer, position)
 
         holder.apply {
 
             binding.tvAnswerChoice.setOnClickListener {
 
-                if(!isLockView) {
+                curPick = binding.tvAnswerChoice
 
-                    curPick = binding.tvAnswerChoice
-
-                    prevPick?.apply {
-                        background = ContextCompat.getDrawable(context, R.drawable.bg_word_border)
-                        setTextColor(ContextCompat.getColor(context, R.color.gray))
-                    }
-
-                    curPick?.apply {
-                        background = ContextCompat.getDrawable(context, R.drawable.bg_word_border_selected_competitive)
-                        setTextColor(ContextCompat.getColor(context, R.color.competitive))
-                    }
-
-                    prevPick = binding.tvAnswerChoice
-
-                    itemTapListener.invoke(choice, position)
+                prevPick?.apply {
+                    background = ContextCompat.getDrawable(context, R.drawable.bg_word_border)
+                    setTextColor(ContextCompat.getColor(context, R.color.gray))
                 }
+
+                curPick?.apply {
+                    background = ContextCompat.getDrawable(context, R.drawable.bg_word_border_selected_competitive)
+                    setTextColor(ContextCompat.getColor(context, R.color.competitive))
+                }
+
+                prevPick = binding.tvAnswerChoice
+
+                itemTapListener.invoke(answer)
             }
         }
 
     }
 
-    override fun getItemCount(): Int = choices.size
+    override fun getItemCount(): Int = answers.size
 
     inner class MultipleChoiceViewHolder(var binding: LayoutMultipleChoiceItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(data: String, position: Int) = binding.apply {
-            tvAnswerChoice.text =
-                String.format(
-                    context.getString(R.string.answer_multiple_choice_pattern),
-                    renderAnswerAlphabetIndex(position),
-                    data
-                )
-        }
-
-        private fun renderAnswerAlphabetIndex(position: Int) = when (position) {
-            0 -> "A"
-            1 -> "B"
-            2 -> "C"
-            else -> "D"
+        fun bindData(data: Answer, position: Int) = binding.apply {
+            tvAnswerChoice.text = String.format(context.getString(R.string.answer_multiple_choice_pattern), MyUtils.renderAnswerAlphabetIndex(position), data.content)
         }
     }
 }

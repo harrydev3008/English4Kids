@@ -26,7 +26,7 @@
             android:id="@+id/tv_loading_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đang chuẩn bị, bạn chờ tý nhé!"
+            android:text="Đang chuẩn bị\n bạn chờ tý nhé!"
             android:textSize="@dimen/_17ssp"
             android:textAlignment="center"
             android:textColor="@color/light_black"

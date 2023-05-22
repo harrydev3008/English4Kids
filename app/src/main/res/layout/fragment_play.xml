@@ -55,32 +55,30 @@
 
             </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/btn_pause"
+        <LinearLayout
+            android:id="@+id/btn_heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_6sdp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_centerInParent="true"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
                 android:src="@drawable/ic_heart_fill" />
 
             <TextView
                 android:id="@+id/tv_life"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:fontFamily="@font/be_vietnam"
                 android:includeFontPadding="false"
                 android:text="5"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:textColor="@color/text_incorrect"
+                android:textSize="@dimen/_16sdp"
                 android:textStyle="bold" />
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2

@@ -20,8 +20,8 @@ import java.util.*
 
 class MatchingWordPairsFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit,
+    private val wrongAnswerListener: (roundId: String, position: Int, playStatus: String) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, playStatus: String) -> Unit,
     private val gameStyleSix: GameStyleSix,
     private var gameIndex: Int
 ) : Fragment() {
@@ -87,7 +87,7 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                correctAnswerListener.invoke(gameStyleSix.score, gameStyleSix.roundId, gameStyleSix.isPlayed)
+                correctAnswerListener.invoke(gameStyleSix.score, gameStyleSix.roundId, gameStyleSix.playStatus)
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -105,7 +105,7 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.tvCorrectAnswer.text =
                     requireContext().getString(R.string.better_luck_next_time)
 
-                wrongAnswerListener.invoke(gameIndex, gameStyleSix.isPlayed)
+                wrongAnswerListener.invoke(gameStyleSix.roundId, gameIndex, gameStyleSix.playStatus)
             }
         }
 

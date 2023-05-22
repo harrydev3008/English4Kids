@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.play_screen.gameplay.multiple_choice.ReviewQuestionFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/daily"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:elevation="4dp"
+        android:paddingHorizontal="@dimen/_8sdp">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_round_arrow_back_24"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/review_question_desc"
+            android:textAlignment="center"
+            android:textSize="@dimen/_18ssp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:justificationMode="inter_word"
+        android:paddingHorizontal="@dimen/_4sdp"
+        android:text="@string/multiple_choice_pattern"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/_15ssp" />
+
+    <ImageButton
+        android:id="@+id/ibtn_audio_question"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:src="@drawable/ic_round_volume_up_24_white"
+        android:background="@drawable/bg_icon_border"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imv_question_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:scaleType="centerInside"
+        android:src="@drawable/rm_test_4"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/answer_con"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_answer_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/answer_multiple_choice_pattern"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:visibility="gone"
+            android:textColor="@color/gray"
+            android:background="@drawable/bg_word_border" />
+
+        <TextView
+            android:id="@+id/tv_answer_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/answer_multiple_choice_pattern"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:visibility="gone"
+            android:textColor="@color/gray"
+            android:background="@drawable/bg_word_border" />
+
+
+        <TextView
+            android:id="@+id/tv_answer_c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/answer_multiple_choice_pattern"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:visibility="gone"
+            android:textColor="@color/gray"
+            android:background="@drawable/bg_word_border" />
+
+        <TextView
+            android:id="@+id/tv_answer_d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/answer_multiple_choice_pattern"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_12sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:visibility="gone"
+            android:textColor="@color/gray"
+            android:background="@drawable/bg_word_border" />
+    </LinearLayout>
+
+</LinearLayout>

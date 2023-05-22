@@ -51,16 +51,25 @@ class StartRoundDialog() {
             tvRound.text = title
         }
 
-        if(status== 1) {
+        if(status == 1) {//played
             binding.cardParent.setCardBackgroundColor(ContextCompat.getColor(context, R.color.daily))
             binding.tvPlayed.visibility = View.VISIBLE
             binding.tvNotPlayed.visibility = View.GONE
+            binding.tvPlayFailed.visibility = View.GONE
             binding.btnStart.setTextColor(ContextCompat.getColor(context, R.color.daily))
             binding.btnStart.text = context.getString(R.string.start_played_round_to_earn_pattern)
+        } else if(status == 2) {//play but fail
+            binding.cardParent.setCardBackgroundColor(ContextCompat.getColor(context, R.color.text_incorrect))
+            binding.tvPlayed.visibility = View.GONE
+            binding.tvNotPlayed.visibility = View.GONE
+            binding.tvPlayFailed.visibility = View.VISIBLE
+            binding.btnStart.setTextColor(ContextCompat.getColor(context, R.color.text_incorrect))
+            binding.btnStart.text = context.getString(R.string.start_round_to_earn_pattern)
         } else {
             binding.cardParent.setCardBackgroundColor(ContextCompat.getColor(context, R.color.classic))
             binding.tvPlayed.visibility = View.GONE
             binding.tvNotPlayed.visibility = View.VISIBLE
+            binding.tvPlayFailed.visibility = View.GONE
             binding.btnStart.setTextColor(ContextCompat.getColor(context, R.color.classic))
             binding.btnStart.text = context.getString(R.string.start_round_to_earn_pattern)
         }

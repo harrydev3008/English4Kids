@@ -14,8 +14,8 @@ import com.hisu.english4kids.databinding.FragmentMatchingAudioWordBinding
 
 class MatchingAudioWordFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit,
+    private val wrongAnswerListener: (roundId: String, position: Int, playStatus: String) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, playStatus: String) -> Unit,
     private val gameStyleFive: GameStyleFive,
     private var gameIndex: Int
 ) : Fragment() {
@@ -62,7 +62,7 @@ class MatchingAudioWordFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 audioImageAdapter.isLockView = true
-                correctAnswerListener.invoke(gameStyleFive.score, gameStyleFive.roundId, gameStyleFive.isPlayed)
+                correctAnswerListener.invoke(gameStyleFive.score, gameStyleFive.roundId, gameStyleFive.playStatus)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -72,7 +72,7 @@ class MatchingAudioWordFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
                 audioImageAdapter.isLockView = true
 
-                wrongAnswerListener.invoke(gameIndex, gameStyleFive.isPlayed)
+                wrongAnswerListener.invoke(gameStyleFive.roundId, gameIndex, gameStyleFive.playStatus)
             }
         }
 

@@ -131,8 +131,6 @@ class HomeFragment : Fragment() {
             val localCourses = Gson().fromJson(
                 localDataManager.getCourseInfo(), DataCourse::class.java
             )
-            coursesResponse = localCourses.courses
-            courseAdapter.courses = coursesResponse
             courseAdapter.notifyDataSetChanged()
             binding.circleIndicator.setViewPager(binding.vpCourses)
         }

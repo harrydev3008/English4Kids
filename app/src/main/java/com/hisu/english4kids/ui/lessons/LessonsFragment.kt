@@ -11,16 +11,28 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.hisu.english4kids.R
-import com.hisu.english4kids.data.*
+import com.hisu.english4kids.data.BUNDLE_COURSE_ID_DATA
+import com.hisu.english4kids.data.BUNDLE_LESSON_DATA
+import com.hisu.english4kids.data.BUNDLE_LESSON_ID_DATA
+import com.hisu.english4kids.data.BUNDLE_ROUND_PLAYED_DATA
+import com.hisu.english4kids.data.CONTENT_TYPE_JSON
+import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.model.course.Lesson
 import com.hisu.english4kids.data.network.API
-import com.hisu.english4kids.data.network.response_model.*
+import com.hisu.english4kids.data.network.response_model.LessonResponseModel
+import com.hisu.english4kids.data.network.response_model.SearchUserResponseModel
+import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
 import com.hisu.english4kids.databinding.FragmentLessonsBinding
+import com.hisu.english4kids.ui.play_screen.PlayFragment
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
+import com.hisu.english4kids.widget.dialog.PurchaseHeartDialog
 import com.hisu.english4kids.widget.dialog.StartRoundDialog
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,9 +42,12 @@ class LessonsFragment : Fragment() {
     private var _binding: FragmentLessonsBinding? = null
     private val binding get() = _binding!!
     private val myNavArgs: LessonsFragmentArgs by navArgs()
+
     private var lessonsAdapter: LessonAdapter? = null
+
     private lateinit var localDataManager: LocalDataManager
     private lateinit var mLoadingDialog: LoadingDialog
+    private lateinit var heartDialog: PurchaseHeartDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,9 +68,11 @@ class LessonsFragment : Fragment() {
         binding.tvMode.text = myNavArgs.title
 
         initView()
+        initDialog()
         backToHomePage()
         setUpLessonsRecyclerView()
         loadLessons()
+        handleButtonHeart()
     }
 
     private fun initView() {
@@ -72,6 +89,10 @@ class LessonsFragment : Fragment() {
     private fun setUpLessonsRecyclerView() = binding.rvLessons.apply {
         lessonsAdapter = LessonAdapter(requireContext(), ::handleLessonClick)
         adapter = lessonsAdapter
+    }
+
+    private fun handleButtonHeart() = binding.tvHeart.setOnClickListener {
+        heartDialog.showDialog()
     }
 
     private fun handleLessonClick(lesson: Lesson, position: Int, status: Int) {
@@ -120,6 +141,24 @@ class LessonsFragment : Fragment() {
         }
     }
 
+    private fun initDialog() {
+        heartDialog = PurchaseHeartDialog(requireContext())
+
+        heartDialog.setPurchaseCallback { amount ->
+
+            requireActivity().runOnUiThread {
+                mLoadingDialog.showDialog()
+            }
+
+            val obj = JsonObject()
+            obj.addProperty("hearts", amount)
+
+            val requestBody = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), obj.toString())
+
+            API.apiService.buyHeart("Bearer ${localDataManager.getUserAccessToken()}", requestBody).enqueue(handleBuyHearts)
+        }
+    }
+
     private fun loadLessons() {
         API.apiService.getLessonByCourseId(
             "Bearer ${localDataManager.getUserAccessToken()}",
@@ -165,7 +204,7 @@ class LessonsFragment : Fragment() {
                 response.body()?.apply {
                     this.data.user.apply {
                         val playerInfoJson = Gson().toJson(this)
-                            localDataManager.setUserInfo(playerInfoJson)
+                        localDataManager.setUserInfo(playerInfoJson)
 
                             requireActivity().runOnUiThread {
                                 binding.tvWeeklyScore.text = this.weeklyScore.toString()
@@ -191,6 +230,51 @@ class LessonsFragment : Fragment() {
                 mLoadingDialog.dismissDialog()
             }
             Log.e(LessonsFragment::class.java.name, t.message?: "error message")
+        }
+    }
+
+    private val handleBuyHearts = object: Callback<UpdateUserResponseModel> {
+        override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
+
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+
+            if(response.isSuccessful && response.code() == STATUS_OK) {
+                response.body()?.apply {
+                    this.data.apply {
+                        val playerInfoJson = Gson().toJson(this.updatedUser)
+                        localDataManager.setUserInfo(playerInfoJson)
+
+                        requireActivity().runOnUiThread {
+                            binding.tvHeart.text = this.updatedUser.hearts.toString()
+                            iOSDialogBuilder(requireContext())
+                                .setTitle(requireContext().getString(R.string.confirm_otp))
+                                .setSubtitle(requireContext().getString(R.string.buy_more_heart_success))
+                                .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                                    it.dismiss()
+                                    heartDialog.dismissDialog()
+                                }.build().show()
+                        }
+                    }
+                }
+            } else {
+                requireActivity().runOnUiThread {
+                    iOSDialogBuilder(requireContext())
+                        .setTitle(requireContext().getString(R.string.request_err))
+                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                            it.dismiss()
+                        }.build().show()
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<UpdateUserResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+            Log.e(PlayFragment::class.java.name, t.message?: "error message")
         }
     }
 }

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    app:cardCornerRadius="@dimen/_16sdp"
-    android:elevation="2dp">
+    android:elevation="2dp"
+    app:cardCornerRadius="@dimen/_16sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,8 +28,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lottieAnimationView"
             android:layout_above="@+id/layout_below"
+            android:layout_below="@+id/lottieAnimationView"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -37,12 +37,12 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/be_vietnam_bold"
+                android:includeFontPadding="false"
                 android:text="@string/complete_lesson"
                 android:textAlignment="center"
                 android:textColor="@color/yellow"
                 android:textSize="@dimen/_22ssp"
-                android:fontFamily="@font/be_vietnam_bold"
-                android:includeFontPadding="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
@@ -76,9 +76,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="@string/fast_score"
                             android:fontFamily="@font/be_vietnam"
                             android:includeFontPadding="false"
+                            android:text="@string/fast_score"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_14ssp"
@@ -143,46 +143,46 @@
                 android:id="@+id/layout_bonus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/_18sdp"
-                app:justifyContent="space_evenly"
-                app:alignItems="center">
+                android:orientation="horizontal"
+                app:alignItems="center"
+                app:justifyContent="space_evenly">
 
                 <LinearLayout
                     android:id="@+id/coin_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/_8sdp"
-                    android:paddingVertical="@dimen/_2sdp"
-                    android:gravity="center">
+                    android:paddingVertical="@dimen/_2sdp">
 
                     <TextView
                         android:id="@+id/tv_gold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/yellow"
                         android:drawablePadding="@dimen/_4sdp"
                         android:fontFamily="@font/be_vietnam_bold"
                         android:includeFontPadding="false"
                         android:text="+100"
-                        android:textSize="@dimen/_18ssp"/>
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/_18ssp" />
 
                     <ImageView
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:src="@drawable/ic_coin_reward"
-                        android:layout_marginStart="@dimen/_8sdp"/>
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:src="@drawable/ic_coin_reward" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_weekly_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:drawablePadding="@dimen/_8sdp"
                     android:drawableEnd="@drawable/ic_fire_solid"
+                    android:drawablePadding="@dimen/_8sdp"
                     android:fontFamily="@font/be_vietnam_bold"
+                    android:gravity="center"
                     android:includeFontPadding="false"
                     android:text="+100"
                     android:textColor="@color/text_incorrect"
@@ -204,27 +204,27 @@
                 android:id="@+id/btn_next_level"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="@string/next"
                 android:fontFamily="@font/be_vietnam_bold"
                 android:includeFontPadding="false"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/next"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14ssp"
                 app:backgroundTint="@color/classic"
-                app:cornerRadius="@dimen/_10sdp"/>
+                app:cornerRadius="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/btn_exit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="@string/cancel_match"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:fontFamily="@font/be_vietnam_bold"
                 android:includeFontPadding="false"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/cancel_match"
+                android:textAlignment="center"
                 android:textColor="@color/text_incorrect"
-                android:textSize="@dimen/_18ssp"
-                android:textAlignment="center"/>
+                android:textSize="@dimen/_18ssp" />
         </LinearLayout>
 
     </RelativeLayout>

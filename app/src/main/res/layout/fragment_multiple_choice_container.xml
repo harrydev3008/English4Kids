@@ -17,21 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginBottom="@dimen/_8sdp"
         android:paddingHorizontal="@dimen/_8sdp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_next_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/skip_current_question"
-        android:backgroundTint="#8937C7"
-        android:textAllCaps="false"
-        android:textSize="@dimen/_15ssp"
-        android:fontFamily="@font/be_vietnam_bold"
-        android:includeFontPadding="false"
-        android:paddingVertical="@dimen/_8sdp"
-        android:layout_margin="@dimen/_12sdp"
-        app:cornerRadius="@dimen/_10sdp"/>
 
 </LinearLayout>

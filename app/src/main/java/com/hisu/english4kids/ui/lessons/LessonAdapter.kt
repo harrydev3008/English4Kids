@@ -1,17 +1,18 @@
 package com.hisu.english4kids.ui.lessons
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.hisu.english4kids.R
+import com.google.gson.reflect.TypeToken
+import com.hisu.english4kids.data.PLAY_STATUS_DONE
+import com.hisu.english4kids.data.PLAY_STATUS_FAIL
+import com.hisu.english4kids.data.PLAY_STATUS_NONE
 import com.hisu.english4kids.data.model.course.Lesson
+import com.hisu.english4kids.data.model.game_play.BaseGamePlay
 import com.hisu.english4kids.data.model.game_play.Gameplay
 import com.hisu.english4kids.databinding.LayoutLessonHeaderBinding
 import com.hisu.english4kids.ui.home.GameplayProgressAdapter
@@ -54,55 +55,25 @@ class LessonAdapter(
                 }
             }
 
-            val mGamePlays = mutableListOf<Gameplay>()
+            val mGamePlays = MutableList(lesson.rounds.size) { Gameplay(-1) }
+            val roundsJson = gson.toJson(lesson.rounds)
+            val itemType = object : TypeToken<List<BaseGamePlay>>() {}.type
+            val baseGamePlays = Gson().fromJson<List<BaseGamePlay>>(roundsJson, itemType)
 
-//todo: refactor later
+            if (lessonPosition == 0 || (lessons[lessonPosition - 1].playedRounds == lessons[lessonPosition - 1].totalRounds)) {
+                for (i in baseGamePlays.indices) {
+                    if (baseGamePlays[i].playStatus == null || baseGamePlays[i].playStatus == PLAY_STATUS_NONE) {
+                        mGamePlays[i] = Gameplay(0)
+                        break
+                    } else if (baseGamePlays[i].playStatus == PLAY_STATUS_DONE) {
+                        mGamePlays[i] = Gameplay(1)
+                    } else if (baseGamePlays[i].playStatus == PLAY_STATUS_FAIL) {
+                        mGamePlays[i] = Gameplay(2)
+                    }
+                }
+            }
 
-//            if(lessonPosition != 0 && lessons[lessonPosition - 1].playedRounds <  lessons[lessonPosition - 1].totalRounds) {
-//                for(i in 0 until lesson.rounds.size) {
-//                    mGamePlays.add(Gameplay(-1))
-//                }
-//            } else {
-//                for(i in 0 until lesson.rounds.size) {
-//                    val obj = gson.fromJson(gson.toJsonTree(lesson.rounds[i]), JsonObject::class.java)
-//
-//                    if(obj.get("isPlayed") != null) {
-//                        if ((obj.get("isPlayed").toString()).toBoolean())
-//                            mGamePlays.add(Gameplay(1))
-//                        else {
-//
-//                            if (i == 0) {
-//                                mGamePlays.add(Gameplay(0))
-//                            } else if(i != 0) {
-//                                val prevObj = gson.fromJson(gson.toJsonTree(lesson.rounds[i - 1]), JsonObject::class.java)
-//                                if((prevObj.get("isPlayed").toString()).toBoolean()) {
-//                                    mGamePlays.add(Gameplay(0))
-//                                } else {
-//                                    mGamePlays.add(Gameplay(-1))
-//                                }
-//                            }else {
-//                                mGamePlays.add(Gameplay(-1))
-//                            }
-//                        }
-//                    } else {
-//                        if((lesson.playedRounds == 0 && i == 0) || (lesson.playedRounds < lesson.totalRounds && i == lesson.playedRounds - 1))
-//                            mGamePlays.add(Gameplay(0))
-//                        else
-//                            mGamePlays.add(Gameplay(-1))
-//                    }
-//                }
-//            }
-
-            gameProgressAdapter.gameplays = listOf(//todo: test, remove this one later
-                Gameplay(1),
-                Gameplay(1),
-                Gameplay(0),
-                Gameplay(-1),
-                Gameplay(-1),
-                Gameplay(-1),
-                Gameplay(-1),
-                Gameplay(-1),
-            )
+            gameProgressAdapter.gameplays = mGamePlays
 
             rvRounds.adapter = gameProgressAdapter
         }

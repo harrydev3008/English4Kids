@@ -6,19 +6,29 @@
     style="@style/CustomCardViewStyle"
     android:backgroundTint="#8937C7">
 
-    <com.google.android.flexbox.FlexboxLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:justifyContent="space_between"
         app:alignItems="center"
-        android:paddingHorizontal="@dimen/_12sdp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_8sdp"
         android:paddingVertical="@dimen/_6sdp">
 
+        <ImageButton
+            android:id="@+id/tv_back"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_clear_white_24dp"/>
+
+
         <TextView
-            android:id="@+id/tv_question_count"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Câu 01/25"
+            android:text="@string/mode_competitive"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
@@ -26,33 +36,9 @@
             android:textAlignment="center"
             android:textSize="@dimen/_16ssp"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_gravity="end">
-
-            <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/ic_timer_white"/>
-
-            <TextView
-                android:id="@+id/tv_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="02:30"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:fontFamily="@font/be_vietnam_bold"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textAlignment="center"
-                android:textSize="@dimen/_16ssp"/>
-
-        </LinearLayout>
-
-    </com.google.android.flexbox.FlexboxLayout>
+        <Space
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -114,6 +114,7 @@ dependencies {
     //working with API lib
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
 
     //image loading lib
     implementation "com.github.bumptech.glide:glide:$glide_version"

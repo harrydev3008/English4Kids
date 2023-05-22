@@ -136,6 +136,13 @@
         android:name="com.hisu.english4kids.ui.play_screen.gameplay.multiple_choice.MultipleChoiceContainerFragment"
         android:label="fragment_multiple_choice_container"
         tools:layout="@layout/fragment_multiple_choice_container">
+
+        <argument
+            android:name="examQuestions"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false"/>
+
         <action
             android:id="@+id/action_multipleChoiceContainerFragment_to_completeCompetitiveFragment"
             app:destination="@id/completeCompetitiveFragment" />
@@ -177,16 +184,20 @@
             app:destination="@id/homeFragment" />
 
         <argument
-            android:name="result"
+            android:name="answers"
             android:defaultValue=""
             app:argType="string"
             app:nullable="false" />
 
         <argument
-            android:name="time"
+            android:name="result"
             android:defaultValue=""
             app:argType="string"
             app:nullable="false" />
+
+        <action
+            android:id="@+id/action_completeCompetitiveFragment_to_reviewAnswerFragment"
+            app:destination="@id/reviewAnswerFragment" />
 
     </fragment>
     <fragment
@@ -260,8 +271,60 @@
         android:name="com.hisu.english4kids.ui.auth.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
+
+        <argument
+            android:name="phoneNumber"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="displayName"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="password"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
         <action
             android:id="@+id/action_welcomeFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewAnswerFragment"
+        android:name="com.hisu.english4kids.ui.play_screen.gameplay.multiple_choice.ReviewAnswerFragment"
+        android:label="fragment_review_answer"
+        tools:layout="@layout/fragment_review_answer" >
+
+        <argument
+            android:name="questions"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
+        <action
+            android:id="@+id/action_reviewAnswerFragment_to_completeCompetitiveFragment"
+            app:destination="@id/completeCompetitiveFragment" />
+        <action
+            android:id="@+id/action_reviewAnswerFragment_to_reviewQuestionFragment"
+            app:destination="@id/reviewQuestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewQuestionFragment"
+        android:name="com.hisu.english4kids.ui.play_screen.gameplay.multiple_choice.ReviewQuestionFragment"
+        android:label="fragment_review_question"
+        tools:layout="@layout/fragment_review_question" >
+
+        <argument
+            android:name="question"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+
+        <action
+            android:id="@+id/action_reviewQuestionFragment_to_reviewAnswerFragment"
+            app:destination="@id/reviewAnswerFragment" />
     </fragment>
 </navigation>

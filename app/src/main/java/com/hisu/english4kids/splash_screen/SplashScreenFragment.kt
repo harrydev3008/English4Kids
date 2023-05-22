@@ -76,7 +76,7 @@ class SplashScreenFragment : Fragment() {
         override fun onResponse(call: Call<AuthResponseModel>, response: Response<AuthResponseModel>) {
             if (response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
-                    this.data?.apply {
+                    this.data.apply {
                         val playerInfoJson = Gson().toJson(this.player)
 
                         localDataManager.setUserLoinState(true)

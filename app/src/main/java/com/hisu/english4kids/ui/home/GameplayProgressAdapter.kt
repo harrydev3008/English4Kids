@@ -3,10 +3,8 @@ package com.hisu.english4kids.ui.home
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.game_play.Gameplay
 import com.hisu.english4kids.databinding.LayoutGameplayProgressItemBinding
@@ -40,13 +38,17 @@ class GameplayProgressAdapter(
             fun bindData(gameplay: Gameplay, position: Int) = binding.apply {
 
                 when (gameplay.status) {
+                    0 -> {
+                        outerCircle.background = ContextCompat.getDrawable(context, R.drawable.bg_circle_blue)
+                        innerImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_solid))
+                    }
                     1 -> {
                         outerCircle.background = ContextCompat.getDrawable(context, R.drawable.bg_circle)
                         innerImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_rounded))
                     }
-                    0 -> {
-                        outerCircle.background = ContextCompat.getDrawable(context, R.drawable.bg_circle_blue)
-                        innerImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_solid))
+                    2 -> {
+                        outerCircle.background = ContextCompat.getDrawable(context, R.drawable.bg_circle_red)
+                        innerImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_alert))
                     }
                     else -> {
                         outerCircle.background = ContextCompat.getDrawable(context, R.drawable.bg_circle_black)

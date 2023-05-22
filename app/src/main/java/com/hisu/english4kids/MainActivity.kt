@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hisu.english4kids.databinding.ActivityMainBinding
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.utils.receiver.NotificationReceiver
-import java.util.*
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 

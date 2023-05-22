@@ -15,7 +15,12 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.hisu.english4kids.R
-import com.hisu.english4kids.data.*
+import com.hisu.english4kids.data.BUNDLE_COURSE_ID_DATA
+import com.hisu.english4kids.data.BUNDLE_LESSON_DATA
+import com.hisu.english4kids.data.BUNDLE_LESSON_ID_DATA
+import com.hisu.english4kids.data.CONTENT_TYPE_JSON
+import com.hisu.english4kids.data.PLAY_STATUS_DONE
+import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.model.result.FinalResult
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.Player
@@ -27,9 +32,9 @@ import com.hisu.english4kids.widget.dialog.GameFinishDialog
 import com.hisu.english4kids.widget.dialog.LoadingDialog
 import com.hisu.english4kids.widget.dialog.MessageDialog
 import com.hisu.english4kids.widget.dialog.PurchaseHeartDialog
-import es.dmoral.toasty.Toasty
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,10 +57,7 @@ class PlayFragment : Fragment() {
     private lateinit var player: Player
     private lateinit var mLoadingDialog: LoadingDialog
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPlayBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -68,6 +70,7 @@ class PlayFragment : Fragment() {
         localDataManager = LocalDataManager()
         localDataManager.init(requireContext())
 
+        initView()
     }
 
     private fun initView() {
@@ -90,6 +93,7 @@ class PlayFragment : Fragment() {
         binding.tvLife.text = player.hearts.toString()
 
         setUpViewpager()
+        handlePurchaseHeartButton()
     }
 
     private fun setUpViewpager() = binding.flRoundContainer.apply {
@@ -99,6 +103,10 @@ class PlayFragment : Fragment() {
         gameplayViewPagerAdapter.setGamePlays(gameplays)
 
         adapter = gameplayViewPagerAdapter
+    }
+
+    private fun handlePurchaseHeartButton() = binding.btnHeart.setOnClickListener {
+        heartDialog.showDialog()
     }
 
     private fun handleNextQuestion() {
@@ -112,10 +120,7 @@ class PlayFragment : Fragment() {
             gameplayViewPagerAdapter.notifyItemChanged(binding.flRoundContainer.currentItem + 1)
             binding.pbStar.progress = binding.pbStar.progress + 1
 
-            binding.tvCurrentProgress.text = String.format(
-                requireContext().getString(R.string.game_progress_pattern),
-                binding.pbStar.progress, binding.pbStar.max
-            )
+            binding.tvCurrentProgress.text = String.format(requireContext().getString(R.string.game_progress_pattern), binding.pbStar.progress, binding.pbStar.max)
 
             if(binding.pbStar.progress > binding.pbStar.max / 2) {
                 binding.tvCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -123,27 +128,13 @@ class PlayFragment : Fragment() {
                 binding.tvCurrentProgress.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_black))
             }
 
-            binding.flRoundContainer
-                .setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
+            binding.flRoundContainer.setCurrentItem(binding.flRoundContainer.currentItem + 1, true)
         } else {
 
             if(unfinishedGameplays.size == 0) {
                 val finishTime = SystemClock.elapsedRealtime() - startGamePlayTime
 
                 val gameRes = calculateFinalResult(finishTime)
-
-                requireActivity().runOnUiThread {
-                    mLoadingDialog.showDialog()
-                }
-
-                val obj = JsonObject()
-                obj.addProperty("golds", gameRes.golds)
-
-                val requestBody = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), obj.toString())
-
-                API.apiService.updateGolds(
-                    "Bearer ${localDataManager.getUserAccessToken()}", requestBody
-                ).enqueue(handleUpdateGolds)
 
                 val finishDialog = GameFinishDialog(requireContext(), Gson().toJsonTree(gameRes))
                 finishDialog.showDialog()
@@ -169,6 +160,8 @@ class PlayFragment : Fragment() {
                     wrongAnswerCount = 0
                     binding.pbStar.max = gameplays.size
                     binding.pbStar.progress = 0
+
+                    binding.tvCurrentProgress.text = String.format(requireContext().getString(R.string.game_progress_pattern), binding.pbStar.progress, binding.pbStar.max)
                     gameplayViewPagerAdapter.setGamePlays(gameplays)
                     gameplayViewPagerAdapter.notifyDataSetChanged()
                     binding.flRoundContainer.adapter = gameplayViewPagerAdapter
@@ -177,42 +170,51 @@ class PlayFragment : Fragment() {
         }
     }
 
-    private fun handleWrongAnswer(position: Int, isPlayed: Boolean) {
-        //todo: call api to update wrong question later
+    private fun handleWrongAnswer(roundId: String, position: Int, playStatus: String) {
         unfinishedGameplays.add(gameplays[position])
+        wrongAnswerCount++
 
-        if(!isPlayed) {
+        if(playStatus != PLAY_STATUS_DONE) {
+
             var currentLife = Integer.parseInt(binding.tvLife.text.toString())
+
             currentLife--
-            wrongAnswerCount++
             binding.tvLife.text = "$currentLife"
 
-            if (currentLife == 0)
+            if (currentLife == 0) {
                 heartDialog.showDialog()
+            } else {
+                val body = HashMap<String, Any>()
+
+                body["userId"] = player.id
+                body["courseId"] = arguments?.getString(BUNDLE_COURSE_ID_DATA)!!
+                body["lessionId"] = arguments?.getString(BUNDLE_LESSON_ID_DATA)!!
+                body["roundId"] = roundId
+                body["score"] = 0
+                body["hearts"] = currentLife
+                body["playStatus"] = "FAILED"
+
+                API.apiService.updateDiary("Bearer ${localDataManager.getUserAccessToken()}", body).enqueue(handleUpdateDiaryCallback)
+            }
         }
     }
 
-    private fun handleCorrectAnswer(score: Int, roundId: String, isPlayed: Boolean) {
+    private fun handleCorrectAnswer(score: Int, roundId: String, playStatus: String) {
         correctAnswerCount++
 
-        if(!isPlayed) {
-            Toasty.success(requireContext(), "+ ${(score / 2).toInt()} vàng!", Toasty.LENGTH_SHORT).show()
+        if(playStatus != PLAY_STATUS_DONE) {
             totalScore += score
-            val obj = JsonObject()
-            obj.addProperty("userId", player.id)
-            obj.addProperty("courseId", arguments?.getString(BUNDLE_COURSE_ID_DATA))
-            obj.addProperty("lessionId", arguments?.getString(BUNDLE_LESSON_ID_DATA))
-            obj.addProperty("roundId", roundId)
-            obj.addProperty("score", score)
-            obj.addProperty("hearts", Integer.parseInt(binding.tvLife.text.toString()))
+            val body = HashMap<String, Any>()
 
-            val requestBody = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), obj.toString())
+            body["userId"] = player.id
+            body["courseId"] = arguments?.getString(BUNDLE_COURSE_ID_DATA)!!
+            body["lessionId"] = arguments?.getString(BUNDLE_LESSON_ID_DATA)!!
+            body["roundId"] = roundId
+            body["score"] = score
+            body["hearts"] = Integer.parseInt(binding.tvLife.text.toString())
+            body["playStatus"] = "DONE"
 
-            API.apiService.updateDiary(
-                "Bearer ${localDataManager.getUserAccessToken()}", requestBody
-            ).enqueue(handleUpdateDiaryCallback)
-        } else {
-            Log.e("teest", "???")
+            API.apiService.updateDiary("Bearer ${localDataManager.getUserAccessToken()}", body).enqueue(handleUpdateDiaryCallback)
         }
     }
 
@@ -236,46 +238,38 @@ class PlayFragment : Fragment() {
 
     private fun handleQuitGameButton() = binding.ibtnClose.setOnClickListener {
         iOSDialogBuilder(requireContext())
-            .setTitle(requireContext().getString(R.string.confirm_dialog_msg))
-            .setSubtitle(requireContext().getString(R.string.confirm_quit_game_play))
+            .setTitle(requireContext().getString(R.string.confirm_quit_game_play_title))
+            .setSubtitle(requireContext().getString(R.string.confirm_quit_game_play_desc))
             .setBoldPositiveLabel(true)
             .setNegativeListener(requireContext().getString(R.string.confirm_msg_stay)) {
                 it.dismiss()
             }.setPositiveListener(requireContext().getString(R.string.confirm_msg_quit)) {
                 it.dismiss()
-
                 requireActivity().runOnUiThread {
-                    mLoadingDialog.showDialog()
+                    findNavController().navigate(R.id.action_playFragment_to_homeFragment)
                 }
-
-                val obj = JsonObject()
-                obj.addProperty("hearts", Integer.parseInt(binding.tvLife.text.toString()))
-                val requestBody = RequestBody.create(MediaType.parse(CONTENT_TYPE_JSON), obj.toString())
-
-                API.apiService.updateHeart("Bearer ${localDataManager.getUserAccessToken()}", requestBody).enqueue(handleUpdateHeart)
-
             }.build().show()
     }
 
     private fun calculateFinalResult(finishTime: Long): FinalResult {
         return FinalResult(
-            MyUtils.convertMilliSecondsToMMSS(finishTime),
-            ((correctAnswerCount.toFloat() / gameplays.size) * 100).toInt(),
-            totalScore,
+            fastScore = MyUtils.convertMilliSecondsToMMSS(finishTime),
+            perfectScore = ((correctAnswerCount.toFloat() / gameplays.size) * 100).toInt(),
+            totalScore = totalScore,
             golds = totalScore / 2
         )
     }
 
-    private val handleUpdateDiaryCallback = object: Callback<Any> {
-        override fun onResponse(call: Call<Any>, response: Response<Any>) {
+    private val handleUpdateDiaryCallback = object: Callback<ResponseBody> {
+        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
             if(response.isSuccessful && response.code() == 200) {
-                Log.e(PlayFragment::class.java.name, "??? ok")
+                Log.e(PlayFragment::class.java.name, "update round success")
             } else {
-                Log.e(PlayFragment::class.java.name, "??? loi")
+                Log.e(PlayFragment::class.java.name, "something went wrong")
             }
         }
 
-        override fun onFailure(call: Call<Any>, t: Throwable) {
+        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
             Log.e(PlayFragment::class.java.name, t.message?: "error message")
         }
     }
@@ -302,77 +296,6 @@ class PlayFragment : Fragment() {
                                     it.dismiss()
                                     heartDialog.dismissDialog()
                                 }.build().show()
-                        }
-                    }
-                }
-            } else {
-                requireActivity().runOnUiThread {
-                    iOSDialogBuilder(requireContext())
-                        .setTitle(requireContext().getString(R.string.request_err))
-                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
-                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
-                            it.dismiss()
-                        }.build().show()
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<UpdateUserResponseModel>, t: Throwable) {
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-            Log.e(PlayFragment::class.java.name, t.message?: "error message")
-        }
-    }
-
-    private val handleUpdateGolds = object: Callback<UpdateUserResponseModel> {
-        override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
-
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-
-            if(response.isSuccessful && response.code() == STATUS_OK) {
-                response.body()?.apply {
-                    this.data.apply {
-                        val playerInfoJson = Gson().toJson(this.updatedUser)
-                        localDataManager.setUserInfo(playerInfoJson)
-                    }
-                }
-            } else {
-                requireActivity().runOnUiThread {
-                    iOSDialogBuilder(requireContext())
-                        .setTitle(requireContext().getString(R.string.request_err))
-                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
-                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
-                            it.dismiss()
-                        }.build().show()
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<UpdateUserResponseModel>, t: Throwable) {
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-            Log.e(PlayFragment::class.java.name, t.message?: "error message")
-        }
-    }
-
-    private val handleUpdateHeart = object: Callback<UpdateUserResponseModel> {
-        override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
-
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-
-            if(response.isSuccessful && response.code() == STATUS_OK) {
-                response.body()?.apply {
-                    this.data.apply {
-                        val playerInfoJson = Gson().toJson(this.updatedUser)
-                        localDataManager.setUserInfo(playerInfoJson)
-                        requireActivity().runOnUiThread {
-                            findNavController().navigate(R.id.action_playFragment_to_homeFragment)
                         }
                     }
                 }

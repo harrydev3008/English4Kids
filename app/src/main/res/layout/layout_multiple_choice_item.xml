@@ -10,11 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/answer_multiple_choice_pattern"
-        android:textSize="@dimen/_16ssp"
-        android:fontFamily="@font/be_vietnam"
-        android:paddingVertical="@dimen/_8sdp"
-        android:paddingHorizontal="@dimen/_16sdp"
-        android:textStyle="bold"
+        android:textSize="@dimen/_14ssp"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:includeFontPadding="false"
+        android:paddingVertical="@dimen/_12sdp"
+        android:paddingStart="@dimen/_12sdp"
+        android:paddingEnd="@dimen/_10sdp"
         android:textColor="@color/gray"
         android:background="@drawable/bg_word_border" />
 

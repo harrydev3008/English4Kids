@@ -24,8 +24,8 @@ import com.hisu.english4kids.utils.MyUtils
 
 class ClassicPairsMatchingFragment(
     private val nextQuestionListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit,
+    private val wrongAnswerListener: (roundId: String, position: Int, playStatus: String) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, playStatus: String) -> Unit,
     private var gameStyleOne: GameStyleOne,
     private var gameIndex: Int
 ) : Fragment() {
@@ -99,7 +99,7 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
-                correctAnswerListener.invoke(gameStyleOne.score, gameStyleOne.roundId, gameStyleOne.isPlayed)
+                correctAnswerListener.invoke(gameStyleOne.score, gameStyleOne.roundId, gameStyleOne.playStatus)
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -117,7 +117,7 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.tvCorrectAnswer.text =
                     requireContext().getString(R.string.better_luck_next_time)
 
-                wrongAnswerListener.invoke(gameIndex, gameStyleOne.isPlayed)
+                wrongAnswerListener.invoke(gameStyleOne.roundId, gameIndex, gameStyleOne.playStatus)
             }
         }
     }

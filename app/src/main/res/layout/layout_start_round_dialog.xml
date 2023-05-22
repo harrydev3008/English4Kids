@@ -65,6 +65,19 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp" />
 
+        <TextView
+            android:id="@+id/tv_play_failed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lần trước đã chơi nhưng thua! Lần này cố lên bạn nhé!"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:justificationMode="inter_word"
+            android:fontFamily="@font/be_vietnam"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_start"
             android:layout_width="match_parent"

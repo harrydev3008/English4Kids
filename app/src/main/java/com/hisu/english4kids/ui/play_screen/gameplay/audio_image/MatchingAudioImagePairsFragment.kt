@@ -16,8 +16,8 @@ import com.hisu.english4kids.data.model.pair_matching.PairMatchingResponse
 
 class MatchingAudioImagePairsFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit,
+    private val wrongAnswerListener: (roundId: String, position: Int, playStatus: String) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, playStatus: String) -> Unit,
     private val gameStyleTwo: GameStyleTwo,
     private var gameIndex: Int
 ) : Fragment() {
@@ -67,7 +67,7 @@ class MatchingAudioImagePairsFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 audioImageAdapter.isLockView = true
-                correctAnswerListener.invoke(gameStyleTwo.score, gameStyleTwo.roundId, gameStyleTwo.isPlayed)
+                correctAnswerListener.invoke(gameStyleTwo.score, gameStyleTwo.roundId, gameStyleTwo.playStatus)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -77,7 +77,7 @@ class MatchingAudioImagePairsFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
                 audioImageAdapter.isLockView = true
 
-                wrongAnswerListener.invoke(gameIndex, gameStyleTwo.isPlayed)
+                wrongAnswerListener.invoke(gameStyleTwo.roundId, gameIndex, gameStyleTwo.playStatus)
             }
         }
 

@@ -116,5 +116,12 @@ class MyUtils {
             val second = TimeUnit.MILLISECONDS.toSeconds(time) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(time))
             return String.format("%02d:%02d", minute, second)
         }
+
+        fun renderAnswerAlphabetIndex(position: Int) = when (position) {
+            0 -> "A"
+            1 -> "B"
+            2 -> "C"
+            else -> "D"
+        }
     }
 }

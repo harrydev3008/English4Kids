@@ -14,8 +14,8 @@ import com.hisu.english4kids.databinding.FragmentTypeAnswerBinding
 
 class TypeAnswerFragment(
     private val itemTapListener: () -> Unit,
-    private val wrongAnswerListener: (position: Int, isPlayed: Boolean) -> Unit,
-    private val correctAnswerListener: (score: Int, roundId: String, isPlayed: Boolean) -> Unit,
+    private val wrongAnswerListener: (roundId: String, position: Int, playStatus: String) -> Unit,
+    private val correctAnswerListener: (score: Int, roundId: String, playStatus: String) -> Unit,
     private val gameStyleFour: GameStyleFour,
     private var gameIndex: Int
 ) : Fragment() {
@@ -46,7 +46,7 @@ class TypeAnswerFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                correctAnswerListener.invoke(gameStyleFour.score, gameStyleFour.roundId, gameStyleFour.isPlayed)
+                correctAnswerListener.invoke(gameStyleFour.score, gameStyleFour.roundId, gameStyleFour.playStatus)
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -54,7 +54,7 @@ class TypeAnswerFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                wrongAnswerListener.invoke(gameIndex, gameStyleFour.isPlayed)
+                wrongAnswerListener.invoke(gameStyleFour.roundId, gameIndex, gameStyleFour.playStatus)
             }
         }
 

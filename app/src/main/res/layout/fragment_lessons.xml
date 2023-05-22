@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_fire_solid"
             android:drawablePadding="@dimen/_6sdp"
-            android:fontFamily="@font/be_vietnam_bold"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:paddingHorizontal="@dimen/_8sdp"
@@ -33,21 +33,32 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp" />
 
-        <TextView
-            android:id="@+id/tv_coins"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_coin"
-            android:drawablePadding="@dimen/_6sdp"
-            android:fontFamily="@font/be_vietnam_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:maxLength="3"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:text="999"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_coin_reward"/>
+
+            <TextView
+                android:id="@+id/tv_coins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:maxLength="3"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:text="999"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_heart"
@@ -55,7 +66,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_heart_fill"
             android:drawablePadding="@dimen/_6sdp"
-            android:fontFamily="@font/be_vietnam_bold"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:maxLength="1"

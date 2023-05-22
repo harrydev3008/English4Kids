@@ -31,16 +31,29 @@ const val PATH_AUTH_LOGOUT = "auth/logout"
 const val CHECK_SSO = "auth/checkSSO"
 
 //diary - token needed
-const val PATH_UPDATE_USER_DIARY = "diary/player"
+const val PATH_UPDATE_USER_DIARY = "diary"
 
 //user player - token needed
 const val PATH_UPDATE_USER_INFO = "user"
 const val PATH_GET_USER_INFO = "user"
 const val PATH_BUY_HEART = "user/hearts"
 const val PATH_UPDATE_GOLDS = "user/updateGolds"
+const val PATH_UPDATE_SCORE_AND_GOLDS = "user/update-score-and-golds"
 const val PATH_GET_WEEKLY_RANK = "user/scoreBoard"
 
 const val PATH_DAILY = "user/login-rewards"
 const val PATH_UPDATE_HEART = "user/update-hearts"
 const val PATH_AUTH_CHANGE_PASSWORD = "user/change-password"
 const val PATH_AUTH_FORGOT_PASSWORD = "user/forget-password"
+const val PATH_GET_EXAM = "test"
+
+const val LEVEL_NEWBIE = "NEWBIE"
+const val LEVEL_STARTER = "STARTER"
+
+const val ATTACHMENT_TYPE_NONE = "NONE"
+const val ATTACHMENT_TYPE_AUDIO = "AUDIO"
+const val ATTACHMENT_TYPE_IMAGE = "IMAGE"
+
+const val PLAY_STATUS_NONE = "NONE"
+const val PLAY_STATUS_DONE = "DONE"
+const val PLAY_STATUS_FAIL = "FAILED"

@@ -12,11 +12,35 @@
         android:id="@+id/tv_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/_12sdp"
-        android:text="@string/resend_otp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:justificationMode="inter_word"
+        android:paddingHorizontal="@dimen/_4sdp"
+        android:text="@string/multiple_choice_pattern"
         android:fontFamily="@font/be_vietnam_bold"
         android:textColor="@color/light_black"
-        android:textSize="@dimen/_18ssp" />
+        android:textSize="@dimen/_15ssp" />
+
+    <ImageButton
+        android:id="@+id/ibtn_audio_question"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:src="@drawable/ic_round_volume_up_24_white"
+        android:background="@drawable/bg_icon_border"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imv_question_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:scaleType="centerInside"
+        android:src="@drawable/bg_no_imgage_place_holder"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,5 +58,20 @@
             tools:listitem="@layout/layout_multiple_choice_item" />
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/skip_current_question"
+        style="@style/ExamQuestionButtonStyle"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_15ssp"
+        android:enabled="false"
+        android:fontFamily="@font/be_vietnam_bold"
+        android:includeFontPadding="false"
+        android:paddingVertical="@dimen/_8sdp"
+        android:layout_margin="@dimen/_12sdp"
+        app:cornerRadius="@dimen/_10sdp"/>
 
 </LinearLayout>

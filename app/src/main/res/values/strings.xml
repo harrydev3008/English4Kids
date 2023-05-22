@@ -31,7 +31,7 @@
     <string name="welcome_text_desc">Số điện thoại dùng để đăng nhập hoặc mở tài khoản nếu bạn lần đầu dùng E4K.</string>
     <string name="verify_your_otp">Hãy nhập mã OTP đã được gửi đến số điện thoại của bạn.</string>
     <string name="tap_connect_pairs">Chọn các cặp tương ứng</string>
-    <string name="skip_current_question">Câu hỏi kế tiếp</string>
+    <string name="skip_current_question">Câu kế tiếp</string>
     <string name="complete_round_within">Hoàn thành trong vòng</string>
     <string name="pick_correct_image">Chọn hình ảnh đúng</string>
     <string name="complete_lesson">Hoàn thành bài học!</string>
@@ -65,21 +65,21 @@
     <string name="review">Ôn Tập</string>
     <string name="game_play_lock_desc_title">Màn chơi bị khoá</string>
     <string name="game_play_lock_desc">Hãy hoàn thành tất cả các màn chơi trước để mở khoá bạn nhé!</string>
-    <string name="out_of_life">Bạn đã hết trái tim!</string>
-    <string name="out_of_life_desc">Sử dụng vàng đã tích luỹ để mua thêm trái tim bạn nhé!</string>
+    <string name="out_of_life_desc">Sử dụng vàng đã tích luỹ để mua thêm tim bạn nhé!</string>
     <string name="restore_full_life">Hồi hoàn toàn</string>
     <string name="restore_3_life">Hồi 3 tim</string>
     <string name="edit_profile">Chỉnh sửa hồ sơ</string>
     <string name="no_thanks">Không, cảm ơn</string>
     <string name="save">Lưu</string>
     <string name="question_mark">\?</string>
-    <string name="complete_this_sentence">Hoàn thành câu hỏi sau</string>
+    <string name="complete_this_sentence">Dịch câu này</string>
     <string name="update_username_success">Cập nhật thông tin thành công!</string>
     <string name="forgot_password_desc">Nhập số điện thoại bạn đã dùng để đăng ký để xác thực và lấy lại mật khẩu!</string>
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>
-    <string name="confirm_quit_game_play">Bạn có chắc muốn thoát không?! Nếu thoát bạn sẽ mất tiến trình của bài học này.</string>
+    <string name="confirm_quit_game_play_title">Đợi đã, đừng đi mà!</string>
+    <string name="confirm_quit_game_play_desc">Bạn đang học đúng hướng! Bạn có chắc muốn dừng lại không?!</string>
     <string name="confirm_msg_quit">Dừng lại</string>
     <string name="confirm_msg_stay">Chơi tiếp</string>
     <string name="confirm_otp">Xác Nhận</string>
@@ -91,17 +91,19 @@
     <string name="confirm_yes">Có</string>
     <string name="confirm_no">Không</string>
     <string name="complete_multiple_choice_mode">Hoàn thành bài luyện tập!</string>
-    <string name="review_submit">Xem lại câu sai</string>
+    <string name="review_submit">Xem lại đáp án</string>
     <string name="oopss">Úi! Có bài sai!</string>
     <string name="fix_wrong_exp">Cùng nhau sửa những bài tập bạn đã làm sai nào!</string>
     <string name="course_locked_desc">Khoá học bị khoá</string>
-    <string name="course_locked">Hoàn thành các khoá học trước để mở khoá khoá học này bạn nhé!</string>
+    <string name="course_locked">Hoàn thành các khoá học trước để mở khoá học này bạn nhé!</string>
     <string name="round_locked_desc">Màn chơi bị khoá</string>
     <string name="round_locked">Hoàn thành các màn chơi trước để mở khoá màn chơi này bạn nhé!</string>
     <string name="change_password_success">Thay đổi mật khẩu thành công!</string>
     <string name="claimed_success">Nhận quà đăng nhập thành công!\n Trở lại và nhận thêm quà vào ngày mai bạn nhé!</string>
-    <string name="claimed_err">Đã xảy ra lỗi trong lúc phát thưởng..\nBạn thử lại sau nhé!</string>
-    <string name="buy_heart_success">Mua tim thành công! Cùng học tiếp bạn nhé!</string>
+    <string name="claimed_err">Đã xảy ra lỗi trong lúc nhận thưởng..\nBạn thử lại sau nhé!</string>
+    <string name="get_exam_err">Đã xảy ra lỗi trong lúc soạn đề..\nBạn thử lại sau nhé!</string>
+    <string name="buy_heart_success">Mua thành công! Cùng học thật tốt bạn nhé!</string>
+    <string name="buy_more_heart_success">Mua thành công! Hãy tận dụng để học thật tốt bạn nhé!</string>
 
     <!--  Error messages  -->
     <string name="wrong_otp_err_msg">Mã OTP không chính xác. Vui lòng kiểm tra lại!</string>
@@ -122,6 +124,11 @@
     <string name="err_network_not_available">Không có kết nối internet!</string>
     <string name="err_connect_internet_to_learn">Kết nối mạng để bắt đầu học bạn nhé!</string>
     <string name="err_unsaved_update">Thông tin đã chỉnh sửa chưa được lưu. Bạn có chắc muốn thoát?!</string>
+    <string name="review_question_desc">Đáp án</string>
+    <string name="exam_result_desc">Kết quả bài làm</string>
+    <string name="full_heart_err">Tim bạn hiện đang đầy! Không thể mua thêm!</string>
+    <string name="daily_reward_already_claimed">Bạn đã nhận phần quà này rồi! Không thể nhận lại!</string>
+    <string name="daily_reward_locked">Bạn chưa đủ điều kiện để nhận phần quà này!</string>
 
     <!--  String patterns  -->
     <string name="audio_file_path">android.resource://%1$s/raw/%2$s</string>
@@ -145,7 +152,8 @@
     <string name="course_title_pattern">Phần %1$d: %2$s</string>
     <string name="start_course">Bắt Đầu</string>
     <string name="game_progress_pattern">%1$d/%2$d</string>
-    <string name="multiple_choice_pattern">Câu: %1$02d/%2$02d</string>
+    <string name="multiple_choice_pattern">Câu %1$02d: %2$s</string>
+    <string name="review_answer_pattern">Câu %1$02d:</string>
 
     <!-- Notification info   -->
     <string name="notification_learning_channel_id">notification_learning_id</string>

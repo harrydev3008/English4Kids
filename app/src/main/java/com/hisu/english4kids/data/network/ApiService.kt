@@ -7,9 +7,11 @@ import com.hisu.english4kids.data.model.InternetTimeModel
 import com.hisu.english4kids.data.network.response_model.*
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
@@ -22,6 +24,7 @@ private val okHttpClient = OkHttpClient.Builder()
 private val retrofitBuilder = Retrofit.Builder()
     .baseUrl(BuildConfig.SERVER_URL)
     .client(okHttpClient)
+    .addConverterFactory(ScalarsConverterFactory.create())
     .addConverterFactory(
         GsonConverterFactory.create(
             GsonBuilder()
@@ -56,6 +59,9 @@ interface ApiService {
     @GET(PATH_GET_USER_INFO)
     fun getUserInfo(@Header("Authorization") token: String): Call<SearchUserResponseModel>
 
+    @GET(PATH_GET_EXAM)
+    fun getExam(@Header("Authorization") token: String, @Query("userLevel") userLevel: String): Call<ExamResponseModel>
+
     //  ----------- POST REQUEST -----------
     @POST(PATH_AUTH_LOGIN)
     fun authLogin(@Body body: RequestBody): Call<AuthResponseModel>
@@ -69,8 +75,9 @@ interface ApiService {
     @POST(PATH_AUTH_LOGOUT)
     fun authLogout(@Body body: RequestBody): Call<AuthResponseModel>
 
+    @Headers("Content-Type: application/json")
     @POST(PATH_UPDATE_USER_DIARY)
-    fun updateDiary(@Header("Authorization") token: String, @Body body: RequestBody): Call<Any>
+    fun updateDiary(@Header("Authorization") token: String, @Body body: HashMap<String, Any>): Call<ResponseBody>
 
     @POST(PATH_BUY_HEART)
     fun buyHeart(@Header("Authorization") token: String, @Body body: RequestBody): Call<UpdateUserResponseModel>
@@ -93,4 +100,7 @@ interface ApiService {
 
     @PUT(PATH_UPDATE_HEART)
     fun updateHeart(@Header("Authorization") token: String, @Body body: RequestBody): Call<UpdateUserResponseModel>
+
+    @PUT(PATH_UPDATE_SCORE_AND_GOLDS)
+    fun updateScoreAndGold(@Header("Authorization") token: String, @Body body: RequestBody): Call<UpdateUserResponseModel>
 }

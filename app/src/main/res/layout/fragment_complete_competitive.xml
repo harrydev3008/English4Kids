@@ -9,59 +9,36 @@
     android:paddingHorizontal="@dimen/_8sdp"
     tools:context=".ui.play_screen.gameplay.multiple_choice.CompleteCompetitiveFragment">
 
-    <LinearLayout
-        android:id="@+id/ll_winner_container"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_250sdp"
+        android:paddingHorizontal="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingVertical="@dimen/_8sdp">
-
-        <RelativeLayout
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_200sdp"
-            android:background="@drawable/bg_winner">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/cimv_user_pfp"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
-                android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bg"
-                app:civ_border_color="@color/yellow"
-                app:civ_border_width="4dp" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/be_vietnam_bold"
-            android:includeFontPadding="false"
-            android:text="@string/app_name"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/_20ssp" />
-    </LinearLayout>
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/trophy_two"
+        app:lottie_repeatCount="2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_winner_container"
+        android:layout_above="@+id/layout_below"
+        android:layout_below="@+id/lottieAnimationView"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_above="@+id/layout_below"
         android:paddingVertical="@dimen/_12sdp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginVertical="@dimen/_18sdp"
             android:drawablePadding="@dimen/_8sdp"
             android:fontFamily="@font/be_vietnam_bold"
+            android:gravity="center"
             android:includeFontPadding="false"
-            android:layout_marginVertical="@dimen/_18sdp"
             android:text="@string/complete_multiple_choice_mode"
             android:textColor="@color/daily"
             android:textSize="@dimen/_20ssp" />
@@ -108,46 +85,46 @@
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="@dimen/_12sdp"
-            app:justifyContent="space_evenly"
-            app:alignItems="center">
+            android:orientation="horizontal"
+            app:alignItems="center"
+            app:justifyContent="space_evenly">
 
             <LinearLayout
                 android:id="@+id/coin_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_8sdp"
-                android:paddingVertical="@dimen/_2sdp"
-                android:gravity="center">
+                android:paddingVertical="@dimen/_2sdp">
 
                 <TextView
                     android:id="@+id/tv_gold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/yellow"
                     android:drawablePadding="@dimen/_4sdp"
                     android:fontFamily="@font/be_vietnam_bold"
                     android:includeFontPadding="false"
                     android:text="+100"
-                    android:textSize="@dimen/_20ssp"/>
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/_20ssp" />
 
                 <ImageView
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
-                    android:src="@drawable/ic_coin_reward"
-                    android:layout_marginStart="@dimen/_8sdp"/>
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:src="@drawable/ic_coin_reward" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_weekly_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:drawablePadding="@dimen/_8sdp"
                 android:drawableEnd="@drawable/ic_fire_solid"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
                 android:includeFontPadding="false"
                 android:text="+ 100"
                 android:textColor="@color/text_incorrect"
@@ -160,9 +137,9 @@
         android:id="@+id/layout_below"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/_12sdp"
-        android:layout_alignParentBottom="true">
+        android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_finish"
@@ -182,16 +159,15 @@
             android:id="@+id/btn_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
             android:backgroundTint="@color/daily"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
             android:paddingVertical="@dimen/_8sdp"
             android:text="@string/review_submit"
-            android:textAllCaps="false"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/_4sdp"
             android:textAlignment="center"
-            android:textColor="@color/text_incorrect"
+            android:textAllCaps="false"
+            android:textColor="@color/classic"
             android:textSize="@dimen/_16ssp"
             app:cornerRadius="@dimen/_10sdp" />
 
