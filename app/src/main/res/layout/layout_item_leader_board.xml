@@ -8,7 +8,7 @@
     android:id="@+id/parent_view"
     android:gravity="center_vertical"
     android:paddingVertical="@dimen/_10sdp"
-    android:paddingHorizontal="@dimen/_6sdp">
+    android:paddingHorizontal="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/tv_index"
@@ -17,8 +17,8 @@
         android:text="11"
         android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"
-        android:textColor="@color/light_black"
-        android:textSize="@dimen/_16ssp"
+        android:textColor="@color/daily"
+        android:textSize="@dimen/_14ssp"
         android:layout_marginEnd="@dimen/_8sdp"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -26,9 +26,7 @@
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
         android:src="@drawable/bg"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@color/classic"
-        android:layout_marginEnd="@dimen/_12sdp"/>
+        android:layout_marginEnd="@dimen/_6sdp"/>
 
     <TextView
         android:id="@+id/tv_username"
@@ -36,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:text="@string/app_name"
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"
         android:textColor="@color/light_black"

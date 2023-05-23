@@ -35,7 +35,7 @@ class LeaderBoardAdapter(var context: Context, var currentUser: Player) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(data: Player, isCurrentUser: Boolean = false, index: Int) = binding.apply {
 
-            cimvUserPfp.setImageBitmap(MyUtils.createImageFromText(context, data.username))
+            cimvUserPfp.setImageBitmap(MyUtils.createImageFromTextLeaderBoard(context, data.username, index))
             tvIndex.text = "$index"
             tvUsername.text = data.username
             tvWeekExp.text = "${data.weeklyScore}"

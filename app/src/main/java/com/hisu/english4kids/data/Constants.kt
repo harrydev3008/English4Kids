@@ -47,9 +47,6 @@ const val PATH_AUTH_CHANGE_PASSWORD = "user/change-password"
 const val PATH_AUTH_FORGOT_PASSWORD = "user/forget-password"
 const val PATH_GET_EXAM = "test"
 
-const val LEVEL_NEWBIE = "NEWBIE"
-const val LEVEL_STARTER = "STARTER"
-
 const val ATTACHMENT_TYPE_NONE = "NONE"
 const val ATTACHMENT_TYPE_AUDIO = "AUDIO"
 const val ATTACHMENT_TYPE_IMAGE = "IMAGE"

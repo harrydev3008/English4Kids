@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">English For Kid</string>
+    <string name="app_name">English For Kids</string>
     <string name="mode_learning">Học Tiếng Anh</string>
     <string name="mode_learning_tool_tip">Vừa chơi vừa học Tiếng Anh thật vui vẻ!</string>
-    <string name="mode_competitive">Luyện Tập</string>
+    <string name="mode_competitive">Thử thách</string>
     <string name="mode_competitive_tool_tip">So tài Tiếng Anh cùng các người chơi khác!</string>
     <string name="next">Tiếp Tục</string>
     <string name="back">Quay Lại</string>
@@ -32,9 +32,9 @@
     <string name="verify_your_otp">Hãy nhập mã OTP đã được gửi đến số điện thoại của bạn.</string>
     <string name="tap_connect_pairs">Chọn các cặp tương ứng</string>
     <string name="skip_current_question">Câu kế tiếp</string>
-    <string name="complete_round_within">Hoàn thành trong vòng</string>
+    <string name="complete_round_within">Hoàn thành trong </string>
     <string name="pick_correct_image">Chọn hình ảnh đúng</string>
-    <string name="complete_lesson">Hoàn thành bài học!</string>
+    <string name="complete_lesson">Hoàn thành!</string>
     <string name="total_score">Điểm</string>
     <string name="fast_score">Nhanh</string>
     <string name="perfect_score">Hoàn hảo!</string>
@@ -42,7 +42,7 @@
     <string name="better_luck_next_time">Cố gắng hơn ở lần sau bạn nhé!</string>
     <string name="translate_this_sentence">Hoàn thành câu này</string>
     <string name="type_your_answer_here">Nhập câu trả lời của bạn tại đây…</string>
-    <string name="find_component_now">Bắt đầu thử thách trình độ Tiếng Anh của bản thân nào!</string>
+    <string name="find_component_now">Thử thách trình độ Tiếng Anh của bạn bằng những bài tập trắc nghiệm của ứng dụng!</string>
     <string name="find_match">Ghép Trận</string>
     <string name="loading_pls_wait">Đang tìm đối thủ xứng tầm…</string>
     <string name="loading_test">Hệ thống đang tạo bài luyện tập…</string>
@@ -75,11 +75,13 @@
     <string name="complete_this_sentence">Dịch câu này</string>
     <string name="update_username_success">Cập nhật thông tin thành công!</string>
     <string name="forgot_password_desc">Nhập số điện thoại bạn đã dùng để đăng ký để xác thực và lấy lại mật khẩu!</string>
+    <string name="course_completed">Hoàn thành!</string>
 
     <!--  Confirm messages  -->
     <string name="confirm_dialog_msg">Xác nhận</string>
     <string name="confirm_quit_game_play_title">Đợi đã, đừng đi mà!</string>
     <string name="confirm_quit_game_play_desc">Bạn đang học đúng hướng! Bạn có chắc muốn dừng lại không?!</string>
+    <string name="confirm_quit_exam">Nếu bạn thoát, tiến trình của bài tập này sẽ bị huỷ bỏ và sẽ không có điểm!</string>
     <string name="confirm_msg_quit">Dừng lại</string>
     <string name="confirm_msg_stay">Chơi tiếp</string>
     <string name="confirm_otp">Xác Nhận</string>
@@ -90,7 +92,7 @@
     <string name="confirm_logout">Bạn có chắc chắn muốn Đăng xuất không?!</string>
     <string name="confirm_yes">Có</string>
     <string name="confirm_no">Không</string>
-    <string name="complete_multiple_choice_mode">Hoàn thành bài luyện tập!</string>
+    <string name="complete_multiple_choice_mode">Hoàn thành thử thách!</string>
     <string name="review_submit">Xem lại đáp án</string>
     <string name="oopss">Úi! Có bài sai!</string>
     <string name="fix_wrong_exp">Cùng nhau sửa những bài tập bạn đã làm sai nào!</string>
@@ -122,11 +124,15 @@
     <string name="invalid_cf_password_err">* Mật khẩu không trùng khớp!</string>
     <string name="err_network_not_connected">Không kết nối được với máy chủ!</string>
     <string name="err_network_not_available">Không có kết nối internet!</string>
+    <string name="weekly_score">Điểm xếp hạng tuần</string>
+    <string name="weekly_score_desc">Điểm xếp hạng tuần để tính xếp hạng giữa bạn và các người chơi khác! Điểm sẽ được reset vào mỗi thứ 2 hàng tuần!</string>
     <string name="err_connect_internet_to_learn">Kết nối mạng để bắt đầu học bạn nhé!</string>
     <string name="err_unsaved_update">Thông tin đã chỉnh sửa chưa được lưu. Bạn có chắc muốn thoát?!</string>
     <string name="review_question_desc">Đáp án</string>
     <string name="exam_result_desc">Kết quả bài làm</string>
     <string name="full_heart_err">Tim bạn hiện đang đầy! Không thể mua thêm!</string>
+    <string name="not_enough_gold">Hoàn thành các bài học hoặc tham gia chế độ luyện tập để có thêm vàng!</string>
+    <string name="not_enough_gold_title">Không đủ vàng!</string>
     <string name="daily_reward_already_claimed">Bạn đã nhận phần quà này rồi! Không thể nhận lại!</string>
     <string name="daily_reward_locked">Bạn chưa đủ điều kiện để nhận phần quà này!</string>
 
@@ -152,7 +158,8 @@
     <string name="course_title_pattern">Phần %1$d: %2$s</string>
     <string name="start_course">Bắt Đầu</string>
     <string name="game_progress_pattern">%1$d/%2$d</string>
-    <string name="multiple_choice_pattern">Câu %1$02d: %2$s</string>
+    <string name="multiple_choice_pattern"><font fgcolor='#8937C7'>Câu %1$02d:</font> %2$s</string>
+    <string name="multiple_choice_pattern_review"><font fgcolor='#8937C7'>Question:</font> %1$s</string>
     <string name="review_answer_pattern">Câu %1$02d:</string>
 
     <!-- Notification info   -->

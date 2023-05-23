@@ -11,6 +11,8 @@ import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.game_play.GameStyleFive
 import com.hisu.english4kids.databinding.FragmentMatchingAudioWordBinding
+import com.hisu.english4kids.utils.MyUtils
+import java.util.regex.Pattern
 
 class MatchingAudioWordFragment(
     private val itemTapListener: () -> Unit,
@@ -40,6 +42,9 @@ class MatchingAudioWordFragment(
         val audioImageAdapter = MatchingAudioWordAdapter(requireContext()) {
             answer = it.cardId
 
+            if(!MyUtils.isVietnameseWord(it.word))
+                (requireActivity() as MainActivity).speakText(it.word)
+
             if (!binding.btnCheck.btnNextRound.isEnabled) {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.check)
@@ -62,7 +67,7 @@ class MatchingAudioWordFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 audioImageAdapter.isLockView = true
-                correctAnswerListener.invoke(gameStyleFive.score, gameStyleFive.roundId, gameStyleFive.playStatus)
+                correctAnswerListener.invoke(gameStyleFive.score, gameStyleFive.roundId, gameStyleFive.playStatus?:"NONE")
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -72,7 +77,7 @@ class MatchingAudioWordFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
                 audioImageAdapter.isLockView = true
 
-                wrongAnswerListener.invoke(gameStyleFive.roundId, gameIndex, gameStyleFive.playStatus)
+                wrongAnswerListener.invoke(gameStyleFive.roundId, gameIndex, gameStyleFive.playStatus?:"NONE")
             }
         }
 

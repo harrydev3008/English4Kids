@@ -56,7 +56,7 @@ class MatchMakingFragment : Fragment() {
             }
 
             val user = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
-            API.apiService.getExam("Bearer ${localDataManager.getUserAccessToken()}", user.level).enqueue(handleGetExamCallback)
+            API.apiService.getExam("Bearer ${localDataManager.getUserAccessToken()}").enqueue(handleGetExamCallback)
         } else {
             requireActivity().runOnUiThread {
                 iOSDialogBuilder(requireContext())

@@ -60,7 +60,7 @@ interface ApiService {
     fun getUserInfo(@Header("Authorization") token: String): Call<SearchUserResponseModel>
 
     @GET(PATH_GET_EXAM)
-    fun getExam(@Header("Authorization") token: String, @Query("userLevel") userLevel: String): Call<ExamResponseModel>
+    fun getExam(@Header("Authorization") token: String): Call<ExamResponseModel>
 
     //  ----------- POST REQUEST -----------
     @POST(PATH_AUTH_LOGIN)

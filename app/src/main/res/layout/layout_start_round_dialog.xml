@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_12sdp"
+        android:padding="@dimen/_8sdp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -58,12 +58,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Màn chơi mới! Hoàn thành sẽ có thưởng!"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:justificationMode="inter_word"
             android:fontFamily="@font/be_vietnam"
             android:includeFontPadding="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp" />
+            android:textSize="@dimen/_12ssp" />
 
         <TextView
             android:id="@+id/tv_play_failed"
@@ -86,11 +86,11 @@
             android:text="@string/start_round_to_earn_pattern"
             android:textColor="@color/classic"
             android:textAllCaps="true"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
             android:textSize="@dimen/_14ssp"
-            android:paddingVertical="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_8sdp"
             app:cornerRadius="@dimen/_12sdp"/>
     </LinearLayout>
 

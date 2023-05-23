@@ -65,6 +65,20 @@ class MultipleChoiceContainerFragment : Fragment() {
         questions = tempQuestions
 
         setUpViewPager()
+        back()
+    }
+
+    private fun back() = binding.cardCompetitiveHeader.tvBack.setOnClickListener {
+        iOSDialogBuilder(requireContext())
+            .setTitle(requireContext().getString(R.string.confirm_quit_game_play_title))
+            .setSubtitle(requireContext().getString(R.string.confirm_quit_exam))
+            .setBoldPositiveLabel(true)
+            .setNegativeListener(requireContext().getString(R.string.confirm_msg_stay)) {
+                it.dismiss()
+            }.setPositiveListener(requireContext().getString(R.string.confirm_msg_quit)) {
+                it.dismiss()
+                findNavController().navigate(R.id.action_multipleChoiceContainerFragment_to_homeFragment)
+            }.build().show()
     }
 
     private fun setUpViewPager() = binding.vpMultipleQuestion.apply {

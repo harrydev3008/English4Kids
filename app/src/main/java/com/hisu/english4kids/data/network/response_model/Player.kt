@@ -13,6 +13,5 @@ data class Player(
     var golds: Int = 0,
     var hearts: Int = 0,
     var claimCount:Int = 0,
-    var lastClaimdDate: String = "",
-    var level: String = "NEWBIE"
+    var lastClaimdDate: String = ""
 )

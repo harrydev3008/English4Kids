@@ -32,9 +32,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/be_vietnam_bold"
+                android:fontFamily="@font/roboto_bold"
                 android:includeFontPadding="false"
                 android:text="@string/course_title_pattern"
+                android:textAlignment="center"
                 android:textColor="@color/light_black"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold" />
@@ -43,9 +44,10 @@
                 android:id="@+id/pb_course_progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:max="8"
                 android:progress="1"
+                android:visibility="visible"
                 app:indicatorColor="@color/daily"
                 app:indicatorSize="@dimen/_80sdp"
                 app:trackColor="@color/light_blue_gray"
@@ -57,11 +59,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/course_progress_pattern"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:textColor="@color/light_black"
                 android:fontFamily="@font/be_vietnam"
                 android:includeFontPadding="false"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/tv_course_complete"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:visibility="gone"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_complete_course_green"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/course_completed"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:textColor="@color/light_black"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:includeFontPadding="false"
+                    android:textSize="@dimen/_16ssp"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_course_desc"

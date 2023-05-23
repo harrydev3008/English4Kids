@@ -35,7 +35,7 @@ class CardAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val card = cards[position]
-        if (card.isVisible)
+        if (card.isVisible && card.cardId != "-1")
             holders.add(holder)
 
         holder.bindData(card)
@@ -74,6 +74,7 @@ class CardAdapter(
                 .asBitmap().load(card.imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(object : SimpleTarget<Bitmap>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        rimvCoverImage.visibility = View.VISIBLE
                         rimvCoverImage.setImageBitmap(resource)
                     }
                 })
@@ -83,6 +84,7 @@ class CardAdapter(
             if (card.cardId == "-1" || !card.isVisible) {
                 cardBack.visibility = View.INVISIBLE
                 cardFront.visibility = View.INVISIBLE
+                cardParent.isClickable = false
             } else {
                 rimvCoverImage.visibility = View.VISIBLE
                 cardParent.setOnClickListener { itemTapListener.invoke(card, cardFront, cardBack, cardParent) }

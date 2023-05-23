@@ -11,10 +11,16 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import com.hisu.english4kids.R
+import java.util.Random
 import java.util.concurrent.TimeUnit
+import java.util.regex.Pattern
 
 class MyUtils {
     companion object {
+
+        private val colors = listOf("#FE4B4A", "#58A600", "#5E4035", "#AA47BC", "#1FB0F5", "#FF9600", "#CF82FF")
+        private val vietPattern = Pattern.compile("[ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳýỵỷỹ]")
+
         fun loadJsonFromAssets(activity: Activity, fileName: String): String =
             activity.assets.open(fileName).bufferedReader()
                 .use { it.readText() }
@@ -100,6 +106,47 @@ class MyUtils {
                 paintText.color = context.getColor(R.color.gray)
             else
                 paintText.color = Color.parseColor(color)
+
+            paintText.textSize = 64f
+
+            val xPos = (canvas.width / 2).toFloat()
+            val yPos = ((canvas.height / 2) - ((paintText.descent() + paintText.ascent()) / 2))
+
+            canvas.drawText(getLetterFromName(text), xPos, yPos, paintText);
+
+            return output
+        }
+
+        fun isVietnameseWord(text: String): Boolean {
+            for(i in text)
+                if(vietPattern.matcher(i.toString()).matches()) return true
+            return false
+        }
+
+        fun createImageFromTextLeaderBoard(context: Context, text: String, position: Int): Bitmap {
+
+            val width = 150
+            val height = 150
+
+            val output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(output)
+
+            val paintCircle = Paint()
+            val paintText = Paint()
+
+            val rect = Rect(0, 0, width, height)
+            val rectF = RectF(rect)
+            val density = context.resources.displayMetrics.density
+            val roundPx = 100 * density;
+
+            paintCircle.color = Color.parseColor(colors[position % 7])
+            paintCircle.isAntiAlias = true
+
+            canvas.drawRoundRect(rectF, roundPx, roundPx, paintCircle)
+
+            paintText.textAlign = Paint.Align.CENTER
+
+            paintText.color = context.getColor(R.color.white)
 
             paintText.textSize = 64f
 

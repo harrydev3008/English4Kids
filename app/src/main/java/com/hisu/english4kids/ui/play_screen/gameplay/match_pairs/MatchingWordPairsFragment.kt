@@ -2,11 +2,9 @@ package com.hisu.english4kids.ui.play_screen.gameplay.match_pairs
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +14,7 @@ import com.hisu.english4kids.data.model.game_play.GameStyleSix
 import com.hisu.english4kids.databinding.FragmentMatchingWordPairsBinding
 import es.dmoral.toasty.Toasty
 import java.lang.ref.WeakReference
-import java.util.*
+import java.util.Random
 
 class MatchingWordPairsFragment(
     private val itemTapListener: () -> Unit,
@@ -38,31 +36,15 @@ class MatchingWordPairsFragment(
     private var counter = 0
     private var wrongMoves = 0
 
-
-    private val correctMsgs = listOf<String>(
-        "Tuyệt vời ông mặt trời!",
-        "Chính xác!",
-        "Hay quá bạn ơi!",
-        "Quá xuất sắc!",
-        "Hoàn hảo!"
-    )
-
-    private val wrongMsgs = listOf<String>(
+    private val wrongMsgs = listOf(
         "Úi sai rồi!",
         "Sai rồi! Làm lại nào!",
         "Hic! Dịch sai rồi",
-        "Thất bại là mẹ thành công!",
+        "Suy nghĩ thật kỹ bạn nhé!",
         "Dù sai vẫn cố! Đừng nản!"
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMatchingWordPairsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -87,7 +69,7 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                correctAnswerListener.invoke(gameStyleSix.score, gameStyleSix.roundId, gameStyleSix.playStatus)
+                correctAnswerListener.invoke(gameStyleSix.score, gameStyleSix.roundId, gameStyleSix.playStatus?:"NONE")
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -105,7 +87,7 @@ class MatchingWordPairsFragment(
                 binding.btnCheck.tvCorrectAnswer.text =
                     requireContext().getString(R.string.better_luck_next_time)
 
-                wrongAnswerListener.invoke(gameStyleSix.roundId, gameIndex, gameStyleSix.playStatus)
+                wrongAnswerListener.invoke(gameStyleSix.roundId, gameIndex, gameStyleSix.playStatus?:"NONE")
             }
         }
 
@@ -132,13 +114,6 @@ class MatchingWordPairsFragment(
 
                 counter++
 
-                Toasty.success(
-                    requireContext(),
-                    correctMsgs[Random().nextInt(correctMsgs.size)],
-                    Toast.LENGTH_SHORT,
-                    true
-                ).show()
-
                 wordPairsAdapter.correctPairsSelected(position)
                 if (prevPos != -1)
                     wordPairsAdapter.correctPairsSelected(prevPos)
@@ -146,7 +121,6 @@ class MatchingWordPairsFragment(
                 prevPos = -1
 
                 if (counter == gameStyleSix.totalPairs) {
-                    Log.e("tesst", "${counter} - ${gameStyleSix.totalPairs}")
                     _result.postValue(true)
                 }
 
@@ -160,12 +134,7 @@ class MatchingWordPairsFragment(
                     return
                 }
 
-                Toasty.error(
-                    requireContext(),
-                    wrongMsgs[Random().nextInt(wrongMsgs.size)],
-                    Toast.LENGTH_SHORT,
-                    true
-                ).show();
+                Toasty.error(requireContext(), wrongMsgs[Random().nextInt(wrongMsgs.size)], Toasty.LENGTH_SHORT, true).show()
 
                 Handler(requireActivity().mainLooper).postDelayed({
                     wordPairsAdapter.resetPairsSelected(position)

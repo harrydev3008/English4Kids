@@ -10,6 +10,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.hisu.english4kids.databinding.ActivityMainBinding
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.utils.receiver.NotificationReceiver
 import java.util.Calendar
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private val PRESS_TIME_INTERVAL = 2 * 1000
     private lateinit var mExitToast: Toast
     private lateinit var mMediaPlayer:MediaPlayer
+    private lateinit var textToSpeech: TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +40,22 @@ class MainActivity : AppCompatActivity() {
         localDataManager.init(this)
 
         setUpMediaPlayer()
+        initTextToSpeech()
 
 //        createNotyChannel()
 //        scheduleNotification()
+    }
+
+    private fun initTextToSpeech() {
+        textToSpeech = TextToSpeech(applicationContext, TextToSpeech.OnInitListener {
+            if(it == TextToSpeech.SUCCESS) {
+                textToSpeech.language = Locale.UK
+            }
+        })
+    }
+
+     fun speakText(text:String) {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
     }
 
     private fun setUpMediaPlayer() {
@@ -117,13 +133,11 @@ class MainActivity : AppCompatActivity() {
           Press back button twice within 2s to exit program
          */
         if (backPressTime + PRESS_TIME_INTERVAL > System.currentTimeMillis()) {
-            mExitToast.cancel();
-            moveTaskToBack(true); //Only move to back not close the whole app
+            mExitToast.cancel()
+            moveTaskToBack(true) //Only move to back not close the whole app
             return
         } else {
-            mExitToast =
-                Toast.makeText(this, getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT)
-
+            mExitToast = Toast.makeText(this, getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT)
             mExitToast.show()
         }
 
@@ -149,5 +163,9 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        if (textToSpeech != null) {
+            textToSpeech!!.stop()
+            textToSpeech!!.shutdown()
+        }
     }
 }

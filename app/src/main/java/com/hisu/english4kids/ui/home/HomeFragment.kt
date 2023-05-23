@@ -131,8 +131,12 @@ class HomeFragment : Fragment() {
             val localCourses = Gson().fromJson(
                 localDataManager.getCourseInfo(), DataCourse::class.java
             )
+            courseAdapter.courses = localCourses.courses
             courseAdapter.notifyDataSetChanged()
             binding.circleIndicator.setViewPager(binding.vpCourses)
+            if(localCourses.courses[0].currentLevel == localCourses.courses[0].totalLevel) {
+                binding.btnCompetitiveMode.isEnabled = true
+            }
         }
     }
 
@@ -183,6 +187,10 @@ class HomeFragment : Fragment() {
                         courseAdapter.notifyDataSetChanged()
                         binding.circleIndicator.setViewPager(binding.vpCourses)
                         localDataManager.setCourseInfo(Gson().toJsonTree(this).toString())
+
+                        if(this.courses[0].currentLevel == this.courses[0].totalLevel) {
+                            binding.btnCompetitiveMode.isEnabled = true
+                        }
                     }
                 }
             }

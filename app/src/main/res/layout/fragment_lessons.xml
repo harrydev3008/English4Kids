@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,97 +7,107 @@
     android:orientation="vertical"
     tools:context=".ui.lessons.LessonsFragment">
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/linearLayout"
+    <LinearLayout
+        android:id="@+id/layout_header"
         android:layout_width="match_parent"
-        android:layout_height="63dp"
-        android:background="@color/daily"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/_6sdp"
-        app:alignItems="center"
-        app:justifyContent="space_between">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_weekly_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_fire_solid"
-            android:drawablePadding="@dimen/_6sdp"
-            android:fontFamily="@font/roboto_bold"
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:background="@color/daily"
             android:gravity="center"
-            android:includeFontPadding="false"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/ic_coin_reward"/>
+            android:paddingHorizontal="@dimen/_6sdp"
+            app:alignItems="center"
+            app:justifyContent="space_between">
 
             <TextView
-                android:id="@+id/tv_coins"
+                android:id="@+id/tv_weekly_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_fire_solid"
+                android:drawablePadding="@dimen/_6sdp"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:maxLength="3"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:text="999"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/ic_coin_reward"/>
+
+                <TextView
+                    android:id="@+id/tv_coins"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:text="9999"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16ssp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_heart_fill"
+                android:drawablePadding="@dimen/_6sdp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:maxLength="1"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:text="5"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+        </com.google.android.flexbox.FlexboxLayout>
 
         <TextView
-            android:id="@+id/tv_heart"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_mode"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_heart_fill"
-            android:drawablePadding="@dimen/_6sdp"
-            android:fontFamily="@font/roboto_bold"
-            android:gravity="center"
+            android:background="@drawable/bg_border_bottom"
+            android:drawableStart="@drawable/ic_side_menu"
+            android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
-            android:maxLength="1"
             android:paddingHorizontal="@dimen/_8sdp"
-            android:text="5"
+            android:paddingBottom="@dimen/_8sdp"
+            android:text="@string/mode_learning"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp" />
-    </com.google.android.flexbox.FlexboxLayout>
 
-    <TextView
-        android:id="@+id/tv_mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_border_bottom"
-        android:drawableStart="@drawable/ic_side_menu"
-        android:fontFamily="@font/be_vietnam_bold"
-        android:includeFontPadding="false"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        android:text="@string/mode_learning"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_16ssp" />
+    </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/layout_container"
+        android:layout_below="@+id/layout_header"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.hisu.english4kids.widget.OverScrollBehavior"
@@ -117,4 +127,17 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_up_arrow"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:backgroundTint="@color/classic"
+        app:tint="@android:color/white"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>

@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Window
 import android.view.WindowManager
@@ -14,9 +13,7 @@ import com.hisu.english4kids.data.model.daily_reward.Reward
 import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.databinding.LayoutDailyRewardsBinding
 import com.hisu.english4kids.utils.local.LocalDataManager
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.util.*
 
 class DailyRewardDialog() {
     private lateinit var context: Context
@@ -66,7 +63,7 @@ class DailyRewardDialog() {
                  * 7 days, 7 rewards
                  * if position == the last day (day 7th, index 6) we will span the col
                  */
-                if(position == 6) return 3
+                if (position == 6) return 3
                 return 1
             }
         }
@@ -76,50 +73,46 @@ class DailyRewardDialog() {
         localDataManager.init(context)
 
         val currentPlayer = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
-        val rewardList = mutableListOf<Reward>()
+        val rewardList = getRewardList(currentPlayer.claimCount)
 
-        if(currentPlayer.claimCount == 0 || currentPlayer.lastClaimdDate.isEmpty()) {
-            rewardList.addAll(listOf(
-                Reward(1, 10, isClaimed = false, isClaimable = true),
-                Reward(2, 20),
-                Reward(3, 30),
-                Reward(4, 40),
-                Reward(5, 50),
-                Reward(6, 60),
-                Reward(7, 100)
-            ))
-        } else {
-            for(i in 0  until 7) {
-                if(i < currentPlayer.claimCount) {
-                    rewardList.add(Reward(i + 1, 10 * (i + 1), isClaimed = true))
-                } else if(i == currentPlayer.claimCount) {
+        for (i in 1..7) {
+            rewardList[i - 1].reward = i * 10
+        }
 
-                    val day = currentPlayer.lastClaimdDate.substring(8, 10).toInt()
-                    val mon = currentPlayer.lastClaimdDate.substring(5, 7).toInt()
-                    val year = currentPlayer.lastClaimdDate.substring(0, 4).toInt()
+        if (currentPlayer.claimCount == 0) {
+            rewardList[0].isClaimed = 0
+        } else if (currentPlayer.claimCount < 7)  {
+            for (i in 0 until currentPlayer.claimCount) {
+                rewardList[i].isClaimed = 1
+            }
 
-                    val lastClaimedDate = LocalDate.of(year, mon, day)
+            val day = currentPlayer.lastClaimdDate.substring(8, 10).toInt()
+            val mon = currentPlayer.lastClaimdDate.substring(5, 7).toInt()
+            val year = currentPlayer.lastClaimdDate.substring(0, 4).toInt()
 
-                    if(lastClaimedDate.isBefore(LocalDate.now())) {
-                        rewardList.add(Reward(i + 1, 10 * (i + 1), isClaimable = true, isClaimed = false))
-                    } else if (LocalDate.now().isAfter(lastClaimedDate)) {
-                        rewardList.add(Reward(i + 1, 10 * (i + 1), isClaimable = true, isClaimed = false))
-                    } else {
-                        rewardList.add(Reward(i + 1, 10 * (i + 1), isClaimable = false, isClaimed = false))
-                    }
-                } else {
-                    rewardList.add(Reward(i + 1, 10 * (i + 1), isClaimed = false, isClaimable = false))
-                }
+            val lastClaimedDate = LocalDate.of(year, mon, day)
+
+            if(lastClaimedDate.isBefore(LocalDate.now())) {
+                rewardList[currentPlayer.claimCount].isClaimed = 0
+            } else if (LocalDate.now().isEqual(lastClaimedDate)) {
+                rewardList[currentPlayer.claimCount].isClaimed = -1
             }
         }
 
         val rewardAdapter = DailyRewardAdapter(context) {
             claimReward.invoke(it)
         }
+
         rewardAdapter.rewards = rewardList
 
         adapter = rewardAdapter
         setHasFixedSize(true)
+    }
+
+    private fun getRewardList(claimCount: Int): MutableList<Reward> {
+        if (claimCount < 7)
+            return MutableList(7) { Reward(10, -1) }
+        return MutableList(7) { Reward(10, 1) }
     }
 
     private fun handleCloseButton() = binding.btnClose.setOnClickListener {

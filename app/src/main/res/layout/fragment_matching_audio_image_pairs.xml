@@ -30,6 +30,7 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/btn_play_audio"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="match_parent"
             android:background="@drawable/bg_icon_border"

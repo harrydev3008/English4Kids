@@ -2,6 +2,7 @@ package com.hisu.english4kids.ui.play_screen.gameplay.match_pairs
 
 import android.app.Activity
 import android.content.Context
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -88,19 +89,27 @@ class MatchingWordPairsAdapter(
     fun correctPairsSelected(position: Int) {
         if (holders[position] is WordPairViewHolder) {
             (holders[position] as WordPairViewHolder).binding.apply {
-                cardContainer.background =
-                    ContextCompat.getDrawable(context, R.drawable.bg_word_border_light_gray)
-                tvAnswer.setTextColor(context.getColor(R.color.gray_af))
+
+                cardContainer.background = ContextCompat.getDrawable(context, R.drawable.bg_word_border_selected_green)
+                tvAnswer.setTextColor(context.getColor(R.color.text_correct))
+
+                Handler(context.mainLooper).postDelayed({
+                    cardContainer.background = ContextCompat.getDrawable(context, R.drawable.bg_word_border_light_gray)
+                    tvAnswer.setTextColor(context.getColor(R.color.gray_af))
+                }, 500)
 
                 cardContainer.isClickable = false
                 cardContainer.setOnClickListener(null)
             }
         } else {
             (holders[position] as AudioWordPairViewHolder).binding.apply {
-                levelParent.background =
-                    ContextCompat.getDrawable(context, R.drawable.bg_word_border_light_gray)
 
-                imvPlayAudio.setImageResource(R.drawable.ic_round_volume_up_24_gray)
+                levelParent.background = ContextCompat.getDrawable(context, R.drawable.bg_word_border_selected_green)
+
+                Handler(context.mainLooper).postDelayed({
+                    levelParent.background = ContextCompat.getDrawable(context, R.drawable.bg_word_border_light_gray)
+                    imvPlayAudio.setImageResource(R.drawable.ic_round_volume_up_24_gray)
+                }, 500)
 
                 levelParent.isClickable = false
                 levelParent.setOnClickListener(null)
@@ -111,8 +120,7 @@ class MatchingWordPairsAdapter(
     fun resetPairsSelected(position: Int) {
         if (holders[position] is WordPairViewHolder) {
             (holders[position] as WordPairViewHolder).binding.apply {
-                cardContainer.background =
-                    ContextCompat.getDrawable(context, R.drawable.bg_word_border)
+                cardContainer.background = ContextCompat.getDrawable(context, R.drawable.bg_word_border)
                 tvAnswer.setTextColor(context.getColor(R.color.gray))
             }
         } else {

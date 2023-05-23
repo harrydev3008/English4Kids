@@ -132,22 +132,7 @@ class PlayFragment : Fragment() {
         } else {
 
             if(unfinishedGameplays.size == 0) {
-                val finishTime = SystemClock.elapsedRealtime() - startGamePlayTime
-
-                val gameRes = calculateFinalResult(finishTime)
-
-                val finishDialog = GameFinishDialog(requireContext(), Gson().toJsonTree(gameRes))
-                finishDialog.showDialog()
-
-                finishDialog.setExitCallback {
-                    finishDialog.dismissDialog()
-                    findNavController().navigate(R.id.play_to_lesson)
-                }
-
-                finishDialog.setNextLessonCallback {
-                    finishDialog.dismissDialog()
-                    findNavController().popBackStack()
-                }
+                finishGameplay()
             } else {
                 MessageDialog(
                     requireContext(), requireContext().getString(R.string.oopss),
@@ -157,16 +142,35 @@ class PlayFragment : Fragment() {
                     gameplays.addAll(unfinishedGameplays)
                     unfinishedGameplays.clear()
 
-                    wrongAnswerCount = 0
-                    binding.pbStar.max = gameplays.size
-                    binding.pbStar.progress = 0
+//                    wrongAnswerCount = 0
+//                    binding.pbStar.max = gameplays.size
+//                    binding.pbStar.progress = 0
+//                    binding.tvCurrentProgress.text = String.format(requireContext().getString(R.string.game_progress_pattern), binding.pbStar.progress, binding.pbStar.max)
 
-                    binding.tvCurrentProgress.text = String.format(requireContext().getString(R.string.game_progress_pattern), binding.pbStar.progress, binding.pbStar.max)
                     gameplayViewPagerAdapter.setGamePlays(gameplays)
                     gameplayViewPagerAdapter.notifyDataSetChanged()
                     binding.flRoundContainer.adapter = gameplayViewPagerAdapter
                 }.showDialog()
             }
+        }
+    }
+
+    private fun finishGameplay() {
+        val finishTime = SystemClock.elapsedRealtime() - startGamePlayTime
+
+        val gameRes = calculateFinalResult(finishTime)
+
+        val finishDialog = GameFinishDialog(requireContext(), Gson().toJsonTree(gameRes))
+        finishDialog.showDialog()
+
+        finishDialog.setExitCallback {
+            finishDialog.dismissDialog()
+            findNavController().navigate(R.id.action_playFragment_to_homeFragment)
+        }
+
+        finishDialog.setNextLessonCallback {
+            finishDialog.dismissDialog()
+            findNavController().popBackStack()
         }
     }
 
@@ -245,16 +249,14 @@ class PlayFragment : Fragment() {
                 it.dismiss()
             }.setPositiveListener(requireContext().getString(R.string.confirm_msg_quit)) {
                 it.dismiss()
-                requireActivity().runOnUiThread {
-                    findNavController().navigate(R.id.action_playFragment_to_homeFragment)
-                }
+                finishGameplay()
             }.build().show()
     }
 
     private fun calculateFinalResult(finishTime: Long): FinalResult {
         return FinalResult(
             fastScore = MyUtils.convertMilliSecondsToMMSS(finishTime),
-            perfectScore = ((correctAnswerCount.toFloat() / gameplays.size) * 100).toInt(),
+            perfectScore = wrongAnswerCount,
             totalScore = totalScore,
             golds = totalScore / 2
         )

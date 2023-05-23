@@ -176,7 +176,7 @@
             android:backgroundTint="@color/text_correct"
             android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
-            android:paddingVertical="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_8sdp"
             android:text="@string/welcome_text_register"
             android:textAllCaps="false"
             android:textColor="@color/white"

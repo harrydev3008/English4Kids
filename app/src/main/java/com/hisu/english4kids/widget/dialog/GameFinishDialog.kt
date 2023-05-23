@@ -65,7 +65,7 @@ class GameFinishDialog() {
 
     private fun displayUserResult(result: FinalResult) = binding.apply {
         tvFastScore.text = result.fastScore
-        tvPerfectScore.text = String.format(context.getString(R.string.perfect_score_pattern), result.perfectScore)
+        tvPerfectScore.text = result.perfectScore.toString()
         tvGold.text = String.format(context.getString(R.string.bonus_gold_pattern), result.golds)
         tvWeeklyScore.text = String.format(context.getString(R.string.bonus_gold_pattern), result.totalScore)
     }

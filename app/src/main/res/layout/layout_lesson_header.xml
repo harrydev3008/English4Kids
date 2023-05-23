@@ -13,7 +13,7 @@
         android:background="@color/daily"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/_8sdp"
-        android:paddingVertical="@dimen/_12sdp">
+        android:paddingVertical="@dimen/_8sdp">
 
         <TextView
             android:id="@+id/tv_header"
@@ -23,7 +23,7 @@
             android:includeFontPadding="false"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="@dimen/_18ssp" />
+            android:textSize="@dimen/_16ssp" />
 
         <TextView
             android:id="@+id/tv_header_desc"
@@ -33,7 +33,7 @@
             android:includeFontPadding="false"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp" />
+            android:textSize="@dimen/_14ssp" />
 
     </LinearLayout>
 

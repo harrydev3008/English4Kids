@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.game_play.GameStyleTwo
 import com.hisu.english4kids.databinding.FragmentMatchingAudioImagePairsBinding
 import com.hisu.english4kids.data.model.pair_matching.PairMatchingModel
 import com.hisu.english4kids.data.model.pair_matching.PairMatchingResponse
+import com.hisu.english4kids.utils.MyUtils
 
 class MatchingAudioImagePairsFragment(
     private val itemTapListener: () -> Unit,
@@ -67,7 +69,7 @@ class MatchingAudioImagePairsFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
                 audioImageAdapter.isLockView = true
-                correctAnswerListener.invoke(gameStyleTwo.score, gameStyleTwo.roundId, gameStyleTwo.playStatus)
+                correctAnswerListener.invoke(gameStyleTwo.score, gameStyleTwo.roundId, gameStyleTwo.playStatus?:"NONE")
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -77,11 +79,17 @@ class MatchingAudioImagePairsFragment(
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
                 audioImageAdapter.isLockView = true
 
-                wrongAnswerListener.invoke(gameStyleTwo.roundId, gameIndex, gameStyleTwo.playStatus)
+                wrongAnswerListener.invoke(gameStyleTwo.roundId, gameIndex, gameStyleTwo.playStatus?:"NONE")
             }
         }
 
         checkAnswer()
+        playAudioQuestion()
+    }
+
+    private fun playAudioQuestion() = binding.btnPlayAudio.setOnClickListener {
+        if(!MyUtils.isVietnameseWord(gameStyleTwo.question))
+            (requireActivity() as MainActivity).speakText(gameStyleTwo.question)
     }
 
     private fun checkAnswer() = binding.btnCheck.btnNextRound.setOnClickListener {

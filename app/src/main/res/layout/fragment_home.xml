@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:paddingHorizontal="15dp"
+        android:paddingHorizontal="20dp"
         android:paddingVertical="@dimen/_20sdp"
         tools:ignore="ContentDescription" />
 
@@ -90,6 +90,8 @@
             android:id="@+id/btn_competitive_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CompetitiveStyle"
+            android:enabled="false"
             android:drawableEnd="@drawable/ic_energy_arrow"
             android:drawablePadding="@dimen/_8sdp"
             android:paddingHorizontal="@dimen/_16sdp"

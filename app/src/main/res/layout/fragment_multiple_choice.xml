@@ -15,7 +15,6 @@
         android:layout_marginBottom="@dimen/_6sdp"
         android:layout_marginTop="@dimen/_2sdp"
         android:justificationMode="inter_word"
-        android:paddingHorizontal="@dimen/_4sdp"
         android:text="@string/multiple_choice_pattern"
         android:fontFamily="@font/be_vietnam_bold"
         android:textColor="@color/light_black"

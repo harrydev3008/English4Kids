@@ -123,7 +123,7 @@
             android:enabled="false"
             android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
-            android:paddingVertical="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_8sdp"
             android:text="@string/welcome_text_login"
             android:textAllCaps="false"
             android:textColor="@color/white"

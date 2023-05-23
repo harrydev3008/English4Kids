@@ -58,6 +58,10 @@ class PurchaseHeartDialog() {
         localDataManager = LocalDataManager()
         localDataManager.init(context)
 
+        loadData()
+    }
+
+    private fun loadData() {
         currentUser = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
 
         binding.tvCurrentCoin.text = String.format(
@@ -80,6 +84,13 @@ class PurchaseHeartDialog() {
                 .setPositiveListener(context.getString(R.string.confirm_otp)) {
                     it.dismiss()
                 }.build().show()
+        } else if (currentUser.golds < 600) {
+            iOSDialogBuilder(context)
+                .setTitle(context.getString(R.string.confirm_otp))
+                .setSubtitle(context.getString(R.string.not_enough_gold))
+                .setPositiveListener(context.getString(R.string.confirm_otp)) {
+                    it.dismiss()
+                }.build().show()
         } else
             btnPurchaseCallback.invoke(5)
     }
@@ -94,11 +105,21 @@ class PurchaseHeartDialog() {
                 .setPositiveListener(context.getString(R.string.confirm_otp)) {
                     it.dismiss()
                 }.build().show()
+        } else if (currentUser.golds < 300) {
+            iOSDialogBuilder(context)
+                .setTitle(context.getString(R.string.confirm_otp))
+                .setSubtitle(context.getString(R.string.not_enough_gold))
+                .setPositiveListener(context.getString(R.string.confirm_otp)) {
+                    it.dismiss()
+                }.build().show()
         } else
             btnPurchaseCallback.invoke(3)
     }
 
-    fun showDialog() = dialog.show()
+    fun showDialog() {
+        loadData()
+        dialog.show()
+    }
 
     fun dismissDialog() = dialog.dismiss()
 }

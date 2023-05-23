@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -73,6 +74,9 @@ class LessonsFragment : Fragment() {
         setUpLessonsRecyclerView()
         loadLessons()
         handleButtonHeart()
+        setUpScrollEvent()
+        backToTop()
+        weeklyScoreHint()
     }
 
     private fun initView() {
@@ -89,6 +93,35 @@ class LessonsFragment : Fragment() {
     private fun setUpLessonsRecyclerView() = binding.rvLessons.apply {
         lessonsAdapter = LessonAdapter(requireContext(), ::handleLessonClick)
         adapter = lessonsAdapter
+        binding.floatingButton.hide()
+    }
+
+    private fun setUpScrollEvent() {
+        binding.scrollContainer.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            run {
+                if (scrollY > 0) {
+                    binding.floatingButton.show()
+                } else {
+                    binding.floatingButton.hide()
+                }
+            }
+        }
+    }
+
+    private fun weeklyScoreHint() = binding.tvWeeklyScore.setOnClickListener {
+        iOSDialogBuilder(requireContext())
+            .setTitle(requireContext().getString(R.string.weekly_score))
+            .setSubtitle(requireContext().getString(R.string.weekly_score_desc))
+            .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                it.dismiss()
+            }.build().show()
+    }
+
+    private fun backToTop() = binding.floatingButton.setOnClickListener {
+        binding.rvLessons.post {
+            val y = binding.rvLessons.y + binding.rvLessons.getChildAt(0).y
+            binding.scrollContainer.smoothScrollTo(0, y.toInt())
+        }
     }
 
     private fun handleButtonHeart() = binding.tvHeart.setOnClickListener {
@@ -248,6 +281,7 @@ class LessonsFragment : Fragment() {
 
                         requireActivity().runOnUiThread {
                             binding.tvHeart.text = this.updatedUser.hearts.toString()
+                            binding.tvCoins.text = this.updatedUser.golds.toString()
                             iOSDialogBuilder(requireContext())
                                 .setTitle(requireContext().getString(R.string.confirm_otp))
                                 .setSubtitle(requireContext().getString(R.string.buy_more_heart_success))

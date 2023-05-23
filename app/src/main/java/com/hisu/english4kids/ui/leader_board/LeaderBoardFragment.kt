@@ -41,10 +41,7 @@ class LeaderBoardFragment : Fragment() {
     private lateinit var currentPlayer: Player
     private lateinit var mLoadingDialog: LoadingDialog
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLeaderBoardBinding.inflate(inflater, container, false)
         return binding.root
     }

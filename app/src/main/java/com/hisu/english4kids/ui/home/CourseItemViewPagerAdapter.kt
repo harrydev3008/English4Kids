@@ -3,6 +3,7 @@ package com.hisu.english4kids.ui.home
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -41,11 +42,8 @@ class CourseItemViewPagerAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindData(course: Course, position: Int) = binding.apply {
-            tvCourseTitle.text = course.title
+            tvCourseTitle.text = String.format(context.getString(R.string.course_title_pattern), position + 1, course.title)
             tvCourseDesc.text = course.description
-
-            pbCourseProgress.max = course.totalLevel
-            pbCourseProgress.progress = course.currentLevel
 
             cardParent.strokeColor = Color.parseColor(colors[position])
             pbCourseProgress.setIndicatorColor(Color.parseColor(colors[position]))
@@ -67,17 +65,19 @@ class CourseItemViewPagerAdapter(
                 }
             }
 
-            tvProgressNumber.text = String.format(
-                context.getString(R.string.course_progress_pattern),
-                course.currentLevel,
-                course.totalLevel
-            )
+            tvProgressNumber.text = String.format(context.getString(R.string.course_progress_pattern), course.currentLevel, course.totalLevel)
 
             if(course.currentLevel == 0) {
                 btnStartCourse.text = context.getString(R.string.start_course)
+                pbCourseProgress.max = course.totalLevel
+                pbCourseProgress.progress = 0
             } else if(course.currentLevel < course.totalLevel) {
                 btnStartCourse.text = context.getString(R.string.next)
+                pbCourseProgress.max = course.totalLevel
+                pbCourseProgress.progress = course.currentLevel
             } else {
+                pbCourseProgress.visibility = View.GONE
+                tvCourseComplete.visibility = View.VISIBLE
                 btnStartCourse.text = context.getString(R.string.review)
             }
         }

@@ -108,7 +108,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/daily"
+                        android:background="@color/text_incorrect"
                         android:orientation="vertical">
 
                         <TextView
@@ -117,7 +117,7 @@
                             android:layout_marginTop="2dp"
                             android:fontFamily="@font/be_vietnam"
                             android:includeFontPadding="false"
-                            android:text="@string/perfect_score"
+                            android:text="Sai"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_14ssp"
@@ -130,9 +130,9 @@
                             android:layout_margin="3dp"
                             android:background="@drawable/bg_rounded_white"
                             android:paddingVertical="@dimen/_10sdp"
-                            android:text="100%"
+                            android:text="100"
                             android:textAlignment="center"
-                            android:textColor="@color/daily"
+                            android:textColor="@color/text_incorrect"
                             android:textSize="@dimen/_16ssp"
                             android:textStyle="bold" />
                     </LinearLayout>

@@ -16,7 +16,7 @@ class GameplayProgressAdapter(
 ) : RecyclerView.Adapter<GameplayProgressAdapter.GameplayProgressViewHolder>() {
 
     var gameplays = listOf<Gameplay>()
-    private val zigZagPaddingArr = listOf(0.05f, 0.2f, 0.4f, 0.6f, 0.6f, 0.4f, 0.2f, 0.05f)
+    private val zigZagPaddingArr = listOf(0.2f, 0.3f, 0.4f, 0.5f, 0.5f, 0.4f, 0.3f, 0.2f)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameplayProgressViewHolder {
         return GameplayProgressViewHolder(

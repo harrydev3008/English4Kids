@@ -16,7 +16,7 @@
         android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"
         android:textColor="@color/light_black"
-        android:textSize="@dimen/_18ssp"
+        android:textSize="@dimen/_16ssp"
         android:textStyle="bold" />
 
     <LinearLayout

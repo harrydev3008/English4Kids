@@ -120,8 +120,7 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun handleConfirmPasswordTextChange() =
-        binding.edtConfirmPassword.addTextChangedListener {
+    private fun handleConfirmPasswordTextChange() = binding.edtConfirmPassword.addTextChangedListener {
             if (it.toString().isEmpty() || it.toString() != binding.edtPassword.text.toString()) {
                 binding.tilConfirmPasswordContainer.helperText =
                     getString(R.string.invalid_cf_password_err)
@@ -137,7 +136,7 @@ class RegisterFragment : Fragment() {
         if (validateData() && isLegit) {//todo: check isLegit
             val phoneNumber = binding.edtPhoneNumber.text.toString()
             val action = RegisterFragmentDirections.actionRegisterFragmentToCheckOTPFragment(
-                phoneNumber, authType = 1,
+                phoneNumber = phoneNumber, authType = 1,
                 displayName = binding.edtDisplayName.text.toString().trim(),
                 password = binding.edtPassword.text.toString().trim()
             )

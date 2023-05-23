@@ -50,7 +50,7 @@ class ReviewQuestionFragment : Fragment() {
     }
 
     private fun initQuestion() {
-        binding.tvQuestion.text = examQuestion.question
+        binding.tvQuestion.text = String.format(requireContext().getString(R.string.multiple_choice_pattern_review), examQuestion.question)
 
         when (examQuestion.attachmentType) {
             ATTACHMENT_TYPE_NONE -> {
@@ -94,8 +94,6 @@ class ReviewQuestionFragment : Fragment() {
     }
 
     private fun renderAnswer() = binding.apply {
-        tvQuestion.text = examQuestion.question
-
         for(i in 0 until examQuestion.answers.size) {
 
             answersTextView[i].text = String.format(requireContext().getString(R.string.answer_multiple_choice_pattern), MyUtils.renderAnswerAlphabetIndex(i), examQuestion.answers[i].content)

@@ -7,9 +7,11 @@ import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.game_play.GameStyleThree
 import com.hisu.english4kids.databinding.FragmentSentenceStyleBinding
+import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.widget.CustomWord
 import com.hisu.english4kids.widget.MyCustomLayout
 import java.util.*
@@ -57,7 +59,7 @@ class SentenceStyleFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                correctAnswerListener.invoke(gameStyleThree.score, gameStyleThree.roundId, gameStyleThree.playStatus)
+                correctAnswerListener.invoke(gameStyleThree.score, gameStyleThree.roundId, gameStyleThree.playStatus?:"NONE")
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -65,11 +67,17 @@ class SentenceStyleFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                wrongAnswerListener.invoke(gameStyleThree.roundId, gameIndex, gameStyleThree.playStatus)
+                wrongAnswerListener.invoke(gameStyleThree.roundId, gameIndex, gameStyleThree.playStatus?:"NONE")
             }
         }
 
         addActionForBtnCheck()
+        playAudioQuestion()
+    }
+
+    private fun playAudioQuestion() = binding.btnPlayAudio.setOnClickListener {
+        if(!MyUtils.isVietnameseWord(gameStyleThree.question))
+            (requireActivity() as MainActivity).speakText(gameStyleThree.question)
     }
 
     private fun initCustomLayout() {

@@ -46,7 +46,7 @@ class TypeAnswerFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.correct))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                correctAnswerListener.invoke(gameStyleFour.score, gameStyleFour.roundId, gameStyleFour.playStatus)
+                correctAnswerListener.invoke(gameStyleFour.score, gameStyleFour.roundId, gameStyleFour.playStatus?:"NONE")
             } else {
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
                 binding.btnCheck.containerWrong.visibility = View.VISIBLE
@@ -54,7 +54,7 @@ class TypeAnswerFragment(
                 binding.btnCheck.containerNextRound.setBackgroundColor(requireContext().getColor(R.color.incorrect))
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_incorrect))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
-                wrongAnswerListener.invoke(gameStyleFour.roundId, gameIndex, gameStyleFour.playStatus)
+                wrongAnswerListener.invoke(gameStyleFour.roundId, gameIndex, gameStyleFour.playStatus?:"NONE")
             }
         }
 

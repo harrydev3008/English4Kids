@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_12sdp"
+        android:padding="@dimen/_8sdp"
         android:orientation="vertical">
 
         <TextView
@@ -24,19 +24,19 @@
             android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
             android:textColor="@color/gray"
-            android:textSize="@dimen/_18ssp" />
+            android:textSize="@dimen/_16ssp" />
 
         <TextView
             android:id="@+id/tv_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:fontFamily="@font/be_vietnam"
             android:includeFontPadding="false"
             android:justificationMode="inter_word"
             android:textColor="@color/gray"
-            android:textSize="@dimen/_16ssp" />
+            android:textSize="@dimen/_14ssp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_start"
@@ -46,11 +46,11 @@
             android:text="@string/start_round_to_earn_pattern"
             android:textColor="@color/classic"
             android:textAllCaps="true"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/be_vietnam_bold"
             android:includeFontPadding="false"
             android:textSize="@dimen/_14ssp"
-            android:paddingVertical="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_8sdp"
             app:cornerRadius="@dimen/_12sdp"/>
     </LinearLayout>
 

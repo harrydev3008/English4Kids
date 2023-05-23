@@ -68,7 +68,7 @@ class ClassicPairsMatchingFragment(
         if(gameStyleOne.cards.size > 4) {
             val tempCards = mutableListOf<Card>()
             tempCards.addAll(gameStyleOne.cards)
-            tempCards.add(5, Card("-1", "-1", "", false))
+            tempCards.add(4, Card("-1", "-1", "", false))
             cardAdapter.cards = tempCards
         } else {
             cardAdapter.cards = gameStyleOne.cards
@@ -85,7 +85,7 @@ class ClassicPairsMatchingFragment(
         //Give user around 2-5s to memorize
         Handler(requireContext().mainLooper).postDelayed({
             cardAdapter.hideCards()
-        }, 3000)
+        }, 4000)
     }
 
     private fun observeResult() {
@@ -99,7 +99,7 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.btnNextRound.setBackgroundColor(requireContext().getColor(R.color.text_correct))
                 binding.btnCheck.btnNextRound.setTextColor(requireContext().getColor(R.color.white))
 
-                correctAnswerListener.invoke(gameStyleOne.score, gameStyleOne.roundId, gameStyleOne.playStatus)
+                correctAnswerListener.invoke(gameStyleOne.score, gameStyleOne.roundId, gameStyleOne.playStatus?:"NONE")
             } else {
                 binding.btnCheck.btnNextRound.isEnabled = true
                 binding.btnCheck.btnNextRound.text = requireContext().getString(R.string.next)
@@ -117,7 +117,7 @@ class ClassicPairsMatchingFragment(
                 binding.btnCheck.tvCorrectAnswer.text =
                     requireContext().getString(R.string.better_luck_next_time)
 
-                wrongAnswerListener.invoke(gameStyleOne.roundId, gameIndex, gameStyleOne.playStatus)
+                wrongAnswerListener.invoke(gameStyleOne.roundId, gameIndex, gameStyleOne.playStatus?:"NONE")
             }
         }
     }
