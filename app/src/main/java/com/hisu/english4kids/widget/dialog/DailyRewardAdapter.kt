@@ -32,8 +32,7 @@ class DailyRewardAdapter(
 
     override fun getItemCount(): Int = rewards.size
 
-    inner class DailyRewardViewHolder(val binding: LayoutDailyRewardBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class DailyRewardViewHolder(val binding: LayoutDailyRewardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindData(todayReward: Reward, position: Int) = binding.apply {
 
             tvReward.text = String.format(context.getString(R.string.daily_reward_price_pattern), todayReward.reward)

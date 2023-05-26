@@ -3,7 +3,6 @@ package com.hisu.english4kids.data.network
 import com.google.gson.GsonBuilder
 import com.hisu.english4kids.BuildConfig
 import com.hisu.english4kids.data.*
-import com.hisu.english4kids.data.model.InternetTimeModel
 import com.hisu.english4kids.data.network.response_model.*
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -41,8 +40,6 @@ object API {
 
 interface ApiService {
     //  ----------- GET REQUEST -----------
-    @GET(PATH_INTERNET_TIME)
-    fun getInternetTime(): Call<InternetTimeModel>
 
     @GET(PATH_SEARCH_USER_BY_PHONE)
     fun searchUserByPhone(@Query("phone") phone: String): Call<SearchUserResponseModel>

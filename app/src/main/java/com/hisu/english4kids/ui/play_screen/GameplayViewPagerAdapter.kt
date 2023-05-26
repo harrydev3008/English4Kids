@@ -5,7 +5,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.hisu.english4kids.data.model.game_play.*
+import com.hisu.english4kids.data.model.game_play.GameStyleFive
+import com.hisu.english4kids.data.model.game_play.GameStyleFour
+import com.hisu.english4kids.data.model.game_play.GameStyleOne
+import com.hisu.english4kids.data.model.game_play.GameStyleSix
+import com.hisu.english4kids.data.model.game_play.GameStyleThree
+import com.hisu.english4kids.data.model.game_play.GameStyleTwo
 import com.hisu.english4kids.ui.play_screen.gameplay.audio_image.MatchingAudioImagePairsFragment
 import com.hisu.english4kids.ui.play_screen.gameplay.audio_word.MatchingAudioWordFragment
 import com.hisu.english4kids.ui.play_screen.gameplay.class_pairs_matching.ClassicPairsMatchingFragment

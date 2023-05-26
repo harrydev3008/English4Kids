@@ -69,7 +69,7 @@ class UpdateProfileFragment : Fragment() {
 
         val playJson = localDataManager.getUserInfo()
 
-        if(playJson == null || playJson.isEmpty()) return
+        if(playJson.isNullOrEmpty()) return
 
         currentUser = Gson().fromJson(playJson, Player::class.java)
 

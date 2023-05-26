@@ -1,19 +1,16 @@
 package com.hisu.english4kids.ui.play_screen.gameplay.audio_image
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hisu.english4kids.MainActivity
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.model.game_play.GameStyleTwo
 import com.hisu.english4kids.databinding.FragmentMatchingAudioImagePairsBinding
-import com.hisu.english4kids.data.model.pair_matching.PairMatchingModel
-import com.hisu.english4kids.data.model.pair_matching.PairMatchingResponse
 import com.hisu.english4kids.utils.MyUtils
 
 class MatchingAudioImagePairsFragment(

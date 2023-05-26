@@ -3,11 +3,11 @@ package com.hisu.english4kids.ui.auth
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
@@ -15,7 +15,6 @@ import com.hisu.english4kids.R
 import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.SearchUserResponseModel
-import com.hisu.english4kids.databinding.FragmentChangePasswordBinding
 import com.hisu.english4kids.databinding.FragmentForgotPasswordBinding
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.widget.dialog.LoadingDialog

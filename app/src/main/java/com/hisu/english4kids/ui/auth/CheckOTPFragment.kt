@@ -121,7 +121,7 @@ class CheckOTPFragment : Fragment() {
             mLoadingDialog.showDialog()
         }
         val credential = PhoneAuthProvider.getCredential(verificationID, getUserInputOTPCode())
-        signInWithPhoneAuthCredential(credential);
+        signInWithPhoneAuthCredential(credential)
     }
 
     private fun navigateToNextPage() {

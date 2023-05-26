@@ -13,8 +13,6 @@ const val BUNDLE_ROUND_PLAYED_DATA = "BUNDLE_ROUND_PLAYED_DATA"
 //Content type
 const val CONTENT_TYPE_JSON = "application/json"
 
-const val PATH_INTERNET_TIME = "api/timezone/Asia/Ho_Chi_Minh/"
-
 //public - no token needed
 const val PATH_SEARCH_USER_BY_PHONE = "public/search"
 

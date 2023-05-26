@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
             badgeDrawable.horizontalOffset = 20
             badgeDrawable.verticalOffset = 20
 
-            BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.btnDailyReward);
+            BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.btnDailyReward)
         }
     }
 

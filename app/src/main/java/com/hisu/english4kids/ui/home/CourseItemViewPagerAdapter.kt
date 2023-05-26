@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hisu.english4kids.R
-import com.hisu.english4kids.databinding.LayoutCourseItemBinding
 import com.hisu.english4kids.data.model.course.Course
+import com.hisu.english4kids.databinding.LayoutCourseItemBinding
 import com.hisu.english4kids.widget.dialog.MessageDialog
 
 class CourseItemViewPagerAdapter(

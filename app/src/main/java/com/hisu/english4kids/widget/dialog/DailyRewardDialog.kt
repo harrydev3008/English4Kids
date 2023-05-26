@@ -35,7 +35,7 @@ class DailyRewardDialog() {
         dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(binding.root)
-        dialog.setCancelable(true)
+        dialog.setCancelable(false)
 
         val window = dialog.window ?: return
 
@@ -43,41 +43,23 @@ class DailyRewardDialog() {
 
         window.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         val windowAttr = window.attributes
         windowAttr.gravity = gravity
         window.attributes = windowAttr
-
-        dialog.setCancelable(false)
 
         setUpRewardRecyclerView()
         handleCloseButton()
     }
 
     private fun setUpRewardRecyclerView() = binding.rvDailyRewards.apply {
+        layoutManager = initGridLayoutManager()
 
-        val gridLayoutManager = GridLayoutManager(context, 3)
-
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                /**
-                 * 7 days, 7 rewards
-                 * if position == the last day (day 7th, index 6) we will span the col
-                 */
-                if (position == 6) return 3
-                return 1
-            }
-        }
-
-        layoutManager = gridLayoutManager
         val localDataManager = LocalDataManager()
         localDataManager.init(context)
 
         val currentPlayer = Gson().fromJson(localDataManager.getUserInfo(), Player::class.java)
         val rewardList = getRewardList(currentPlayer.claimCount)
-
-        for (i in 1..7) {
-            rewardList[i - 1].reward = i * 10
-        }
 
         if (currentPlayer.claimCount == 0) {
             rewardList[0].isClaimed = 0
@@ -109,11 +91,28 @@ class DailyRewardDialog() {
         setHasFixedSize(true)
     }
 
-    private fun getRewardList(claimCount: Int): MutableList<Reward> {
-        if (claimCount < 7)
-            return MutableList(7) { Reward(10, -1) }
-        return MutableList(7) { Reward(10, 1) }
+    private fun initGridLayoutManager(): GridLayoutManager {
+        val gridLayoutManager = GridLayoutManager(context, 3)
+        gridLayoutManager.spanSizeLookup = spanSizeCount
+
+        return gridLayoutManager
     }
+
+    private val spanSizeCount = object : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            /**
+             * 7 rewards, span the last col by 3
+             */
+            if (position == 6)
+                return 3
+            return 1
+        }
+    }
+
+    private fun getRewardList(claimCount: Int) = if (claimCount < 7)
+        MutableList(7) { Reward((it + 1) * 10, -1) }
+    else
+        MutableList(7) { Reward((it + 1) * 10, 1) }
 
     private fun handleCloseButton() = binding.btnClose.setOnClickListener {
         dismissDialog()

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.RecyclerView
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject

@@ -1,7 +1,6 @@
 package com.hisu.english4kids.ui.home.setting
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.CONTENT_TYPE_JSON

@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hisu.english4kids.data.model.exam.Answer
 import com.hisu.english4kids.data.model.exam.ExamQuestion
-import com.hisu.english4kids.data.model.multiple_choice.MultipleChoicesResponse
 
 class MultipleChoiceViewPagerAdapter (
     fragmentActivity: FragmentActivity,

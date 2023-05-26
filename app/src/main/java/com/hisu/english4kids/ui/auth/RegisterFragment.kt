@@ -155,7 +155,7 @@ class RegisterFragment : Fragment() {
         if (!patternPhoneNumber.matcher(binding.edtPhoneNumber.text.toString()).matches())
             return false
 
-        return true;
+        return true
     }
 
     private fun validateData(): Boolean {
