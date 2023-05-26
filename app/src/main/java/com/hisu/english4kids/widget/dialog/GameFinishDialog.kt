@@ -19,17 +19,12 @@ class GameFinishDialog() {
     private lateinit var dialog: Dialog
     private lateinit var binding: LayoutGameplayFinishBinding
     private lateinit var resultJson: JsonElement
-    private lateinit var btnExitCallback: () -> Unit
     private lateinit var btnNextLessonCallback: () -> Unit
 
     constructor(context: Context, resultJson: JsonElement) : this() {
         this.context = context
         this.resultJson = resultJson
         initDialog()
-    }
-
-    fun setExitCallback(btnExitCallback: () -> Unit) {
-        this.btnExitCallback = btnExitCallback
     }
 
     fun setNextLessonCallback(btnNextLessonCallback: () -> Unit) {
@@ -57,9 +52,7 @@ class GameFinishDialog() {
 
         val result = Gson().fromJson(resultJson, FinalResult::class.java)
 
-        handleExitButton()
         handleNextLessonButton()
-
         displayUserResult(result)
     }
 
@@ -68,10 +61,6 @@ class GameFinishDialog() {
         tvPerfectScore.text = result.perfectScore.toString()
         tvGold.text = String.format(context.getString(R.string.bonus_gold_pattern), result.golds)
         tvWeeklyScore.text = String.format(context.getString(R.string.bonus_gold_pattern), result.totalScore)
-    }
-
-    private fun handleExitButton() = binding.btnExit.setOnClickListener {
-        btnExitCallback.invoke()
     }
 
     private fun handleNextLessonButton() = binding.btnNextLevel.setOnClickListener {

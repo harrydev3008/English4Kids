@@ -190,42 +190,22 @@
             </com.google.android.flexbox.FlexboxLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_below"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next_level"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_10sdp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_next_level"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/be_vietnam_bold"
-                android:includeFontPadding="false"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="@string/next"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14ssp"
-                app:backgroundTint="@color/classic"
-                app:cornerRadius="@dimen/_10sdp" />
-
-            <TextView
-                android:id="@+id/btn_exit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:fontFamily="@font/be_vietnam_bold"
-                android:includeFontPadding="false"
-                android:paddingVertical="@dimen/_10sdp"
-                android:text="@string/cancel_match"
-                android:textAlignment="center"
-                android:textColor="@color/text_incorrect"
-                android:textSize="@dimen/_18ssp" />
-        </LinearLayout>
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:fontFamily="@font/be_vietnam_bold"
+            android:includeFontPadding="false"
+            android:paddingVertical="@dimen/_8sdp"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            app:backgroundTint="@color/classic"
+            app:cornerRadius="@dimen/_10sdp" />
 
     </RelativeLayout>
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -17,6 +18,7 @@ import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.hisu.english4kids.MyApplication
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.CONTENT_TYPE_JSON
 import com.hisu.english4kids.data.STATUS_OK
@@ -25,6 +27,9 @@ import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.CourseResponseModel
 import com.hisu.english4kids.data.network.response_model.DataCourse
 import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
+import com.hisu.english4kids.data.room_db.repository.CourseRepository
+import com.hisu.english4kids.data.room_db.view_model.CourseViewModel
+import com.hisu.english4kids.data.room_db.view_model.CourseViewModelProviderFactory
 import com.hisu.english4kids.databinding.FragmentHomeBinding
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
@@ -50,6 +55,15 @@ class HomeFragment : Fragment() {
     private lateinit var mLoadingDialog: LoadingDialog
     private lateinit var dialog: DailyRewardDialog
 
+    private val courseViewModel: CourseViewModel by activityViewModels() {
+        CourseViewModelProviderFactory(
+            CourseRepository(
+                requireActivity().applicationContext,
+                (activity?.application as MyApplication).database.courseDAO()
+            )
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,7 +78,12 @@ class HomeFragment : Fragment() {
         mLoadingDialog = LoadingDialog(requireContext(), Gravity.CENTER)
 
         setUpView()
-        handleDailyReward()
+    }
+
+    private fun setUpView() {
+        localDataManager = LocalDataManager()
+        localDataManager.init(requireContext())
+
         initCoursesList()
         getCourses()
         leaderBoard()
@@ -73,31 +92,8 @@ class HomeFragment : Fragment() {
         handleSettingButton()
     }
 
-    private fun setUpView() {
-        localDataManager = LocalDataManager()
-        localDataManager.init(requireContext())
-    }
-
     private fun handleSettingButton() = binding.btnSetting.setOnClickListener {
         findNavController().navigate(R.id.home_to_profile)
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    private fun handleDailyReward() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-        val isDaily =  withContext(Dispatchers.Default) { localDataManager.getUserRemindDailyRewardState() }
-
-        if(isDaily) {
-            val badgeDrawable =  BadgeDrawable.create(requireContext())
-            badgeDrawable.number = 1
-            badgeDrawable.setContentDescriptionNumberless("!")
-            badgeDrawable.backgroundColor = requireContext().getColor(R.color.text_incorrect)
-            badgeDrawable.badgeTextColor = requireContext().getColor(R.color.white)
-            badgeDrawable.isVisible = true
-            badgeDrawable.horizontalOffset = 20
-            badgeDrawable.verticalOffset = 20
-
-            BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.btnDailyReward)
-        }
     }
 
     private fun leaderBoard() = binding.btnLeaderBoard.setOnClickListener {
@@ -125,17 +121,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun getCourses() {
-        if(MyUtils.isNetworkAvailable(requireContext()))
-            API.apiService.getCourses("Bearer ${localDataManager.getUserAccessToken()}").enqueue(handleGetCourseCallback)
-        else {
-            val localCourses = Gson().fromJson(
-                localDataManager.getCourseInfo(), DataCourse::class.java
-            )
-            courseAdapter.courses = localCourses.courses
-            courseAdapter.notifyDataSetChanged()
-            binding.circleIndicator.setViewPager(binding.vpCourses)
-            if(localCourses.courses[0].currentLevel == localCourses.courses[0].totalLevel) {
-                binding.btnCompetitiveMode.isEnabled = true
+        courseViewModel.getCourse().observe(this.viewLifecycleOwner) {
+            it?.apply {
+                courseAdapter.courses = this
+                courseAdapter.notifyDataSetChanged()
+                binding.circleIndicator.setViewPager(binding.vpCourses)
+                if (this[0].currentLevel == this[0].totalLevel) {
+                    binding.btnCompetitiveMode.isEnabled = true
+                }
             }
         }
     }
@@ -177,40 +170,13 @@ class HomeFragment : Fragment() {
         setPageTransformer(transformer)
     }
 
-    private val handleGetCourseCallback = object : Callback<CourseResponseModel> {
-        override fun onResponse(call: Call<CourseResponseModel>, response: Response<CourseResponseModel>) {
-            if (response.isSuccessful && response.code() == STATUS_OK) {
-                response.body()?.apply {
-                    this.data?.apply {
-                        coursesResponse = this.courses
-                        courseAdapter.courses = coursesResponse
-                        courseAdapter.notifyDataSetChanged()
-                        binding.circleIndicator.setViewPager(binding.vpCourses)
-                        localDataManager.setCourseInfo(Gson().toJsonTree(this).toString())
-
-                        if(this.courses[0].currentLevel == this.courses[0].totalLevel) {
-                            binding.btnCompetitiveMode.isEnabled = true
-                        }
-                    }
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<CourseResponseModel>, t: Throwable) {
-            requireActivity().runOnUiThread {
-                iOSDialogBuilder(requireContext())
-                    .setTitle(requireContext().getString(R.string.request_err))
-                    .setSubtitle(requireContext().getString(R.string.err_network_not_connected))
-                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
-                        it.dismiss()
-                    }.build().show()
-            }
-            Log.e(HomeFragment::class.java.name, t.message ?: "error message")
-        }
-    }
-
     private val handleClaimDaily = object : Callback<UpdateUserResponseModel> {
         override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
+
+            requireActivity().runOnUiThread {
+                dialog.dismissDialog()
+            }
+
             if (response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
                     this.data.apply {
@@ -225,7 +191,6 @@ class HomeFragment : Fragment() {
                                 .setSubtitle(requireContext().getString(R.string.claimed_success))
                                 .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
                                     it.dismiss()
-                                    dialog.dismissDialog()
                                 }.build().show()
                         }
                     }
@@ -237,7 +202,6 @@ class HomeFragment : Fragment() {
                         .setSubtitle(requireContext().getString(R.string.claimed_err))
                         .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
                             it.dismiss()
-                            dialog.dismissDialog()
                         }.build().show()
                 }
             }

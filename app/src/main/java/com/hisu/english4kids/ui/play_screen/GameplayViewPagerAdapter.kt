@@ -25,9 +25,9 @@ class GameplayViewPagerAdapter(
     private val correctAnswerListener: (score: Int, roundId: String, playStatus: String) -> Unit
 ) : FragmentStateAdapter(fragmentActivity) {
 
-    var gameplays = listOf<Object>()
+    var gameplays = listOf<Any>()
 
-    fun setGamePlays(gamePlays: List<Object>) {
+    fun setGamePlays(gamePlays: List<Any>) {
         this.gameplays = gamePlays
         notifyDataSetChanged()
     }

@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
+import com.hisu.english4kids.MyApplication
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.CONTENT_TYPE_JSON
 import com.hisu.english4kids.data.STATUS_OK
@@ -22,6 +24,9 @@ import com.hisu.english4kids.data.model.exam.ExamQuestion
 import com.hisu.english4kids.data.model.result.FinalResult
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
+import com.hisu.english4kids.data.room_db.repository.PlayerRepository
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModel
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModelProviderFactory
 import com.hisu.english4kids.databinding.FragmentMultipleChoiceContainerBinding
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
@@ -46,6 +51,15 @@ class MultipleChoiceContainerFragment : Fragment() {
 
     private lateinit var localDataManager: LocalDataManager
     private lateinit var mWalkingLoadingDialog: WalkingLoadingDialog
+
+    private val playerViewModel: PlayerViewModel by activityViewModels() {
+        PlayerViewModelProviderFactory(
+            PlayerRepository(
+                requireActivity().applicationContext,
+                (activity?.application as MyApplication).database.playerDAO()
+            )
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMultipleChoiceContainerBinding.inflate(inflater, container, false)
@@ -124,6 +138,7 @@ class MultipleChoiceContainerFragment : Fragment() {
                     this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
+                        playerViewModel.updatePlayer(this.updatedUser)
 
                         val finalResult = FinalResult(MyUtils.convertMilliSecondsToMMSS(finishTime),0, totalScore, totalScore / 2, String.format("%02d/%02d", correctAnswer, questions.size))
                         val action = MultipleChoiceContainerFragmentDirections.actionMultipleChoiceContainerFragmentToCompleteCompetitiveFragment(

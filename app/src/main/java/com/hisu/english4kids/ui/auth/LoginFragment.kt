@@ -9,17 +9,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.hisu.english4kids.MyApplication
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.CONTENT_TYPE_JSON
 import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
+import com.hisu.english4kids.data.network.response_model.CourseResponseModel
+import com.hisu.english4kids.data.room_db.repository.CourseRepository
+import com.hisu.english4kids.data.room_db.repository.PlayerRepository
+import com.hisu.english4kids.data.room_db.view_model.CourseViewModel
+import com.hisu.english4kids.data.room_db.view_model.CourseViewModelProviderFactory
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModel
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModelProviderFactory
 import com.hisu.english4kids.databinding.FragmentLoginBinding
+import com.hisu.english4kids.splash_screen.SplashScreenFragment
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
@@ -39,6 +49,24 @@ class LoginFragment : Fragment() {
     private lateinit var mLoadingDialog: LoadingDialog
     private var phoneCheck = false
     private var passCheck = false
+
+    private val playerViewModel: PlayerViewModel by activityViewModels() {
+        PlayerViewModelProviderFactory(
+            PlayerRepository(
+                requireActivity().applicationContext,
+                (activity?.application as MyApplication).database.playerDAO()
+            )
+        )
+    }
+
+    private val courseViewModel: CourseViewModel by activityViewModels() {
+        CourseViewModelProviderFactory(
+            CourseRepository(
+                requireActivity().applicationContext,
+                (activity?.application as MyApplication).database.courseDAO()
+            )
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -147,13 +175,8 @@ class LoginFragment : Fragment() {
                         localDataManager.setUserAccessToken(this.accessToken)
                         localDataManager.setUserRefreshToken(this.refreshToken)
 
-                        Handler(requireContext().mainLooper).postDelayed({
-                            requireActivity().runOnUiThread {
-                                mLoadingDialog.dismissDialog()
-                            }
-
-                            findNavController().navigate(R.id.login_to_home)
-                        }, 3 * 1000)
+                        playerViewModel.insertPlayer(this.player)
+                        API.apiService.getCourses("Bearer ${this.accessToken}").enqueue(handleGetCourseCallback)
                     }
                 }
             } else {
@@ -174,6 +197,37 @@ class LoginFragment : Fragment() {
                 mLoadingDialog.dismissDialog()
                 iOSDialogBuilder(requireContext()).setTitle(requireContext().getString(R.string.request_err))
                     .setSubtitle(t.message?: requireContext().getString(R.string.confirm_otp_err_occur_msg))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
+            }
+            Log.e(LoginFragment::class.java.name, t.message ?: "error message")
+        }
+    }
+
+    private val handleGetCourseCallback = object : Callback<CourseResponseModel> {
+        override fun onResponse(call: Call<CourseResponseModel>, response: Response<CourseResponseModel>) {
+            if (response.isSuccessful && response.code() == STATUS_OK) {
+                response.body()?.apply {
+
+                    courseViewModel.insertCourses(this.data.courses)
+
+                    Handler(requireContext().mainLooper).postDelayed({
+                        requireActivity().runOnUiThread {
+                            mLoadingDialog.dismissDialog()
+                        }
+
+                        findNavController().navigate(R.id.login_to_home)
+                    },  1000)
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<CourseResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                iOSDialogBuilder(requireContext())
+                    .setTitle(requireContext().getString(R.string.request_err))
+                    .setSubtitle(requireContext().getString(R.string.err_network_not_connected))
                     .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
                         it.dismiss()
                     }.build().show()
