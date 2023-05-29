@@ -1,6 +1,7 @@
 package com.hisu.english4kids.ui.play_screen
 
 import android.os.Bundle
+import android.os.Handler
 import android.os.SystemClock
 import android.util.Log
 import android.view.Gravity
@@ -9,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
+import com.hisu.english4kids.MyApplication
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.BUNDLE_COURSE_ID_DATA
 import com.hisu.english4kids.data.BUNDLE_LESSON_DATA
@@ -23,8 +26,15 @@ import com.hisu.english4kids.data.PLAY_STATUS_DONE
 import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.model.result.FinalResult
 import com.hisu.english4kids.data.network.API
+import com.hisu.english4kids.data.network.response_model.CourseResponseModel
 import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
+import com.hisu.english4kids.data.room_db.repository.CourseRepository
+import com.hisu.english4kids.data.room_db.repository.PlayerRepository
+import com.hisu.english4kids.data.room_db.view_model.CourseViewModel
+import com.hisu.english4kids.data.room_db.view_model.CourseViewModelProviderFactory
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModel
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModelProviderFactory
 import com.hisu.english4kids.databinding.FragmentPlayBinding
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
@@ -48,14 +58,33 @@ class PlayFragment : Fragment() {
     private var wrongAnswerCount = 0
     private var correctAnswerCount = 0
     private var totalScore = 0
-    private var unfinishedGameplays = mutableListOf<Object>()
-    private var gameplays = mutableListOf<Object>()
+    private var unfinishedGameplays = mutableListOf<Any>()
+    private var gameplays = mutableListOf<Any>()
 
     private lateinit var gameplayViewPagerAdapter: GameplayViewPagerAdapter
     private lateinit var heartDialog: PurchaseHeartDialog
     private lateinit var localDataManager: LocalDataManager
     private lateinit var player: Player
     private lateinit var mLoadingDialog: LoadingDialog
+    private lateinit var finishDialog: GameFinishDialog
+
+    private val playerViewModel: PlayerViewModel by activityViewModels() {
+        PlayerViewModelProviderFactory(
+            PlayerRepository(
+                requireActivity().applicationContext,
+                (activity?.application as MyApplication).database.playerDAO()
+            )
+        )
+    }
+
+    private val courseViewModel: CourseViewModel by activityViewModels() {
+        CourseViewModelProviderFactory(
+            CourseRepository(
+                requireActivity().applicationContext,
+                (activity?.application as MyApplication).database.courseDAO()
+            )
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentPlayBinding.inflate(inflater, container, false)
@@ -80,8 +109,8 @@ class PlayFragment : Fragment() {
         handleQuitGameButton()
         startGamePlayTime = SystemClock.elapsedRealtime()
 
-        val itemType = object : TypeToken<List<Object>>() {}.type
-        val temp = Gson().fromJson<List<Object>>(arguments?.getString(BUNDLE_LESSON_DATA), itemType)
+        val itemType = object : TypeToken<List<Any>>() {}.type
+        val temp = Gson().fromJson<List<Any>>(arguments?.getString(BUNDLE_LESSON_DATA), itemType)
         gameplays.addAll(temp)
 
         binding.pbStar.max = gameplays.size
@@ -90,7 +119,9 @@ class PlayFragment : Fragment() {
             binding.pbStar.progress, binding.pbStar.max
         )
 
-        binding.tvLife.text = player.hearts.toString()
+        playerViewModel.getPlayerInfo(player.id).observe(this.viewLifecycleOwner) {
+            binding.tvLife.text = player.hearts.toString()
+        }
 
         setUpViewpager()
         handlePurchaseHeartButton()
@@ -160,17 +191,14 @@ class PlayFragment : Fragment() {
 
         val gameRes = calculateFinalResult(finishTime)
 
-        val finishDialog = GameFinishDialog(requireContext(), Gson().toJsonTree(gameRes))
+        finishDialog = GameFinishDialog(requireContext(), Gson().toJsonTree(gameRes))
         finishDialog.showDialog()
 
-        finishDialog.setExitCallback {
-            finishDialog.dismissDialog()
-            findNavController().navigate(R.id.action_playFragment_to_homeFragment)
-        }
-
         finishDialog.setNextLessonCallback {
-            finishDialog.dismissDialog()
-            findNavController().popBackStack()
+            requireActivity().runOnUiThread {
+                mLoadingDialog.showDialog()
+            }
+            API.apiService.getCourses("Bearer ${localDataManager.getUserAccessToken()}").enqueue(handleGetCourseCallback)
         }
     }
 
@@ -184,6 +212,10 @@ class PlayFragment : Fragment() {
 
             currentLife--
             binding.tvLife.text = "$currentLife"
+
+            player.hearts = currentLife
+            localDataManager.setUserInfo(Gson().toJson(player))
+            playerViewModel.updatePlayer(player)
 
             if (currentLife == 0) {
                 heartDialog.showDialog()
@@ -217,6 +249,12 @@ class PlayFragment : Fragment() {
             body["score"] = score
             body["hearts"] = Integer.parseInt(binding.tvLife.text.toString())
             body["playStatus"] = "DONE"
+
+            player.weeklyScore = player.weeklyScore + score
+            player.golds = player.golds + score / 2
+
+            localDataManager.setUserInfo(Gson().toJson(player))
+            playerViewModel.updatePlayer(player)
 
             API.apiService.updateDiary("Bearer ${localDataManager.getUserAccessToken()}", body).enqueue(handleUpdateDiaryCallback)
         }
@@ -288,9 +326,9 @@ class PlayFragment : Fragment() {
                     this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
+                        playerViewModel.updatePlayer(this.updatedUser)
 
                         requireActivity().runOnUiThread {
-                            binding.tvLife.text = this.updatedUser.hearts.toString()
                             iOSDialogBuilder(requireContext())
                                 .setTitle(requireContext().getString(R.string.confirm_otp))
                                 .setSubtitle(requireContext().getString(R.string.buy_heart_success))
@@ -318,6 +356,40 @@ class PlayFragment : Fragment() {
                 mLoadingDialog.dismissDialog()
             }
             Log.e(PlayFragment::class.java.name, t.message?: "error message")
+        }
+    }
+
+    private val handleGetCourseCallback = object : Callback<CourseResponseModel> {
+        override fun onResponse(call: Call<CourseResponseModel>, response: Response<CourseResponseModel>) {
+
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+            }
+
+            if (response.isSuccessful && response.code() == STATUS_OK) {
+                response.body()?.apply {
+
+                    courseViewModel.insertCourses(this.data.courses)
+
+                    Handler(requireContext().mainLooper).postDelayed({
+                        finishDialog.dismissDialog()
+                        findNavController().popBackStack()
+                    }, 1000)
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<CourseResponseModel>, t: Throwable) {
+            requireActivity().runOnUiThread {
+                mLoadingDialog.dismissDialog()
+                iOSDialogBuilder(requireContext())
+                    .setTitle(requireContext().getString(R.string.request_err))
+                    .setSubtitle(requireContext().getString(R.string.err_network_not_connected))
+                    .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
+                        it.dismiss()
+                    }.build().show()
+            }
+            Log.e(PlayFragment::class.java.name, t.message ?: "error message")
         }
     }
 

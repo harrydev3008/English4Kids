@@ -128,9 +128,4 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-appcheck-playintegrity'
 //    implementation 'com.google.firebase:firebase-appcheck-debug:17.0.0'
     implementation 'com.google.firebase:firebase-auth'
-
-    //socket.io
-//    implementation('io.socket:socket.io-client:2.0.1') {
-//        exclude group: 'org.json', module: 'json'
-//    }
 }

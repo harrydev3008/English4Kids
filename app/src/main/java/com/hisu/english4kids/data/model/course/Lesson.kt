@@ -13,5 +13,6 @@ data class Lesson(
     var description: String,
     var totalRounds: Int = 0,
     var playedRounds: Int = 0,
-    var rounds: List<Object>
+
+    var rounds: List<Any>
 )

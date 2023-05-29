@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gdacciaro.iOSDialog.iOSDialog
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.hisu.english4kids.MyApplication
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.CONTENT_TYPE_JSON
 import com.hisu.english4kids.data.STATUS_OK
@@ -21,6 +23,9 @@ import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.AuthResponseModel
 import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
+import com.hisu.english4kids.data.room_db.repository.PlayerRepository
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModel
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModelProviderFactory
 import com.hisu.english4kids.databinding.FragmentUpdateProfileBinding
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
@@ -40,6 +45,15 @@ class UpdateProfileFragment : Fragment() {
     private lateinit var mLoadingDialog: LoadingDialog
     private lateinit var localDataManager: LocalDataManager
     private var isDataChanged = false
+
+    private val playerViewModel: PlayerViewModel by activityViewModels() {
+        PlayerViewModelProviderFactory(
+            PlayerRepository(
+                requireActivity().applicationContext,
+                (activity?.application as MyApplication).database.playerDAO()
+            )
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,17 +86,22 @@ class UpdateProfileFragment : Fragment() {
         if(playJson.isNullOrEmpty()) return
 
         currentUser = Gson().fromJson(playJson, Player::class.java)
+        playerViewModel.getPlayerInfo(currentUser.id).observe(this.viewLifecycleOwner) {
+            bindUserData(it)
+        }
+    }
 
-        binding.edtUserName.setText(currentUser.username)
-        binding.edtUserName.hint = currentUser.username
+    private fun bindUserData(player: Player) = binding.apply {
+        binding.edtUserName.setText(player.username)
+        binding.edtUserName.hint = player.username
 
-        binding.edtPhoneNumber.setText(currentUser.phone)
-        binding.edtPhoneNumber.hint = currentUser.phone
+        binding.edtPhoneNumber.setText(player.phone)
+        binding.edtPhoneNumber.hint = player.phone
 
-        binding.cimvUserPfp.setImageBitmap(MyUtils.createImageFromText(requireContext(), currentUser.username))
+        binding.cimvUserPfp.setImageBitmap(MyUtils.createImageFromText(requireContext(), player.username))
 
-        val year = currentUser.registerDate.substring(0, 4)
-        val month = currentUser.registerDate.subSequence(5, 7)
+        val year = player.registerDate.substring(0, 4)
+        val month = player.registerDate.substring(5, 7)
 
         binding.tvJoinDate.text = String.format(
             requireContext().getString(R.string.join_date_pattern),
@@ -223,6 +242,7 @@ class UpdateProfileFragment : Fragment() {
                     this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
+                        playerViewModel.updatePlayer(this.updatedUser)
 
                         requireActivity().runOnUiThread {
                             iOSDialogBuilder(requireContext())
@@ -230,8 +250,6 @@ class UpdateProfileFragment : Fragment() {
                                 .setSubtitle(requireContext().getString(R.string.update_username_success))
                                 .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
                                     it.dismiss()
-                                    binding.edtUserName.setText(this.updatedUser.username)
-                                    binding.edtUserName.hint = this.updatedUser.username
                                     isDataChanged = false
                                 }.build().show()
                         }

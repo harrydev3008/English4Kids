@@ -133,7 +133,7 @@ class RegisterFragment : Fragment() {
         val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.btnLogin.windowToken, 0)
 
-        if (validateData() && isLegit) {//todo: check isLegit
+        if (validateData() && isLegit) {
             val phoneNumber = binding.edtPhoneNumber.text.toString()
             val action = RegisterFragmentDirections.actionRegisterFragmentToCheckOTPFragment(
                 phoneNumber = phoneNumber, authType = 1,
@@ -145,6 +145,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun handleSwitchToLogin() = binding.tvLoginNow.setOnClickListener {
+        binding.edtPhoneNumber.setText("")
         findNavController().navigate(R.id.regis_to_login)
     }
 
@@ -226,7 +227,7 @@ class RegisterFragment : Fragment() {
                         it.dismiss()
                     }.build().show()
             }
-            Log.e(CheckOTPFragment::class.java.name, t.localizedMessage ?: "error message")
+            Log.e(RegisterFragment::class.java.name, t.localizedMessage ?: "error message")
         }
     }
 

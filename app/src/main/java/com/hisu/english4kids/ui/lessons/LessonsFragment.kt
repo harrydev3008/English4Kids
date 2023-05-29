@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gdacciaro.iOSDialog.iOSDialogBuilder
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.hisu.english4kids.MyApplication
 import com.hisu.english4kids.R
 import com.hisu.english4kids.data.BUNDLE_COURSE_ID_DATA
 import com.hisu.english4kids.data.BUNDLE_LESSON_DATA
@@ -22,10 +24,12 @@ import com.hisu.english4kids.data.STATUS_OK
 import com.hisu.english4kids.data.model.course.Lesson
 import com.hisu.english4kids.data.network.API
 import com.hisu.english4kids.data.network.response_model.LessonResponseModel
-import com.hisu.english4kids.data.network.response_model.SearchUserResponseModel
+import com.hisu.english4kids.data.network.response_model.Player
 import com.hisu.english4kids.data.network.response_model.UpdateUserResponseModel
+import com.hisu.english4kids.data.room_db.repository.PlayerRepository
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModel
+import com.hisu.english4kids.data.room_db.view_model.PlayerViewModelProviderFactory
 import com.hisu.english4kids.databinding.FragmentLessonsBinding
-import com.hisu.english4kids.ui.play_screen.PlayFragment
 import com.hisu.english4kids.utils.MyUtils
 import com.hisu.english4kids.utils.local.LocalDataManager
 import com.hisu.english4kids.widget.dialog.LoadingDialog
@@ -48,11 +52,18 @@ class LessonsFragment : Fragment() {
     private lateinit var localDataManager: LocalDataManager
     private lateinit var mLoadingDialog: LoadingDialog
     private lateinit var heartDialog: PurchaseHeartDialog
+    private lateinit var currentUser: Player
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private val playerViewModel: PlayerViewModel by activityViewModels {
+        PlayerViewModelProviderFactory(
+            PlayerRepository(
+                requireActivity().applicationContext,
+                (activity?.application as MyApplication).database.playerDAO()
+            )
+        )
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLessonsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -67,7 +78,7 @@ class LessonsFragment : Fragment() {
 
         binding.tvMode.text = myNavArgs.title
 
-        initView()
+        loadUserInfo()
         initDialog()
         backToHomePage()
         setUpLessonsRecyclerView()
@@ -78,10 +89,20 @@ class LessonsFragment : Fragment() {
         weeklyScoreHint()
     }
 
-    private fun initView() {
-        if(MyUtils.isNetworkAvailable(requireContext())) {
-            API.apiService.getUserInfo("Bearer ${localDataManager.getUserAccessToken()}").enqueue(handleGetUserInfo)
+    private fun loadUserInfo() {
+        val playJson = localDataManager.getUserInfo()
+        if(playJson.isNullOrEmpty()) return
+
+        currentUser = Gson().fromJson(playJson, Player::class.java)
+        playerViewModel.getPlayerInfo(currentUser.id).observe(this.viewLifecycleOwner) {
+            bindUserData(it)
         }
+    }
+
+    private fun bindUserData(player: Player) = binding.apply {
+        tvWeeklyScore.text = player.weeklyScore.toString()
+        tvCoins.text = player.golds.toString()
+        tvHeart.text = player.hearts.toString()
     }
 
     private fun backToHomePage() = binding.tvMode.setOnClickListener {
@@ -192,10 +213,7 @@ class LessonsFragment : Fragment() {
     }
 
     private fun loadLessons() {
-        API.apiService.getLessonByCourseId(
-            "Bearer ${localDataManager.getUserAccessToken()}",
-            myNavArgs.courseId
-        ).enqueue(handleGetLessonCallback)
+        API.apiService.getLessonByCourseId("Bearer ${localDataManager.getUserAccessToken()}", myNavArgs.courseId).enqueue(handleGetLessonCallback)
     }
 
     private val handleGetLessonCallback = object : Callback<LessonResponseModel> {
@@ -225,49 +243,8 @@ class LessonsFragment : Fragment() {
         }
     }
 
-    private val handleGetUserInfo = object: Callback<SearchUserResponseModel> {
-        override fun onResponse(call: Call<SearchUserResponseModel>, response: Response<SearchUserResponseModel>) {
-
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-
-            if(response.isSuccessful && response.code() == STATUS_OK) {
-                response.body()?.apply {
-                    this.data.user.apply {
-                        val playerInfoJson = Gson().toJson(this)
-                        localDataManager.setUserInfo(playerInfoJson)
-
-                            requireActivity().runOnUiThread {
-                                binding.tvWeeklyScore.text = this.weeklyScore.toString()
-                                binding.tvCoins.text = this.golds.toString()
-                                binding.tvHeart.text = this.hearts.toString()
-                            }
-                    }
-                }
-            } else {
-                requireActivity().runOnUiThread {
-                    iOSDialogBuilder(requireContext())
-                        .setTitle(requireContext().getString(R.string.request_err))
-                        .setSubtitle(requireContext().getString(R.string.confirm_otp_err_occur_msg))
-                        .setPositiveListener(requireContext().getString(R.string.confirm_otp)) {
-                            it.dismiss()
-                        }.build().show()
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<SearchUserResponseModel>, t: Throwable) {
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-            Log.e(LessonsFragment::class.java.name, t.message?: "error message")
-        }
-    }
-
     private val handleBuyHearts = object: Callback<UpdateUserResponseModel> {
         override fun onResponse(call: Call<UpdateUserResponseModel>, response: Response<UpdateUserResponseModel>) {
-
             requireActivity().runOnUiThread {
                 mLoadingDialog.dismissDialog()
             }
@@ -277,10 +254,9 @@ class LessonsFragment : Fragment() {
                     this.data.apply {
                         val playerInfoJson = Gson().toJson(this.updatedUser)
                         localDataManager.setUserInfo(playerInfoJson)
+                        playerViewModel.updatePlayer(this.updatedUser)
 
                         requireActivity().runOnUiThread {
-                            binding.tvHeart.text = this.updatedUser.hearts.toString()
-                            binding.tvCoins.text = this.updatedUser.golds.toString()
                             iOSDialogBuilder(requireContext())
                                 .setTitle(requireContext().getString(R.string.confirm_otp))
                                 .setSubtitle(requireContext().getString(R.string.buy_more_heart_success))
@@ -307,7 +283,7 @@ class LessonsFragment : Fragment() {
             requireActivity().runOnUiThread {
                 mLoadingDialog.dismissDialog()
             }
-            Log.e(PlayFragment::class.java.name, t.message?: "error message")
+            Log.e(LessonsFragment::class.java.name, t.message?: "error message")
         }
     }
 }

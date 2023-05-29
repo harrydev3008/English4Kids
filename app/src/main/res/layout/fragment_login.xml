@@ -141,7 +141,7 @@
         android:text="@string/no_account_desc"
         android:textAlignment="center"
         android:textColor="@color/light_black"
-        android:textSize="@dimen/_16ssp"
+        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/be_vietnam_bold"
         android:includeFontPadding="false"/>
 

@@ -89,5 +89,5 @@ class LessonAdapter(
         }
     }
 
-    private val differ = AsyncListDiffer<Lesson>(this, diffCallback)
+    private val differ = AsyncListDiffer(this, diffCallback)
 }

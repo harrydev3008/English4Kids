@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
 
     private val binding get() = _binding!!
-    private var backPressTime = 0L
-    private val PRESS_TIME_INTERVAL = 2 * 1000
+    private var backPressTimeMilliSeconds = 0L
+    private val pressIntervalSeconds = 2 * 1000
     private lateinit var mExitToast: Toast
     private lateinit var mMediaPlayer:MediaPlayer
     private lateinit var textToSpeech: TextToSpeech
@@ -132,16 +132,18 @@ class MainActivity : AppCompatActivity() {
         /*
           Press back button twice within 2s to exit program
          */
-        if (backPressTime + PRESS_TIME_INTERVAL > System.currentTimeMillis()) {
+        if (backPressTimeMilliSeconds + pressIntervalSeconds > System.currentTimeMillis()) {
             mExitToast.cancel()
             moveTaskToBack(true) //Only move to back not close the whole app
             return
         } else {
-            mExitToast = Toast.makeText(this, getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT)
-            mExitToast.show()
+           runOnUiThread {
+               mExitToast = Toast.makeText(this, getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT)
+               mExitToast.show()
+           }
         }
 
-        backPressTime = System.currentTimeMillis()
+        backPressTimeMilliSeconds = System.currentTimeMillis()
     }
 
     fun playAudio(uri: String) {
