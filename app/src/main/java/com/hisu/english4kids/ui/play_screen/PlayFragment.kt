@@ -361,17 +361,13 @@ class PlayFragment : Fragment() {
 
     private val handleGetCourseCallback = object : Callback<CourseResponseModel> {
         override fun onResponse(call: Call<CourseResponseModel>, response: Response<CourseResponseModel>) {
-
-            requireActivity().runOnUiThread {
-                mLoadingDialog.dismissDialog()
-            }
-
             if (response.isSuccessful && response.code() == STATUS_OK) {
                 response.body()?.apply {
 
                     courseViewModel.insertCourses(this.data.courses)
 
                     Handler(requireContext().mainLooper).postDelayed({
+                        mLoadingDialog.dismissDialog()
                         finishDialog.dismissDialog()
                         findNavController().popBackStack()
                     }, 1000)
